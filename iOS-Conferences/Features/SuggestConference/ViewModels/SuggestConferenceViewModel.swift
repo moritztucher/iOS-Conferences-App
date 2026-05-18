@@ -56,7 +56,7 @@ final class SuggestConferenceViewModel {
         let content = buildContent()
         var components = URLComponents()
         components.scheme = "mailto"
-        components.path = RepoConfig.supportEmail
+        components.path = RepoConfig.developerEmail
         components.queryItems = [
             URLQueryItem(name: "subject", value: content.title),
             URLQueryItem(name: "body", value: content.body)

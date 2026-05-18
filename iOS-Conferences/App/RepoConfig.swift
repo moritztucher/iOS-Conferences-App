@@ -4,8 +4,7 @@ enum RepoConfig {
     static let owner = "moritztucher"
     static let repo = "iOS-Conferences-App"
     static let dataBranch = "main"
-    static let supportEmail = "tucher@pocketapps.studio"
-    static let contactEmail = "moritztucher@gmail.com"
+    static let developerEmail = "moritztucher@gmail.com"
 
     /// Consumable IAP — must match the product configured in App Store Connect.
     static let tipProductID = "com.pocketapps.conferences.tip"
@@ -39,7 +38,7 @@ enum RepoConfig {
     static var suggestionMailtoURL: URL? {
         var components = URLComponents()
         components.scheme = "mailto"
-        components.path = supportEmail
+        components.path = developerEmail
         components.queryItems = [URLQueryItem(name: "subject", value: "Suggest a conference")]
         return components.url
     }

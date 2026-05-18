@@ -69,7 +69,7 @@ struct SuggestConferenceView: View {
             .sheet(isPresented: $isShowingMail) {
                 let content = viewModel.buildContent()
                 MailComposeView(
-                    recipient: RepoConfig.supportEmail,
+                    recipient: RepoConfig.developerEmail,
                     subject: content.title,
                     body: content.body
                 )

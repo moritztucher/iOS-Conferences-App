@@ -30,7 +30,7 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $bindable.isShowingMail) {
                 MailComposeView(
-                    recipient: RepoConfig.contactEmail,
+                    recipient: RepoConfig.developerEmail,
                     subject: "iOS Conferences"
                 )
                 .ignoresSafeArea()
@@ -129,7 +129,7 @@ struct SettingsView: View {
     private func contactMe() {
         if MFMailComposeViewController.canSendMail() {
             viewModel.isShowingMail = true
-        } else if let url = URL(string: "mailto:\(RepoConfig.contactEmail)?subject=iOS%20Conferences") {
+        } else if let url = URL(string: "mailto:\(RepoConfig.developerEmail)?subject=iOS%20Conferences") {
             openURL(url)
         }
     }
