@@ -6,7 +6,7 @@ struct ConferenceRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            ConferenceLogo(url: conference.logoURL, size: 44)
+            ConferenceLogo(conference: conference, size: 44)
 
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 8) {
@@ -37,35 +37,25 @@ struct ConferenceRow: View {
 }
 
 struct ConferenceLogo: View {
-    let url: URL?
+    let conference: Conference
     let size: CGFloat
 
     var body: some View {
-        AsyncImage(url: url) { phase in
+        AsyncImage(url: conference.logoURL) { phase in
             switch phase {
             case .success(let image):
                 image
                     .resizable()
                     .scaledToFill()
             case .empty, .failure:
-                placeholder
+                ConferencePlaceholder(conference: conference)
             @unknown default:
-                placeholder
+                ConferencePlaceholder(conference: conference)
             }
         }
         .frame(width: size, height: size)
         .clipShape(RoundedRectangle(cornerRadius: size * 0.22, style: .continuous))
         .accessibilityHidden(true)
-    }
-
-    private var placeholder: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: size * 0.22, style: .continuous)
-                .fill(Color.secondary.opacity(0.15))
-            Image(systemName: "calendar")
-                .font(.system(size: size * 0.4, weight: .medium))
-                .foregroundStyle(.secondary)
-        }
     }
 }
 

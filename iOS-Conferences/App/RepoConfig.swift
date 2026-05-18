@@ -5,6 +5,7 @@ enum RepoConfig {
     static let repo = "iOS-Conferences-App"
     static let dataBranch = "main"
     static let supportEmail = "tucher@pocketapps.studio"
+    static let contactEmail = "moritztucher@gmail.com"
 
     /// Consumable IAP — must match the product configured in App Store Connect.
     static let tipProductID = "com.pocketapps.conferences.tip"

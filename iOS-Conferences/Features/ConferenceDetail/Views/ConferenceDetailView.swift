@@ -66,7 +66,7 @@ struct ConferenceDetailView: View {
     @ViewBuilder
     private var heroSection: some View {
         Section {
-            ConferenceHeroBanner(url: viewModel.conference.logoURL)
+            ConferenceHeroBanner(conference: viewModel.conference)
         }
         .listRowInsets(EdgeInsets())
         .listRowBackground(Color.clear)
@@ -181,34 +181,25 @@ struct ConferenceDetailView: View {
 }
 
 struct ConferenceHeroBanner: View {
-    let url: URL?
+    let conference: Conference
 
     var body: some View {
-        AsyncImage(url: url) { phase in
+        AsyncImage(url: conference.logoURL) { phase in
             switch phase {
             case .success(let image):
                 image
                     .resizable()
                     .scaledToFill()
             case .empty, .failure:
-                placeholder
+                ConferencePlaceholder(conference: conference)
             @unknown default:
-                placeholder
+                ConferencePlaceholder(conference: conference)
             }
         }
         .frame(maxWidth: .infinity)
         .frame(height: 220)
         .clipped()
         .accessibilityHidden(true)
-    }
-
-    private var placeholder: some View {
-        ZStack {
-            Color.secondary.opacity(0.12)
-            Image(systemName: "calendar")
-                .font(.system(size: 56, weight: .medium))
-                .foregroundStyle(.secondary)
-        }
     }
 }
 

@@ -1,10 +1,13 @@
 import SwiftUI
 import SwiftData
 import StoreKit
+import MessageUI
 
 struct SettingsView: View {
     @Environment(TipJarService.self) private var tipJar
     @Environment(\.requestReview) private var requestReview
+    @Environment(\.openURL) private var openURL
+    @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel = SettingsViewModel()
 
     var body: some View {
@@ -13,6 +16,7 @@ struct SettingsView: View {
             Form {
                 supportSection
                 contributeSection
+                displaySection
                 aboutSection
             }
             .navigationTitle("Settings")
@@ -22,6 +26,13 @@ struct SettingsView: View {
             .sheet(isPresented: $bindable.isShowingSourceRepo) {
                 SafariView(url: RepoConfig.repoWebURL)
                     .ignoresSafeArea()
+            }
+            .sheet(isPresented: $bindable.isShowingMail) {
+                MailComposeView(
+                    recipient: RepoConfig.contactEmail,
+                    subject: "iOS Conferences"
+                )
+                .ignoresSafeArea()
             }
             .task {
                 await tipJar.load()
@@ -44,6 +55,12 @@ struct SettingsView: View {
             }
             .disabled(tipJar.isPurchasing || tipJar.product == nil)
 
+            Button {
+                requestReview()
+            } label: {
+                Label("Rate the app", systemImage: "star")
+            }
+
             if tipJar.tipCount > 0 {
                 Text(thanksText)
                     .font(.footnote)
@@ -65,15 +82,22 @@ struct SettingsView: View {
                 Label("Suggest a conference", systemImage: "paperplane")
             }
             Button {
-                requestReview()
+                contactMe()
             } label: {
-                Label("Rate the app", systemImage: "star")
+                Label("Contact me", systemImage: "envelope")
             }
             Button {
                 viewModel.isShowingSourceRepo = true
             } label: {
                 Label("View source on GitHub", systemImage: "chevron.left.forwardslash.chevron.right")
             }
+        }
+    }
+
+    @ViewBuilder
+    private var displaySection: some View {
+        Section("Display") {
+            Toggle("Show past conferences", isOn: $showPastConferences)
         }
     }
 
@@ -95,6 +119,14 @@ struct SettingsView: View {
             return "You've bought me 1 coffee ☕ — thank you!"
         }
         return "You've bought me \(count) coffees ☕ — thank you!"
+    }
+
+    private func contactMe() {
+        if MFMailComposeViewController.canSendMail() {
+            viewModel.isShowingMail = true
+        } else if let url = URL(string: "mailto:\(RepoConfig.contactEmail)?subject=iOS%20Conferences") {
+            openURL(url)
+        }
     }
 }
 

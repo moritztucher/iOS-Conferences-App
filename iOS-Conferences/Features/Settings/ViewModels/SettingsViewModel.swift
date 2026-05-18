@@ -6,6 +6,7 @@ import Observation
 final class SettingsViewModel {
     var isShowingSuggest = false
     var isShowingSourceRepo = false
+    var isShowingMail = false
     var purchaseErrorMessage: String?
 
     var appVersion: String {
