@@ -7,12 +7,44 @@ protocol ConferenceServiceProtocol {
     func refreshCache(into context: ModelContext) async throws
 }
 
-/// Single point to switch between Mock and Live data sources.
+/// Default upsert: update existing conferences by id, insert new ones,
+/// delete any in the store that are no longer in the fresh list.
+extension ConferenceServiceProtocol {
+    func refreshCache(into context: ModelContext) async throws {
+        let fresh = try await fetchRemote()
+        let descriptor = FetchDescriptor<Conference>()
+        let existing = (try? context.fetch(descriptor)) ?? []
+        let existingByID = Dictionary(uniqueKeysWithValues: existing.map { ($0.id, $0) })
+        let freshIDs = Set(fresh.map(\.id))
+
+        for conference in fresh {
+            if let target = existingByID[conference.id] {
+                target.name = conference.name
+                target.startDate = conference.startDate
+                target.endDate = conference.endDate
+                target.locationName = conference.locationName
+                target.mapQuery = conference.mapQuery
+                target.summary = conference.summary
+                target.websiteURLString = conference.websiteURLString
+                target.logoURLString = conference.logoURLString
+                target.tags = conference.tags
+            } else {
+                context.insert(conference)
+            }
+        }
+        for (id, target) in existingByID where !freshIDs.contains(id) {
+            context.delete(target)
+        }
+        try context.save()
+    }
+}
+
+/// Single point to switch between bundled and live data sources.
 /// TODO: flip to `LiveConferenceService()` once `conferences.json` is pushed to the repo.
 @MainActor
 enum ConferenceServiceFactory {
     static func make() -> any ConferenceServiceProtocol {
-        MockConferenceService()
+        BundledConferenceService()
     }
 }
 
@@ -25,7 +57,6 @@ struct LiveConferenceService: ConferenceServiceProtocol {
 
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
-            // Try fallback once.
             let (fallbackData, fallbackResponse) = try await URLSession.shared.data(from: RepoConfig.conferencesJSONFallbackURL)
             guard let fallbackHTTP = fallbackResponse as? HTTPURLResponse, (200..<300).contains(fallbackHTTP.statusCode) else {
                 throw URLError(.badServerResponse)
@@ -33,39 +64,6 @@ struct LiveConferenceService: ConferenceServiceProtocol {
             return try Self.decode(fallbackData)
         }
         return try Self.decode(data)
-    }
-
-    func refreshCache(into context: ModelContext) async throws {
-        let remote = try await fetchRemote()
-        let existingByID: [String: Conference]
-        do {
-            let descriptor = FetchDescriptor<Conference>()
-            let existing = try context.fetch(descriptor)
-            existingByID = Dictionary(uniqueKeysWithValues: existing.map { ($0.id, $0) })
-        } catch {
-            existingByID = [:]
-        }
-
-        let remoteIDs = Set(remote.map(\.id))
-        for conference in remote {
-            if let existing = existingByID[conference.id] {
-                existing.name = conference.name
-                existing.startDate = conference.startDate
-                existing.endDate = conference.endDate
-                existing.locationName = conference.locationName
-                existing.mapQuery = conference.mapQuery
-                existing.summary = conference.summary
-                existing.websiteURLString = conference.websiteURLString
-                existing.tags = conference.tags
-            } else {
-                context.insert(conference)
-            }
-        }
-        // Remove conferences that disappeared from the feed.
-        for (id, existing) in existingByID where !remoteIDs.contains(id) {
-            context.delete(existing)
-        }
-        try context.save()
     }
 
     private static func decode(_ data: Data) throws -> [Conference] {
@@ -76,22 +74,12 @@ struct LiveConferenceService: ConferenceServiceProtocol {
     }
 }
 
+/// Seeds and keeps the SwiftData store in sync with the bundled `Conference.bundled` list.
+/// Replaced by `LiveConferenceService` once `data/conferences.json` is pushed to the repo.
 @MainActor
-struct MockConferenceService: ConferenceServiceProtocol {
+struct BundledConferenceService: ConferenceServiceProtocol {
     func fetchRemote() async throws -> [Conference] {
-        try await Task.sleep(for: .milliseconds(300))
-        return Conference.samples
-    }
-
-    func refreshCache(into context: ModelContext) async throws {
-        let descriptor = FetchDescriptor<Conference>()
-        let existing = (try? context.fetch(descriptor)) ?? []
-        if existing.isEmpty {
-            for conference in try await fetchRemote() {
-                context.insert(conference)
-            }
-            try context.save()
-        }
+        Conference.bundled
     }
 }
 

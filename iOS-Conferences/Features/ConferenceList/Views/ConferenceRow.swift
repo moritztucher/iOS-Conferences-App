@@ -72,6 +72,6 @@ struct ConferenceLogo: View {
 #Preview {
     List {
         ConferenceRow(conference: .sample, isFavourite: true)
-        ConferenceRow(conference: Conference.samples[0], isFavourite: false)
+        ConferenceRow(conference: Conference.bundled[0], isFavourite: false)
     }
 }

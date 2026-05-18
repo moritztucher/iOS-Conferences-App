@@ -49,6 +49,13 @@
 - [ ] App Intents: `Conference` as `AppEntity` + intent "What's the next conference?" (Siri / Shortcuts).
 - [ ] Deep-link handler so Spotlight/App-Intent results open the right detail view.
 
+### Conferences to add (research pending)
+- [ ] **NextAppCon** (`https://www.nextappcon.com`) — site is a JS-only SPA, dates/location couldn't be auto-extracted. Manual entry needed.
+- [ ] **NSSpain** — 2026 not announced yet (last edition Sep 2025, Logroño). Add when dates land.
+- [ ] **try! Swift x AI** — only the Sept 2025 online workshop ran. Add if/when a future edition is announced.
+- [ ] **Pre-WWDC Bashcade** — RevenueCat luma event (June 2025). Add if a 2026 edition is scheduled.
+- [ ] **One More Thing** — June 2025 was the last edition; 2026 hinted via sponsorship CTA. Add when dates confirmed.
+
 ### Low Priority (post-MVP, deferred)
 - [ ] WidgetKit widget showing the next 1–3 conferences (small + medium)
 - [ ] Live Activity for conferences happening today/this week (Dynamic Island countdown)

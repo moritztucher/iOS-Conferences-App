@@ -47,6 +47,10 @@ extension Conference {
         guard let logoURLString else { return nil }
         return URL(string: logoURLString)
     }
-    var isPast: Bool { endDate < .now }
+    var isPast: Bool {
+        let today = Calendar.current.startOfDay(for: .now)
+        let eventEndDay = Calendar.current.startOfDay(for: endDate)
+        return today > eventEndDay
+    }
     var isOnline: Bool { mapQuery == nil || locationName.localizedCaseInsensitiveContains("online") }
 }
