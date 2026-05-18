@@ -39,12 +39,14 @@ extension ConferenceServiceProtocol {
     }
 }
 
-/// Single point to switch between bundled and live data sources.
-/// TODO: flip to `LiveConferenceService()` once `conferences.json` is pushed to the repo.
+/// Single point to vary the active refresh source. The factory is what
+/// pull-to-refresh and background updates use; first-launch seeding still
+/// uses `BundledConferenceService` directly in `iOS_ConferencesApp` so the
+/// list is populated instantly even when offline.
 @MainActor
 enum ConferenceServiceFactory {
     static func make() -> any ConferenceServiceProtocol {
-        BundledConferenceService()
+        LiveConferenceService()
     }
 }
 
