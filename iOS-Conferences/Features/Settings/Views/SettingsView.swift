@@ -4,7 +4,6 @@ import StoreKit
 
 struct SettingsView: View {
     @Environment(TipJarService.self) private var tipJar
-    @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel = SettingsViewModel()
 
     var body: some View {
@@ -13,7 +12,6 @@ struct SettingsView: View {
             Form {
                 supportSection
                 contributeSection
-                displaySection
                 aboutSection
             }
             .navigationTitle("Settings")
@@ -70,13 +68,6 @@ struct SettingsView: View {
             } label: {
                 Label("View source on GitHub", systemImage: "chevron.left.forwardslash.chevron.right")
             }
-        }
-    }
-
-    @ViewBuilder
-    private var displaySection: some View {
-        Section("Display") {
-            Toggle("Show past conferences", isOn: $showPastConferences)
         }
     }
 

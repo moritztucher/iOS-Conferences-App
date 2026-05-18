@@ -104,6 +104,7 @@ private struct ConferenceDTO: Decodable {
     let mapQuery: String?
     let summary: String
     let websiteURL: String
+    let logoURL: String?
     let tags: [String]
 
     func toModel() -> Conference {
@@ -116,6 +117,7 @@ private struct ConferenceDTO: Decodable {
             mapQuery: mapQuery,
             summary: summary,
             websiteURLString: websiteURL,
+            logoURLString: logoURL,
             tags: tags
         )
     }

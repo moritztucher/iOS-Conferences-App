@@ -34,6 +34,10 @@
 - [2026-05-18] Sharing: `ShareLink` in detail toolbar.
 - [2026-05-18] Immediately post-MVP integrations: Spotlight (`CSSearchableItem` for favourites) and App Intents (`Conference` as `AppEntity`, intent "What's the next conference?"). Deferred post-MVP: WidgetKit, Live Activities, Universal Links.
 - [2026-05-18] Permissions asked at point of use, never upfront. If denied → inline link to system Settings via `UIApplication.openSettingsURLString`.
+- [2026-05-18] **Logo decision reversed (per user testing):** earlier ADR-0002 said "no bundled logos, typographic header only." User decided in design review they want conference logos visible. Pivoted to **option 2 from ADR-0002's alternatives** — runtime fetch via `AsyncImage` from a `logoURL` on each conference. Pattern is the same as iMessage / Slack link previews: we display the conference's canonical preview image, never bundle or redistribute it. Mock data uses `ui-avatars.com` URLs for stable testing.
+- [2026-05-18] **Detail view header changed:** earlier plan was "stock `Form`, no banner" (Calendar event detail pattern). User showed Liquid Glass examples (The Guardian iOS 26) and asked for a hero banner with the conference logo at the top of the detail view. Implemented as a full-bleed first section in a `List` (`.listRowInsets(EdgeInsets())`, `.listRowBackground(.clear)`, 220pt tall). Standard sections follow below.
+- [2026-05-18] **Filter Menu in list nav bar:** `ToolbarItem(.topBarTrailing)` `Menu` on Conferences and Favourites tabs with a toggle (Include past conferences) and a picker (Format: All / In person / Online). Filter button icon switches to `.fill` variant when any filter is active. The "Show past conferences" toggle was moved from Settings to this filter Menu (single source of truth).
+- [2026-05-18] Marketing version: `1.0.0` (was `1.0`). App-displayed version in Settings drops the build number — just the short string.
 
 ## Preferences
 

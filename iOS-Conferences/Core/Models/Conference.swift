@@ -13,6 +13,7 @@ final class Conference {
     var mapQuery: String?
     var summary: String
     var websiteURLString: String
+    var logoURLString: String?
     var tags: [String]
 
     init(
@@ -24,6 +25,7 @@ final class Conference {
         mapQuery: String?,
         summary: String,
         websiteURLString: String,
+        logoURLString: String? = nil,
         tags: [String]
     ) {
         self.id = id
@@ -34,12 +36,17 @@ final class Conference {
         self.mapQuery = mapQuery
         self.summary = summary
         self.websiteURLString = websiteURLString
+        self.logoURLString = logoURLString
         self.tags = tags
     }
 }
 
 extension Conference {
     var websiteURL: URL? { URL(string: websiteURLString) }
+    var logoURL: URL? {
+        guard let logoURLString else { return nil }
+        return URL(string: logoURLString)
+    }
     var isPast: Bool { endDate < .now }
     var isOnline: Bool { mapQuery == nil || locationName.localizedCaseInsensitiveContains("online") }
 }

@@ -7,6 +7,30 @@ struct ConferenceMonthSection: Identifiable {
     let conferences: [Conference]
 }
 
+enum ConferenceFormatFilter: String, CaseIterable, Identifiable {
+    case all
+    case inPerson
+    case online
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .all: return "All formats"
+        case .inPerson: return "In person"
+        case .online: return "Online"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .all: return "globe.americas"
+        case .inPerson: return "person.2.fill"
+        case .online: return "video.fill"
+        }
+    }
+}
+
 @MainActor
 @Observable
 final class ConferenceListViewModel {
@@ -23,10 +47,15 @@ final class ConferenceListViewModel {
     }
 
     var searchText: String = ""
+    var formatFilter: ConferenceFormatFilter = .all
     let filter: Filter
 
     init(filter: Filter) {
         self.filter = filter
+    }
+
+    var isFilterActive: Bool {
+        formatFilter != .all
     }
 
     func sections(
@@ -42,6 +71,15 @@ final class ConferenceListViewModel {
 
         if filter == .favourites {
             filtered = filtered.filter { favouriteIDs.contains($0.id) }
+        }
+
+        switch formatFilter {
+        case .all:
+            break
+        case .inPerson:
+            filtered = filtered.filter { !$0.isOnline }
+        case .online:
+            filtered = filtered.filter { $0.isOnline }
         }
 
         let trimmedQuery = searchText.trimmingCharacters(in: .whitespacesAndNewlines)

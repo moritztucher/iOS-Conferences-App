@@ -12,6 +12,7 @@ extension Conference {
             mapQuery: "Apple Park, Cupertino, California",
             summary: "Apple's annual developer conference. Keynote, sessions, and labs covering the latest platforms.",
             websiteURLString: "https://developer.apple.com/wwdc/",
+            logoURLString: "https://ui-avatars.com/api/?name=WW+DC&background=007AFF&color=fff&size=512&font-size=0.33&bold=true",
             tags: ["apple", "ios", "swift"]
         )
     }
@@ -27,6 +28,7 @@ extension Conference {
                 mapQuery: "Turin, Italy",
                 summary: "Swift and iOS community conference in northern Italy.",
                 websiteURLString: "https://swiftheroes.com",
+                logoURLString: "https://ui-avatars.com/api/?name=SH&background=E03E2F&color=fff&size=512&font-size=0.45&bold=true",
                 tags: ["swift", "ios"]
             ),
             Conference(
@@ -38,6 +40,7 @@ extension Conference {
                 mapQuery: "New York, New York",
                 summary: "Two-day Swift community conference in Manhattan.",
                 websiteURLString: "https://www.tryswift.co",
+                logoURLString: "https://ui-avatars.com/api/?name=tS&background=FF6F00&color=fff&size=512&font-size=0.45&bold=true",
                 tags: ["swift", "ios"]
             ),
             sample,
@@ -50,6 +53,7 @@ extension Conference {
                 mapQuery: nil,
                 summary: "Server-side Swift talks and workshops.",
                 websiteURLString: "https://www.serversideswift.info",
+                logoURLString: "https://ui-avatars.com/api/?name=SS&background=2D8E3F&color=fff&size=512&font-size=0.45&bold=true",
                 tags: ["swift", "server"]
             ),
             Conference(
@@ -61,6 +65,7 @@ extension Conference {
                 mapQuery: "London, United Kingdom",
                 summary: "A general software conference with strong mobile and Apple-platform tracks.",
                 websiteURLString: "https://ndclondon.com",
+                logoURLString: "https://ui-avatars.com/api/?name=NDC&background=662D91&color=fff&size=512&font-size=0.40&bold=true",
                 tags: ["general", "ios"]
             )
         ]

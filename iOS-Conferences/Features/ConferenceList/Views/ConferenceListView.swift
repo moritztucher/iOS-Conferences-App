@@ -9,7 +9,6 @@ struct ConferenceListView: View {
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel: ConferenceListViewModel
     @State private var path = NavigationPath()
-    @State private var isRefreshing = false
 
     init(filter: ConferenceListViewModel.Filter) {
         _viewModel = State(initialValue: ConferenceListViewModel(filter: filter))
@@ -27,14 +26,17 @@ struct ConferenceListView: View {
         )
     }
 
+    private var isFiltering: Bool {
+        viewModel.isFilterActive || showPastConferences
+    }
+
     var body: some View {
         NavigationStack(path: $path) {
             content
                 .navigationTitle(viewModel.filter.title)
-                .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .automatic))
-                .refreshable {
-                    await refresh()
-                }
+                .searchable(text: $viewModel.searchText)
+                .refreshable { await refresh() }
+                .toolbar { filterToolbarItem }
                 .navigationDestination(for: Route.self) { route in
                     routeDestination(for: route)
                 }
@@ -74,12 +76,39 @@ struct ConferenceListView: View {
                 systemImage: "heart",
                 description: Text("Tap the heart on a conference to keep it here.")
             )
+        } else if isFiltering {
+            ContentUnavailableView(
+                "No Matches",
+                systemImage: "line.3.horizontal.decrease",
+                description: Text("No conferences match your current filter.")
+            )
         } else {
             ContentUnavailableView(
                 "No Conferences",
                 systemImage: "calendar",
                 description: Text("Pull down to refresh.")
             )
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var filterToolbarItem: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Menu {
+                Toggle(isOn: $showPastConferences) {
+                    Label("Include past conferences", systemImage: "clock.arrow.circlepath")
+                }
+                Picker(selection: $viewModel.formatFilter) {
+                    ForEach(ConferenceFormatFilter.allCases) { option in
+                        Label(option.label, systemImage: option.systemImage).tag(option)
+                    }
+                } label: {
+                    Label("Format", systemImage: "globe")
+                }
+            } label: {
+                Image(systemName: isFiltering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            }
+            .accessibilityLabel("Filter")
         }
     }
 

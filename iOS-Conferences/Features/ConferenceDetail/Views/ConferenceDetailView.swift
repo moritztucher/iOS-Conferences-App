@@ -18,13 +18,16 @@ struct ConferenceDetailView: View {
 
     var body: some View {
         @Bindable var bindable = viewModel
-        Form {
+        List {
+            heroSection
+            titleSection
             whenAndWhereSection
             aboutSection
             actionsSection
         }
+        .listStyle(.insetGrouped)
         .navigationTitle(viewModel.conference.name)
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
         .sheet(isPresented: $bindable.isShowingSafari) {
             if let url = viewModel.conference.websiteURL {
@@ -39,9 +42,7 @@ struct ConferenceDetailView: View {
             )
             .ignoresSafeArea()
         }
-        .alert(
-            item: $bindable.calendarAccessIssue
-        ) { issue in
+        .alert(item: $bindable.calendarAccessIssue) { issue in
             switch issue {
             case .denied:
                 return Alert(
@@ -58,6 +59,35 @@ struct ConferenceDetailView: View {
                 )
             }
         }
+    }
+
+    // MARK: - Sections
+
+    @ViewBuilder
+    private var heroSection: some View {
+        Section {
+            ConferenceHeroBanner(url: viewModel.conference.logoURL)
+        }
+        .listRowInsets(EdgeInsets())
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+    }
+
+    @ViewBuilder
+    private var titleSection: some View {
+        Section {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(viewModel.conference.name)
+                    .font(.title2.weight(.semibold))
+                Text(headerSubtitle)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.vertical, 4)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
     }
 
     @ViewBuilder
@@ -139,6 +169,45 @@ struct ConferenceDetailView: View {
         }
         ToolbarItem(placement: .topBarTrailing) {
             ShareLink(item: viewModel.shareText)
+        }
+    }
+
+    // MARK: - Helpers
+
+    private var headerSubtitle: String {
+        let range = ConferenceDateStyle.range(from: viewModel.conference.startDate, to: viewModel.conference.endDate)
+        return "\(range) · \(viewModel.conference.locationName)"
+    }
+}
+
+struct ConferenceHeroBanner: View {
+    let url: URL?
+
+    var body: some View {
+        AsyncImage(url: url) { phase in
+            switch phase {
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
+            case .empty, .failure:
+                placeholder
+            @unknown default:
+                placeholder
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 220)
+        .clipped()
+        .accessibilityHidden(true)
+    }
+
+    private var placeholder: some View {
+        ZStack {
+            Color.secondary.opacity(0.12)
+            Image(systemName: "calendar")
+                .font(.system(size: 56, weight: .medium))
+                .foregroundStyle(.secondary)
         }
     }
 }

@@ -9,9 +9,7 @@ final class SettingsViewModel {
     var purchaseErrorMessage: String?
 
     var appVersion: String {
-        let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—"
-        return "\(short) (\(build))"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
     }
 
     func tip(using service: TipJarService) async {
