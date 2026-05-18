@@ -1,17 +1,24 @@
-//
-//  iOS_ConferencesApp.swift
-//  iOS-Conferences
-//
-//  Created by Moritz Tucher on 18.05.26.
-//
-
 import SwiftUI
+import SwiftData
 
 @main
 struct iOS_ConferencesApp: App {
+    @State private var calendarService = CalendarService()
+    @State private var tipJarService = TipJarService()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootTabView()
+                .environment(calendarService)
+                .environment(tipJarService)
+        }
+        .modelContainer(for: [Conference.self, FavouriteConference.self]) { result in
+            if case .success(let container) = result {
+                Task { @MainActor in
+                    let service = ConferenceServiceFactory.make()
+                    try? await service.refreshCache(into: container.mainContext)
+                }
+            }
         }
     }
 }
