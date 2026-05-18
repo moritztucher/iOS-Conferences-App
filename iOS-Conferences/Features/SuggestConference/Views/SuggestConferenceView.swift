@@ -17,13 +17,13 @@ struct SuggestConferenceView: View {
                         .autocorrectionDisabled()
                 }
 
-                Section("When & Where") {
+                Section("When & Where (Optional)") {
                     DatePicker("Start", selection: $bindable.startDate, displayedComponents: .date)
                     DatePicker("End", selection: $bindable.endDate, in: viewModel.startDate..., displayedComponents: .date)
                     TextField("Location (city, country) or 'Online'", text: $bindable.location)
                 }
 
-                Section("Description") {
+                Section("Description (Optional)") {
                     TextField("One-line summary", text: $bindable.summary, axis: .vertical)
                         .lineLimit(2...4)
                 }
@@ -34,17 +34,6 @@ struct SuggestConferenceView: View {
                         .autocorrectionDisabled()
                 } header: {
                     Text("Credit")
-                } footer: {
-                    Text("Used to credit your contribution in the issue.")
-                }
-
-                Section {
-                    Button {
-                        submit()
-                    } label: {
-                        Label("Open as GitHub Issue", systemImage: "arrow.up.right.square")
-                    }
-                    .disabled(!viewModel.isSubmittable)
                 } footer: {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Submitting opens GitHub. You'll need to sign in once to post the issue.")
@@ -62,6 +51,16 @@ struct SuggestConferenceView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") { dismiss() }
                 }
+            }
+            .safeAreaInset(edge: .bottom) {
+                Button(action: submit) {
+                    Label("Open as GitHub Issue", systemImage: "arrow.up.right.square")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .disabled(!viewModel.isSubmittable)
+                .padding()
             }
         }
     }
