@@ -4,6 +4,7 @@ import StoreKit
 
 struct SettingsView: View {
     @Environment(TipJarService.self) private var tipJar
+    @Environment(\.requestReview) private var requestReview
     @State private var viewModel = SettingsViewModel()
 
     var body: some View {
@@ -62,6 +63,11 @@ struct SettingsView: View {
                 viewModel.isShowingSuggest = true
             } label: {
                 Label("Suggest a conference", systemImage: "paperplane")
+            }
+            Button {
+                requestReview()
+            } label: {
+                Label("Rate the app", systemImage: "star")
             }
             Button {
                 viewModel.isShowingSourceRepo = true
