@@ -14,6 +14,7 @@ struct SettingsView: View {
         @Bindable var bindable = viewModel
         NavigationStack {
             Form {
+                tipSection
                 supportSection
                 contributeSection
                 displaySection
@@ -41,35 +42,37 @@ struct SettingsView: View {
     }
 
     @ViewBuilder
-    private var supportSection: some View {
+    private var tipSection: some View {
         Section {
             Button {
                 Task { await viewModel.tip(using: tipJar) }
             } label: {
-                LabeledContent {
-                    Text(priceLabel)
-                        .foregroundStyle(.secondary)
-                } label: {
-                    Label("Buy me a coffee", systemImage: "cup.and.saucer.fill")
-                }
+                Label("Buy me a coffee · \(priceLabel)", systemImage: "cup.and.saucer.fill")
+                    .frame(maxWidth: .infinity)
             }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
             .disabled(tipJar.isPurchasing || tipJar.product == nil)
+        } footer: {
+            Text(tipFooterText)
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+    }
 
+    @ViewBuilder
+    private var supportSection: some View {
+        Section("Support") {
             Button {
                 requestReview()
             } label: {
                 Label("Rate the app", systemImage: "star")
             }
-
-            if tipJar.tipCount > 0 {
-                Text(thanksText)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+            Button {
+                contactMe()
+            } label: {
+                Label("Contact me", systemImage: "envelope")
             }
-        } header: {
-            Text("Support")
-        } footer: {
-            Text("A one-time, repeatable tip. No subscriptions.")
         }
     }
 
@@ -80,11 +83,6 @@ struct SettingsView: View {
                 viewModel.isShowingSuggest = true
             } label: {
                 Label("Suggest a conference", systemImage: "paperplane")
-            }
-            Button {
-                contactMe()
-            } label: {
-                Label("Contact me", systemImage: "envelope")
             }
             Button {
                 viewModel.isShowingSourceRepo = true
@@ -111,6 +109,13 @@ struct SettingsView: View {
 
     private var priceLabel: String {
         tipJar.product?.displayPrice ?? "€1.49"
+    }
+
+    private var tipFooterText: String {
+        if tipJar.tipCount > 0 {
+            return thanksText
+        }
+        return "A one-time, repeatable tip. No subscriptions."
     }
 
     private var thanksText: String {
