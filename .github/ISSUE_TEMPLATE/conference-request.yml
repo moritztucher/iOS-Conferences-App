@@ -1,0 +1,76 @@
+name: Conference Request
+description: Suggest a new iOS / Apple-platform developer conference for the app.
+title: "Conference: "
+labels: ["conference-suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for adding to the list! Most fields are optional, but **Name** and **Website URL** are required. If you submitted this from inside the iOS app, the fields below will already be filled in for you.
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: The conference's display name.
+      placeholder: "e.g. try! Swift Tokyo"
+    validations:
+      required: true
+
+  - type: input
+    id: website
+    attributes:
+      label: Website URL
+      description: Official conference homepage.
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: input
+    id: start-date
+    attributes:
+      label: Start date
+      description: First day of the conference, in YYYY-MM-DD format.
+      placeholder: "2026-09-07"
+
+  - type: input
+    id: end-date
+    attributes:
+      label: End date
+      description: Last day of the conference, in YYYY-MM-DD format. Use the same value as the start date for a one-day event.
+      placeholder: "2026-09-10"
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: City and country, or "Online" for virtual events.
+      placeholder: "Aberystwyth, UK"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One-sentence factual summary, in your own words (please don't copy the site's marketing text — see the legal note in CONTRIBUTING.md).
+      placeholder: "Long-running, community-driven UK iOS conference with workshops, talks and shared accommodation."
+
+  - type: input
+    id: logo-url
+    attributes:
+      label: Logo URL (optional)
+      description: A direct link to the conference's logo or og:image. The app fetches this at display time and never bundles it.
+      placeholder: "https://..."
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags (optional)
+      description: Comma-separated topical tags. Pick from `swift`, `ios`, `macos`, `visionos`, `watchos`, `swiftui`, `server`, `ai`, `general`, `community`.
+      placeholder: "swift, ios, community"
+
+  - type: input
+    id: submitted-by
+    attributes:
+      label: Submitted by (optional)
+      description: Your GitHub handle, if you'd like credit in the data file or PR.
+      placeholder: "@your-handle"
