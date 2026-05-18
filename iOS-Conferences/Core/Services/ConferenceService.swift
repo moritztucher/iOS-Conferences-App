@@ -68,10 +68,29 @@ struct LiveConferenceService: ConferenceServiceProtocol {
 
     private static func decode(_ data: Data) throws -> [Conference] {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let string = try container.decode(String.self)
+            if let date = Self.dateFormatter.date(from: string) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Date '\(string)' does not match expected format yyyy-MM-dd"
+            )
+        }
         let payload = try decoder.decode([ConferenceDTO].self, from: data)
         return payload.map { $0.toModel() }
     }
+
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 }
 
 /// Seeds and keeps the SwiftData store in sync with the bundled `Conference.bundled` list.
