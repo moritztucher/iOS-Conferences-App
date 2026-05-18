@@ -1,0 +1,18 @@
+{
+  "source": "ios-init",
+  "date": "2026-05-18",
+  "project_name": "iOS-Conferences",
+  "bundle_id": "com.pocketapps.conferences",
+  "ios_target": "iOS 26+",
+  "design_language": "Liquid Glass (iOS 26 native)",
+  "database": "SwiftData",
+  "networking": "REST",
+  "auth": "None",
+  "navigation": "Simple NavigationStack (with NavigationPath coordinator)",
+  "sync_strategy": "Local-only",
+  "offline_support": "Offline-first with sync",
+  "biometrics": "No",
+  "third_party": ["EventKit (system)", "SafariServices (system)"],
+  "heavy_background_work": "No",
+  "accessibility_priority": "Standard"
+}
