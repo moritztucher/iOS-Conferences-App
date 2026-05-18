@@ -1,9 +1,11 @@
 import SwiftUI
+import MessageUI
 
 struct SuggestConferenceView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = SuggestConferenceViewModel()
+    @State private var isShowingMail = false
 
     var body: some View {
         @Bindable var bindable = viewModel
@@ -35,14 +37,8 @@ struct SuggestConferenceView: View {
                 } header: {
                     Text("Credit")
                 } footer: {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Submitting opens GitHub. You'll need to sign in once to post the issue.")
-                        Link(
-                            "Already discussed? Comment on the running thread →",
-                            destination: RepoConfig.suggestionsThreadURL
-                        )
-                    }
-                    .font(.footnote)
+                    Text("Used to credit your contribution if it's added to the list.")
+                        .font(.footnote)
                 }
             }
             .navigationTitle("Suggest a Conference")
@@ -53,22 +49,49 @@ struct SuggestConferenceView: View {
                 }
             }
             .safeAreaInset(edge: .bottom) {
-                Button(action: submit) {
-                    Label("Open as GitHub Issue", systemImage: "arrow.up.right.square")
-                        .frame(maxWidth: .infinity)
+                VStack(spacing: 8) {
+                    Button(action: submitViaEmail) {
+                        Label("Email suggestion", systemImage: "envelope")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .disabled(!viewModel.isSubmittable)
+
+                    Button(action: submitViaGitHub) {
+                        Text("Submit as a GitHub Issue instead")
+                            .font(.footnote)
+                    }
+                    .disabled(!viewModel.isSubmittable)
                 }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .disabled(!viewModel.isSubmittable)
                 .padding()
+            }
+            .sheet(isPresented: $isShowingMail) {
+                let content = viewModel.buildContent()
+                MailComposeView(
+                    recipient: RepoConfig.supportEmail,
+                    subject: content.title,
+                    body: content.body
+                )
+                .ignoresSafeArea()
             }
         }
     }
 
-    private func submit() {
-        guard let url = viewModel.buildURL() else { return }
-        openURL(url)
-        dismiss()
+    private func submitViaEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            isShowingMail = true
+        } else if let url = viewModel.mailtoFallbackURL() {
+            openURL(url)
+            dismiss()
+        }
+    }
+
+    private func submitViaGitHub() {
+        if let url = viewModel.githubIssueURL() {
+            openURL(url)
+            dismiss()
+        }
     }
 }
 

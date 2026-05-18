@@ -12,12 +12,17 @@ final class SuggestConferenceViewModel {
     var summary: String = ""
     var contributor: String = ""
 
+    struct Content {
+        let title: String
+        let body: String
+    }
+
     var isSubmittable: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             && !websiteURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    func buildURL() -> URL? {
+    func buildContent() -> Content {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let title = "Conference: \(trimmedName)"
         let body = """
@@ -39,11 +44,24 @@ final class SuggestConferenceViewModel {
         ### Submitted by
         \(submittedBy)
         """
+        return Content(title: title, body: body)
+    }
 
-        if let url = RepoConfig.newSuggestionIssueURL(title: title, body: body) {
-            return url
-        }
-        return RepoConfig.suggestionMailtoURL
+    func githubIssueURL() -> URL? {
+        let content = buildContent()
+        return RepoConfig.newSuggestionIssueURL(title: content.title, body: content.body)
+    }
+
+    func mailtoFallbackURL() -> URL? {
+        let content = buildContent()
+        var components = URLComponents()
+        components.scheme = "mailto"
+        components.path = RepoConfig.supportEmail
+        components.queryItems = [
+            URLQueryItem(name: "subject", value: content.title),
+            URLQueryItem(name: "body", value: content.body)
+        ]
+        return components.url
     }
 
     private var submittedBy: String {
