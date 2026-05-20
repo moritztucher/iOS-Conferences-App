@@ -124,3 +124,15 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - **No secrets in the repo.** The repo is (or will be) public. No API keys, no private endpoints. The conference data URL is allowed to be public.
 - **IAP product IDs** live in a single `IAPProductID.swift` enum; the App Store Connect product is configured separately and is not committed.
 - Favourites are stored by **conference ID only** in a separate SwiftData model — never mutate the cached `Conference` to track favourite state.
+
+## Build in Public
+
+This project is built in public. The unit of capture is the **postable step** — any meaningful moment worth showing (a new screen, a fixed bug, a shipped feature, a milestone), *not* the session. One session may produce several postable steps or none; capture per step.
+
+All build-in-public material lives in `bip/`:
+- `bip/BUILD-LOG.md` — running log. Per postable step, append: date · what the step was · screenshot filename(s) · one line on the *why* / what was interesting or hard — that line is the post angle.
+- `bip/screenshots/` — **1–3 screenshots per step, when the step is visual** (skip for non-visual steps). Claude captures these directly from the iOS Simulator.
+
+**Bank for quiet days.** Building is lumpy — a heavy day yields several postable steps, a quiet day none. Capture everything as it happens and post it spread thin; never dump it all at once, never go silent because "nothing happened today."
+
+Posting itself stays dumb-simple — one honest post, no production. `bip/` is the raw material, not a content pipeline.
