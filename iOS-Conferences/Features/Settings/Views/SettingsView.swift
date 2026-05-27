@@ -14,10 +14,10 @@ struct SettingsView: View {
         @Bindable var bindable = viewModel
         NavigationStack {
             Form {
-                tipSection
+                displaySection
                 supportSection
                 contributeSection
-                displaySection
+                tipSection
                 aboutSection
             }
             .navigationTitle("Settings")
