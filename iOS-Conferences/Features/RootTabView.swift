@@ -21,5 +21,4 @@ struct RootTabView: View {
     RootTabView()
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
-        .environment(TipJarService.preview())
 }

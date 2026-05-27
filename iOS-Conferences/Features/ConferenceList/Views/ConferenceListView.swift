@@ -145,12 +145,10 @@ struct ConferenceListView: View {
     ConferenceListView(filter: .all)
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
-        .environment(TipJarService.preview())
 }
 
 #Preview("Favourites") {
     ConferenceListView(filter: .favourites)
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
-        .environment(TipJarService.preview())
 }

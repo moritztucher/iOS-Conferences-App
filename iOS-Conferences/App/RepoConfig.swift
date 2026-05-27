@@ -8,9 +8,6 @@ enum RepoConfig {
     static let dataBranch = "develop"
     static let developerEmail = "moritztucher@gmail.com"
 
-    /// Consumable IAP — must match the product configured in App Store Connect.
-    static let tipProductID = "com.pocketapps.conferences.tip"
-
     static var conferencesJSONURL: URL {
         URL(string: "https://cdn.jsdelivr.net/gh/\(owner)/\(repo)@\(dataBranch)/data/conferences.json")!
     }
