@@ -18,7 +18,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - **No backend, no accounts.** Data source is a JSON file in the public GitHub repo; favourites live locally.
 - **Open source.** Repo is (or will be) public under MIT. The conference list is community-curated via PRs.
 - **Community contributions:** in-app "Suggest a conference" form pre-fills a GitHub Issue and opens it in Safari — no backend needed.
-- **Monetization:** a repeatable €1.49 "buy me a coffee" tip via StoreKit 2 (consumable). No subscriptions, no ads, no upsell nags.
+- **No in-app monetization.** No subscriptions, no ads, no tips, no upsells. The app is fully free.
 - **Design direction (ADR-0003):** ecosystem-native. Zero custom design tokens — system tint, system fonts, SF Symbols, stock `List` / `Form` / `TabView`. **No `.glassEffect()` on custom views** (system applies Liquid Glass to tabs/toolbars/sheets automatically). Deep system integrations (EventKit, Maps, ShareLink, Spotlight, App Intents) carry the "feels like Apple built it" weight. **No onboarding flow.**
 
 ## Project Config
@@ -46,7 +46,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 | Sync Strategy | Local-only | SwiftData caches the fetched conference list; refresh-on-pull. No multi-device sync. |
 | Offline Support | Offline-first with sync | Users can browse cached conferences without a network. Refresh updates the cache. |
 | Favourites | Local-only SwiftData, separate `FavouriteConference` model | Survives cache refresh; no accounts needed. |
-| Monetization | StoreKit 2 **consumable** IAP (~€1.49 tip, repeatable) | User can tip multiple times. Apple requires IAP for developer tips (Guideline 3.1.1). No RevenueCat — overkill for one product. See ADR-0002. |
+| Monetization | None | No IAP, no subscriptions, no ads. |
 | Community contributions | In-app "Suggest a conference" form → opens a pre-filled GitHub Issue in `SFSafariViewController` | No backend; fits the open-source contribution flywheel. `mailto:` fallback if GitHub is unavailable. |
 | Biometrics | No | No authenticated state to gate. |
 | Keychain | No | No credentials to store. |
@@ -60,7 +60,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 | SwiftData | Local cache of conference list + favourites |
 | EventKit | Add a conference to the user's calendar |
 | SafariServices (`SFSafariViewController`) | Open the conference website + GitHub Issue suggestion link |
-| StoreKit 2 | Consumable €1.49 "Buy me a coffee" tip (repeatable) |
+| StoreKit | In-app review prompt via `RequestReviewAction` |
 | SwiftUI Liquid Glass APIs (iOS 26+) | `.glassEffect()`, `GlassEffectContainer`, system toolbar/tab Liquid Glass adoption |
 
 ## Legal & Content Notes
@@ -96,7 +96,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
    - Section "About": description text.
    - Section "Actions": row "Visit website" → `SFSafariViewController`; row "Add to calendar" → `EKEventEditViewController` (system event editor sheet).
 
-**Settings:** stock `Form`. Tip-jar row opens the system StoreKit purchase sheet. Suggest-a-conference row opens an in-app form (sheet) that ultimately opens a pre-filled GitHub Issue in Safari.
+**Settings:** stock `Form` with Display / Support (rate, contact) / Contribute (suggest, view source) / About sections. Suggest-a-conference row opens an in-app form (sheet) that ultimately opens a pre-filled GitHub Issue in Safari.
 
 **Forbidden in code:**
 - No custom colours / brand tint
@@ -122,7 +122,6 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - Conference list data lives in `Features/ConferenceList/`; detail in `Features/ConferenceDetail/`.
 - Date formatting is centralised — never inline `DateFormatter` in a View.
 - **No secrets in the repo.** The repo is (or will be) public. No API keys, no private endpoints. The conference data URL is allowed to be public.
-- **IAP product IDs** live in a single `IAPProductID.swift` enum; the App Store Connect product is configured separately and is not committed.
 - Favourites are stored by **conference ID only** in a separate SwiftData model — never mutate the cached `Conference` to track favourite state.
 
 ## Build in Public

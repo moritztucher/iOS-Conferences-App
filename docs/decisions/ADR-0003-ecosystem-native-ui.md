@@ -40,7 +40,6 @@ These two framings imply different design strategies. "Native" means using syste
 | Sharing | `ShareLink` in the detail toolbar |
 | Favourite toggle | Toolbar `Image(systemName: "heart"/"heart.fill")` |
 | Settings rows | `Form` rows with `NavigationLink` |
-| Purchase sheet | System StoreKit 2 sheet (not custom) |
 
 ### Navigation shape
 
@@ -48,7 +47,7 @@ These two framings imply different design strategies. "Native" means using syste
 TabView (Liquid Glass auto-adopted)
 ├── Conferences         NavigationStack → ConferenceListView → ConferenceDetailView
 ├── Favourites          NavigationStack → ConferenceListView (filtered) → ConferenceDetailView
-└── Settings            Form (tip jar, contribute, about)
+└── Settings            Form (display, support, contribute, about)
 ```
 
 The Favourites tab reuses the list and detail views; only the data source differs (favourites filter applied at the ViewModel level).
@@ -103,10 +102,11 @@ The earlier "typographic name on hash-derived colour band" header is **dropped**
 
 ### Settings screen
 
-`Form` with three sections:
-- **Support** — single row "Buy me a coffee · €1.49". Tapping shows the system StoreKit purchase sheet (consumable, repeatable). Below the row: "You've bought me N coffees ☕ — thank you!" when N > 0.
-- **Contribute** — "Suggest a conference" (opens a sheet with the in-app form → GitHub Issue URL), "View on GitHub" (opens repo in `SFSafariViewController`).
-- **About** — Version, "Open source · MIT License", "View source on GitHub", "Show past conferences" toggle.
+`Form` with four sections:
+- **Display** — "Show past conferences" toggle.
+- **Support** — "Rate the app" (in-app review prompt via `RequestReviewAction`), "Contact me" (`MFMailComposeViewController`).
+- **Contribute** — "Suggest a conference" (opens a sheet with the in-app form → GitHub Issue URL), "View source on GitHub" (opens repo in `SFSafariViewController`).
+- **About** — Version (with build number), License (MIT).
 
 ## Consequences
 
@@ -142,7 +142,7 @@ The earlier "typographic name on hash-derived colour band" header is **dropped**
 ## References
 
 - ADR-0001 — initial architecture
-- ADR-0002 — monetization, data source, open source
+- ADR-0002 — data source, open source (monetization decision later reversed)
 - Apple HIG: Components → Lists, Forms, Tab bars
 - `ContentUnavailableView` — https://developer.apple.com/documentation/swiftui/contentunavailableview
 - `EKEventEditViewController` — https://developer.apple.com/documentation/eventkitui/ekeventeditviewcontroller

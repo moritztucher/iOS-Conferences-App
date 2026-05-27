@@ -19,7 +19,6 @@ Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. De
 - **Tap a location** to open Apple Maps with a pin on the venue.
 - **Share a conference** via the system share sheet.
 - **Suggest a conference** — primary path emails the developer a structured form; secondary path opens a pre-filled GitHub Issue.
-- **Buy me a coffee** — repeatable €1.49 consumable tip via StoreKit 2.
 - **Rate the app** and **contact the developer** from Settings.
 
 ## Why this exists
@@ -72,7 +71,7 @@ Be kind. This is a community project — see [`CODE_OF_CONDUCT.md`](./CODE_OF_CO
 - **Zero third-party Swift packages.** Every dependency is a system framework:
   - `EventKit` / `EventKitUI` — adds events via `EKEventEditViewController` (system event editor sheet).
   - `MapKit` — opens locations in Apple Maps.
-  - `StoreKit 2` — repeatable consumable tip IAP + `RequestReviewAction` for the in-app review prompt.
+  - `StoreKit` — `RequestReviewAction` for the in-app review prompt.
   - `SafariServices` — in-app web view for conference websites and the GitHub Issue suggestion path.
   - `MessageUI` — `MFMailComposeViewController` for the Suggest-by-email and Contact-me flows.
 - **Post-MVP system integrations** (planned): Core Spotlight (favourites in iOS system search), App Intents (`Conference` as `AppEntity`, "What's the next conference?" Siri intent), WidgetKit, Live Activities.
@@ -88,7 +87,7 @@ The app feels like an extension of the Apple ecosystem rather than a third-party
 │   ├── Core/
 │   │   ├── Models/                    ← Conference, FavouriteConference, Route, BundledConferences
 │   │   ├── Managers/                  ← NavigationCoordinator
-│   │   ├── Services/                  ← ConferenceService (Live + Bundled), CalendarService, TipJarService
+│   │   ├── Services/                  ← ConferenceService (Live + Bundled), CalendarService
 │   │   └── Extensions/                ← date formatting helpers
 │   ├── Features/                      ← ConferenceList, ConferenceDetail, Favourites, Settings, SuggestConference
 │   ├── ViewComponents/                ← ConferencePlaceholder, MailComposeView
