@@ -1,0 +1,105 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5FA8FF"/>
+      <stop offset="0.55" stop-color="#2C7BEE"/>
+      <stop offset="1" stop-color="#1457C8"/>
+    </linearGradient>
+
+    <linearGradient id="ticketBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCF7EB"/>
+      <stop offset="1" stop-color="#E0D7C0"/>
+    </linearGradient>
+    <linearGradient id="ticketStub" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF8A5C"/>
+      <stop offset="1" stop-color="#D9521D"/>
+    </linearGradient>
+    <linearGradient id="ticketSheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <pattern id="gridMinor" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 L 0 0 0 64" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.16"/>
+    </pattern>
+    <pattern id="gridMajor" x="0" y="0" width="256" height="256" patternUnits="userSpaceOnUse">
+      <path d="M 256 0 L 0 0 0 256" fill="none" stroke="#FFFFFF" stroke-width="1.6" opacity="0.20"/>
+    </pattern>
+
+    <radialGradient id="groundShadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#000" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#000" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ticketDrop" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#000" stop-opacity="0.40"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+
+    <symbol id="ticket" overflow="visible">
+      <ellipse cx="350" cy="350" rx="340" ry="24" fill="url(#ticketDrop)"/>
+      <rect x="0" y="20" width="700" height="320" rx="26" ry="26" fill="url(#ticketBody)"/>
+      <rect x="490" y="20" width="210" height="320" rx="26" ry="26" fill="url(#ticketStub)"/>
+      <rect x="490" y="20" width="40" height="320" fill="url(#ticketStub)"/>
+      <line x1="490" y1="44" x2="490" y2="316" stroke="#7A5A3A" stroke-width="3" stroke-dasharray="9 11" opacity="0.55"/>
+      <rect x="0" y="20" width="700" height="320" rx="26" ry="26" fill="url(#ticketSheen)"/>
+      <rect x="46" y="74" width="380" height="32" rx="8" ry="8" fill="#2B2218" opacity="0.88"/>
+      <rect x="46" y="128" width="240" height="18" rx="5" ry="5" fill="#2B2218" opacity="0.50"/>
+      <rect x="46" y="158" width="180" height="18" rx="5" ry="5" fill="#2B2218" opacity="0.35"/>
+      <g fill="#2B2218" opacity="0.85">
+        <rect x="46" y="232" width="6" height="74"/>
+        <rect x="58" y="232" width="3" height="74"/>
+        <rect x="66" y="232" width="8" height="74"/>
+        <rect x="80" y="232" width="2" height="74"/>
+        <rect x="88" y="232" width="6" height="74"/>
+        <rect x="100" y="232" width="3" height="74"/>
+        <rect x="108" y="232" width="9" height="74"/>
+        <rect x="123" y="232" width="4" height="74"/>
+        <rect x="133" y="232" width="7" height="74"/>
+        <rect x="146" y="232" width="2" height="74"/>
+        <rect x="156" y="232" width="6" height="74"/>
+        <rect x="168" y="232" width="3" height="74"/>
+        <rect x="176" y="232" width="9" height="74"/>
+        <rect x="191" y="232" width="4" height="74"/>
+        <rect x="201" y="232" width="6" height="74"/>
+        <rect x="213" y="232" width="2" height="74"/>
+        <rect x="221" y="232" width="8" height="74"/>
+      </g>
+      <text x="595" y="208" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="138" text-anchor="middle" fill="#FFF4E6">26</text>
+      <text x="595" y="266" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="38" text-anchor="middle" fill="#FFF4E6" opacity="0.95" letter-spacing="3">JUN</text>
+    </symbol>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#gridMinor)"/>
+  <rect width="1024" height="1024" fill="url(#gridMajor)"/>
+
+  <g stroke="#FFFFFF" fill="none" opacity="0.18">
+    <circle cx="512" cy="512" r="400" stroke-width="1.6"/>
+    <circle cx="512" cy="512" r="300" stroke-width="1.6"/>
+    <circle cx="512" cy="512" r="200" stroke-width="1.2"/>
+    <line x1="20" y1="512" x2="1004" y2="512" stroke-width="1.2"/>
+    <line x1="512" y1="20" x2="512" y2="1004" stroke-width="1.2"/>
+  </g>
+  <g stroke="#FFFFFF" stroke-width="2" opacity="0.30">
+    <path d="M 120 100 v 32 M 120 100 h 32"/>
+    <path d="M 904 100 v 32 M 904 100 h -32"/>
+    <path d="M 120 924 v -32 M 120 924 h 32"/>
+    <path d="M 904 924 v -32 M 904 924 h -32"/>
+  </g>
+
+  <ellipse cx="512" cy="850" rx="380" ry="46" fill="url(#groundShadow)"/>
+
+  <!-- Three tickets fanned around icon center -->
+  <g transform="translate(512 540)">
+    <g transform="rotate(-16) translate(-350 -180)" opacity="0.96">
+      <use href="#ticket"/>
+    </g>
+    <g transform="rotate(-2) translate(-350 -180)">
+      <use href="#ticket"/>
+    </g>
+    <g transform="rotate(14) translate(-350 -180)">
+      <use href="#ticket"/>
+    </g>
+  </g>
+</svg>
