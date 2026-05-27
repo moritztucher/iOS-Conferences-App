@@ -1,6 +1,6 @@
-# iOS Conferences
+# iOS Conferences & Events
 
-An open, community-curated list of iOS / Apple-platform developer conferences — in one place, sorted by date.
+An open, community-curated list of iOS / Apple-platform developer conferences and the events around them — in one place, sorted by date.
 
 Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. Designed to feel like an extension of the Apple ecosystem: stock components, system integrations, no custom design language.
 
@@ -22,13 +22,17 @@ Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. De
 
 ## Why this exists
 
-There is no canonical, frictionless place to see "all iOS conferences this year." Information lives across personal blogs, Twitter/Mastodon threads, and one-off lists that go stale. This app is the smallest possible bet on a different shape:
+There is no canonical, frictionless place to see what's happening across the iOS / Apple-platform calendar — the official conferences, but also the adjacent events that orbit them: Core Coffee at WWDC, community meetups, watch parties, hack days. Information lives across personal blogs, Twitter/Mastodon threads, and one-off lists that go stale.
+
+This app is the smallest possible bet on a different shape: a single, community-maintained list that lives where you'll actually look at it — on your phone.
 
 - **Open data.** The list lives as a plain JSON file in this repo at [`data/conferences.json`](./data/conferences.json). Anyone can correct or extend it.
 - **No backend.** No servers, no logins, no telemetry. The app ships with the data bundled for instant first launch, then fetches the JSON file from this repo on every refresh and caches it locally for offline use.
 - **One-time tip, never a subscription.** If the app saves you time, you can buy the developer a coffee. That's it — no ads, no upsells.
 
-## Currently seeded conferences
+If you run a conference, organise a meetup, or just spotted something missing — please contribute. No conference is too small, no PR too short. First time submitting to an open-source project? Even better — we'll help.
+
+## Conferences listed for 2026/27
 
 | Conference | Dates | Location |
 |---|---|---|
@@ -50,13 +54,15 @@ There is no canonical, frictionless place to see "all iOS conferences this year.
 
 Spotted a missing conference, a wrong date, or a broken link? See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
-## Contributing a conference
+## Contributing
 
-Three paths, in order of friction (full schema and conventions in [`CONTRIBUTING.md`](./CONTRIBUTING.md)):
+Got a conference to add? A meetup we missed? A wrong date or a broken link? Three paths, easiest first:
 
-1. **In-app (easiest):** Settings → "Suggest a conference" → fill the form → tap **Email suggestion**. The structured details land in the developer's inbox.
+1. **In-app:** Settings → "Suggest a conference" → fill the form → tap **Email suggestion**. The structured details land in the developer's inbox and are added to `data/conferences.json` from there.
 2. **GitHub Issue:** in the same form, tap **Submit as a GitHub Issue instead** — or open [a new conference request](https://github.com/moritztucher/iOS-Conferences-App/issues/new?template=conference-request.yml) directly.
 3. **Pull Request:** edit [`data/conferences.json`](./data/conferences.json) and open a PR against `develop`. Schema documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
+Be kind. This is a community project — see [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md).
 
 ## Tech stack
 
@@ -99,25 +105,26 @@ The app feels like an extension of the Apple ecosystem rather than a third-party
 ## Building
 
 1. Clone the repo.
-2. Open `iOS-Conferences.xcodeproj` in Xcode 16+.
+2. Open `iOS-Conferences.xcodeproj` in Xcode 26+.
 3. Build for any iOS 26 simulator.
 
-On launch the app instantly seeds 15 bundled conferences (offline-safe), then refreshes from [`data/conferences.json`](./data/conferences.json) via [jsDelivr](https://www.jsdelivr.com/) (with `raw.githubusercontent.com` as a fallback). Pull-to-refresh on the Conferences tab triggers the same live fetch. `RepoConfig.dataBranch` currently points at `develop` — it'll switch to `main` once the first release-merge lands.
-
-## Roadmap
-
-- [x] LICENSE + CONTRIBUTING.md + GitHub issue template.
-- [x] Publish `data/conferences.json` and wire `LiveConferenceService` as the runtime source (bundled remains as offline-safe seed).
-- [ ] Register the `com.pocketapps.conferences.tip` consumable in App Store Connect and ship to TestFlight.
-- [ ] Switch `RepoConfig.dataBranch` to `"main"` on the first release-merge.
-- [ ] Post-MVP system integrations: Core Spotlight, App Intents, WidgetKit, Live Activities.
-- [ ] Verify WWDC 2026 dates once Apple announces (current entry is a best-guess based on Apple's 2nd-Monday-of-June tradition).
+On launch the app instantly seeds the bundled conferences (offline-safe), then refreshes from [`data/conferences.json`](./data/conferences.json) via [jsDelivr](https://www.jsdelivr.com/) (with `raw.githubusercontent.com` as a fallback). Pull-to-refresh on the Conferences tab triggers the same live fetch.
 
 ## License
 
 MIT — see [`LICENSE`](./LICENSE).
 
-The data contributed to `data/conferences.json` is under the same license, except for any third-party logo URLs referenced — those remain the property of their respective owners and are fetched at display time only.
+The data contributed to `data/conferences.json` is released under the same license.
+
+**Logos.** Conference logos are only displayed with the organiser's explicit permission. If you run a conference and would like your logo to appear next to your listing, either email the developer or open a PR with the image file. Logos remain the property of their respective owners and are used by permission only.
+
+## Legal bits
+
+This is a community project. It is not an Apple initiative and is not endorsed by, affiliated with, or sponsored by Apple Inc.
+
+Apple, the Apple logo, App Store, iPhone, iPad, iOS, iPadOS, macOS, watchOS, tvOS, visionOS, Swift, the Swift logo, Xcode, and SF Symbols are trademarks of Apple Inc., registered in the U.S. and other countries.
+
+Conference and event names, brands, and content link to their respective organisers. They appear in this list as factual references — we don't endorse, sponsor, sell, or take a cut of ticket sales, and the in-app web view shows the real URL so you can see whose site you're on. If you spot something that shouldn't be here (wrong info, takedown request, anything else), [open an issue](https://github.com/moritztucher/iOS-Conferences-App/issues/new) or email **moritztucher@gmail.com**.
 
 ## Acknowledgements
 

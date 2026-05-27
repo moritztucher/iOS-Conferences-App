@@ -31,7 +31,7 @@ struct SettingsView: View {
             .sheet(isPresented: $bindable.isShowingMail) {
                 MailComposeView(
                     recipient: RepoConfig.developerEmail,
-                    subject: "iOS Conferences"
+                    subject: "iOS Conferences & Events"
                 )
                 .ignoresSafeArea()
             }
