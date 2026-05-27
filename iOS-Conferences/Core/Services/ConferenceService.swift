@@ -19,6 +19,7 @@ extension ConferenceServiceProtocol {
 
         for conference in fresh {
             if let target = existingByID[conference.id] {
+                target.kind = conference.kind
                 target.name = conference.name
                 target.startDate = conference.startDate
                 target.endDate = conference.endDate
@@ -106,6 +107,8 @@ struct BundledConferenceService: ConferenceServiceProtocol {
 
 private struct ConferenceDTO: Decodable {
     let id: String
+    /// Optional in the JSON for backwards compatibility — pre-`kind` entries decode as `.conference`.
+    let kind: ConferenceKind?
     let name: String
     let startDate: Date
     let endDate: Date
@@ -119,6 +122,7 @@ private struct ConferenceDTO: Decodable {
     func toModel() -> Conference {
         Conference(
             id: id,
+            kind: kind ?? .conference,
             name: name,
             startDate: startDate,
             endDate: endDate,

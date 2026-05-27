@@ -22,6 +22,7 @@ There are three ways to contribute, in order of friction:
 ```json
 {
   "id": "iosdevuk-2026",
+  "kind": "Conference",
   "name": "iOSDevUK",
   "startDate": "2026-09-07",
   "endDate": "2026-09-10",
@@ -37,6 +38,7 @@ There are three ways to contribute, in order of friction:
 | Field | Type | Required | Notes |
 |-------|------|----------|-------|
 | `id` | `String` | yes | Stable kebab-case identifier, typically `<short-name>-<year>` (e.g. `tryswift-tokyo-2026`). Must be unique. Don't change this once published — favourites in users' apps are keyed on it. |
+| `kind` | `String` | no (default `"Conference"`) | Either `"Conference"` (multi-day developer conference) or `"Event"` (everything else — meetups, watch parties, hack days, satellite events around a conference, dinners, runs). When in doubt: if it's a single evening or a one-off social gathering, it's an `"Event"`. |
 | `name` | `String` | yes | Display name as it appears in the app. |
 | `startDate` | `String` | yes | First day, `YYYY-MM-DD`. Inclusive. |
 | `endDate` | `String` | yes | Last day, `YYYY-MM-DD`. Inclusive. Same as `startDate` for one-day events. |
@@ -65,7 +67,8 @@ The JSON is parsed by `LiveConferenceService` in the iOS app. To validate locall
 **Yes:**
 - Conferences focused on Apple platforms (iOS / macOS / visionOS / watchOS / tvOS), Swift, or SwiftUI.
 - General software/dev conferences with a strong, established Apple-platform track.
-- Both in-person and online events.
+- Events around those conferences — meetups, watch parties, hack days, social gatherings (set `"kind": "Event"`).
+- Both in-person and online listings.
 
 **No:**
 - Single-edition events with no announced future date.

@@ -1,11 +1,21 @@
 import Foundation
 import SwiftData
 
+/// What an entry in the list represents.
+/// "Conference" — multi-day developer conference. "Event" — anything else listed alongside
+/// (meetups, watch parties, hack days, satellite gatherings around a conference).
+enum ConferenceKind: String, Codable, CaseIterable, Sendable {
+    case conference = "Conference"
+    case event = "Event"
+}
+
 @Model
 final class Conference {
     #Unique<Conference>([\.id])
 
     var id: String
+    /// Default keeps existing stored rows valid after the field was added.
+    var kind: ConferenceKind = ConferenceKind.conference
     var name: String
     var startDate: Date
     var endDate: Date
@@ -18,6 +28,7 @@ final class Conference {
 
     init(
         id: String,
+        kind: ConferenceKind = .conference,
         name: String,
         startDate: Date,
         endDate: Date,
@@ -29,6 +40,7 @@ final class Conference {
         tags: [String]
     ) {
         self.id = id
+        self.kind = kind
         self.name = name
         self.startDate = startDate
         self.endDate = endDate

@@ -98,6 +98,13 @@ struct ConferenceListView: View {
                 Toggle(isOn: $showPastConferences) {
                     Label("Include past conferences", systemImage: "clock.arrow.circlepath")
                 }
+                Picker(selection: $viewModel.kindFilter) {
+                    ForEach(ConferenceKindFilter.allCases) { option in
+                        Label(option.label, systemImage: option.systemImage).tag(option)
+                    }
+                } label: {
+                    Label("Kind", systemImage: "rectangle.stack")
+                }
                 Picker(selection: $viewModel.formatFilter) {
                     ForEach(ConferenceFormatFilter.allCases) { option in
                         Label(option.label, systemImage: option.systemImage).tag(option)

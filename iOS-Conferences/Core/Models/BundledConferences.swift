@@ -16,6 +16,7 @@ extension Conference {
         [
             Conference(
                 id: "lets-vision-2026",
+                kind: .conference,
                 name: "LET'S VISION 2026",
                 startDate: makeDate(2026, 3, 28),
                 endDate: makeDate(2026, 3, 29),
@@ -28,6 +29,7 @@ extension Conference {
             ),
             Conference(
                 id: "tryswift-tokyo-2026",
+                kind: .conference,
                 name: "try! Swift Tokyo",
                 startDate: makeDate(2026, 4, 12),
                 endDate: makeDate(2026, 4, 14),
@@ -40,6 +42,7 @@ extension Conference {
             ),
             Conference(
                 id: "deep-dish-swift-2026",
+                kind: .conference,
                 name: "Deep Dish Swift 2026",
                 startDate: makeDate(2026, 4, 12),
                 endDate: makeDate(2026, 4, 14),
@@ -52,6 +55,7 @@ extension Conference {
             ),
             Conference(
                 id: "ioskonf-2026",
+                kind: .conference,
                 name: "iOSKonf26",
                 startDate: makeDate(2026, 5, 4),
                 endDate: makeDate(2026, 5, 6),
@@ -64,6 +68,7 @@ extension Conference {
             ),
             Conference(
                 id: "wwdc-2026",
+                kind: .conference,
                 name: "WWDC 2026",
                 startDate: makeDate(2026, 6, 8),
                 endDate: makeDate(2026, 6, 12),
@@ -76,6 +81,7 @@ extension Conference {
             ),
             Conference(
                 id: "communitykit-2026",
+                kind: .conference,
                 name: "CommunityKit",
                 startDate: makeDate(2026, 6, 7),
                 endDate: makeDate(2026, 6, 12),
@@ -88,6 +94,7 @@ extension Conference {
             ),
             Conference(
                 id: "swift-rockies-2026",
+                kind: .conference,
                 name: "Swift Rockies",
                 startDate: makeDate(2026, 7, 22),
                 endDate: makeDate(2026, 7, 23),
@@ -100,6 +107,7 @@ extension Conference {
             ),
             Conference(
                 id: "iosdevuk-2026",
+                kind: .conference,
                 name: "iOSDevUK",
                 startDate: makeDate(2026, 9, 7),
                 endDate: makeDate(2026, 9, 10),
@@ -112,6 +120,7 @@ extension Conference {
             ),
             Conference(
                 id: "swift-island-2026",
+                kind: .conference,
                 name: "Swift Island",
                 startDate: makeDate(2026, 9, 7),
                 endDate: makeDate(2026, 9, 11),
@@ -124,6 +133,7 @@ extension Conference {
             ),
             Conference(
                 id: "swiftleeds-2026",
+                kind: .conference,
                 name: "SwiftLeeds",
                 startDate: makeDate(2026, 10, 13),
                 endDate: makeDate(2026, 10, 14),
@@ -136,6 +146,7 @@ extension Conference {
             ),
             Conference(
                 id: "swift-connection-2026",
+                kind: .conference,
                 name: "Swift Connection X",
                 startDate: makeDate(2026, 11, 2),
                 endDate: makeDate(2026, 11, 3),
@@ -148,6 +159,7 @@ extension Conference {
             ),
             Conference(
                 id: "do-ios-2026",
+                kind: .conference,
                 name: "Do iOS 2026",
                 startDate: makeDate(2026, 11, 10),
                 endDate: makeDate(2026, 11, 12),
@@ -160,6 +172,7 @@ extension Conference {
             ),
             Conference(
                 id: "swiftsonic-2026",
+                kind: .conference,
                 name: "Swiftsonic '26",
                 startDate: makeDate(2026, 11, 20),
                 endDate: makeDate(2026, 11, 22),
@@ -172,6 +185,7 @@ extension Conference {
             ),
             Conference(
                 id: "iosconf-sg-2027",
+                kind: .conference,
                 name: "iOS Conf SG 2027",
                 startDate: makeDate(2027, 1, 21),
                 endDate: makeDate(2027, 1, 23),
@@ -184,6 +198,7 @@ extension Conference {
             ),
             Conference(
                 id: "arctic-conference-2027",
+                kind: .conference,
                 name: "Arctic Conference 2027",
                 startDate: makeDate(2027, 2, 16),
                 endDate: makeDate(2027, 2, 18),
