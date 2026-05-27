@@ -47,17 +47,18 @@ struct SettingsView: View {
             Button {
                 Task { await viewModel.tip(using: tipJar) }
             } label: {
-                Label("Buy me a coffee · \(priceLabel)", systemImage: "cup.and.saucer.fill")
-                    .frame(maxWidth: .infinity)
+                HStack {
+                    Label("Buy me a coffee · \(priceLabel)", systemImage: "cup.and.saucer.fill")
+                        .foregroundStyle(.white)
+                    Spacer()
+                }
+                .contentShape(.rect)
             }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
+            .listRowBackground(Color.accentColor)
             .disabled(tipJar.isPurchasing || tipJar.product == nil)
         } footer: {
             Text(tipFooterText)
         }
-        .listRowBackground(Color.clear)
-        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
     }
 
     @ViewBuilder
