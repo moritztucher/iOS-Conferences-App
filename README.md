@@ -1,6 +1,8 @@
-# iOS Conferences & Events
+# dubdub — Conferences & Events
 
 An open, community-curated list of iOS / Apple-platform developer conferences and the events around them — in one place, sorted by date.
+
+Home-screen name: **dubdub**. App Store listing: **dubdub - Conferences & Events**.
 
 Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. Designed to feel like an extension of the Apple ecosystem: stock components, system integrations, no custom design language.
 
