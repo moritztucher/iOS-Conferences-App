@@ -286,6 +286,19 @@
     "tags": ["ios", "swift", "community"]
   },
   {
+    "id": "swift-bharat-2026",
+    "kind": "Conference",
+    "name": "Swift Bharat 2026",
+    "startDate": "2026-11-19",
+    "endDate": "2026-11-20",
+    "locationName": "Mumbai, India",
+    "mapQuery": "Yashwantrao Chavan Centre, Mumbai, India",
+    "summary": "India's first international Apple developer conference: two days of Swift, SwiftUI and Apple-platform talks in Mumbai.",
+    "websiteURL": "https://www.swiftbharat.org",
+    "logoURL": "https://www.swiftbharat.org/og-image.jpg",
+    "tags": ["swift", "ios", "community"]
+  },
+  {
     "id": "swiftsonic-2026",
     "kind": "Conference",
     "name": "Swiftsonic '26",
