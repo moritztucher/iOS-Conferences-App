@@ -98,6 +98,13 @@ struct ConferenceListView: View {
                 Toggle(isOn: $showPastConferences) {
                     Label("Include past conferences", systemImage: "clock.arrow.circlepath")
                 }
+                Picker(selection: $viewModel.kindFilter) {
+                    ForEach(ConferenceKindFilter.allCases) { option in
+                        Label(option.label, systemImage: option.systemImage).tag(option)
+                    }
+                } label: {
+                    Label("Kind", systemImage: "rectangle.stack")
+                }
                 Picker(selection: $viewModel.formatFilter) {
                     ForEach(ConferenceFormatFilter.allCases) { option in
                         Label(option.label, systemImage: option.systemImage).tag(option)
@@ -138,12 +145,10 @@ struct ConferenceListView: View {
     ConferenceListView(filter: .all)
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
-        .environment(TipJarService.preview())
 }
 
 #Preview("Favourites") {
     ConferenceListView(filter: .favourites)
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
-        .environment(TipJarService.preview())
 }

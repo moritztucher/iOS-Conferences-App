@@ -16,6 +16,7 @@ extension Conference {
         [
             Conference(
                 id: "lets-vision-2026",
+                kind: .conference,
                 name: "LET'S VISION 2026",
                 startDate: makeDate(2026, 3, 28),
                 endDate: makeDate(2026, 3, 29),
@@ -28,6 +29,7 @@ extension Conference {
             ),
             Conference(
                 id: "tryswift-tokyo-2026",
+                kind: .conference,
                 name: "try! Swift Tokyo",
                 startDate: makeDate(2026, 4, 12),
                 endDate: makeDate(2026, 4, 14),
@@ -40,6 +42,7 @@ extension Conference {
             ),
             Conference(
                 id: "deep-dish-swift-2026",
+                kind: .conference,
                 name: "Deep Dish Swift 2026",
                 startDate: makeDate(2026, 4, 12),
                 endDate: makeDate(2026, 4, 14),
@@ -52,6 +55,7 @@ extension Conference {
             ),
             Conference(
                 id: "ioskonf-2026",
+                kind: .conference,
                 name: "iOSKonf26",
                 startDate: makeDate(2026, 5, 4),
                 endDate: makeDate(2026, 5, 6),
@@ -64,6 +68,7 @@ extension Conference {
             ),
             Conference(
                 id: "wwdc-2026",
+                kind: .conference,
                 name: "WWDC 2026",
                 startDate: makeDate(2026, 6, 8),
                 endDate: makeDate(2026, 6, 12),
@@ -76,6 +81,7 @@ extension Conference {
             ),
             Conference(
                 id: "communitykit-2026",
+                kind: .conference,
                 name: "CommunityKit",
                 startDate: makeDate(2026, 6, 7),
                 endDate: makeDate(2026, 6, 12),
@@ -87,7 +93,138 @@ extension Conference {
                 tags: ["ios", "swift", "community"]
             ),
             Conference(
+                id: "wwdc-run-2026",
+                kind: .event,
+                name: "WWDC Run",
+                startDate: makeDate(2026, 6, 6),
+                endDate: makeDate(2026, 6, 6),
+                locationName: "Cupertino, California, USA",
+                mapQuery: "Cupertino, California",
+                summary: "Saturday morning community run kicking off WWDC week for developers gathering in Cupertino.",
+                websiteURLString: "https://luma.com/wwdc26-run",
+                logoURLString: nil,
+                tags: ["wwdc", "community"]
+            ),
+            Conference(
+                id: "apple-park-happy-hour-2026",
+                kind: .event,
+                name: "Apple Park Happy Hour",
+                startDate: makeDate(2026, 6, 6),
+                endDate: makeDate(2026, 6, 6),
+                locationName: "Cupertino, California, USA",
+                mapQuery: "Cupertino, California",
+                summary: "Pre-WWDC evening gathering near Apple Park for developers arriving for the week.",
+                websiteURLString: "https://www.eventbrite.com/e/apple-park-happy-hour-tickets-1986822959957",
+                logoURLString: nil,
+                tags: ["wwdc", "community"]
+            ),
+            Conference(
+                id: "core-coffee-wwdc-sunday-2026",
+                kind: .event,
+                name: "Core Coffee — WWDC Sunday",
+                startDate: makeDate(2026, 6, 7),
+                endDate: makeDate(2026, 6, 7),
+                locationName: "Cupertino, California, USA",
+                mapQuery: "Cupertino, California",
+                summary: "Sunday-morning coffee meetup for Apple-platform developers on the eve of the WWDC keynote.",
+                websiteURLString: "https://luma.com/gs91csm9",
+                logoURLString: nil,
+                tags: ["wwdc", "community", "swift"]
+            ),
+            Conference(
+                id: "revenuecat-pre-wwdc-bashcade-2026",
+                kind: .event,
+                name: "RevenueCat Pre-WWDC Bashcade",
+                startDate: makeDate(2026, 6, 7),
+                endDate: makeDate(2026, 6, 7),
+                locationName: "Cupertino, California, USA",
+                mapQuery: "Cupertino, California",
+                summary: "Pre-WWDC arcade and developer social hosted by RevenueCat on keynote eve.",
+                websiteURLString: "https://luma.com/jhm03vgs",
+                logoURLString: nil,
+                tags: ["wwdc", "community", "ios"]
+            ),
+            Conference(
+                id: "communitykit-keynote-watch-2026",
+                kind: .event,
+                name: "Keynote Watch Party at CommunityKit",
+                startDate: makeDate(2026, 6, 8),
+                endDate: makeDate(2026, 6, 8),
+                locationName: "Cupertino, California, USA",
+                mapQuery: "Cupertino, California",
+                summary: "Watch the WWDC keynote together with iOSDevHappyHour and the CommunityKit crowd.",
+                websiteURLString: "https://communitykit.social",
+                logoURLString: nil,
+                tags: ["wwdc", "community"]
+            ),
+            Conference(
+                id: "wwdc-watch-cologne-2026",
+                kind: .event,
+                name: "WWDC 2026 Watch Party Cologne",
+                startDate: makeDate(2026, 6, 8),
+                endDate: makeDate(2026, 6, 8),
+                locationName: "Cologne, Germany",
+                mapQuery: "Cologne, Germany",
+                summary: "CocoaHeads Cologne keynote watch party — stream the WWDC opener with local devs.",
+                websiteURLString: "https://www.meetup.com/de-DE/cocoaheads-cologne/events/314303588/",
+                logoURLString: nil,
+                tags: ["wwdc", "community"]
+            ),
+            Conference(
+                id: "wwdc-watch-london-2026",
+                kind: .event,
+                name: "NSLondon WWDC26 Keynote Viewing Party",
+                startDate: makeDate(2026, 6, 8),
+                endDate: makeDate(2026, 6, 8),
+                locationName: "London, UK",
+                mapQuery: "London, United Kingdom",
+                summary: "NSLondon hosts a community keynote viewing for the WWDC 2026 opener.",
+                websiteURLString: "https://www.meetup.com/nslondon/events/314110467",
+                logoURLString: nil,
+                tags: ["wwdc", "community"]
+            ),
+            Conference(
+                id: "wwdc-watch-barcelona-2026",
+                kind: .event,
+                name: "Swift Barcelona WWDC 2026 Keynote Party",
+                startDate: makeDate(2026, 6, 8),
+                endDate: makeDate(2026, 6, 8),
+                locationName: "Barcelona, Spain",
+                mapQuery: "Barcelona, Spain",
+                summary: "Swift Barcelona keynote watch party for local developers gathering in person.",
+                websiteURLString: "https://www.meetup.com/swiftbarcelona/events/314816865/",
+                logoURLString: nil,
+                tags: ["wwdc", "community", "swift"]
+            ),
+            Conference(
+                id: "iosdevhappyhour-wwdc-irl-2026",
+                kind: .event,
+                name: "iOSDevHappyHour @ WWDC26 IRL",
+                startDate: makeDate(2026, 6, 9),
+                endDate: makeDate(2026, 6, 9),
+                locationName: "Cupertino, California, USA",
+                mapQuery: "Cupertino, California",
+                summary: "In-person edition of the long-running iOSDevHappyHour during WWDC week.",
+                websiteURLString: "https://idhhwwdc26irl.eventbrite.com",
+                logoURLString: nil,
+                tags: ["wwdc", "community", "ios"]
+            ),
+            Conference(
+                id: "apple-dev-community-meetup-2026",
+                kind: .event,
+                name: "Apple Developer Community Meetup",
+                startDate: makeDate(2026, 6, 10),
+                endDate: makeDate(2026, 6, 10),
+                locationName: "Cupertino, California, USA",
+                mapQuery: "Apple Developer Center, Cupertino, California",
+                summary: "Evening community gathering at the Apple Developer Center in Cupertino during WWDC.",
+                websiteURLString: "https://developer.apple.com/events/view/8D4G7DD8LR/dashboard",
+                logoURLString: nil,
+                tags: ["wwdc", "apple", "community"]
+            ),
+            Conference(
                 id: "swift-rockies-2026",
+                kind: .conference,
                 name: "Swift Rockies",
                 startDate: makeDate(2026, 7, 22),
                 endDate: makeDate(2026, 7, 23),
@@ -100,6 +237,7 @@ extension Conference {
             ),
             Conference(
                 id: "iosdevuk-2026",
+                kind: .conference,
                 name: "iOSDevUK",
                 startDate: makeDate(2026, 9, 7),
                 endDate: makeDate(2026, 9, 10),
@@ -112,6 +250,7 @@ extension Conference {
             ),
             Conference(
                 id: "swift-island-2026",
+                kind: .conference,
                 name: "Swift Island",
                 startDate: makeDate(2026, 9, 7),
                 endDate: makeDate(2026, 9, 11),
@@ -124,6 +263,7 @@ extension Conference {
             ),
             Conference(
                 id: "swiftleeds-2026",
+                kind: .conference,
                 name: "SwiftLeeds",
                 startDate: makeDate(2026, 10, 13),
                 endDate: makeDate(2026, 10, 14),
@@ -136,6 +276,7 @@ extension Conference {
             ),
             Conference(
                 id: "swift-connection-2026",
+                kind: .conference,
                 name: "Swift Connection X",
                 startDate: makeDate(2026, 11, 2),
                 endDate: makeDate(2026, 11, 3),
@@ -148,6 +289,7 @@ extension Conference {
             ),
             Conference(
                 id: "do-ios-2026",
+                kind: .conference,
                 name: "Do iOS 2026",
                 startDate: makeDate(2026, 11, 10),
                 endDate: makeDate(2026, 11, 12),
@@ -160,6 +302,7 @@ extension Conference {
             ),
             Conference(
                 id: "swiftsonic-2026",
+                kind: .conference,
                 name: "Swiftsonic '26",
                 startDate: makeDate(2026, 11, 20),
                 endDate: makeDate(2026, 11, 22),
@@ -172,6 +315,7 @@ extension Conference {
             ),
             Conference(
                 id: "iosconf-sg-2027",
+                kind: .conference,
                 name: "iOS Conf SG 2027",
                 startDate: makeDate(2027, 1, 21),
                 endDate: makeDate(2027, 1, 23),
@@ -184,6 +328,7 @@ extension Conference {
             ),
             Conference(
                 id: "arctic-conference-2027",
+                kind: .conference,
                 name: "Arctic Conference 2027",
                 startDate: makeDate(2027, 2, 16),
                 endDate: makeDate(2027, 2, 18),

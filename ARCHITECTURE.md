@@ -78,7 +78,7 @@ No third-party SPM dependencies at MVP.
 | ConferenceList | `Features/ConferenceList/` | Sorted list (`List` + `Section` per month). `.searchable`, `.refreshable`. Used by both the Conferences tab and the Favourites tab (filter applied at the ViewModel level). |
 | ConferenceDetail | `Features/ConferenceDetail/` | Calendar-event-detail pattern: large nav title + `Form` (When/Where, About, Actions). Favourite toggle and `ShareLink` in toolbar. |
 | SuggestConference | `Features/SuggestConference/` | Form sheet that pre-fills a GitHub Issue URL and opens it in `SFSafariViewController` |
-| Settings | `Features/Settings/` | `Form` with Support (tip jar) / Contribute (suggest, view source) / About (version, license, show-past toggle) |
+| Settings | `Features/Settings/` | `Form` with Display (show-past toggle) / Support (rate, contact) / Contribute (suggest, view source) / About (version, license) |
 
 ## Architecture Decisions
 
@@ -87,7 +87,7 @@ See `docs/decisions/` for detailed ADRs.
 | Decision | Summary | Date |
 |----------|---------|------|
 | ADR-0001 | Initial architecture: SwiftData + REST + simple NavigationStack, no auth, EventKit + SafariServices | 2026-05-18 |
-| ADR-0002 | Monetization (consumable €1.49 StoreKit 2 tip, repeatable), data source (`conferences.json` in public GitHub repo), open source under MIT | 2026-05-18 |
+| ADR-0002 | Data source (`conferences.json` in public GitHub repo), open source under MIT. *Original monetization decision (StoreKit 2 tip) reversed — the app no longer ships any in-app purchase.* | 2026-05-18 |
 | ADR-0003 | Ecosystem-native UI direction: stock components only, system integrations carry the "feels like Apple" weight | 2026-05-18 |
 
 ## Data Storage
@@ -104,7 +104,7 @@ See `docs/decisions/` for detailed ADRs.
 |---------|---------|---------------|
 | EventKit / EventKitUI (system) | Add a conference to the user's calendar via `EKEventEditViewController` (system event editor sheet) | `~/.claude/docs/ios/system/eventkit.md` |
 | SafariServices (system) | In-app web view for conference URLs + GitHub Issue submission | Apple docs: `SFSafariViewController` |
-| StoreKit 2 (system) | Consumable €1.49 "Buy me a coffee" tip (repeatable) | Apple docs: StoreKit 2 |
+| StoreKit (system) | In-app review prompt via `RequestReviewAction` | Apple docs: StoreKit |
 | MapKit (system) | `MKMapItem.openInMaps` from the detail Location row | Apple docs: `MKMapItem` |
 | Core Spotlight (system, post-MVP) | Index favourited conferences for system-wide search | Apple docs: Core Spotlight |
 | App Intents (system, post-MVP) | `Conference` as `AppEntity`; "What's the next conference?" intent | Apple docs: App Intents |

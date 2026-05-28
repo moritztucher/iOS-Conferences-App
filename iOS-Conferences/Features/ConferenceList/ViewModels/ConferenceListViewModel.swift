@@ -31,6 +31,30 @@ enum ConferenceFormatFilter: String, CaseIterable, Identifiable {
     }
 }
 
+enum ConferenceKindFilter: String, CaseIterable, Identifiable {
+    case all
+    case conferences
+    case events
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .all: return "All kinds"
+        case .conferences: return "Conferences"
+        case .events: return "Events"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .all: return "rectangle.stack"
+        case .conferences: return "building.columns.fill"
+        case .events: return "calendar.badge.plus"
+        }
+    }
+}
+
 @MainActor
 @Observable
 final class ConferenceListViewModel {
@@ -48,6 +72,7 @@ final class ConferenceListViewModel {
 
     var searchText: String = ""
     var formatFilter: ConferenceFormatFilter = .all
+    var kindFilter: ConferenceKindFilter = .all
     let filter: Filter
 
     init(filter: Filter) {
@@ -55,7 +80,7 @@ final class ConferenceListViewModel {
     }
 
     var isFilterActive: Bool {
-        formatFilter != .all
+        formatFilter != .all || kindFilter != .all
     }
 
     func sections(
@@ -71,6 +96,15 @@ final class ConferenceListViewModel {
 
         if filter == .favourites {
             filtered = filtered.filter { favouriteIDs.contains($0.id) }
+        }
+
+        switch kindFilter {
+        case .all:
+            break
+        case .conferences:
+            filtered = filtered.filter { $0.kind == .conference }
+        case .events:
+            filtered = filtered.filter { $0.kind == .event }
         }
 
         switch formatFilter {

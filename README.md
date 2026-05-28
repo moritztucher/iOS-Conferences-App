@@ -1,10 +1,12 @@
-# iOS Conferences
+# dubdub — Conferences & Events
 
-An open, community-curated list of iOS / Apple-platform developer conferences — in one place, sorted by date.
+An open, community-curated list of iOS / Apple-platform developer conferences and the events around them — in one place, sorted by date.
+
+Home-screen name: **dubdub**. App Store listing: **dubdub - Conferences & Events**.
 
 Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. Designed to feel like an extension of the Apple ecosystem: stock components, system integrations, no custom design language.
 
-> Status: pre-release. App is functional and ships with **15 confirmed 2026/2027 events** bundled in. Repo-hosted JSON feed and App Store release are pending.
+> Status: pre-release. 15 confirmed 2026/2027 conferences are bundled into the app for offline-safe first launch, and a live JSON feed in this repo keeps the list fresh. App Store submission is the next gate.
 
 ## What it does
 
@@ -17,18 +19,21 @@ Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. De
 - **Tap a location** to open Apple Maps with a pin on the venue.
 - **Share a conference** via the system share sheet.
 - **Suggest a conference** — primary path emails the developer a structured form; secondary path opens a pre-filled GitHub Issue.
-- **Buy me a coffee** — repeatable €1.49 consumable tip via StoreKit 2.
 - **Rate the app** and **contact the developer** from Settings.
 
 ## Why this exists
 
-There is no canonical, frictionless place to see "all iOS conferences this year." Information lives across personal blogs, Twitter/Mastodon threads, and one-off lists that go stale. This app is the smallest possible bet on a different shape:
+There is no canonical, frictionless place to see what's happening across the iOS / Apple-platform calendar — the official conferences, but also the adjacent events that orbit them: Core Coffee at WWDC, community meetups, watch parties, hack days. Information lives across personal blogs, Twitter/Mastodon threads, and one-off lists that go stale.
 
-- **Open data.** The conference list will live as a plain JSON file in this repo (once `data/conferences.json` lands; see Roadmap). Anyone can correct or extend it via PR.
-- **No backend.** No servers, no logins, no telemetry. The app reads bundled data today; later it will fetch the JSON file from this repo at runtime and cache it locally for offline use.
+This app is the smallest possible bet on a different shape: a single, community-maintained list that lives where you'll actually look at it — on your phone.
+
+- **Open data.** The list lives as a plain JSON file in this repo at [`data/conferences.json`](./data/conferences.json). Anyone can correct or extend it.
+- **No backend.** No servers, no logins, no telemetry. The app ships with the data bundled for instant first launch, then fetches the JSON file from this repo on every refresh and caches it locally for offline use.
 - **One-time tip, never a subscription.** If the app saves you time, you can buy the developer a coffee. That's it — no ads, no upsells.
 
-## Currently seeded conferences
+If you run a conference, organise a meetup, or just spotted something missing — please contribute. No conference is too small, no PR too short. First time submitting to an open-source project? Even better — we'll help.
+
+## Conferences listed for 2026/27
 
 | Conference | Dates | Location |
 |---|---|---|
@@ -48,32 +53,17 @@ There is no canonical, frictionless place to see "all iOS conferences this year.
 | iOS Conf SG 2027 | Jan 21–23, 2027 | Singapore |
 | Arctic Conference 2027 | Feb 16–18, 2027 | Oulu, Finland |
 
-Spotted a missing conference, a wrong date, or a broken link? See **Contributing** below.
+Spotted a missing conference, a wrong date, or a broken link? See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
-## Contributing a conference
+## Contributing
 
-Two paths:
+Got a conference to add? A meetup we missed? A wrong date or a broken link? Three paths, easiest first:
 
-1. **In-app (easiest):** Settings → "Suggest a conference" → fill the form → tap **Email suggestion**. The structured details land in the developer's inbox; the next bundled-data update or PR will pick it up.
-2. **GitHub Issue:** in the same form, tap **Submit as a GitHub Issue instead**. Opens a pre-filled issue you finalise on github.com (one-time sign-in required).
-3. **Pull Request:** edit `data/conferences.json` directly and open a PR. *(Available once the JSON feed is published — see Roadmap.)*
+1. **In-app:** Settings → "Suggest a conference" → fill the form → tap **Email suggestion**. The structured details land in the developer's inbox and are added to `data/conferences.json` from there.
+2. **GitHub Issue:** in the same form, tap **Submit as a GitHub Issue instead** — or open [a new conference request](https://github.com/moritztucher/iOS-Conferences-App/issues/new?template=conference-request.yml) directly.
+3. **Pull Request:** edit [`data/conferences.json`](./data/conferences.json) and open a PR against `develop`. Schema documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
-Per-conference fields (will mirror the JSON schema):
-
-| Field | Type | Notes |
-|-------|------|-------|
-| `id` | `String` | stable kebab-case identifier (e.g. `tryswift-tokyo-2026`) |
-| `name` | `String` | display name |
-| `startDate` | `String` (ISO-8601 date) | inclusive |
-| `endDate` | `String` (ISO-8601 date) | inclusive |
-| `locationName` | `String` | display string, e.g. `"Tokyo, Japan"` or `"Online"` |
-| `mapQuery` | `String?` | optional Maps query (city or venue). `null` for online events. |
-| `summary` | `String` | one-sentence paraphrased description |
-| `websiteURL` | `String` | conference homepage |
-| `logoURL` | `String?` | the site's `og:image` URL — fetched at runtime, never bundled |
-| `tags` | `[String]` | topical tags (`swift`, `ios`, `visionos`, `community`, …) |
-
-**Legal note.** We only display each conference's name, date, location, and *its own* `og:image` URL (fetched at runtime, like iMessage / Slack link previews — never redistributed). When a logo URL is missing or fails to load, a typographic placeholder (initials + hash-derived colour) is shown instead. Descriptions are paraphrased from the site, not copied verbatim. Logos are not bundled.
+Be kind. This is a community project — see [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md).
 
 ## Tech stack
 
@@ -81,7 +71,7 @@ Per-conference fields (will mirror the JSON schema):
 - **Zero third-party Swift packages.** Every dependency is a system framework:
   - `EventKit` / `EventKitUI` — adds events via `EKEventEditViewController` (system event editor sheet).
   - `MapKit` — opens locations in Apple Maps.
-  - `StoreKit 2` — repeatable consumable tip IAP + `RequestReviewAction` for the in-app review prompt.
+  - `StoreKit` — `RequestReviewAction` for the in-app review prompt.
   - `SafariServices` — in-app web view for conference websites and the GitHub Issue suggestion path.
   - `MessageUI` — `MFMailComposeViewController` for the Suggest-by-email and Contact-me flows.
 - **Post-MVP system integrations** (planned): Core Spotlight (favourites in iOS system search), App Intents (`Conference` as `AppEntity`, "What's the next conference?" Siri intent), WidgetKit, Live Activities.
@@ -97,40 +87,45 @@ The app feels like an extension of the Apple ecosystem rather than a third-party
 │   ├── Core/
 │   │   ├── Models/                    ← Conference, FavouriteConference, Route, BundledConferences
 │   │   ├── Managers/                  ← NavigationCoordinator
-│   │   ├── Services/                  ← ConferenceService, CalendarService, TipJarService
+│   │   ├── Services/                  ← ConferenceService (Live + Bundled), CalendarService
 │   │   └── Extensions/                ← date formatting helpers
 │   ├── Features/                      ← ConferenceList, ConferenceDetail, Favourites, Settings, SuggestConference
 │   ├── ViewComponents/                ← ConferencePlaceholder, MailComposeView
 │   └── Resources/
-├── docs/decisions/                    ← Architecture Decision Records
-├── data/conferences.json              ← (planned) repo-hosted JSON feed
+├── data/conferences.json              ← the canonical 15-conference feed
+├── .github/ISSUE_TEMPLATE/            ← conference-request issue form
+├── docs/decisions/                    ← Architecture Decision Records (ADR-0001 / 0002 / 0003)
 ├── VIEW-INVENTORY.md                  ← index of shared UI components
+├── CONTRIBUTING.md                    ← contribution paths + JSON schema
 ├── README.md
 ├── CLAUDE.md                          ← agent guidance for this repo
-└── Backlog.md
+├── Backlog.md
+└── LICENSE
 ```
 
 ## Building
 
 1. Clone the repo.
-2. Open `iOS-Conferences.xcodeproj` in Xcode 16+.
-3. Build for any iOS 26 simulator. The app launches populated with the 15 bundled conferences.
+2. Open `iOS-Conferences.xcodeproj` in Xcode 26+.
+3. Build for any iOS 26 simulator.
 
-`ConferenceServiceFactory.make()` in `Core/Services/ConferenceService.swift` currently returns `BundledConferenceService()`. Once `data/conferences.json` is published to the repo, flip that one line to `LiveConferenceService()` — fetches via jsDelivr's CDN with a `raw.githubusercontent.com` fallback.
-
-## Roadmap
-
-- [ ] Publish `data/conferences.json` (and `.github/ISSUE_TEMPLATE/conference-request.yml`).
-- [ ] Switch `ConferenceServiceFactory.make()` to `LiveConferenceService()`.
-- [ ] Configure the StoreKit consumable in App Store Connect; ship to the App Store.
-- [ ] Post-MVP system integrations (Spotlight, App Intents, Widget, Live Activities).
-- [ ] Add MIT `LICENSE` and `CONTRIBUTING.md`.
+On launch the app instantly seeds the bundled conferences (offline-safe), then refreshes from [`data/conferences.json`](./data/conferences.json) via [jsDelivr](https://www.jsdelivr.com/) (with `raw.githubusercontent.com` as a fallback). Pull-to-refresh on the Conferences tab triggers the same live fetch.
 
 ## License
 
-MIT (planned — `LICENSE` file to be added; see Roadmap).
+MIT — see [`LICENSE`](./LICENSE).
 
-The data contributed to `data/conferences.json` is under the same license, except for any third-party logo URLs referenced — those remain the property of their respective owners and are fetched at display time only.
+The data contributed to `data/conferences.json` is released under the same license.
+
+**Logos.** Conference logos are only displayed with the organiser's explicit permission. If you run a conference and would like your logo to appear next to your listing, either email the developer or open a PR with the image file. Logos remain the property of their respective owners and are used by permission only.
+
+## Legal bits
+
+This is a community project. It is not an Apple initiative and is not endorsed by, affiliated with, or sponsored by Apple Inc.
+
+Apple, the Apple logo, App Store, iPhone, iPad, iOS, iPadOS, macOS, watchOS, tvOS, visionOS, Swift, the Swift logo, Xcode, and SF Symbols are trademarks of Apple Inc., registered in the U.S. and other countries.
+
+Conference and event names, brands, and content link to their respective organisers. They appear in this list as factual references — we don't endorse, sponsor, sell, or take a cut of ticket sales, and the in-app web view shows the real URL so you can see whose site you're on. If you spot something that shouldn't be here (wrong info, takedown request, anything else), [open an issue](https://github.com/moritztucher/iOS-Conferences-App/issues/new) or email **moritztucher@gmail.com**.
 
 ## Acknowledgements
 

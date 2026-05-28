@@ -1,0 +1,103 @@
+# Contributing
+
+Thanks for helping keep this list current. Every conference in the app comes from `data/conferences.json` in this repo — a plain JSON file anyone can edit.
+
+There are three ways to contribute, in order of friction:
+
+1. **In-app email form** *(easiest, no GitHub account needed)*
+   Open the app → **Settings** → **Suggest a conference** → fill the form → **Email suggestion**. The structured details land in the developer's inbox and get added in the next data update.
+
+2. **GitHub Issue**
+   From the same in-app form, tap **Submit as a GitHub Issue instead** — or open one directly: [New conference request](https://github.com/moritztucher/iOS-Conferences-App/issues/new?template=conference-request.yml). A maintainer turns approved issues into PRs against `data/conferences.json`.
+
+3. **Pull Request** *(fastest if you know git)*
+   Edit `data/conferences.json` directly and open a PR. Schema below.
+
+---
+
+## JSON schema
+
+`data/conferences.json` is an array of conference objects.
+
+```json
+{
+  "id": "iosdevuk-2026",
+  "kind": "Conference",
+  "name": "iOSDevUK",
+  "startDate": "2026-09-07",
+  "endDate": "2026-09-10",
+  "locationName": "Aberystwyth, UK",
+  "mapQuery": "Aberystwyth University, Aberystwyth, Wales, UK",
+  "summary": "Long-running, community-driven UK iOS conference combining workshops, talks and shared accommodation in coastal Wales.",
+  "websiteURL": "https://www.iosdevuk.com",
+  "logoURL": "https://...",
+  "tags": ["ios", "swift", "community"]
+}
+```
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `id` | `String` | yes | Stable kebab-case identifier, typically `<short-name>-<year>` (e.g. `tryswift-tokyo-2026`). Must be unique. Don't change this once published — favourites in users' apps are keyed on it. |
+| `kind` | `String` | no (default `"Conference"`) | Either `"Conference"` (multi-day developer conference) or `"Event"` (everything else — meetups, watch parties, hack days, satellite events around a conference, dinners, runs). When in doubt: if it's a single evening or a one-off social gathering, it's an `"Event"`. |
+| `name` | `String` | yes | Display name as it appears in the app. |
+| `startDate` | `String` | yes | First day, `YYYY-MM-DD`. Inclusive. |
+| `endDate` | `String` | yes | Last day, `YYYY-MM-DD`. Inclusive. Same as `startDate` for one-day events. |
+| `locationName` | `String` | yes | Display string, e.g. `"Tokyo, Japan"` or `"Online"`. |
+| `mapQuery` | `String?` | no | Apple-Maps-friendly query (city, venue, or full address). `null` for online events. The Location row in the detail view becomes tappable when this is set. |
+| `summary` | `String` | yes | One-sentence factual description. **In your own words** — don't copy the site's marketing copy verbatim (see [Legal](#legal) below). Aim for ~100–160 characters. |
+| `websiteURL` | `String` | yes | Conference homepage. Must be HTTPS. |
+| `logoURL` | `String?` | no | Direct link to the conference's logo or `og:image`. Fetched and displayed at runtime — never bundled or redistributed. If absent, the app shows a typographic placeholder. |
+| `tags` | `[String]` | yes | One or more topical tags. Current vocabulary: `swift`, `ios`, `macos`, `visionos`, `watchos`, `swiftui`, `server`, `ai`, `apple`, `general`, `community`. Propose new tags in your PR if you need one. |
+
+### Ordering
+
+The file is sorted by `startDate` ascending. Keep it sorted when you add a row — it makes diffs reviewable.
+
+### Validating your edit
+
+The JSON is parsed by `LiveConferenceService` in the iOS app. To validate locally:
+
+- `python -m json.tool data/conferences.json` confirms the JSON is well-formed.
+- Build and run the app, then pull-to-refresh on the Conferences tab — your additions should appear.
+
+---
+
+## What gets accepted
+
+**Yes:**
+- Conferences focused on Apple platforms (iOS / macOS / visionOS / watchOS / tvOS), Swift, or SwiftUI.
+- General software/dev conferences with a strong, established Apple-platform track.
+- Events around those conferences — meetups, watch parties, hack days, social gatherings (set `"kind": "Event"`).
+- Both in-person and online listings.
+
+**No:**
+- Single-edition events with no announced future date.
+- Vendor sales events.
+- Anything that doesn't have a public website with date and location.
+
+**Pending dates are OK:** if a conference has announced "we're back in 2027" but no day-precise date yet, open an Issue and we'll add it when the dates land.
+
+---
+
+## Legal
+
+A reminder of how this project treats third-party material — relevant to anything you submit:
+
+- **Descriptions are paraphrased.** Don't paste the site's marketing text verbatim. One factual sentence in your own words is the goal.
+- **Logos are never bundled.** `logoURL` points at the conference's own image, and the app fetches it at runtime (same pattern as iMessage / Slack link previews). If a site doesn't have a usable image, leave `logoURL` as `null` — the app falls back to a typographic placeholder.
+- **Trademarks remain with their owners.** Listing a conference doesn't imply endorsement of it by us, or of us by it.
+
+See [ADR-0002](./docs/decisions/ADR-0002-monetization-and-data-source.md) for the full reasoning.
+
+---
+
+## Code contributions
+
+Bug fix or feature for the app itself? Standard flow:
+
+1. Fork → branch off `develop` (not `main` — `main` is release-only).
+2. Match existing patterns. The project is intentionally minimalist; see [`CLAUDE.md`](./CLAUDE.md) and [`VIEW-INVENTORY.md`](./VIEW-INVENTORY.md) before adding any new shared components.
+3. Build green: `xcodebuild -project iOS-Conferences.xcodeproj -scheme iOS-Conferences -destination 'generic/platform=iOS Simulator' build`.
+4. PR against `develop` with a description of what changed and why.
+
+The architecture is documented in [`ARCHITECTURE.md`](./ARCHITECTURE.md). Significant design decisions live as ADRs under `docs/decisions/`.

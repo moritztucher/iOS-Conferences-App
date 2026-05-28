@@ -19,6 +19,7 @@ extension ConferenceServiceProtocol {
 
         for conference in fresh {
             if let target = existingByID[conference.id] {
+                target.kind = conference.kind
                 target.name = conference.name
                 target.startDate = conference.startDate
                 target.endDate = conference.endDate
@@ -39,12 +40,14 @@ extension ConferenceServiceProtocol {
     }
 }
 
-/// Single point to switch between bundled and live data sources.
-/// TODO: flip to `LiveConferenceService()` once `conferences.json` is pushed to the repo.
+/// Single point to vary the active refresh source. The factory is what
+/// pull-to-refresh and background updates use; first-launch seeding still
+/// uses `BundledConferenceService` directly in `iOS_ConferencesApp` so the
+/// list is populated instantly even when offline.
 @MainActor
 enum ConferenceServiceFactory {
     static func make() -> any ConferenceServiceProtocol {
-        BundledConferenceService()
+        LiveConferenceService()
     }
 }
 
@@ -68,10 +71,29 @@ struct LiveConferenceService: ConferenceServiceProtocol {
 
     private static func decode(_ data: Data) throws -> [Conference] {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let string = try container.decode(String.self)
+            if let date = Self.dateFormatter.date(from: string) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Date '\(string)' does not match expected format yyyy-MM-dd"
+            )
+        }
         let payload = try decoder.decode([ConferenceDTO].self, from: data)
         return payload.map { $0.toModel() }
     }
+
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 }
 
 /// Seeds and keeps the SwiftData store in sync with the bundled `Conference.bundled` list.
@@ -85,6 +107,8 @@ struct BundledConferenceService: ConferenceServiceProtocol {
 
 private struct ConferenceDTO: Decodable {
     let id: String
+    /// Optional in the JSON for backwards compatibility — pre-`kind` entries decode as `.conference`.
+    let kind: ConferenceKind?
     let name: String
     let startDate: Date
     let endDate: Date
@@ -98,6 +122,7 @@ private struct ConferenceDTO: Decodable {
     func toModel() -> Conference {
         Conference(
             id: id,
+            kind: kind ?? .conference,
             name: name,
             startDate: startDate,
             endDate: endDate,

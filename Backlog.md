@@ -22,9 +22,7 @@
 - [ ] Use `ContentUnavailableView` for all empty states (no data, no favourites, no search results)
 - [ ] Add `.searchable` to the conference list (filter by name + location)
 - [ ] Add `.refreshable` to the conference list
-- [ ] Implement `TipJarService` wrapping StoreKit 2 — fetch consumable product, purchase, observe transactions, finish each immediately, track local tip count in UserDefaults
-- [ ] Build `SettingsView` with the tip jar row ("Buy me a coffee ☕", repeatable), "Suggest a conference" link, and about / license attribution
-- [ ] Configure **consumable** IAP product in App Store Connect (price tier 2, €1.49) — repeatable on purpose
+- [ ] Build `SettingsView` with "Suggest a conference" link and about / license attribution
 - [ ] Build `SuggestConferenceView` — form fields (name, URL, dates, location, description, optional contributor name) → constructs a pre-filled GitHub Issue URL → opens in `SFSafariViewController`; `mailto:` fallback
 - [ ] Add `.github/ISSUE_TEMPLATE/conference-request.yml` with structured fields matching the in-app form
 - [ ] Pin a `Suggestions` issue in the repo to receive low-friction comment-based submissions (linked from the form footer)

@@ -3,11 +3,10 @@ import Foundation
 enum RepoConfig {
     static let owner = "moritztucher"
     static let repo = "iOS-Conferences-App"
-    static let dataBranch = "main"
+    /// The branch jsDelivr (and the raw-GitHub fallback) resolves `data/conferences.json` from.
+    /// TODO: switch to "main" once we cut the first release (merge `develop` → `main`).
+    static let dataBranch = "develop"
     static let developerEmail = "moritztucher@gmail.com"
-
-    /// Consumable IAP — must match the product configured in App Store Connect.
-    static let tipProductID = "com.pocketapps.conferences.tip"
 
     static var conferencesJSONURL: URL {
         URL(string: "https://cdn.jsdelivr.net/gh/\(owner)/\(repo)@\(dataBranch)/data/conferences.json")!
