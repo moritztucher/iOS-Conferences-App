@@ -318,7 +318,7 @@
   },
   {
     "id": "wwdc-watch-amstelveen-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "CocoaHeadsNL Keynote Meetup @ ABN AMRO",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -334,7 +334,7 @@
   },
   {
     "id": "wwdc-watch-conscious-engines-blr-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Conscious Engines WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -350,7 +350,7 @@
   },
   {
     "id": "wwdc-watch-tokyo-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Extended Tokyo — WWDC 2026",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -382,7 +382,7 @@
   },
   {
     "id": "wwdc-watch-helsinki-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Helsinki WWDC Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -398,7 +398,7 @@
   },
   {
     "id": "communitykit-keynote-watch-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Keynote Watch Party at CommunityKit",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -414,7 +414,7 @@
   },
   {
     "id": "wwdc-watch-istanbul-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "NSIstanbul WWDC2026 Seyir Partisi",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -430,7 +430,7 @@
   },
   {
     "id": "wwdc-watch-london-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "NSLondon WWDC26 Keynote Viewing Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -446,7 +446,7 @@
   },
   {
     "id": "wwdc-watch-manchester-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "NSManchester WWDC 2026 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -462,7 +462,7 @@
   },
   {
     "id": "communitykit-sotu-watch-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "SOTU Watch Party at CommunityKit",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -495,7 +495,7 @@
   },
   {
     "id": "wwdc-watch-ahmedabad-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Swift Ahmedabad WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -511,7 +511,7 @@
   },
   {
     "id": "wwdc-watch-barcelona-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Swift Barcelona WWDC 2026 Keynote Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -528,7 +528,7 @@
   },
   {
     "id": "wwdc-watch-swift-bengaluru-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Swift Bengaluru WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -544,7 +544,7 @@
   },
   {
     "id": "wwdc-watch-chennai-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Swift Chennai WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -560,7 +560,7 @@
   },
   {
     "id": "wwdc-watch-delhi-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Swift Delhi WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -576,7 +576,7 @@
   },
   {
     "id": "wwdc-watch-graz-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Swift Graz WWDC 26 Keynote Watch",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -592,7 +592,7 @@
   },
   {
     "id": "wwdc-watch-mumbai-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Swift Mumbai WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -608,7 +608,7 @@
   },
   {
     "id": "wwdc-watch-davao-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "SwiftPH Davao WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -624,7 +624,7 @@
   },
   {
     "id": "wwdc-watch-manila-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "SwiftPH Manila WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -640,7 +640,7 @@
   },
   {
     "id": "wwdc-watch-surat-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "SwiftSurat WWDC26 Watch Party",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -656,7 +656,7 @@
   },
   {
     "id": "wwdc-watch-amsterdam-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC 2026 Watch Party @ Booking.com HQ",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -672,7 +672,7 @@
   },
   {
     "id": "wwdc-watch-cologne-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC 2026 Watch Party Cologne",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -688,7 +688,7 @@
   },
   {
     "id": "wwdc-watch-copenhagen-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC 2026 Watch Party Copenhagen",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -704,7 +704,7 @@
   },
   {
     "id": "wwdc-watch-utah-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC 2026 Watch Party Utah",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -720,7 +720,7 @@
   },
   {
     "id": "wwdc-watch-sofia-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC26 Keynote Watch Party Sofia",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
@@ -736,7 +736,7 @@
   },
   {
     "id": "wwdc-watch-beijing-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC26.Playground Beijing",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -752,7 +752,7 @@
   },
   {
     "id": "wwdc-watch-guangzhou-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC26.Playground Guangzhou",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -768,7 +768,7 @@
   },
   {
     "id": "wwdc-watch-hangzhou-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC26.Playground Hangzhou",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -784,7 +784,7 @@
   },
   {
     "id": "wwdc-watch-qingdao-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC26.Playground Qingdao",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -800,7 +800,7 @@
   },
   {
     "id": "wwdc-watch-shanghai-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC26.Playground Shanghai",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -816,7 +816,7 @@
   },
   {
     "id": "wwdc-watch-shenzhen-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "WWDC26.Playground Shenzhen",
     "startDate": "2026-06-08",
     "endDate": "2026-06-09",
@@ -900,7 +900,7 @@
   },
   {
     "id": "wwdc-watch-melbourne-2026",
-    "kind": "Event",
+    "kind": "Watch Party",
     "name": "Melbourne Indie Devs WWDC26 Watch Party",
     "startDate": "2026-06-09",
     "endDate": "2026-06-09",

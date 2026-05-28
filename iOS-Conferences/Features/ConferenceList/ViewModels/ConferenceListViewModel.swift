@@ -34,6 +34,7 @@ enum ConferenceFormatFilter: String, CaseIterable, Identifiable {
 enum ConferenceKindFilter: String, CaseIterable, Identifiable {
     case all
     case conferences
+    case watchParties
     case events
 
     var id: String { rawValue }
@@ -42,6 +43,7 @@ enum ConferenceKindFilter: String, CaseIterable, Identifiable {
         switch self {
         case .all: return "All kinds"
         case .conferences: return "Conferences"
+        case .watchParties: return "Watch Parties"
         case .events: return "Events"
         }
     }
@@ -50,6 +52,7 @@ enum ConferenceKindFilter: String, CaseIterable, Identifiable {
         switch self {
         case .all: return "rectangle.stack"
         case .conferences: return "building.columns.fill"
+        case .watchParties: return "tv"
         case .events: return "calendar.badge.plus"
         }
     }
@@ -103,6 +106,8 @@ final class ConferenceListViewModel {
             break
         case .conferences:
             filtered = filtered.filter { $0.kind == .conference }
+        case .watchParties:
+            filtered = filtered.filter { $0.kind == .watchParty }
         case .events:
             filtered = filtered.filter { $0.kind == .event }
         }
