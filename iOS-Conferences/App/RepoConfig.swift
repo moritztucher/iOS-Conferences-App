@@ -4,8 +4,7 @@ enum RepoConfig {
     static let owner = "moritztucher"
     static let repo = "iOS-Conferences-App"
     /// The branch jsDelivr (and the raw-GitHub fallback) resolves `data/conferences.json` from.
-    /// TODO: switch to "main" once we cut the first release (merge `develop` → `main`).
-    static let dataBranch = "develop"
+    static let dataBranch = "main"
     static let developerEmail = "moritztucher@gmail.com"
 
     static var conferencesJSONURL: URL {
