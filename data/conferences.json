@@ -68,6 +68,23 @@
     ]
   },
   {
+    "id": "swiftcraft-2026",
+    "kind": "Conference",
+    "name": "Swift Craft 2026",
+    "startDate": "2026-05-18",
+    "endDate": "2026-05-20",
+    "locationName": "Folkestone, United Kingdom",
+    "mapQuery": "Leas Cliff Hall, Folkestone, Kent, United Kingdom",
+    "summary": "Workshops-and-tutorials day plus two-day Swift conference at Leas Cliff Hall on the Kent coast.",
+    "websiteURL": "https://swiftcraft.uk",
+    "logoURL": "https://swiftcraft.uk/static/img/logos/swiftcraft-logo-sq.png",
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
     "id": "apple-park-happy-hour-2026",
     "kind": "Event",
     "name": "Apple Park Happy Hour",
