@@ -317,6 +317,39 @@
     ]
   },
   {
+    "id": "french-wwdinner-2026",
+    "kind": "Event",
+    "name": "French-Speaking Community Gathering (WWDinner)",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Dinner meetup for the French-speaking Apple developer community at WWDC.",
+    "websiteURL": "https://luma.com/wwdc26-french-gathering",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "students-swift-stars-2026",
+    "kind": "Event",
+    "name": "Students, Swift, Stars",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Student-focused Swift community evening during WWDC week.",
+    "websiteURL": "https://luma.com/28tkgxwv",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "swift"
+    ]
+  },
+  {
     "id": "wwdc-watch-amstelveen-2026",
     "kind": "Watch Party",
     "name": "CocoaHeadsNL Keynote Meetup @ ABN AMRO",
@@ -358,22 +391,6 @@
     "mapQuery": "Tokyo, Japan",
     "summary": "LY Corp-hosted extended keynote watch in Tokyo.",
     "websiteURL": "https://lycorptech-jp.connpass.com/event/392383/",
-    "logoURL": null,
-    "tags": [
-      "wwdc",
-      "community"
-    ]
-  },
-  {
-    "id": "french-wwdinner-2026",
-    "kind": "Event",
-    "name": "French-Speaking Community Gathering (WWDinner)",
-    "startDate": "2026-06-08",
-    "endDate": "2026-06-08",
-    "locationName": "Cupertino, California, USA",
-    "mapQuery": "Cupertino, California",
-    "summary": "Dinner meetup for the French-speaking Apple developer community at WWDC.",
-    "websiteURL": "https://luma.com/wwdc26-french-gathering",
     "logoURL": null,
     "tags": [
       "wwdc",
@@ -474,23 +491,6 @@
     "tags": [
       "wwdc",
       "community"
-    ]
-  },
-  {
-    "id": "students-swift-stars-2026",
-    "kind": "Event",
-    "name": "Students, Swift, Stars",
-    "startDate": "2026-06-08",
-    "endDate": "2026-06-08",
-    "locationName": "Cupertino, California, USA",
-    "mapQuery": "Cupertino, California",
-    "summary": "Student-focused Swift community evening during WWDC week.",
-    "websiteURL": "https://luma.com/28tkgxwv",
-    "logoURL": null,
-    "tags": [
-      "wwdc",
-      "community",
-      "swift"
     ]
   },
   {
@@ -899,22 +899,6 @@
     ]
   },
   {
-    "id": "wwdc-watch-melbourne-2026",
-    "kind": "Watch Party",
-    "name": "Melbourne Indie Devs WWDC26 Watch Party",
-    "startDate": "2026-06-09",
-    "endDate": "2026-06-09",
-    "locationName": "Mitcham, Victoria, Australia",
-    "mapQuery": "Mitcham, Victoria, Australia",
-    "summary": "Indie-dev keynote watch party in greater Melbourne.",
-    "websiteURL": "https://luma.com/bx77prmp",
-    "logoURL": null,
-    "tags": [
-      "wwdc",
-      "community"
-    ]
-  },
-  {
     "id": "revenuecat-mansionparty-2026",
     "kind": "Event",
     "name": "RevenueCat Mansionparty: WWDC Edition",
@@ -1012,6 +996,22 @@
       "wwdc",
       "community",
       "ios"
+    ]
+  },
+  {
+    "id": "wwdc-watch-melbourne-2026",
+    "kind": "Watch Party",
+    "name": "Melbourne Indie Devs WWDC26 Watch Party",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Mitcham, Victoria, Australia",
+    "mapQuery": "Mitcham, Victoria, Australia",
+    "summary": "Indie-dev keynote watch party in greater Melbourne.",
+    "websiteURL": "https://luma.com/bx77prmp",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
     ]
   },
   {
@@ -1361,6 +1361,23 @@
       "ios",
       "swift",
       "community"
+    ]
+  },
+  {
+    "id": "nsspain-2026",
+    "kind": "Conference",
+    "name": "NSSpain XIV",
+    "startDate": "2026-09-16",
+    "endDate": "2026-09-18",
+    "locationName": "Logroño, Spain",
+    "mapQuery": "Riojaforum, Logroño, La Rioja, Spain",
+    "summary": "Dates TBA. iOS and macOS conference in La Rioja wine country: two days of Swift talks plus a workshop day.",
+    "websiteURL": "https://2026.nsspain.com",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "swift",
+      "macos"
     ]
   },
   {
