@@ -1398,6 +1398,23 @@
     ]
   },
   {
+    "id": "swiftcon-berlin-2026",
+    "kind": "Conference",
+    "name": "swiftCon Berlin 2026",
+    "startDate": "2026-10-07",
+    "endDate": "2026-10-09",
+    "locationName": "Berlin, Germany",
+    "mapQuery": "Berlin, Germany",
+    "summary": "Swift track of next.app devcon: three days of iOS and Swift talks, workshops, and AI-tooling sessions in Berlin.",
+    "websiteURL": "https://www.nextappcon.com/swiftcon",
+    "logoURL": "https://static.wixstatic.com/media/6e1ab2_bbaa0d4defff4d44b9bb85317ca1349b~mv2.png/v1/fill/w_2500,h_1313,al_c/6e1ab2_bbaa0d4defff4d44b9bb85317ca1349b~mv2.png",
+    "tags": [
+      "swift",
+      "ios",
+      "ai"
+    ]
+  },
+  {
     "id": "swiftleeds-2026",
     "kind": "Conference",
     "name": "SwiftLeeds",
