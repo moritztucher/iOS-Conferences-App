@@ -7,6 +7,7 @@ final class SettingsViewModel {
     var isShowingSuggest = false
     var isShowingSourceRepo = false
     var isShowingMail = false
+    var isShowingTwoStrawsAck = false
 
     var appVersion: String {
         let info = Bundle.main.infoDictionary

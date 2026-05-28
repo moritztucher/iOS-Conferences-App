@@ -16,6 +16,7 @@ struct SettingsView: View {
                 displaySection
                 supportSection
                 contributeSection
+                acknowledgementsSection
                 aboutSection
             }
             .navigationTitle("Settings")
@@ -32,6 +33,12 @@ struct SettingsView: View {
                     subject: "Support Request: Dubdub - Conferences & Events"
                 )
                 .ignoresSafeArea()
+            }
+            .sheet(isPresented: $bindable.isShowingTwoStrawsAck) {
+                if let url = URL(string: "https://github.com/twostraws/wwdc") {
+                    SafariView(url: url)
+                        .ignoresSafeArea()
+                }
             }
         }
     }
@@ -72,6 +79,17 @@ struct SettingsView: View {
     private var displaySection: some View {
         Section("Display") {
             Toggle("Show past conferences", isOn: $showPastConferences)
+        }
+    }
+
+    @ViewBuilder
+    private var acknowledgementsSection: some View {
+        Section("Acknowledgements") {
+            Button {
+                viewModel.isShowingTwoStrawsAck = true
+            } label: {
+                Label("twostraws/wwdc", systemImage: "heart")
+            }
         }
     }
 
