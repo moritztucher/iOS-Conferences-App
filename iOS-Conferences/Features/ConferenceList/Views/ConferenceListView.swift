@@ -115,6 +115,7 @@ struct ConferenceListView: View {
             } label: {
                 Image(systemName: isFiltering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
             }
+            .menuActionDismissBehavior(.disabled)
             .accessibilityLabel("Filter")
         }
     }
