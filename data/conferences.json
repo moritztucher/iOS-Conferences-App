@@ -10,20 +10,11 @@
     "summary": "Shanghai-based spatial computing and AI conference for Vision Pro, XR and Apple-platform developers and creators.",
     "websiteURL": "https://letsvision.swiftgg.team",
     "logoURL": "https://framerusercontent.com/images/djs5wcxx7xM76k9bupA6Tmfvc.png",
-    "tags": ["visionos", "ai", "swift"]
-  },
-  {
-    "id": "tryswift-tokyo-2026",
-    "kind": "Conference",
-    "name": "try! Swift Tokyo",
-    "startDate": "2026-04-12",
-    "endDate": "2026-04-14",
-    "locationName": "Tokyo, Japan",
-    "mapQuery": "Tachikawa, Tokyo, Japan",
-    "summary": "Three-day Swift conference in Tokyo covering SwiftUI, concurrency, embedded Swift, server-side Swift and AI integration.",
-    "websiteURL": "https://tryswift.jp",
-    "logoURL": "https://tryswift.jp/images/ogp.jpg",
-    "tags": ["swift", "ios", "ai"]
+    "tags": [
+      "visionos",
+      "ai",
+      "swift"
+    ]
   },
   {
     "id": "deep-dish-swift-2026",
@@ -36,7 +27,28 @@
     "summary": "Chicago-area Swift developer conference featuring technical talks, indie dev sessions, and a live podcast recording across three days.",
     "websiteURL": "https://deepdishswift.com",
     "logoURL": "https://deepdishswift.com/assets/images/2026/deep-dish-logo.png",
-    "tags": ["swift", "ios", "community"]
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
+    "id": "tryswift-tokyo-2026",
+    "kind": "Conference",
+    "name": "try! Swift Tokyo",
+    "startDate": "2026-04-12",
+    "endDate": "2026-04-14",
+    "locationName": "Tokyo, Japan",
+    "mapQuery": "Tachikawa, Tokyo, Japan",
+    "summary": "Three-day Swift conference in Tokyo covering SwiftUI, concurrency, embedded Swift, server-side Swift and AI integration.",
+    "websiteURL": "https://tryswift.jp",
+    "logoURL": "https://tryswift.jp/images/ogp.jpg",
+    "tags": [
+      "swift",
+      "ios",
+      "ai"
+    ]
   },
   {
     "id": "ioskonf-2026",
@@ -49,20 +61,11 @@
     "summary": "Premium iOS developer conference held at the Macedonian Philharmonic, drawing attendees from 18+ countries.",
     "websiteURL": "https://ioskonf.mk",
     "logoURL": "https://ioskonf.mk/assets/share-ticket.png",
-    "tags": ["ios", "swift", "community"]
-  },
-  {
-    "id": "wwdc-run-2026",
-    "kind": "Event",
-    "name": "WWDC Run",
-    "startDate": "2026-06-06",
-    "endDate": "2026-06-06",
-    "locationName": "Cupertino, California, USA",
-    "mapQuery": "Cupertino, California",
-    "summary": "Saturday morning community run kicking off WWDC week for developers gathering in Cupertino.",
-    "websiteURL": "https://luma.com/wwdc26-run",
-    "logoURL": null,
-    "tags": ["wwdc", "community"]
+    "tags": [
+      "ios",
+      "swift",
+      "community"
+    ]
   },
   {
     "id": "apple-park-happy-hour-2026",
@@ -75,7 +78,59 @@
     "summary": "Pre-WWDC evening gathering near Apple Park for developers arriving for the week.",
     "websiteURL": "https://www.eventbrite.com/e/apple-park-happy-hour-tickets-1986822959957",
     "logoURL": null,
-    "tags": ["wwdc", "community"]
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "pre-wwdc-gathering-san-pedro-2026",
+    "kind": "Event",
+    "name": "Pre-WWDC26 Gathering at San Pedro Square",
+    "startDate": "2026-06-06",
+    "endDate": "2026-06-06",
+    "locationName": "San Jose, California, USA",
+    "mapQuery": "San Pedro Square Patio, San Jose, California",
+    "summary": "Pre-WWDC patio meetup in downtown San Jose the day before community events kick off in Cupertino.",
+    "websiteURL": "https://luma.com/trtbdihd",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-run-2026",
+    "kind": "Event",
+    "name": "WWDC Run",
+    "startDate": "2026-06-06",
+    "endDate": "2026-06-06",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Saturday morning community run kicking off WWDC week for developers gathering in Cupertino.",
+    "websiteURL": "https://luma.com/wwdc26-run",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "tryswift-nomikai-wwdc-2026",
+    "kind": "Event",
+    "name": "try! Swift WWDC Nomikai",
+    "startDate": "2026-06-06",
+    "endDate": "2026-06-06",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Japanese-style developer social hosted by try! Swift on WWDC eve weekend.",
+    "websiteURL": "https://luma.com/oha511rl",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "swift"
+    ]
   },
   {
     "id": "communitykit-2026",
@@ -88,7 +143,27 @@
     "summary": "Six days of community meetups, podcasts, workshops, an indie fair and WWDC watch parties held alongside WWDC.",
     "websiteURL": "https://communitykit.social",
     "logoURL": "https://raw.githubusercontent.com/community-kit/CommunityKitSite/refs/heads/main/img/og-image.png",
-    "tags": ["ios", "swift", "community"]
+    "tags": [
+      "ios",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdcscholars-meetup-2026",
+    "kind": "Event",
+    "name": "#WWDCScholars Meetup at WWDC26",
+    "startDate": "2026-06-07",
+    "endDate": "2026-06-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Annual gathering of past and present Apple Swift Student Challenge / Scholarship recipients.",
+    "websiteURL": "https://www.tickettailor.com/events/wwdcscholars/2143164",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
   },
   {
     "id": "core-coffee-wwdc-sunday-2026",
@@ -101,7 +176,27 @@
     "summary": "Sunday-morning coffee meetup for Apple-platform developers on the eve of the WWDC keynote.",
     "websiteURL": "https://luma.com/gs91csm9",
     "logoURL": null,
-    "tags": ["wwdc", "community", "swift"]
+    "tags": [
+      "wwdc",
+      "community",
+      "swift"
+    ]
+  },
+  {
+    "id": "cupertino-wwdc-bulusmasi-2026",
+    "kind": "Event",
+    "name": "Cupertino WWDC26 Buluşması",
+    "startDate": "2026-06-07",
+    "endDate": "2026-06-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Turkish-speaking developer meetup in Cupertino on the eve of WWDC.",
+    "websiteURL": "https://luma.com/67ejicon",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
   },
   {
     "id": "revenuecat-pre-wwdc-bashcade-2026",
@@ -114,7 +209,95 @@
     "summary": "Pre-WWDC arcade and developer social hosted by RevenueCat on keynote eve.",
     "websiteURL": "https://luma.com/jhm03vgs",
     "logoURL": null,
-    "tags": ["wwdc", "community", "ios"]
+    "tags": [
+      "wwdc",
+      "community",
+      "ios"
+    ]
+  },
+  {
+    "id": "ctrl-alt-run-wwdc-2026",
+    "kind": "Event",
+    "name": "Run & Walk Meetup with Ctrl+Alt+Run",
+    "startDate": "2026-06-07",
+    "endDate": "2026-06-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Sunday morning run and walk meetup for WWDC attendees and locals.",
+    "websiteURL": "https://luma.com/61dpw1up",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "step-into-vision-coffee-2026",
+    "kind": "Event",
+    "name": "Step Into Vision — Coffee Meetup at Philz",
+    "startDate": "2026-06-07",
+    "endDate": "2026-06-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Coffee meetup for Vision Pro and spatial-computing developers ahead of WWDC week.",
+    "websiteURL": "https://luma.com/3jsjkshu",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "visionos",
+      "community"
+    ]
+  },
+  {
+    "id": "ai-night-wwdc-2026",
+    "kind": "Event",
+    "name": "The AI Night at WWDC26",
+    "startDate": "2026-06-07",
+    "endDate": "2026-06-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Evening meetup for developers working at the intersection of Apple platforms and AI.",
+    "websiteURL": "https://luma.com/ai-night-wwdc-26",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "ai",
+      "community"
+    ]
+  },
+  {
+    "id": "communitykit-inclusive-by-design-2026",
+    "kind": "Event",
+    "name": "Workshop: Inclusive by Design",
+    "startDate": "2026-06-07",
+    "endDate": "2026-06-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Inclusive-design workshop for Apple-platform developers at CommunityKit.",
+    "websiteURL": "https://luma.com/e8rw6fri",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "accessibility"
+    ]
+  },
+  {
+    "id": "communitykit-write-faster-swift-2026",
+    "kind": "Event",
+    "name": "Workshop: Write Faster, Smarter Swift",
+    "startDate": "2026-06-07",
+    "endDate": "2026-06-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Free Swift performance workshop hosted at CommunityKit.",
+    "websiteURL": "https://luma.com/nvgsjp74",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "swift"
+    ]
   },
   {
     "id": "wwdc-2026",
@@ -127,7 +310,91 @@
     "summary": "Apple's annual Worldwide Developers Conference. Keynote, Platforms State of the Union, sessions and labs covering all Apple platforms.",
     "websiteURL": "https://developer.apple.com/wwdc/",
     "logoURL": "https://developer.apple.com/apple-touch-icon.png",
-    "tags": ["apple", "ios", "swift"]
+    "tags": [
+      "apple",
+      "ios",
+      "swift"
+    ]
+  },
+  {
+    "id": "wwdc-watch-amstelveen-2026",
+    "kind": "Event",
+    "name": "CocoaHeadsNL Keynote Meetup @ ABN AMRO",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Amstelveen, Netherlands",
+    "mapQuery": "Amstelveen, Netherlands",
+    "summary": "CocoaHeadsNL keynote watch at ABN AMRO.",
+    "websiteURL": "https://www.meetup.com/nl-NL/cocoaheadsnl/events/314073078/",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-conscious-engines-blr-2026",
+    "kind": "Event",
+    "name": "Conscious Engines WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Bengaluru, India",
+    "mapQuery": "Bengaluru, India",
+    "summary": "Conscious Engines keynote watch party in Bengaluru.",
+    "websiteURL": "https://luma.com/1iiwmnkx",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-tokyo-2026",
+    "kind": "Event",
+    "name": "Extended Tokyo — WWDC 2026",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Tokyo, Japan",
+    "mapQuery": "Tokyo, Japan",
+    "summary": "LY Corp-hosted extended keynote watch in Tokyo.",
+    "websiteURL": "https://lycorptech-jp.connpass.com/event/392383/",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "french-wwdinner-2026",
+    "kind": "Event",
+    "name": "French-Speaking Community Gathering (WWDinner)",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Dinner meetup for the French-speaking Apple developer community at WWDC.",
+    "websiteURL": "https://luma.com/wwdc26-french-gathering",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-helsinki-2026",
+    "kind": "Event",
+    "name": "Helsinki WWDC Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Helsinki, Finland",
+    "mapQuery": "Helsinki, Finland",
+    "summary": "HelsinkiOS keynote watch party.",
+    "websiteURL": "https://www.meetup.com/helsinkios-mac-and-ios-developers/events/314896846/",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
   },
   {
     "id": "communitykit-keynote-watch-2026",
@@ -140,20 +407,26 @@
     "summary": "Watch the WWDC keynote together with iOSDevHappyHour and the CommunityKit crowd.",
     "websiteURL": "https://communitykit.social",
     "logoURL": null,
-    "tags": ["wwdc", "community"]
+    "tags": [
+      "wwdc",
+      "community"
+    ]
   },
   {
-    "id": "wwdc-watch-cologne-2026",
+    "id": "wwdc-watch-istanbul-2026",
     "kind": "Event",
-    "name": "WWDC 2026 Watch Party Cologne",
+    "name": "NSIstanbul WWDC2026 Seyir Partisi",
     "startDate": "2026-06-08",
     "endDate": "2026-06-08",
-    "locationName": "Cologne, Germany",
-    "mapQuery": "Cologne, Germany",
-    "summary": "CocoaHeads Cologne keynote watch party — stream the WWDC opener with local devs.",
-    "websiteURL": "https://www.meetup.com/de-DE/cocoaheads-cologne/events/314303588/",
+    "locationName": "Istanbul, Turkey",
+    "mapQuery": "Istanbul, Turkey",
+    "summary": "NSIstanbul keynote watch party.",
+    "websiteURL": "https://kommunity.com/nsistanbul/events/wwdc2026-seyir-partisi-nsistanbul-0b284821",
     "logoURL": null,
-    "tags": ["wwdc", "community"]
+    "tags": [
+      "wwdc",
+      "community"
+    ]
   },
   {
     "id": "wwdc-watch-london-2026",
@@ -166,7 +439,75 @@
     "summary": "NSLondon hosts a community keynote viewing for the WWDC 2026 opener.",
     "websiteURL": "https://www.meetup.com/nslondon/events/314110467",
     "logoURL": null,
-    "tags": ["wwdc", "community"]
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-manchester-2026",
+    "kind": "Event",
+    "name": "NSManchester WWDC 2026 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Manchester, United Kingdom",
+    "mapQuery": "Manchester, United Kingdom",
+    "summary": "NSManchester keynote watch party.",
+    "websiteURL": "https://www.meetup.com/nsmanchester/events/rpwfrsyjcjbcb",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "communitykit-sotu-watch-2026",
+    "kind": "Event",
+    "name": "SOTU Watch Party at CommunityKit",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Watch Apple's Platforms State of the Union with the CommunityKit crowd.",
+    "websiteURL": "https://communitykit.social",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "students-swift-stars-2026",
+    "kind": "Event",
+    "name": "Students, Swift, Stars",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Student-focused Swift community evening during WWDC week.",
+    "websiteURL": "https://luma.com/28tkgxwv",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "swift"
+    ]
+  },
+  {
+    "id": "wwdc-watch-ahmedabad-2026",
+    "kind": "Event",
+    "name": "Swift Ahmedabad WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Ahmedabad, India",
+    "mapQuery": "Ahmedabad, India",
+    "summary": "Swift Ahmedabad keynote watch party.",
+    "websiteURL": "https://luma.com/b08evqjf",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
   },
   {
     "id": "wwdc-watch-barcelona-2026",
@@ -179,7 +520,482 @@
     "summary": "Swift Barcelona keynote watch party for local developers gathering in person.",
     "websiteURL": "https://www.meetup.com/swiftbarcelona/events/314816865/",
     "logoURL": null,
-    "tags": ["wwdc", "community", "swift"]
+    "tags": [
+      "wwdc",
+      "community",
+      "swift"
+    ]
+  },
+  {
+    "id": "wwdc-watch-swift-bengaluru-2026",
+    "kind": "Event",
+    "name": "Swift Bengaluru WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Bengaluru, India",
+    "mapQuery": "Bengaluru, India",
+    "summary": "Swift Bengaluru keynote watch party.",
+    "websiteURL": "https://luma.com/kur60w7l",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-chennai-2026",
+    "kind": "Event",
+    "name": "Swift Chennai WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Chennai, India",
+    "mapQuery": "Chennai, India",
+    "summary": "Swift Chennai keynote watch party.",
+    "websiteURL": "https://luma.com/q86j02km",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-delhi-2026",
+    "kind": "Event",
+    "name": "Swift Delhi WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Delhi, India",
+    "mapQuery": "Delhi, India",
+    "summary": "Swift Delhi keynote watch party.",
+    "websiteURL": "https://luma.com/flgblcpd",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-graz-2026",
+    "kind": "Event",
+    "name": "Swift Graz WWDC 26 Keynote Watch",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Graz, Austria",
+    "mapQuery": "Graz, Austria",
+    "summary": "Swift Graz keynote watch party.",
+    "websiteURL": "https://www.meetup.com/swift-graz/events/314561120/",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-mumbai-2026",
+    "kind": "Event",
+    "name": "Swift Mumbai WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Mumbai, India",
+    "mapQuery": "Mumbai, India",
+    "summary": "Swift Mumbai keynote watch party.",
+    "websiteURL": "https://luma.com/ct1h2pul",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-davao-2026",
+    "kind": "Event",
+    "name": "SwiftPH Davao WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Davao, Philippines",
+    "mapQuery": "Davao, Philippines",
+    "summary": "SwiftPH keynote watch party in Davao.",
+    "websiteURL": "https://luma.com/gf2kx2qo",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-manila-2026",
+    "kind": "Event",
+    "name": "SwiftPH Manila WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Manila, Philippines",
+    "mapQuery": "Manila, Philippines",
+    "summary": "SwiftPH keynote watch party in Manila.",
+    "websiteURL": "https://luma.com/rywfa41u",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-surat-2026",
+    "kind": "Event",
+    "name": "SwiftSurat WWDC26 Watch Party",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Surat, India",
+    "mapQuery": "Surat, India",
+    "summary": "SwiftSurat keynote watch party.",
+    "websiteURL": "https://luma.com/kgspe1yk",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-amsterdam-2026",
+    "kind": "Event",
+    "name": "WWDC 2026 Watch Party @ Booking.com HQ",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Amsterdam, Netherlands",
+    "mapQuery": "Amsterdam, Netherlands",
+    "summary": "Booking.com-hosted keynote watch party in Amsterdam.",
+    "websiteURL": "https://luma.com/143q1t0y",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-cologne-2026",
+    "kind": "Event",
+    "name": "WWDC 2026 Watch Party Cologne",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Cologne, Germany",
+    "mapQuery": "Cologne, Germany",
+    "summary": "CocoaHeads Cologne keynote watch party — stream the WWDC opener with local devs.",
+    "websiteURL": "https://www.meetup.com/de-DE/cocoaheads-cologne/events/314303588/",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-copenhagen-2026",
+    "kind": "Event",
+    "name": "WWDC 2026 Watch Party Copenhagen",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Copenhagen, Denmark",
+    "mapQuery": "Copenhagen, Denmark",
+    "summary": "Framna-hosted keynote livestream in Copenhagen.",
+    "websiteURL": "https://framna.com/events/wwdc-2026-livestream-copenhagen",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-utah-2026",
+    "kind": "Event",
+    "name": "WWDC 2026 Watch Party Utah",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Lehi, Utah, USA",
+    "mapQuery": "Lehi, Utah",
+    "summary": "Utah iOS & Mac developer community keynote watch party.",
+    "websiteURL": "https://www.meetup.com/utah-ios-and-mac-developers/events/314877056/",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-sofia-2026",
+    "kind": "Event",
+    "name": "WWDC26 Keynote Watch Party Sofia",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-08",
+    "locationName": "Sofia, Bulgaria",
+    "mapQuery": "Sofia, Bulgaria",
+    "summary": "Sofia community keynote watch party.",
+    "websiteURL": "https://luma.com/vqlsr5dv",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-beijing-2026",
+    "kind": "Event",
+    "name": "WWDC26.Playground Beijing",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Beijing, China",
+    "mapQuery": "Beijing, China",
+    "summary": "SwiftGG keynote watch party in Beijing.",
+    "websiteURL": "https://wwdc.swiftgg.team",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-guangzhou-2026",
+    "kind": "Event",
+    "name": "WWDC26.Playground Guangzhou",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Guangzhou, China",
+    "mapQuery": "Guangzhou, China",
+    "summary": "SwiftGG keynote watch party in Guangzhou.",
+    "websiteURL": "https://sspai.com/item/468",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-hangzhou-2026",
+    "kind": "Event",
+    "name": "WWDC26.Playground Hangzhou",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Hangzhou, China",
+    "mapQuery": "Hangzhou, China",
+    "summary": "SwiftGG keynote watch party in Hangzhou.",
+    "websiteURL": "https://startlink.feishu.cn/share/base/form/shrcnCTw8NckrwO8vE5wg4UGgre",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-qingdao-2026",
+    "kind": "Event",
+    "name": "WWDC26.Playground Qingdao",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Qingdao, China",
+    "mapQuery": "Qingdao, China",
+    "summary": "SwiftGG keynote watch party in Qingdao.",
+    "websiteURL": "https://wwdc.swiftgg.team/qingdao",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-shanghai-2026",
+    "kind": "Event",
+    "name": "WWDC26.Playground Shanghai",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Shanghai, China",
+    "mapQuery": "Shanghai, China",
+    "summary": "SwiftGG keynote watch party in Shanghai.",
+    "websiteURL": "https://event.swiftgg.team/register/activity/wwdc26",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc-watch-shenzhen-2026",
+    "kind": "Event",
+    "name": "WWDC26.Playground Shenzhen",
+    "startDate": "2026-06-08",
+    "endDate": "2026-06-09",
+    "locationName": "Shenzhen, China",
+    "mapQuery": "Shenzhen, China",
+    "summary": "SwiftGG keynote watch party in Shenzhen.",
+    "websiteURL": "https://sspai.com/item/467",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "app-money-lunch-club-2026",
+    "kind": "Event",
+    "name": "App Money Lunch Club",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "RevenueCat-hosted lunch for indie devs and app monetization founders at CommunityKit.",
+    "websiteURL": "https://luma.com/vv8rdeci",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "indie"
+    ]
+  },
+  {
+    "id": "apple-intelligence-automators-2026",
+    "kind": "Event",
+    "name": "Apple Intelligence Automators Meetup",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Meetup for developers automating with Apple Intelligence and Shortcuts.",
+    "websiteURL": "https://luma.com/dnpnqonr",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "ai",
+      "community"
+    ]
+  },
+  {
+    "id": "beer-with-swift-wwdc-2026",
+    "kind": "Event",
+    "name": "Beer with Swift @ WWDC26",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Evening Swift community meetup hosted by Create with Swift.",
+    "websiteURL": "https://luma.com/y95acvdw",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "indie-dev-meetup-wwdc-2026",
+    "kind": "Event",
+    "name": "Indie Developer Meetup",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Indie developer meetup at CommunityKit during WWDC week.",
+    "websiteURL": "https://luma.com/9rgkw05a",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "indie"
+    ]
+  },
+  {
+    "id": "wwdc-watch-melbourne-2026",
+    "kind": "Event",
+    "name": "Melbourne Indie Devs WWDC26 Watch Party",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Mitcham, Victoria, Australia",
+    "mapQuery": "Mitcham, Victoria, Australia",
+    "summary": "Indie-dev keynote watch party in greater Melbourne.",
+    "websiteURL": "https://luma.com/bx77prmp",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "revenuecat-mansionparty-2026",
+    "kind": "Event",
+    "name": "RevenueCat Mansionparty: WWDC Edition",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "RevenueCat's signature WWDC afternoon-to-evening party.",
+    "websiteURL": "https://luma.com/mjoh0kzy",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "step-into-vision-meetup-2026",
+    "kind": "Event",
+    "name": "Step Into Vision — Apple Vision Pro Meetup",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Vision Pro developer meetup at CommunityKit during WWDC week.",
+    "websiteURL": "https://luma.com/kdqxj5nq",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "visionos",
+      "community"
+    ]
+  },
+  {
+    "id": "the-interface-wwdc-2026",
+    "kind": "Event",
+    "name": "The Interface WWDC26",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Designer-and-developer meetup hosted by Tamia James during WWDC week.",
+    "websiteURL": "https://luma.com/j7hmf0gm",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "design",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdcwomen-breakfast-2026",
+    "kind": "Event",
+    "name": "WWDCWomen Get Together Breakfast",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Morning gathering for women and non-binary devs at CommunityKit.",
+    "websiteURL": "https://luma.com/xz8lx6c1",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "whats-new-in-ios27-2026",
+    "kind": "Event",
+    "name": "What's New in iOS 27",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Community session unpacking the iOS 27 announcements at CommunityKit.",
+    "websiteURL": "https://luma.com/bwg9eoer",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "ios",
+      "community"
+    ]
   },
   {
     "id": "iosdevhappyhour-wwdc-irl-2026",
@@ -192,7 +1008,11 @@
     "summary": "In-person edition of the long-running iOSDevHappyHour during WWDC week.",
     "websiteURL": "https://idhhwwdc26irl.eventbrite.com",
     "logoURL": null,
-    "tags": ["wwdc", "community", "ios"]
+    "tags": [
+      "wwdc",
+      "community",
+      "ios"
+    ]
   },
   {
     "id": "apple-dev-community-meetup-2026",
@@ -205,7 +1025,292 @@
     "summary": "Evening community gathering at the Apple Developer Center in Cupertino during WWDC.",
     "websiteURL": "https://developer.apple.com/events/view/8D4G7DD8LR/dashboard",
     "logoURL": null,
-    "tags": ["wwdc", "apple", "community"]
+    "tags": [
+      "wwdc",
+      "apple",
+      "community"
+    ]
+  },
+  {
+    "id": "core-coffee-breakfast-trivia-2026",
+    "kind": "Event",
+    "name": "Community Breakfast & Trivia with Core Coffee",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Breakfast and trivia with the Core Coffee crew at CommunityKit.",
+    "websiteURL": "https://luma.com/afu4pnbp",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "container-install-meetup-2026",
+    "kind": "Event",
+    "name": "Container Install Meetup",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Hands-on meetup focused on Apple's new Container support at CommunityKit.",
+    "websiteURL": "https://luma.com/rh1k2tpy",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "communitykit-indie-fair-2026",
+    "kind": "Event",
+    "name": "Indie Fair at CommunityKit",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Indie developer expo and demo afternoon at CommunityKit.",
+    "websiteURL": "https://communitykit.social",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "indie"
+    ]
+  },
+  {
+    "id": "launched-live-2026",
+    "kind": "Event",
+    "name": "Launched LIVE",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Live recording of the Launched podcast at CommunityKit.",
+    "websiteURL": "https://luma.com/dxme2hiw",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "indie"
+    ]
+  },
+  {
+    "id": "make-it-visible-a11y-2026",
+    "kind": "Event",
+    "name": "Make It Visible: Accessibility Meetup",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Accessibility-focused community meetup at CommunityKit.",
+    "websiteURL": "https://luma.com/ro48u8fw",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "accessibility",
+      "community"
+    ]
+  },
+  {
+    "id": "meet-tryswift-2026",
+    "kind": "Event",
+    "name": "Meet try!Swift",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Drop-in session to meet the try!Swift organizers and community at CommunityKit.",
+    "websiteURL": "https://luma.com/1vi0u421",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "swift-contributor-social-2026",
+    "kind": "Event",
+    "name": "Swift Contributor Social",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Bowlmor Cupertino, California",
+    "summary": "Bowling social for Swift open-source contributors at Bowlmor Cupertino.",
+    "websiteURL": "https://luma.com/f6ss3sa8",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "tim-cookout-2026",
+    "kind": "Event",
+    "name": "Tim Cookout",
+    "startDate": "2026-06-10",
+    "endDate": "2026-06-10",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Superwall's annual WWDC cookout for the Apple developer community.",
+    "websiteURL": "https://luma.com/superwall-cookout",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community",
+      "indie"
+    ]
+  },
+  {
+    "id": "aios-meetup-2026",
+    "kind": "Event",
+    "name": "AiOS Meetup",
+    "startDate": "2026-06-11",
+    "endDate": "2026-06-11",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Meetup for developers shipping AI features on iOS, at CommunityKit.",
+    "websiteURL": "https://luma.com/ju8j7vtp",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "ai",
+      "ios"
+    ]
+  },
+  {
+    "id": "bitrig-bash-2026",
+    "kind": "Event",
+    "name": "Bitrig Bash",
+    "startDate": "2026-06-11",
+    "endDate": "2026-06-11",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "WWDC-week party hosted by the Bitrig community.",
+    "websiteURL": "https://luma.com/hbytg7n8",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "code-crawl-2026",
+    "kind": "Event",
+    "name": "Code Crawl",
+    "startDate": "2026-06-11",
+    "endDate": "2026-06-11",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Afternoon code crawl through Cupertino, organised at CommunityKit.",
+    "websiteURL": "https://luma.com/n8qyff6o",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "core-coffee-thursday-2026",
+    "kind": "Event",
+    "name": "Core Coffee — WWDC Thursday",
+    "startDate": "2026-06-11",
+    "endDate": "2026-06-11",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Late-week Core Coffee meetup during WWDC.",
+    "websiteURL": "https://luma.com/bchvtekz",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "james-dempsey-breakpoints-2026",
+    "kind": "Event",
+    "name": "James Dempsey and the Breakpoints — LIVE",
+    "startDate": "2026-06-11",
+    "endDate": "2026-06-11",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Live concert near WWDC by James Dempsey and the Breakpoints.",
+    "websiteURL": "https://www.eventbrite.com/e/james-dempsey-and-the-breakpoints-live-near-wwdc-concert-2026-tickets-1989917468716",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "swift-small-talks-2026",
+    "kind": "Event",
+    "name": "Swift Small Talks",
+    "startDate": "2026-06-11",
+    "endDate": "2026-06-11",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Lightning-talk session for the Swift community at CommunityKit.",
+    "websiteURL": "https://luma.com/b6ck33g9",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "vapor-at-wwdc-2026",
+    "kind": "Event",
+    "name": "Vapor @ WWDC",
+    "startDate": "2026-06-11",
+    "endDate": "2026-06-11",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Server-side Swift meetup hosted by the Vapor team at CommunityKit.",
+    "websiteURL": "https://luma.com/49kh9w32",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "feedback-friday-2026",
+    "kind": "Event",
+    "name": "Feedback Friday",
+    "startDate": "2026-06-12",
+    "endDate": "2026-06-12",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Closing-day feedback and reflection session at CommunityKit.",
+    "websiteURL": "https://luma.com/9z7as4f6",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "make-something-ship-nothing-2026",
+    "kind": "Event",
+    "name": "Make Something, Ship Nothing",
+    "startDate": "2026-06-12",
+    "endDate": "2026-06-12",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "Closing-day make session — build for fun, don't ship — at CommunityKit.",
+    "websiteURL": "https://luma.com/rd474f8x",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
+      "community"
+    ]
   },
   {
     "id": "swift-rockies-2026",
@@ -218,20 +1323,11 @@
     "summary": "Retreat-style iOS conference in the Canadian Rockies with single-track talks, round-tables and hands-on sessions.",
     "websiteURL": "https://swiftrockies.com",
     "logoURL": "https://swiftrockies.com/assets/social-share-card.png",
-    "tags": ["ios", "swift", "swiftui"]
-  },
-  {
-    "id": "iosdevuk-2026",
-    "kind": "Conference",
-    "name": "iOSDevUK",
-    "startDate": "2026-09-07",
-    "endDate": "2026-09-10",
-    "locationName": "Aberystwyth, UK",
-    "mapQuery": "Aberystwyth University, Aberystwyth, Wales, UK",
-    "summary": "Long-running, community-driven UK iOS conference combining workshops, talks and shared accommodation in coastal Wales.",
-    "websiteURL": "https://www.iosdevuk.com",
-    "logoURL": "https://static1.squarespace.com/static/59ccb76390badefdc24cee2e/t/6954faf23f4b3e6c55defb03/1767176946378/SiteBanner-GoldBackground-DeviceImage.png?format=1500w",
-    "tags": ["ios", "swift", "community"]
+    "tags": [
+      "ios",
+      "swift",
+      "swiftui"
+    ]
   },
   {
     "id": "swift-island-2026",
@@ -244,7 +1340,28 @@
     "summary": "Exclusive island-based Swift conference on Texel built around small, hands-on WWDC workshops with expert mentors.",
     "websiteURL": "https://swiftisland.nl",
     "logoURL": "https://framerusercontent.com/images/qVsXCRdVU8lIeMVkkmGqTdSOwZU.jpg",
-    "tags": ["swift", "ios", "community"]
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
+    "id": "iosdevuk-2026",
+    "kind": "Conference",
+    "name": "iOSDevUK",
+    "startDate": "2026-09-07",
+    "endDate": "2026-09-10",
+    "locationName": "Aberystwyth, UK",
+    "mapQuery": "Aberystwyth University, Aberystwyth, Wales, UK",
+    "summary": "Long-running, community-driven UK iOS conference combining workshops, talks and shared accommodation in coastal Wales.",
+    "websiteURL": "https://www.iosdevuk.com",
+    "logoURL": "https://static1.squarespace.com/static/59ccb76390badefdc24cee2e/t/6954faf23f4b3e6c55defb03/1767176946378/SiteBanner-GoldBackground-DeviceImage.png?format=1500w",
+    "tags": [
+      "ios",
+      "swift",
+      "community"
+    ]
   },
   {
     "id": "swiftleeds-2026",
@@ -257,7 +1374,11 @@
     "summary": "Community-run, non-profit Swift conference at Leeds Playhouse with talks, drop-in expert sessions and an evening talkshow.",
     "websiteURL": "https://swiftleeds.co.uk",
     "logoURL": "https://swiftleeds.co.uk/img/logo.png",
-    "tags": ["swift", "ios", "community"]
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
   },
   {
     "id": "swift-connection-2026",
@@ -270,7 +1391,11 @@
     "summary": "Tenth-edition Paris conference for the Swift and Apple platforms community, focused on practical talks and conversations.",
     "websiteURL": "https://swiftconnection.io",
     "logoURL": "https://swiftconnection.io/static/c7d63e77c83a2e3734e24fda2934cdb3/badge.png",
-    "tags": ["swift", "ios", "community"]
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
   },
   {
     "id": "do-ios-2026",
@@ -283,7 +1408,11 @@
     "summary": "Eighth edition of Amsterdam's iOS conference: a day of workshops followed by two days of talks at the Nemo Science Museum.",
     "websiteURL": "https://do-ios.com",
     "logoURL": "https://do-ios.com/images/card.png?v=2026",
-    "tags": ["ios", "swift", "community"]
+    "tags": [
+      "ios",
+      "swift",
+      "community"
+    ]
   },
   {
     "id": "swift-bharat-2026",
@@ -296,7 +1425,11 @@
     "summary": "India's first international Apple developer conference: two days of Swift, SwiftUI and Apple-platform talks in Mumbai.",
     "websiteURL": "https://www.swiftbharat.org",
     "logoURL": "https://www.swiftbharat.org/og-image.jpg",
-    "tags": ["swift", "ios", "community"]
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
   },
   {
     "id": "swiftsonic-2026",
@@ -309,7 +1442,11 @@
     "summary": "Community-driven Swift and iOS conference in Nashville blending technical sessions with music-festival energy.",
     "websiteURL": "https://swiftsonicconf.com",
     "logoURL": "https://swiftsonicconf.com/swiftsonic.png",
-    "tags": ["swift", "ios", "swiftui"]
+    "tags": [
+      "swift",
+      "ios",
+      "swiftui"
+    ]
   },
   {
     "id": "iosconf-sg-2027",
@@ -322,7 +1459,11 @@
     "summary": "Singapore's flagship iOS developer conference featuring international speakers across Apple platform topics.",
     "websiteURL": "https://www.iosconf.sg",
     "logoURL": "https://iosconf.sg/feature.png",
-    "tags": ["ios", "swift", "general"]
+    "tags": [
+      "ios",
+      "swift",
+      "general"
+    ]
   },
   {
     "id": "arctic-conference-2027",
@@ -335,6 +1476,10 @@
     "summary": "The world's northernmost Apple developers' conference, covering iOS, macOS, visionOS, watchOS, iPadOS and tvOS.",
     "websiteURL": "https://arcticonference.com",
     "logoURL": null,
-    "tags": ["ios", "macos", "visionos"]
+    "tags": [
+      "ios",
+      "macos",
+      "visionos"
+    ]
   }
 ]
