@@ -65,6 +65,7 @@ Top-level Views that represent a tab root or pushed destination.
 | `ConferenceListView` | `Features/ConferenceList/Views/ConferenceListView.swift` | ConferenceList | `ConferenceListViewModel` | Used by both Conferences and Favourites tabs via `init(filter:)`. Hosts `.searchable`, `.refreshable`, filter `Menu`, and the `navigationDestination(for: Route.self)`. |
 | `ConferenceDetailView` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | ConferenceDetail | `ConferenceDetailViewModel` | List-based detail with full-bleed hero, title block, When/Where, About, Actions sections. |
 | `SettingsView` | `Features/Settings/Views/SettingsView.swift` | Settings | `SettingsViewModel` | `Form` with sections: prominent tip CTA (no header), Support, Contribute, Display, About. |
+| `AcknowledgementsView` | `Features/Settings/Views/AcknowledgementsView.swift` | Settings | — | Pushed from Settings via `NavigationLink`. List of credits; each row opens its URL in a `SafariView` sheet. |
 | `SuggestConferenceView` | `Features/SuggestConference/Views/SuggestConferenceView.swift` | SuggestConference | `SuggestConferenceViewModel` | Sheet form. `.safeAreaInset(.bottom)` stacks primary "Email suggestion" + secondary "Submit as GitHub Issue instead". |
 
 ---

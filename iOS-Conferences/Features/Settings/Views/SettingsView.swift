@@ -34,12 +34,6 @@ struct SettingsView: View {
                 )
                 .ignoresSafeArea()
             }
-            .sheet(isPresented: $bindable.isShowingTwoStrawsAck) {
-                if let url = URL(string: "https://github.com/twostraws/wwdc") {
-                    SafariView(url: url)
-                        .ignoresSafeArea()
-                }
-            }
         }
     }
 
@@ -84,11 +78,11 @@ struct SettingsView: View {
 
     @ViewBuilder
     private var acknowledgementsSection: some View {
-        Section("Acknowledgements") {
-            Button {
-                viewModel.isShowingTwoStrawsAck = true
+        Section {
+            NavigationLink {
+                AcknowledgementsView()
             } label: {
-                Label("twostraws/wwdc", systemImage: "heart")
+                Label("Acknowledgements", systemImage: "heart")
             }
         }
     }
