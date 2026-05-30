@@ -1,5 +1,5 @@
-name: Conference Request
-description: Suggest a new iOS / Apple-platform developer conference for the app.
+name: Conference / Event Request
+description: Suggest a new iOS / Apple-platform conference, watch party, or community event for the app.
 title: "Conference: "
 labels: ["conference-suggestion"]
 body:
@@ -8,11 +8,24 @@ body:
       value: |
         Thanks for adding to the list! Most fields are optional, but **Name** and **Website URL** are required. If you submitted this from inside the iOS app, the fields below will already be filled in for you.
 
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      description: What is this entry? Pick "Watch Party" specifically for a group keynote / SOTU stream — anything else community-flavoured is an Event.
+      options:
+        - Conference
+        - Watch Party
+        - Event
+      default: 0
+    validations:
+      required: true
+
   - type: input
     id: name
     attributes:
       label: Name
-      description: The conference's display name.
+      description: The display name.
       placeholder: "e.g. try! Swift Tokyo"
     validations:
       required: true
@@ -65,7 +78,7 @@ body:
     id: tags
     attributes:
       label: Tags (optional)
-      description: Comma-separated topical tags. Pick from `swift`, `ios`, `macos`, `visionos`, `watchos`, `swiftui`, `server`, `ai`, `general`, `community`.
+      description: Comma-separated topical tags. Pick from `community`, `wwdc`, `swift`, `ios`, `ai`, `indie`, `visionos`, `accessibility`, `swiftui`, `macos`, `apple`, `design`, `general`.
       placeholder: "swift, ios, community"
 
   - type: input

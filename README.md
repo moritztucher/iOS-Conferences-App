@@ -6,18 +6,18 @@ Home-screen name: **dubdub**. App Store listing: **dubdub - Conferences & Events
 
 Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. Designed to feel like an extension of the Apple ecosystem: stock components, system integrations, no custom design language.
 
-> Status: pre-release. 15 confirmed 2026/2027 conferences are bundled into the app for offline-safe first launch, and a live JSON feed in this repo keeps the list fresh. App Store submission is the next gate.
+> Status: pre-release. 19 conferences for 2026/2027 plus 70+ surrounding events (community meetups, WWDC week, keynote watch parties) are tracked, with the first batch bundled into the app for offline-safe first launch and a live JSON feed in this repo keeping the list fresh. App Store submission is the next gate.
 
 ## What it does
 
-- **Browse** every upcoming Apple-platform conference, grouped by month.
-- **Filter** by format (All / In person / Online) or include past events.
-- **Search** by name, location, or tag (`swift`, `visionos`, `community`, …).
-- **Favourite** conferences you're considering — stored locally, no account needed.
+- **Browse** every upcoming Apple-platform conference, watch party, and community event, grouped by month.
+- **Filter** by kind (Conferences / Watch Parties / Events), format (In person / Online), and toggle past entries on or off.
+- **Search** by name, location, or tag (`swift`, `wwdc`, `visionos`, `community`, …).
+- **Favourite** entries you're considering — stored locally, no account needed.
 - **Add to calendar** with the system event editor (`EKEventEditViewController`) — you pick the calendar, alerts, notes.
 - **Open the website** in an in-app Safari view.
 - **Tap a location** to open Apple Maps with a pin on the venue.
-- **Share a conference** via the system share sheet.
+- **Share** any entry via the system share sheet.
 - **Suggest a conference** — primary path emails the developer a structured form; secondary path opens a pre-filled GitHub Issue.
 - **Rate the app** and **contact the developer** from Settings.
 
@@ -27,9 +27,9 @@ There is no canonical, frictionless place to see what's happening across the iOS
 
 This app is the smallest possible bet on a different shape: a single, community-maintained list that lives where you'll actually look at it — on your phone.
 
-- **Open data.** The list lives as a plain JSON file in this repo at [`data/conferences.json`](./data/conferences.json). Anyone can correct or extend it.
+- **Open data.** The list — conferences, watch parties, and the events around them — lives as a plain JSON file in this repo at [`data/conferences.json`](./data/conferences.json). Anyone can correct or extend it.
 - **No backend.** No servers, no logins, no telemetry. The app ships with the data bundled for instant first launch, then fetches the JSON file from this repo on every refresh and caches it locally for offline use.
-- **One-time tip, never a subscription.** If the app saves you time, you can buy the developer a coffee. That's it — no ads, no upsells.
+- **Free, forever.** No ads, no subscriptions, no in-app purchases.
 
 If you run a conference, organise a meetup, or just spotted something missing — please contribute. No conference is too small, no PR too short. First time submitting to an open-source project? Even better — we'll help.
 
@@ -41,19 +41,25 @@ If you run a conference, organise a meetup, or just spotted something missing �
 | try! Swift Tokyo | Apr 12–14, 2026 | Tokyo, Japan |
 | Deep Dish Swift 2026 | Apr 12–14, 2026 | Rosemont, IL, USA |
 | iOSKonf26 | May 4–6, 2026 | Skopje, North Macedonia |
+| Swift Craft 2026 | May 18–20, 2026 | Folkestone, UK |
 | CommunityKit | Jun 7–12, 2026 | Cupertino, CA, USA |
 | WWDC 2026 | Jun 8–12, 2026 | Cupertino, CA, USA |
 | Swift Rockies | Jul 22–23, 2026 | Calgary, Canada |
 | iOSDevUK | Sep 7–10, 2026 | Aberystwyth, UK |
 | Swift Island | Sep 7–11, 2026 | Texel, Netherlands |
+| NSSpain XIV | Sep 16–18, 2026* | Logroño, Spain |
+| swiftCon Berlin 2026 | Oct 7–9, 2026 | Berlin, Germany |
 | SwiftLeeds | Oct 13–14, 2026 | Leeds, UK |
 | Swift Connection X | Nov 2–3, 2026 | Paris, France |
 | Do iOS 2026 | Nov 10–12, 2026 | Amsterdam, Netherlands |
+| Swift Bharat 2026 | Nov 19–20, 2026 | Mumbai, India |
 | Swiftsonic '26 | Nov 20–22, 2026 | Nashville, TN, USA |
 | iOS Conf SG 2027 | Jan 21–23, 2027 | Singapore |
 | Arctic Conference 2027 | Feb 16–18, 2027 | Oulu, Finland |
 
-Spotted a missing conference, a wrong date, or a broken link? See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+\* Exact NSSpain XIV dates TBA; mid-September placeholder based on historical schedule.
+
+Alongside these, the app tracks **70+ WWDC-week community events** (Core Coffee, the Tim Cookout, indie meetups, etc.) and **30+ keynote watch parties** worldwide. Spotted a missing entry, a wrong date, or a broken link? See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
 ## Contributing
 
@@ -89,14 +95,21 @@ The app feels like an extension of the Apple ecosystem rather than a third-party
 │   │   ├── Managers/                  ← NavigationCoordinator
 │   │   ├── Services/                  ← ConferenceService (Live + Bundled), CalendarService
 │   │   └── Extensions/                ← date formatting helpers
-│   ├── Features/                      ← ConferenceList, ConferenceDetail, Favourites, Settings, SuggestConference
+│   ├── Features/
+│   │   ├── RootTabView.swift          ← 3-tab shell (Conferences / Favourites / Settings)
+│   │   ├── ConferenceList/            ← list, filter menu, search — drives both Conferences and Favourites tabs
+│   │   ├── ConferenceDetail/          ← detail screen, hero, Safari + event-editor sheets
+│   │   ├── Settings/                  ← Display, Support, Contribute, Acknowledgements, About
+│   │   └── SuggestConference/         ← in-app form that emails or files a GitHub Issue
 │   ├── ViewComponents/                ← ConferencePlaceholder, MailComposeView
 │   └── Resources/
-├── data/conferences.json              ← the canonical 15-conference feed
+├── data/conferences.json              ← the canonical feed (conferences + watch parties + events)
 ├── .github/ISSUE_TEMPLATE/            ← conference-request issue form
 ├── docs/decisions/                    ← Architecture Decision Records (ADR-0001 / 0002 / 0003)
 ├── VIEW-INVENTORY.md                  ← index of shared UI components
 ├── CONTRIBUTING.md                    ← contribution paths + JSON schema
+├── CODE_OF_CONDUCT.md
+├── CHANGELOG.md
 ├── README.md
 ├── CLAUDE.md                          ← agent guidance for this repo
 ├── Backlog.md
@@ -130,3 +143,5 @@ Conference and event names, brands, and content link to their respective organis
 ## Acknowledgements
 
 This app exists because the iOS developer community keeps putting on the most welcoming conferences in software. Most of them are run by volunteers; if you can attend one, do.
+
+A particular nod to [**twostraws/wwdc**](https://github.com/twostraws/wwdc) by Paul Hudson and contributors — the source of much of Dubdub's WWDC-week event data. The in-app **Settings → Acknowledgements** screen mirrors this list.
