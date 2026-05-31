@@ -256,6 +256,7 @@
 				DEVELOPMENT_TEAM = S84QBGCN9L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_CFBundleDisplayName = Dubdub;
 				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "Add conferences to your calendar.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -295,6 +296,7 @@
 				DEVELOPMENT_TEAM = S84QBGCN9L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_CFBundleDisplayName = Dubdub;
 				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "Add conferences to your calendar.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
