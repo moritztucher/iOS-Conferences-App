@@ -86,4 +86,5 @@ _Apple convention: `<year> <name/entity>`. Swap in a studio/company name if ship
 | User-Generated Content | NO | List is editorially curated via GitHub PRs; "Suggest a conference" composes an email / pre-filled Issue — nothing posts back into the app. |
 | Messaging and Chat | NO | No user-to-user communication. |
 | Advertising | NO | No ads, no paid promotion, no IAP. |
+| Content Rights — third-party content | **YES (rights held)** | Accesses third-party content and has the rights to do so: conference names/dates/locations are factual references (paraphrased short blurbs, none verbatim); the in-app `SFSafariViewController` accesses organiser/GitHub sites with the real URL bar (not republished); WWDC-week event data partly derives from the open-source `twostraws/wwdc` repo, credited in-app and in the README. **No conference logos are bundled** (typographic placeholders only) — keep it that way to preserve this answer. |
 | Export compliance — non-exempt encryption | NO | Uses only HTTPS via Apple's OS (URLSession / SFSafariViewController). Exempt. Set in build settings via `INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO`. |
