@@ -58,6 +58,17 @@ conference,swift,ios,wwdc,developer,meetup,visionos,swiftui,apple,event,tech,cal
 ```
 _98 characters. No spaces after commas (Apple ignores them); avoid repeating words already in the Name/Subtitle._
 
+## Privacy Policy URL (required)
+
+```
+https://github.com/moritztucher/iOS-Conferences-App/blob/main/docs/PRIVACY.md
+```
+_Policy text lives at `docs/PRIVACY.md`. URL points at the `main` branch — it goes live once this is merged develop → main. App Privacy questionnaire = **Data Not Collected** across all categories._
+
+## License Agreement
+
+Apple's Standard License Agreement (standard EULA) — no custom terms needed.
+
 ## Support URL
 
 ```
