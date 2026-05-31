@@ -6,8 +6,6 @@ Home-screen name: **dubdub**. App Store listing: **dubdub - Conferences & Events
 
 Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. Designed to feel like an extension of the Apple ecosystem: stock components, system integrations, no custom design language.
 
-> Status: pre-release. 19 conferences for 2026/2027 plus 70+ surrounding events (community meetups, WWDC week, keynote watch parties) are tracked, with the first batch bundled into the app for offline-safe first launch and a live JSON feed in this repo keeping the list fresh. App Store submission is the next gate.
-
 ## What it does
 
 - **Browse** every upcoming Apple-platform conference, watch party, and community event, grouped by month.
@@ -19,13 +17,13 @@ Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. De
 - **Tap a location** to open Apple Maps with a pin on the venue.
 - **Share** any entry via the system share sheet.
 - **Suggest a conference** — primary path emails the developer a structured form; secondary path opens a pre-filled GitHub Issue.
-- **Rate the app** and **contact the developer** from Settings.
+- **Contact the developer** straight from Settings.
 
 ## Why this exists
 
-There is no canonical, frictionless place to see what's happening across the iOS / Apple-platform calendar — the official conferences, but also the adjacent events that orbit them: Core Coffee at WWDC, community meetups, watch parties, hack days. Information lives across personal blogs, Twitter/Mastodon threads, and one-off lists that go stale.
+Finding out what's happening across the Apple-platform calendar is harder than it should be. The big conferences are easy enough to track, but the events that orbit them — Core Coffee at WWDC, community meetups, keynote watch parties, hack days — are scattered across blogs, Mastodon and Twitter threads, and one-off lists that quietly go stale.
 
-This app is the smallest possible bet on a different shape: a single, community-maintained list that lives where you'll actually look at it — on your phone.
+dubdub started from one simple idea: keep all of it in a single, community-maintained list that lives on your phone, where you'll actually look.
 
 - **Open data.** The list — conferences, watch parties, and the events around them — lives as a plain JSON file in this repo at [`data/conferences.json`](./data/conferences.json). Anyone can correct or extend it.
 - **No backend.** No servers, no logins, no telemetry. The app ships with the data bundled for instant first launch, then fetches the JSON file from this repo on every refresh and caches it locally for offline use.
@@ -63,11 +61,15 @@ Alongside these, the app tracks **70+ WWDC-week community events** (Core Coffee,
 
 ## Contributing
 
-Got a conference to add? A meetup we missed? A wrong date or a broken link? Three paths, easiest first:
+Contributions of every kind are welcome — not just new conferences, but bug fixes and feature ideas too.
+
+**Adding or correcting an event?** Three paths, easiest first:
 
 1. **In-app:** Settings → "Suggest a conference" → fill the form → tap **Email suggestion**. The structured details land in the developer's inbox and are added to `data/conferences.json` from there.
 2. **GitHub Issue:** in the same form, tap **Submit as a GitHub Issue instead** — or open [a new conference request](https://github.com/moritztucher/iOS-Conferences-App/issues/new?template=conference-request.yml) directly.
 3. **Pull Request:** edit [`data/conferences.json`](./data/conferences.json) and open a PR against `develop`. Schema documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
+**Found a bug or have a feature idea?** [Open an issue](https://github.com/moritztucher/iOS-Conferences-App/issues/new) or send a PR against `develop` — the dev setup and conventions live in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
 Be kind. This is a community project — see [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md).
 
@@ -77,7 +79,6 @@ Be kind. This is a community project — see [`CODE_OF_CONDUCT.md`](./CODE_OF_CO
 - **Zero third-party Swift packages.** Every dependency is a system framework:
   - `EventKit` / `EventKitUI` — adds events via `EKEventEditViewController` (system event editor sheet).
   - `MapKit` — opens locations in Apple Maps.
-  - `StoreKit` — `RequestReviewAction` for the in-app review prompt.
   - `SafariServices` — in-app web view for conference websites and the GitHub Issue suggestion path.
   - `MessageUI` — `MFMailComposeViewController` for the Suggest-by-email and Contact-me flows.
 - **Post-MVP system integrations** (planned): Core Spotlight (favourites in iOS system search), App Intents (`Conference` as `AppEntity`, "What's the next conference?" Siri intent), WidgetKit, Live Activities.
@@ -88,31 +89,64 @@ The app feels like an extension of the Apple ecosystem rather than a third-party
 
 ```
 .
-├── iOS-Conferences/                   ← the Xcode project sources
-│   ├── App/                           ← entry point, RepoConfig
+├── iOS-Conferences/                    ← the Xcode project sources
+│   ├── App/                            ← entry point, app configuration
+│   │   └── RepoConfig.swift
 │   ├── Core/
-│   │   ├── Models/                    ← Conference, FavouriteConference, Route, BundledConferences
-│   │   ├── Managers/                  ← NavigationCoordinator
-│   │   ├── Services/                  ← ConferenceService (Live + Bundled), CalendarService
-│   │   └── Extensions/                ← date formatting helpers
+│   │   ├── Extensions/                 ← shared helpers (date formatting, etc.)
+│   │   │   └── Date+ConferenceFormatting.swift
+│   │   ├── Managers/                   ← NavigationCoordinator
+│   │   │   └── NavigationCoordinator.swift
+│   │   ├── Models/                     ← data models
+│   │   │   ├── BundledConferences.swift
+│   │   │   ├── Conference.swift
+│   │   │   ├── FavouriteConference.swift
+│   │   │   └── Route.swift
+│   │   └── Services/                   ← networking + system-service wrappers
+│   │       ├── CalendarService.swift
+│   │       └── ConferenceService.swift
 │   ├── Features/
-│   │   ├── RootTabView.swift          ← 3-tab shell (Conferences / Favourites / Settings)
-│   │   ├── ConferenceList/            ← list, filter menu, search — drives both Conferences and Favourites tabs
-│   │   ├── ConferenceDetail/          ← detail screen, hero, Safari + event-editor sheets
-│   │   ├── Settings/                  ← Display, Support, Contribute, Acknowledgements, About
-│   │   └── SuggestConference/         ← in-app form that emails or files a GitHub Issue
-│   ├── ViewComponents/                ← ConferencePlaceholder, MailComposeView
-│   └── Resources/
-├── data/conferences.json              ← the canonical feed (conferences + watch parties + events)
-├── .github/ISSUE_TEMPLATE/            ← conference-request issue form
-├── docs/decisions/                    ← Architecture Decision Records (ADR-0001 / 0002 / 0003)
-├── VIEW-INVENTORY.md                  ← index of shared UI components
-├── CONTRIBUTING.md                    ← contribution paths + JSON schema
+│   │   ├── ConferenceDetail/           ← detail screen, hero, Safari + event-editor sheets
+│   │   │   ├── ViewModels/
+│   │   │   │   └── ConferenceDetailViewModel.swift
+│   │   │   └── Views/
+│   │   │       ├── ConferenceDetailView.swift
+│   │   │       ├── EventEditorView.swift
+│   │   │       └── SafariView.swift
+│   │   ├── ConferenceList/             ← list, filter menu, search (Conferences + Favourites tabs)
+│   │   │   ├── ViewModels/
+│   │   │   │   └── ConferenceListViewModel.swift
+│   │   │   └── Views/
+│   │   │       ├── ConferenceListView.swift
+│   │   │       └── ConferenceRow.swift
+│   │   ├── Settings/                   ← Display, Support, Contribute, Acknowledgements, About
+│   │   │   ├── ViewModels/
+│   │   │   │   └── SettingsViewModel.swift
+│   │   │   └── Views/
+│   │   │       ├── AcknowledgementsView.swift
+│   │   │       └── SettingsView.swift
+│   │   ├── SuggestConference/          ← in-app form: email primary, GitHub Issue secondary
+│   │   │   ├── ViewModels/
+│   │   │   │   └── SuggestConferenceViewModel.swift
+│   │   │   └── Views/
+│   │   │       └── SuggestConferenceView.swift
+│   │   └── RootTabView.swift
+│   ├── ViewComponents/                 ← shared reusable views
+│   │   ├── ConferencePlaceholder.swift
+│   │   └── MailComposeView.swift
+│   └── iOS_ConferencesApp.swift
+├── data/conferences.json               ← the canonical feed (conferences + watch parties + events)
+├── .github/ISSUE_TEMPLATE/             ← conference-request issue form
+├── docs/                               ← project documentation
+│   ├── ARCHITECTURE.md                 ← architecture overview
+│   ├── VIEW-INVENTORY.md               ← index of shared UI components
+│   ├── Backlog.md                      ← planned / parked work
+│   └── decisions/                      ← Architecture Decision Records (ADR-0001 / 0002 / 0003)
+├── CONTRIBUTING.md                     ← contribution paths + JSON schema
 ├── CODE_OF_CONDUCT.md
 ├── CHANGELOG.md
 ├── README.md
-├── CLAUDE.md                          ← agent guidance for this repo
-├── Backlog.md
+├── CLAUDE.md                           ← agent guidance for this repo
 └── LICENSE
 ```
 

@@ -96,8 +96,8 @@ See [ADR-0002](./docs/decisions/ADR-0002-monetization-and-data-source.md) for th
 Bug fix or feature for the app itself? Standard flow:
 
 1. Fork → branch off `develop` (not `main` — `main` is release-only).
-2. Match existing patterns. The project is intentionally minimalist; see [`CLAUDE.md`](./CLAUDE.md) and [`VIEW-INVENTORY.md`](./VIEW-INVENTORY.md) before adding any new shared components.
+2. Match existing patterns. The project is intentionally minimalist; see [`CLAUDE.md`](./CLAUDE.md) and [`docs/VIEW-INVENTORY.md`](./docs/VIEW-INVENTORY.md) before adding any new shared components.
 3. Build green: `xcodebuild -project iOS-Conferences.xcodeproj -scheme iOS-Conferences -destination 'generic/platform=iOS Simulator' build`.
 4. PR against `develop` with a description of what changed and why.
 
-The architecture is documented in [`ARCHITECTURE.md`](./ARCHITECTURE.md). Significant design decisions live as ADRs under `docs/decisions/`.
+The architecture is documented in [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md). Significant design decisions live as ADRs under `docs/decisions/`.
