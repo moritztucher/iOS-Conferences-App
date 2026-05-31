@@ -8,15 +8,18 @@ struct ConferencePlaceholder: View {
 
     var body: some View {
         GeometryReader { proxy in
+            let background = Self.color(for: conference.id)
             ZStack {
-                Self.color(for: conference.id)
+                background
                 Text(Self.initials(for: conference.name))
                     .font(.system(size: proxy.size.height * 0.42, weight: .bold, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Self.foreground(on: background))
                     .minimumScaleFactor(0.5)
                     .padding(proxy.size.height * 0.1)
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(conference.name)
     }
 
     static func initials(for name: String) -> String {
@@ -49,6 +52,17 @@ struct ConferencePlaceholder: View {
             hash = (hash &* 33) &+ UInt64(byte)
         }
         return palette[Int(hash % UInt64(palette.count))]
+    }
+
+    /// Picks black or white initials for the best contrast against `background`,
+    /// based on the colour's relative luminance.
+    static func foreground(on background: Color) -> Color {
+        let resolved = background.resolve(in: EnvironmentValues())
+        let r = Double(resolved.red)
+        let g = Double(resolved.green)
+        let b = Double(resolved.blue)
+        let luminance = 0.299 * r + 0.587 * g + 0.114 * b
+        return luminance > 0.6 ? .black : .white
     }
 }
 
