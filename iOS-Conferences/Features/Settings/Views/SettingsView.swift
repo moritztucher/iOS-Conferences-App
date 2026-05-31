@@ -1,10 +1,8 @@
 import SwiftUI
 import SwiftData
-import StoreKit
 import MessageUI
 
 struct SettingsView: View {
-    @Environment(\.requestReview) private var requestReview
     @Environment(\.openURL) private var openURL
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel = SettingsViewModel()
@@ -40,11 +38,6 @@ struct SettingsView: View {
     @ViewBuilder
     private var supportSection: some View {
         Section("Support") {
-            Button {
-                requestReview()
-            } label: {
-                Label("Rate the app", systemImage: "star")
-            }
             Button {
                 contactMe()
             } label: {
