@@ -6,6 +6,11 @@ struct SuggestConferenceView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = SuggestConferenceViewModel()
     @State private var isShowingMail = false
+    @FocusState private var focusedField: Field?
+
+    private enum Field: Hashable {
+        case name, websiteURL, location, contributor
+    }
 
     var body: some View {
         @Bindable var bindable = viewModel
@@ -13,16 +18,22 @@ struct SuggestConferenceView: View {
             Form {
                 Section("Conference") {
                     TextField("Name", text: $bindable.name)
+                        .focused($focusedField, equals: .name)
+                        .submitLabel(.next)
                     TextField("Website URL", text: $bindable.websiteURL)
                         .keyboardType(.URL)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .focused($focusedField, equals: .websiteURL)
+                        .submitLabel(.next)
                 }
 
                 Section("When & Where (Optional)") {
                     DatePicker("Start", selection: $bindable.startDate, displayedComponents: .date)
                     DatePicker("End", selection: $bindable.endDate, in: viewModel.startDate..., displayedComponents: .date)
                     TextField("Location (city, country) or 'Online'", text: $bindable.location)
+                        .focused($focusedField, equals: .location)
+                        .submitLabel(.next)
                 }
 
                 Section("Description (Optional)") {
@@ -34,11 +45,21 @@ struct SuggestConferenceView: View {
                     TextField("GitHub handle (optional)", text: $bindable.contributor)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .focused($focusedField, equals: .contributor)
+                        .submitLabel(.done)
                 } header: {
                     Text("Credit")
                 } footer: {
                     Text("Used to credit your contribution if it's added to the list.")
                         .font(.footnote)
+                }
+            }
+            .onSubmit {
+                switch focusedField {
+                case .name: focusedField = .websiteURL
+                case .websiteURL: focusedField = .location
+                case .location: focusedField = .contributor
+                case .contributor, .none: focusedField = nil
                 }
             }
             .navigationTitle("Suggest a Conference")

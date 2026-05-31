@@ -10,7 +10,7 @@ extension Conference {
     /// Real conferences shipped with the app. Seeds the SwiftData store on first launch.
     /// Source: project owner + per-site og:image fetches.
     ///
-    /// Pending (see Backlog.md): NextAppCon, NSSpain (2026 not announced), try! Swift x AI
+    /// Pending (see docs/Backlog.md): NextAppCon, NSSpain (2026 not announced), try! Swift x AI
     /// (single-edition past workshop), Pre-WWDC Bashcade (past), One More Thing (past).
     static var bundled: [Conference] {
         [

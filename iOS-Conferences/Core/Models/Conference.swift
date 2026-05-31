@@ -2,10 +2,11 @@ import Foundation
 import SwiftData
 
 /// What an entry in the list represents.
-/// "Conference" — multi-day developer conference. "Event" — anything else listed alongside
-/// (meetups, watch parties, hack days, satellite gatherings around a conference).
+/// "Conference" — multi-day developer conference. "Watch Party" — keynote/SOTU viewing event.
+/// "Event" — everything else (meetups, hack days, satellite gatherings around a conference).
 enum ConferenceKind: String, Codable, CaseIterable, Sendable {
     case conference = "Conference"
+    case watchParty = "Watch Party"
     case event = "Event"
 }
 

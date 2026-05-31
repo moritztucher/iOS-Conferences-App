@@ -38,7 +38,7 @@ There are three ways to contribute, in order of friction:
 | Field | Type | Required | Notes |
 |-------|------|----------|-------|
 | `id` | `String` | yes | Stable kebab-case identifier, typically `<short-name>-<year>` (e.g. `tryswift-tokyo-2026`). Must be unique. Don't change this once published — favourites in users' apps are keyed on it. |
-| `kind` | `String` | no (default `"Conference"`) | Either `"Conference"` (multi-day developer conference) or `"Event"` (everything else — meetups, watch parties, hack days, satellite events around a conference, dinners, runs). When in doubt: if it's a single evening or a one-off social gathering, it's an `"Event"`. |
+| `kind` | `String` | no (default `"Conference"`) | One of `"Conference"` (multi-day developer conference), `"Watch Party"` (a group gathering to stream the WWDC keynote, SOTU, or similar Apple event), or `"Event"` (everything else — meetups, hack days, dinners, runs, satellite gatherings around a conference). When in doubt between Watch Party and Event: if the primary purpose is watching an Apple stream together, it's a `"Watch Party"`. |
 | `name` | `String` | yes | Display name as it appears in the app. |
 | `startDate` | `String` | yes | First day, `YYYY-MM-DD`. Inclusive. |
 | `endDate` | `String` | yes | Last day, `YYYY-MM-DD`. Inclusive. Same as `startDate` for one-day events. |
@@ -47,7 +47,7 @@ There are three ways to contribute, in order of friction:
 | `summary` | `String` | yes | One-sentence factual description. **In your own words** — don't copy the site's marketing copy verbatim (see [Legal](#legal) below). Aim for ~100–160 characters. |
 | `websiteURL` | `String` | yes | Conference homepage. Must be HTTPS. |
 | `logoURL` | `String?` | no | Direct link to the conference's logo or `og:image`. Fetched and displayed at runtime — never bundled or redistributed. If absent, the app shows a typographic placeholder. |
-| `tags` | `[String]` | yes | One or more topical tags. Current vocabulary: `swift`, `ios`, `macos`, `visionos`, `watchos`, `swiftui`, `server`, `ai`, `apple`, `general`, `community`. Propose new tags in your PR if you need one. |
+| `tags` | `[String]` | yes | One or more topical tags. Current vocabulary (most used first): `community`, `wwdc`, `swift`, `ios`, `ai`, `indie`, `visionos`, `accessibility`, `swiftui`, `macos`, `apple`, `design`, `general`. Use `wwdc` for any WWDC-week entry. Propose new tags in your PR if you need one. |
 
 ### Ordering
 
@@ -57,7 +57,7 @@ The file is sorted by `startDate` ascending. Keep it sorted when you add a row �
 
 The JSON is parsed by `LiveConferenceService` in the iOS app. To validate locally:
 
-- `python -m json.tool data/conferences.json` confirms the JSON is well-formed.
+- `python3 -m json.tool data/conferences.json` confirms the JSON is well-formed.
 - Build and run the app, then pull-to-refresh on the Conferences tab — your additions should appear.
 
 ---
@@ -96,8 +96,8 @@ See [ADR-0002](./docs/decisions/ADR-0002-monetization-and-data-source.md) for th
 Bug fix or feature for the app itself? Standard flow:
 
 1. Fork → branch off `develop` (not `main` — `main` is release-only).
-2. Match existing patterns. The project is intentionally minimalist; see [`CLAUDE.md`](./CLAUDE.md) and [`VIEW-INVENTORY.md`](./VIEW-INVENTORY.md) before adding any new shared components.
+2. Match existing patterns. The project is intentionally minimalist; see [`CLAUDE.md`](./CLAUDE.md) and [`docs/VIEW-INVENTORY.md`](./docs/VIEW-INVENTORY.md) before adding any new shared components.
 3. Build green: `xcodebuild -project iOS-Conferences.xcodeproj -scheme iOS-Conferences -destination 'generic/platform=iOS Simulator' build`.
 4. PR against `develop` with a description of what changed and why.
 
-The architecture is documented in [`ARCHITECTURE.md`](./ARCHITECTURE.md). Significant design decisions live as ADRs under `docs/decisions/`.
+The architecture is documented in [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md). Significant design decisions live as ADRs under `docs/decisions/`.

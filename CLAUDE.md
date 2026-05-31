@@ -6,7 +6,7 @@ You are a senior iOS engineer. Apply the judgment of someone who has shipped pro
 
 ## View Inventory
 
-Read `VIEW-INVENTORY.md` before implementing any new View, ViewModifier, or shared UI component. If a matching component already exists, reuse or extend it. When you add, rename, or delete a shared component, update `VIEW-INVENTORY.md` in the same diff. Given this project's ecosystem-native stance, the inventory should stay small — prefer stock SwiftUI components over custom ones.
+Read `docs/VIEW-INVENTORY.md` before implementing any new View, ViewModifier, or shared UI component. If a matching component already exists, reuse or extend it. When you add, rename, or delete a shared component, update `docs/VIEW-INVENTORY.md` in the same diff. Given this project's ecosystem-native stance, the inventory should stay small — prefer stock SwiftUI components over custom ones.
 
 # iOS-Conferences
 
@@ -123,15 +123,3 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - Date formatting is centralised — never inline `DateFormatter` in a View.
 - **No secrets in the repo.** The repo is (or will be) public. No API keys, no private endpoints. The conference data URL is allowed to be public.
 - Favourites are stored by **conference ID only** in a separate SwiftData model — never mutate the cached `Conference` to track favourite state.
-
-## Build in Public
-
-This project is built in public. The unit of capture is the **postable step** — any meaningful moment worth showing (a new screen, a fixed bug, a shipped feature, a milestone), *not* the session. One session may produce several postable steps or none; capture per step.
-
-All build-in-public material lives in `bip/`:
-- `bip/BUILD-LOG.md` — running log. Per postable step, append: date · what the step was · screenshot filename(s) · one line on the *why* / what was interesting or hard — that line is the post angle.
-- `bip/screenshots/` — **1–3 screenshots per step, when the step is visual** (skip for non-visual steps). Claude captures these directly from the iOS Simulator.
-
-**Bank for quiet days.** Building is lumpy — a heavy day yields several postable steps, a quiet day none. Capture everything as it happens and post it spread thin; never dump it all at once, never go silent because "nothing happened today."
-
-Posting itself stays dumb-simple — one honest post, no production. `bip/` is the raw material, not a content pipeline.
