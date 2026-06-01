@@ -17,6 +17,7 @@ struct RootTabView: View {
                 ConferenceSearchView()
             }
         }
+        .tabBarMinimizeBehavior(.onScrollDown)
     }
 }
 

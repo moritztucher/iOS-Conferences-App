@@ -7,6 +7,10 @@ struct ConferenceDetailView: View {
     @Query private var favourites: [FavouriteConference]
 
     @State private var viewModel: ConferenceDetailViewModel
+    /// The conference name lives in the large title block under the hero; it only
+    /// appears in the navigation bar once that block has scrolled out of view, so
+    /// the name is never shown twice at rest.
+    @State private var showsNavBarTitle = false
 
     init(conference: Conference) {
         _viewModel = State(initialValue: ConferenceDetailViewModel(conference: conference))
@@ -26,8 +30,14 @@ struct ConferenceDetailView: View {
             actionsSection
         }
         .listStyle(.insetGrouped)
-        .navigationTitle(viewModel.conference.name)
+        .navigationTitle(showsNavBarTitle ? viewModel.conference.name : "")
         .navigationBarTitleDisplayMode(.inline)
+        .onScrollGeometryChange(for: Bool.self) { geometry in
+            // Hero (180pt) + title block scrolls past ~190pt.
+            geometry.contentOffset.y > 190
+        } action: { _, isPastTitle in
+            showsNavBarTitle = isPastTitle
+        }
         .toolbar { toolbarContent }
         .sheet(isPresented: $bindable.isShowingSafari) {
             if let url = viewModel.conference.websiteURL {
