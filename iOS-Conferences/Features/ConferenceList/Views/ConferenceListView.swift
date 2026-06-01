@@ -34,7 +34,6 @@ struct ConferenceListView: View {
         NavigationStack(path: $path) {
             content
                 .navigationTitle(viewModel.filter.title)
-                .searchable(text: $viewModel.searchText)
                 .refreshable { await refresh() }
                 .toolbar { filterToolbarItem }
                 .navigationDestination(for: Route.self) { route in
@@ -48,32 +47,19 @@ struct ConferenceListView: View {
         if sections.isEmpty {
             emptyState
         } else {
-            List {
-                ForEach(sections) { section in
-                    Section(section.title) {
-                        ForEach(section.conferences) { conference in
-                            NavigationLink(value: Route.conferenceDetail(conferenceID: conference.id)) {
-                                ConferenceRow(
-                                    conference: conference,
-                                    isFavourite: favouriteIDs.contains(conference.id)
-                                )
-                            }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                favouriteSwipeAction(for: conference)
-                            }
-                        }
-                    }
+            ConferenceSectionList(
+                sections: sections,
+                favouriteIDs: favouriteIDs,
+                onToggleFavourite: { conference in
+                    viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
                 }
-            }
-            .listStyle(.insetGrouped)
+            )
         }
     }
 
     @ViewBuilder
     private var emptyState: some View {
-        if !viewModel.searchText.isEmpty {
-            ContentUnavailableView.search(text: viewModel.searchText)
-        } else if viewModel.filter == .favourites {
+        if viewModel.filter == .favourites {
             ContentUnavailableView(
                 "No Favourites",
                 systemImage: "heart",
@@ -121,20 +107,6 @@ struct ConferenceListView: View {
             .menuActionDismissBehavior(.disabled)
             .accessibilityLabel("Filter")
         }
-    }
-
-    @ViewBuilder
-    private func favouriteSwipeAction(for conference: Conference) -> some View {
-        let isFavourite = favouriteIDs.contains(conference.id)
-        Button {
-            viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
-        } label: {
-            Label(
-                isFavourite ? "Unfavourite" : "Favourite",
-                systemImage: isFavourite ? "heart.slash.fill" : "heart.fill"
-            )
-        }
-        .tint(isFavourite ? .gray : .pink)
     }
 
     @ViewBuilder

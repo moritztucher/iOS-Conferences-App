@@ -34,7 +34,8 @@ Components scoped to a single feature, in `Features/[Feature]/Views/...`. Listed
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferenceRow` | `Features/ConferenceList/Views/ConferenceRow.swift` | Row cell for a conference in the list (logo + name + favourite marker + secondary line: kind glyph · date · location, with a `globe` glyph for online events). | `conference: Conference, isFavourite: Bool` | Used by both Conferences tab and Favourites tab (same component, different filter). Trailing `swipeActions` (favourite/unfavourite) live on the row in `ConferenceListView`, not here. |
+| `ConferenceSectionList` | `Features/ConferenceList/Views/ConferenceSectionList.swift` | Month-sectioned, inset-grouped list of conferences with a trailing favourite swipe action. Shared by the Conferences/Favourites tabs and the Search tab so every entry point renders rows identically. | `sections: [ConferenceMonthSection], favouriteIDs: Set<String>, onToggleFavourite: (Conference) -> Void` | Host owns the `NavigationStack` + `navigationDestination` and supplies the favourite toggle. The `swipeActions` (favourite/unfavourite, pink/gray) live here. |
+| `ConferenceRow` | `Features/ConferenceList/Views/ConferenceRow.swift` | Row cell for a conference in the list (logo + name + favourite marker + secondary line: kind glyph · date · location, with a `globe` glyph for online events). | `conference: Conference, isFavourite: Bool` | Used by both list tabs and the Search tab via `ConferenceSectionList`. |
 | `ConferenceLogo` | `Features/ConferenceList/Views/ConferenceRow.swift` | 44pt rounded `AsyncImage` thumbnail with `ConferencePlaceholder` fallback. | `conference: Conference, size: CGFloat` | Lives next to `ConferenceRow` (same file) since it's only used by the row. Promote to `ViewComponents/` if another feature needs it. |
 
 ### ConferenceDetail
@@ -61,8 +62,9 @@ Top-level Views that represent a tab root or pushed destination.
 
 | Screen | File | Feature | ViewModel | Notes |
 |--------|------|---------|-----------|-------|
-| `RootTabView` | `Features/RootTabView.swift` | (root) | — | 3-tab `TabView`: Conferences / Favourites / Settings. |
-| `ConferenceListView` | `Features/ConferenceList/Views/ConferenceListView.swift` | ConferenceList | `ConferenceListViewModel` | Used by both Conferences and Favourites tabs via `init(filter:)`. Hosts `.searchable`, `.refreshable`, filter `Menu`, and the `navigationDestination(for: Route.self)`. |
+| `RootTabView` | `Features/RootTabView.swift` | (root) | — | `TabView`: Conferences / Favourites / Settings + a `Tab(role: .search)` (iOS 26 search affordance in the tab bar) hosting `ConferenceSearchView`. |
+| `ConferenceListView` | `Features/ConferenceList/Views/ConferenceListView.swift` | ConferenceList | `ConferenceListViewModel` | Used by both Conferences and Favourites tabs via `init(filter:)`. Renders via `ConferenceSectionList`; hosts `.refreshable`, filter `Menu`, and the `navigationDestination(for: Route.self)`. Search is no longer per-tab — it lives in the global Search tab. |
+| `ConferenceSearchView` | `Features/ConferenceList/Views/ConferenceSearchView.swift` | ConferenceList | `ConferenceListViewModel` | Content for `Tab(role: .search)`. Owns its `.searchable` field (iOS 26 renders it bottom-anchored), filters all conferences by name/location/tag, and renders via `ConferenceSectionList`. Prompt + no-results use `ContentUnavailableView`. |
 | `ConferenceDetailView` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | ConferenceDetail | `ConferenceDetailViewModel` | List-based detail with full-bleed hero, title block, When/Where, About, Actions sections. |
 | `SettingsView` | `Features/Settings/Views/SettingsView.swift` | Settings | `SettingsViewModel` | `Form` with sections: prominent tip CTA (no header), Support, Contribute, Display, About. |
 | `AcknowledgementsView` | `Features/Settings/Views/AcknowledgementsView.swift` | Settings | — | Pushed from Settings via `NavigationLink`. List of credits; each row opens its URL in a `SafariView` sheet. |

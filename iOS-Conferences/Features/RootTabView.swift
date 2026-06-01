@@ -13,6 +13,9 @@ struct RootTabView: View {
             Tab("Settings", systemImage: "gearshape") {
                 SettingsView()
             }
+            Tab(role: .search) {
+                ConferenceSearchView()
+            }
         }
     }
 }
