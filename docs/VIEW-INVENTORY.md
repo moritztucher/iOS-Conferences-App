@@ -21,7 +21,7 @@ Cross-feature reusable UI. Pure, stateless or self-contained, no feature-specifi
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferencePlaceholder` | `ViewComponents/ConferencePlaceholder.swift` | Typographic fallback shown when a conference has no `logoURL` or `AsyncImage` fails. Initials + hash-derived background colour. | `conference: Conference` | Uses `GeometryReader` to scale text to the container — works at 44pt thumbnail or 220pt hero. White text on a stable per-id colour from a 9-colour palette. |
+| `ConferencePlaceholder` | `ViewComponents/ConferencePlaceholder.swift` | Typographic fallback shown when a conference has no `logoURL` or `AsyncImage` fails. Initials + hash-derived background colour. | `conference: Conference` | Uses `GeometryReader` to scale text to the container — works at 44pt thumbnail or 180pt hero. Auto-contrasting initials on a subtle top-lighter→base **gradient** derived from a stable per-id colour (9-colour hash palette via `gradient(for:)`). |
 | `MailComposeView` | `ViewComponents/MailComposeView.swift` | UIViewControllerRepresentable wrapping `MFMailComposeViewController` (in-app mail compose sheet). | `recipient: String, subject: String = "", body: String = ""` | Callers should check `MFMailComposeViewController.canSendMail()` before presenting and fall back to a `mailto:` URL if false. |
 
 ---
@@ -34,14 +34,14 @@ Components scoped to a single feature, in `Features/[Feature]/Views/...`. Listed
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferenceRow` | `Features/ConferenceList/Views/ConferenceRow.swift` | Row cell for a conference in the list (logo + name + favourite marker + date · location subtitle). | `conference: Conference, isFavourite: Bool` | Used by both Conferences tab and Favourites tab (same component, different filter). |
+| `ConferenceRow` | `Features/ConferenceList/Views/ConferenceRow.swift` | Row cell for a conference in the list (logo + name + favourite marker + secondary line: kind glyph · date · location, with a `globe` glyph for online events). | `conference: Conference, isFavourite: Bool` | Used by both Conferences tab and Favourites tab (same component, different filter). Trailing `swipeActions` (favourite/unfavourite) live on the row in `ConferenceListView`, not here. |
 | `ConferenceLogo` | `Features/ConferenceList/Views/ConferenceRow.swift` | 44pt rounded `AsyncImage` thumbnail with `ConferencePlaceholder` fallback. | `conference: Conference, size: CGFloat` | Lives next to `ConferenceRow` (same file) since it's only used by the row. Promote to `ViewComponents/` if another feature needs it. |
 
 ### ConferenceDetail
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferenceHeroBanner` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | Full-bleed 220pt `AsyncImage` banner for the detail hero, with `ConferencePlaceholder` fallback. | `conference: Conference` | Lives in the same file as `ConferenceDetailView` since it's only used there. |
+| `ConferenceHeroBanner` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | Full-bleed 180pt `AsyncImage` banner for the detail hero, with gradient `ConferencePlaceholder` fallback. | `conference: Conference` | Lives in the same file as `ConferenceDetailView` since it's only used there. |
 | `SafariView` | `Features/ConferenceDetail/Views/SafariView.swift` | UIViewControllerRepresentable wrapping `SFSafariViewController`. | `url: URL` | **TODO: promote to `ViewComponents/`** — also used by `SettingsView` (View source on GitHub) and could be by `SuggestConferenceView` in future. |
 | `EventEditorView` | `Features/ConferenceDetail/Views/EventEditorView.swift` | UIViewControllerRepresentable wrapping `EKEventEditViewController` (system event editor sheet). | `event: EKEvent, eventStore: EKEventStore` | Only used in ConferenceDetail today. |
 

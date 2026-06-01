@@ -56,7 +56,11 @@ Icon?
 
 # Claude / agent state (committed copies live elsewhere, local state stays out)
 .claude/sessions/
+.claude/scheduled_tasks.lock
 
 # Local-only
 *.local
 *.local.json
+
+# Design-audit scratch (screenshots from /ios-design-audit & /ios-design-elevate)
+.design/
