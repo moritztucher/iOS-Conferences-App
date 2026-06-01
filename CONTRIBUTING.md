@@ -100,4 +100,30 @@ Bug fix or feature for the app itself? Standard flow:
 3. Build green: `xcodebuild -project iOS-Conferences.xcodeproj -scheme iOS-Conferences -destination 'generic/platform=iOS Simulator' build`.
 4. PR against `develop` with a description of what changed and why.
 
+### Branch target
+
+**All PRs go into `develop`.** `main` is release-only and protected — the maintainer opens `develop → main` release PRs. If you open a PR from the GitHub website, double-check the base branch dropdown reads `develop`, not `main`.
+
+### Commit messages
+
+Use `CONF-<area>: <imperative summary>` — a short area slug, then what the commit does, in the imperative mood.
+
+```
+CONF-list: sort conferences by start date
+CONF-detail: add tap-to-Maps on the location row
+CONF-data: add iOSDevUK 2026
+CONF-docs: document the JSON schema
+```
+
+- `<area>` is the feature or part of the app touched (`list`, `detail`, `settings`, `data`, `docs`, `a11y`, `marketing`, …).
+- Summary is imperative and lower-case ("add", not "added"/"Adds"), no trailing period.
+- One logical change per commit; keep data edits (`data/conferences.json`) separate from code changes.
+
+### Pull requests
+
+- **Title:** same `CONF-<area>: <summary>` form as commits.
+- **Body:** what changed and *why*; link any related issue (`Closes #12`).
+- Keep the PR focused — one feature or fix. Build green before opening.
+- Update docs in the same PR when behaviour changes: [`docs/VIEW-INVENTORY.md`](./docs/VIEW-INVENTORY.md) for new/renamed shared components, and add an ADR under `docs/decisions/` for significant design decisions.
+
 The architecture is documented in [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md). Significant design decisions live as ADRs under `docs/decisions/`.
