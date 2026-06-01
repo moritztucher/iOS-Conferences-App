@@ -58,6 +58,9 @@ struct ConferenceListView: View {
                                     isFavourite: favouriteIDs.contains(conference.id)
                                 )
                             }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                favouriteSwipeAction(for: conference)
+                            }
                         }
                     }
                 }
@@ -118,6 +121,20 @@ struct ConferenceListView: View {
             .menuActionDismissBehavior(.disabled)
             .accessibilityLabel("Filter")
         }
+    }
+
+    @ViewBuilder
+    private func favouriteSwipeAction(for conference: Conference) -> some View {
+        let isFavourite = favouriteIDs.contains(conference.id)
+        Button {
+            viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
+        } label: {
+            Label(
+                isFavourite ? "Unfavourite" : "Favourite",
+                systemImage: isFavourite ? "heart.slash.fill" : "heart.fill"
+            )
+        }
+        .tint(isFavourite ? .gray : .pink)
     }
 
     @ViewBuilder
