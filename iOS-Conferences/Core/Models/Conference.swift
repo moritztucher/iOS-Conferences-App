@@ -8,6 +8,15 @@ enum ConferenceKind: String, Codable, CaseIterable, Sendable {
     case conference = "Conference"
     case watchParty = "Watch Party"
     case event = "Event"
+
+    /// SF Symbol used to label the kind in the list. Matches the kind-filter symbols.
+    var symbolName: String {
+        switch self {
+        case .conference: return "building.columns.fill"
+        case .watchParty: return "tv"
+        case .event: return "calendar.badge.plus"
+        }
+    }
 }
 
 @Model
@@ -66,4 +75,22 @@ extension Conference {
         return today > eventEndDay
     }
     var isOnline: Bool { mapQuery == nil || locationName.localizedCaseInsensitiveContains("online") }
+
+    /// Display-only: trims a redundant trailing country so list rows read "Cupertino, California"
+    /// instead of the truncated "Cupertino, California, USA". No effect on map queries or storage.
+    var locationShort: String {
+        let parts = locationName
+            .split(separator: ",")
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+        guard parts.count >= 3 else { return locationName }
+        let trailingCountries: Set<String> = [
+            "usa", "u.s.a.", "us", "united states", "united states of america",
+            "uk", "u.k.", "united kingdom"
+        ]
+        if let last = parts.last, trailingCountries.contains(last.lowercased()) {
+            return parts.dropLast().joined(separator: ", ")
+        }
+        return locationName
+    }
 }

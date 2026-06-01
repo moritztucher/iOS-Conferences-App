@@ -8,12 +8,12 @@ struct ConferencePlaceholder: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let background = Self.color(for: conference.id)
+            let base = Self.color(for: conference.id)
             ZStack {
-                background
+                Self.gradient(for: conference.id)
                 Text(Self.initials(for: conference.name))
                     .font(.system(size: proxy.size.height * 0.42, weight: .bold, design: .rounded))
-                    .foregroundStyle(Self.foreground(on: background))
+                    .foregroundStyle(Self.foreground(on: base))
                     .minimumScaleFactor(0.5)
                     .padding(proxy.size.height * 0.1)
             }
@@ -35,23 +35,46 @@ struct ConferencePlaceholder: View {
         return "?"
     }
 
-    static func color(for id: String) -> Color {
-        let palette: [Color] = [
-            Color(red: 0.00, green: 0.48, blue: 1.00),
-            Color(red: 0.88, green: 0.24, blue: 0.18),
-            Color(red: 1.00, green: 0.44, blue: 0.00),
-            Color(red: 0.18, green: 0.56, blue: 0.25),
-            Color(red: 0.40, green: 0.18, blue: 0.57),
-            Color(red: 0.80, green: 0.14, blue: 0.34),
-            Color(red: 0.00, green: 0.61, blue: 0.59),
-            Color(red: 0.51, green: 0.32, blue: 0.13),
-            Color(red: 0.45, green: 0.45, blue: 0.50)
+    /// Hash-derived base RGB for a conference id, stable across launches.
+    private static func rgb(for id: String) -> (r: Double, g: Double, b: Double) {
+        let palette: [(Double, Double, Double)] = [
+            (0.00, 0.48, 1.00),
+            (0.88, 0.24, 0.18),
+            (1.00, 0.44, 0.00),
+            (0.18, 0.56, 0.25),
+            (0.40, 0.18, 0.57),
+            (0.80, 0.14, 0.34),
+            (0.00, 0.61, 0.59),
+            (0.51, 0.32, 0.13),
+            (0.45, 0.45, 0.50)
         ]
         var hash: UInt64 = 5381
         for byte in id.utf8 {
             hash = (hash &* 33) &+ UInt64(byte)
         }
         return palette[Int(hash % UInt64(palette.count))]
+    }
+
+    static func color(for id: String) -> Color {
+        let c = rgb(for: id)
+        return Color(red: c.r, green: c.g, blue: c.b)
+    }
+
+    /// Subtle top-lighter → base gradient from the same hash colour. Adds depth to the
+    /// large detail hero while staying imperceptible (and consistent) on small list tiles.
+    static func gradient(for id: String) -> LinearGradient {
+        let c = rgb(for: id)
+        let lighten = 0.18
+        let top = Color(
+            red: c.r + (1 - c.r) * lighten,
+            green: c.g + (1 - c.g) * lighten,
+            blue: c.b + (1 - c.b) * lighten
+        )
+        return LinearGradient(
+            colors: [top, Color(red: c.r, green: c.g, blue: c.b)],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
 
     /// Picks black or white initials for the best contrast against `background`,

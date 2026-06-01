@@ -176,7 +176,7 @@ struct ConferenceDetailView: View {
 
     private var headerSubtitle: String {
         let range = ConferenceDateStyle.range(from: viewModel.conference.startDate, to: viewModel.conference.endDate)
-        return "\(range) · \(viewModel.conference.locationName)"
+        return "\(range) · \(viewModel.conference.locationShort)"
     }
 }
 
@@ -197,7 +197,7 @@ struct ConferenceHeroBanner: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 220)
+        .frame(height: 180)
         .clipped()
         .accessibilityHidden(true)
     }
