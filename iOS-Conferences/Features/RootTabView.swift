@@ -2,8 +2,6 @@ import SwiftUI
 import SwiftData
 
 struct RootTabView: View {
-    @Query private var favourites: [FavouriteConference]
-
     var body: some View {
         TabView {
             Tab("Conferences", systemImage: "calendar") {
@@ -12,7 +10,6 @@ struct RootTabView: View {
             Tab("Favourites", systemImage: "heart") {
                 ConferenceListView(filter: .favourites)
             }
-            .badge(favourites.count)
             Tab("Settings", systemImage: "gearshape") {
                 SettingsView()
             }
