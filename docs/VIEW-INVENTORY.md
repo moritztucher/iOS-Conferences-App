@@ -21,7 +21,7 @@ Cross-feature reusable UI. Pure, stateless or self-contained, no feature-specifi
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferencePlaceholder` | `ViewComponents/ConferencePlaceholder.swift` | Typographic fallback shown when a conference has no `logoURL` or `AsyncImage` fails. Initials + hash-derived background colour. | `conference: Conference` | Uses `GeometryReader` to scale text to the container — works at 44pt thumbnail or 220pt hero. White text on a stable per-id colour from a 9-colour palette. |
+| `ConferencePlaceholder` | `ViewComponents/ConferencePlaceholder.swift` | Typographic fallback shown when a conference has no `logoURL` or `AsyncImage` fails. Initials + hash-derived background colour. | `conference: Conference` | Uses `GeometryReader` to scale text to the container — works at 44pt thumbnail or 180pt hero. Auto-contrasting initials on a subtle top-lighter→base **gradient** derived from a stable per-id colour (9-colour hash palette via `gradient(for:)`). |
 | `MailComposeView` | `ViewComponents/MailComposeView.swift` | UIViewControllerRepresentable wrapping `MFMailComposeViewController` (in-app mail compose sheet). | `recipient: String, subject: String = "", body: String = ""` | Callers should check `MFMailComposeViewController.canSendMail()` before presenting and fall back to a `mailto:` URL if false. |
 
 ---
@@ -34,14 +34,15 @@ Components scoped to a single feature, in `Features/[Feature]/Views/...`. Listed
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferenceRow` | `Features/ConferenceList/Views/ConferenceRow.swift` | Row cell for a conference in the list (logo + name + favourite marker + date · location subtitle). | `conference: Conference, isFavourite: Bool` | Used by both Conferences tab and Favourites tab (same component, different filter). |
+| `ConferenceSectionList` | `Features/ConferenceList/Views/ConferenceSectionList.swift` | Month-sectioned, inset-grouped list of conferences with a trailing favourite swipe action. Shared by the Conferences/Favourites tabs and the Search tab so every entry point renders rows identically. | `sections: [ConferenceMonthSection], favouriteIDs: Set<String>, onToggleFavourite: (Conference) -> Void` | Host owns the `NavigationStack` + `navigationDestination` and supplies the favourite toggle. The `swipeActions` (favourite/unfavourite, pink/gray) live here. |
+| `ConferenceRow` | `Features/ConferenceList/Views/ConferenceRow.swift` | Row cell for a conference in the list (logo + name + favourite marker + secondary line: kind glyph · date · location, with a `globe` glyph for online events). | `conference: Conference, isFavourite: Bool` | Used by both list tabs and the Search tab via `ConferenceSectionList`. |
 | `ConferenceLogo` | `Features/ConferenceList/Views/ConferenceRow.swift` | 44pt rounded `AsyncImage` thumbnail with `ConferencePlaceholder` fallback. | `conference: Conference, size: CGFloat` | Lives next to `ConferenceRow` (same file) since it's only used by the row. Promote to `ViewComponents/` if another feature needs it. |
 
 ### ConferenceDetail
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferenceHeroBanner` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | Full-bleed 220pt `AsyncImage` banner for the detail hero, with `ConferencePlaceholder` fallback. | `conference: Conference` | Lives in the same file as `ConferenceDetailView` since it's only used there. |
+| `ConferenceHeroBanner` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | Full-bleed 180pt `AsyncImage` banner for the detail hero, with gradient `ConferencePlaceholder` fallback. | `conference: Conference` | Lives in the same file as `ConferenceDetailView` since it's only used there. |
 | `SafariView` | `Features/ConferenceDetail/Views/SafariView.swift` | UIViewControllerRepresentable wrapping `SFSafariViewController`. | `url: URL` | **TODO: promote to `ViewComponents/`** — also used by `SettingsView` (View source on GitHub) and could be by `SuggestConferenceView` in future. |
 | `EventEditorView` | `Features/ConferenceDetail/Views/EventEditorView.swift` | UIViewControllerRepresentable wrapping `EKEventEditViewController` (system event editor sheet). | `event: EKEvent, eventStore: EKEventStore` | Only used in ConferenceDetail today. |
 
@@ -61,10 +62,12 @@ Top-level Views that represent a tab root or pushed destination.
 
 | Screen | File | Feature | ViewModel | Notes |
 |--------|------|---------|-----------|-------|
-| `RootTabView` | `Features/RootTabView.swift` | (root) | — | 3-tab `TabView`: Conferences / Favourites / Settings. |
-| `ConferenceListView` | `Features/ConferenceList/Views/ConferenceListView.swift` | ConferenceList | `ConferenceListViewModel` | Used by both Conferences and Favourites tabs via `init(filter:)`. Hosts `.searchable`, `.refreshable`, filter `Menu`, and the `navigationDestination(for: Route.self)`. |
-| `ConferenceDetailView` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | ConferenceDetail | `ConferenceDetailViewModel` | List-based detail with full-bleed hero, title block, When/Where, About, Actions sections. |
-| `SettingsView` | `Features/Settings/Views/SettingsView.swift` | Settings | `SettingsViewModel` | `Form` with sections: prominent tip CTA (no header), Support, Contribute, Display, About. |
+| `RootTabView` | `Features/RootTabView.swift` | (root) | — | `TabView`: Conferences / Favourites / Settings + a `Tab(role: .search)` (iOS 26 search affordance in the tab bar) hosting `ConferenceSearchView`. |
+| `ConferenceListView` | `Features/ConferenceList/Views/ConferenceListView.swift` | ConferenceList | `ConferenceListViewModel` | Used by both Conferences and Favourites tabs via `init(filter:)`. Renders via `ConferenceSectionList`; hosts `.refreshable`, filter `Menu`, and the `navigationDestination(for: Route.self)`. Search is no longer per-tab — it lives in the global Search tab. |
+| `ConferenceSearchView` | `Features/ConferenceList/Views/ConferenceSearchView.swift` | ConferenceList | `ConferenceListViewModel` | Content for `Tab(role: .search)`. Owns its `.searchable` field (iOS 26 renders it bottom-anchored), filters all conferences by name/location/tag, and renders via `ConferenceSectionList`. Prompt + no-results use `ContentUnavailableView`. |
+| `ConferenceDetailView` | `Features/ConferenceDetail/Views/ConferenceDetailView.swift` | ConferenceDetail | `ConferenceDetailViewModel` | List-based detail with full-bleed hero (logo, else a mesh-gradient `ConferencePlaceholder` banner with a kind watermark), title block, an embedded MapKit map card (venue `Marker`, geocoded by `VenueLocationService`, taps through to Maps), When/Where, About, Actions sections. Rich `ShareLink` (`SharePreview`). |
+| `SettingsView` | `Features/Settings/Views/SettingsView.swift` | Settings | `SettingsViewModel` | `Form` with sections: prominent tip CTA (no header), Support, Contribute, Display (past-conferences toggle + `App Icon` `NavigationLink`), About. |
+| `AppIconView` | `Features/Settings/Views/AppIconView.swift` | Settings | `AppIconViewModel` | Pushed from Settings → Display. Alternate-app-icon picker: a `List` row per `AppIcon` case (preview image + title + date/venue subtitle + checkmark). Switches via `AppIconService` (`setAlternateIconName`). Icons are collectible Apple-history milestones; default is the ticket-fan icon. |
 | `AcknowledgementsView` | `Features/Settings/Views/AcknowledgementsView.swift` | Settings | — | Pushed from Settings via `NavigationLink`. List of credits; each row opens its URL in a `SafariView` sheet. |
 | `SuggestConferenceView` | `Features/SuggestConference/Views/SuggestConferenceView.swift` | SuggestConference | `SuggestConferenceViewModel` | Sheet form. `.safeAreaInset(.bottom)` stacks primary "Email suggestion" + secondary "Submit as GitHub Issue instead". |
 

@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import SwiftData
 
 struct ConferenceMonthSection: Identifiable {
     let id: String
@@ -84,6 +85,21 @@ final class ConferenceListViewModel {
 
     var isFilterActive: Bool {
         formatFilter != .all || kindFilter != .all
+    }
+
+    /// Toggles a conference's favourite state from a swipe action.
+    /// Mirrors the detail screen's toggle so both entry points behave identically.
+    func toggleFavourite(
+        _ conference: Conference,
+        in favourites: [FavouriteConference],
+        context: ModelContext
+    ) {
+        if let existing = favourites.first(where: { $0.conferenceID == conference.id }) {
+            context.delete(existing)
+        } else {
+            context.insert(FavouriteConference(conferenceID: conference.id))
+        }
+        try? context.save()
     }
 
     func sections(

@@ -21,7 +21,7 @@ struct ConferenceRow: View {
                             .accessibilityLabel("Favourite")
                     }
                 }
-                Text(secondaryLine)
+                secondaryLine
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
@@ -30,9 +30,25 @@ struct ConferenceRow: View {
         .padding(.vertical, 2)
     }
 
-    private var secondaryLine: String {
-        let range = ConferenceDateStyle.range(from: conference.startDate, to: conference.endDate)
-        return "\(range) · \(conference.locationName)"
+    private var secondaryLine: some View {
+        HStack(spacing: 4) {
+            Image(systemName: conference.kind.symbolName)
+                .imageScale(.small)
+                .accessibilityLabel(conference.kind.rawValue)
+            Text(dateRange)
+            Text("·")
+            if conference.isOnline {
+                Label("Online", systemImage: "globe")
+                    .labelStyle(.titleAndIcon)
+                    .imageScale(.small)
+            } else {
+                Text(conference.locationShort)
+            }
+        }
+    }
+
+    private var dateRange: String {
+        ConferenceDateStyle.range(from: conference.startDate, to: conference.endDate)
     }
 }
 

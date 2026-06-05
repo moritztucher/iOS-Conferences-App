@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import MapKit
 
 struct ConferenceDetailView: View {
     @Environment(\.modelContext) private var modelContext
@@ -7,6 +8,10 @@ struct ConferenceDetailView: View {
     @Query private var favourites: [FavouriteConference]
 
     @State private var viewModel: ConferenceDetailViewModel
+    /// The conference name lives in the large title block under the hero; it only
+    /// appears in the navigation bar once that block has scrolled out of view, so
+    /// the name is never shown twice at rest.
+    @State private var showsNavBarTitle = false
 
     init(conference: Conference) {
         _viewModel = State(initialValue: ConferenceDetailViewModel(conference: conference))
@@ -21,13 +26,21 @@ struct ConferenceDetailView: View {
         List {
             heroSection
             titleSection
+            mapSection
             whenAndWhereSection
             aboutSection
             actionsSection
         }
         .listStyle(.insetGrouped)
-        .navigationTitle(viewModel.conference.name)
+        .task(id: viewModel.conference.id) { await viewModel.resolveVenue() }
+        .navigationTitle(showsNavBarTitle ? viewModel.conference.name : "")
         .navigationBarTitleDisplayMode(.inline)
+        .onScrollGeometryChange(for: Bool.self) { geometry in
+            // Hero (180pt) + title block scrolls past ~190pt.
+            geometry.contentOffset.y > 190
+        } action: { _, isPastTitle in
+            showsNavBarTitle = isPastTitle
+        }
         .toolbar { toolbarContent }
         .sheet(isPresented: $bindable.isShowingSafari) {
             if let url = viewModel.conference.websiteURL {
@@ -88,6 +101,34 @@ struct ConferenceDetailView: View {
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
+    }
+
+    @ViewBuilder
+    private var mapSection: some View {
+        if let coordinate = viewModel.venueCoordinate {
+            Section {
+                Map(initialPosition: .region(
+                    MKCoordinateRegion(
+                        center: coordinate,
+                        span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+                    )
+                )) {
+                    Marker(viewModel.conference.locationShort, coordinate: coordinate)
+                }
+                .mapStyle(.standard(elevation: .flat, pointsOfInterest: .including([.publicTransport])))
+                .allowsHitTesting(false)
+                .frame(height: 170)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .contentShape(.rect)
+                .onTapGesture { viewModel.openInMaps() }
+                .accessibilityElement(children: .contain)
+                .accessibilityLabel("Map of \(viewModel.conference.locationName)")
+                .accessibilityHint("Opens in Maps")
+            }
+            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+        }
     }
 
     @ViewBuilder
@@ -168,7 +209,16 @@ struct ConferenceDetailView: View {
             .accessibilityLabel(isFavourite ? "Remove from favourites" : "Add to favourites")
         }
         ToolbarItem(placement: .topBarTrailing) {
-            ShareLink(item: viewModel.shareText)
+            if let url = viewModel.conference.websiteURL {
+                ShareLink(
+                    item: url,
+                    subject: Text(viewModel.conference.name),
+                    message: Text(viewModel.shareText),
+                    preview: SharePreview(viewModel.conference.name)
+                )
+            } else {
+                ShareLink(item: viewModel.shareText)
+            }
         }
     }
 
@@ -176,7 +226,7 @@ struct ConferenceDetailView: View {
 
     private var headerSubtitle: String {
         let range = ConferenceDateStyle.range(from: viewModel.conference.startDate, to: viewModel.conference.endDate)
-        return "\(range) · \(viewModel.conference.locationName)"
+        return "\(range) · \(viewModel.conference.locationShort)"
     }
 }
 
@@ -197,7 +247,7 @@ struct ConferenceHeroBanner: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 220)
+        .frame(height: 180)
         .clipped()
         .accessibilityHidden(true)
     }
