@@ -66,7 +66,8 @@
 - [ ]
 
 ### Medium Priority
-- [ ]
+- [ ] **Regenerate the primary app icon.** The shipped `AppIcon` is still the old placeholder render. The new ticket-style alternate icons (1976/1984/2001/2007/2023/2026) are wired up, but the **primary/default** icon needs a final regenerated ticket. When done, align the picker's `default` entry — `AppIcon` enum `title`/`subtitle` ("Tickets" / "18 May 2026 · First commit") and `IconPreview-default` — with the chosen art. Generation prompts live in `icon-design/`.
+- [ ] Verify the 2023 / Vision Pro icon's stamped year reads **2023** (not 2025); regenerate `AppIcon2023` + `IconPreview-2023` if wrong.
 
 ### Low Priority
 - [ ]

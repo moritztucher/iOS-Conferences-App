@@ -66,6 +66,11 @@ struct SettingsView: View {
     private var displaySection: some View {
         Section("Display") {
             Toggle("Show past conferences", isOn: $showPastConferences)
+            NavigationLink {
+                AppIconView()
+            } label: {
+                Label("App Icon", systemImage: "app.badge")
+            }
         }
     }
 
