@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import MapKit
 
 struct ConferenceDetailView: View {
     @Environment(\.modelContext) private var modelContext
@@ -25,11 +26,14 @@ struct ConferenceDetailView: View {
         List {
             heroSection
             titleSection
+            mapSection
             whenAndWhereSection
             aboutSection
             actionsSection
         }
         .listStyle(.insetGrouped)
+        .task(id: viewModel.conference.id) { await viewModel.resolveVenue() }
+        .lookAroundViewer(isPresented: $bindable.isShowingLookAround, initialScene: viewModel.lookAroundScene)
         .navigationTitle(showsNavBarTitle ? viewModel.conference.name : "")
         .navigationBarTitleDisplayMode(.inline)
         .onScrollGeometryChange(for: Bool.self) { geometry in
@@ -98,6 +102,48 @@ struct ConferenceDetailView: View {
         }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
+    }
+
+    @ViewBuilder
+    private var mapSection: some View {
+        if let coordinate = viewModel.venueCoordinate {
+            Section {
+                ZStack(alignment: .bottomLeading) {
+                    Map(initialPosition: .region(
+                        MKCoordinateRegion(
+                            center: coordinate,
+                            span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+                        )
+                    )) {
+                        Marker(viewModel.conference.locationShort, coordinate: coordinate)
+                    }
+                    .mapStyle(.standard(elevation: .flat, pointsOfInterest: .including([.publicTransport])))
+                    .allowsHitTesting(false)
+
+                    if viewModel.lookAroundScene != nil {
+                        Button {
+                            viewModel.isShowingLookAround = true
+                        } label: {
+                            Label("Look Around", systemImage: "binoculars.fill")
+                                .font(.footnote.weight(.semibold))
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.small)
+                        .padding(10)
+                    }
+                }
+                .frame(height: 170)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .contentShape(.rect)
+                .onTapGesture { viewModel.openInMaps() }
+                .accessibilityElement(children: .contain)
+                .accessibilityLabel("Map of \(viewModel.conference.locationName)")
+                .accessibilityHint("Opens in Maps")
+            }
+            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+        }
     }
 
     @ViewBuilder
@@ -178,7 +224,16 @@ struct ConferenceDetailView: View {
             .accessibilityLabel(isFavourite ? "Remove from favourites" : "Add to favourites")
         }
         ToolbarItem(placement: .topBarTrailing) {
-            ShareLink(item: viewModel.shareText)
+            if let url = viewModel.conference.websiteURL {
+                ShareLink(
+                    item: url,
+                    subject: Text(viewModel.conference.name),
+                    message: Text(viewModel.shareText),
+                    preview: SharePreview(viewModel.conference.name)
+                )
+            } else {
+                ShareLink(item: viewModel.shareText)
+            }
         }
     }
 

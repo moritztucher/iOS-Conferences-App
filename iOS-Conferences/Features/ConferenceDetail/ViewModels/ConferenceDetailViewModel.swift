@@ -1,6 +1,8 @@
 import SwiftUI
 import SwiftData
 import EventKit
+import MapKit
+import CoreLocation
 import UIKit
 import Observation
 
@@ -12,6 +14,13 @@ final class ConferenceDetailViewModel {
     var isShowingSafari = false
     var isShowingEventEditor = false
     var calendarAccessIssue: CalendarAccessIssue?
+
+    /// Resolved lazily from the conference's location for the embedded venue map.
+    var venueCoordinate: CLLocationCoordinate2D?
+    var lookAroundScene: MKLookAroundScene?
+    var isShowingLookAround = false
+
+    private let venueService: VenueLocating
 
     enum CalendarAccessIssue: Identifiable {
         case denied
@@ -35,8 +44,19 @@ final class ConferenceDetailViewModel {
         }
     }
 
-    init(conference: Conference) {
+    init(conference: Conference, venueService: VenueLocating = VenueLocationService()) {
         self.conference = conference
+        self.venueService = venueService
+    }
+
+    /// Geocodes the venue (once) and, if available, fetches its Look Around scene.
+    /// No-ops for online events or when already resolved.
+    func resolveVenue() async {
+        guard !conference.isOnline, venueCoordinate == nil else { return }
+        let query = conference.mapQuery ?? conference.locationName
+        guard let coordinate = await venueService.coordinate(for: query) else { return }
+        venueCoordinate = coordinate
+        lookAroundScene = await venueService.lookAroundScene(for: coordinate)
     }
 
     func isFavourite(in favourites: [FavouriteConference]) -> Bool {
