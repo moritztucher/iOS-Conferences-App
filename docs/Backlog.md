@@ -92,4 +92,8 @@
 - [ ] Submit-a-conference flow (community-curated)
 - [ ] Apple Sign-In + CloudKit sync if favourites become a thing
 - [ ] WidgetKit widget showing the next 3 conferences
+- [ ] Single-favourite countdown widget (small) — see `feature-ideas-2026-06-07.md`
+- [ ] Local "I'm attending" flag → drives Live Activity — see `feature-ideas-2026-06-07.md`
 - [ ] visionOS / iPad layout
+
+> 2026-06-07 brainstorm (Live Activity, attendance, schedule-pull, countdown widget) documented with trade-offs in `feature-ideas-2026-06-07.md`.
