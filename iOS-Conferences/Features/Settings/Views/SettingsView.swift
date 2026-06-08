@@ -4,6 +4,7 @@ import MessageUI
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
+    @Environment(\.requestReview) private var requestReview
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel = SettingsViewModel()
 
@@ -35,13 +36,19 @@ struct SettingsView: View {
         }
     }
 
-    @ViewBuilder
+   @ViewBuilder
     private var supportSection: some View {
         Section("Support") {
             Button {
                 contactMe()
             } label: {
                 Label("Contact me", systemImage: "envelope")
+            }
+            
+            Button {
+                requestReview()
+            } label: {
+                Label("Rate dubdub", systemImage: "star")
             }
         }
     }
