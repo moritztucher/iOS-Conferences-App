@@ -67,9 +67,9 @@ struct SettingsView: View {
         Section("Display") {
             Toggle("Show past conferences", isOn: $showPastConferences)
             NavigationLink {
-                AppIconView()
+                AppearanceView()
             } label: {
-                Label("App Icon", systemImage: "app.badge")
+                Label("Appearance", systemImage: "circle.lefthalf.filled")
             }
         }
     }
