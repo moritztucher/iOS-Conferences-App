@@ -112,7 +112,7 @@ struct ConferenceCard: View {
         VStack(alignment: .leading, spacing: 6) {
             overline
             Text(conference.name)
-                .font(.title2.weight(.bold))
+                .font(Theme.serif(.title2, weight: .bold))
                 .foregroundStyle(.white)
                 .lineLimit(2)
                 .shadow(color: .black.opacity(0.4), radius: 4, y: 1)

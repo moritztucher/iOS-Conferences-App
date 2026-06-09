@@ -82,8 +82,8 @@ private struct MonthSectionHeader: View {
 
     var body: some View {
         Text(title)
-            .font(.title3.weight(.bold))
-            .tracking(1.5)
+            .font(Theme.serif(.title3, weight: .bold))
+            .tracking(0.5)
             .textCase(nil)
             .foregroundStyle(.primary)
             .frame(maxWidth: .infinity, alignment: .leading)

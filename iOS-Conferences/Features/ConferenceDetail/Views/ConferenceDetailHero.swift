@@ -75,7 +75,7 @@ struct ConferenceDetailHero: View {
             .foregroundStyle(.white.opacity(0.95))
 
             Text(conference.name)
-                .font(.largeTitle.weight(.bold))
+                .font(Theme.serif(.largeTitle, weight: .bold))
                 .lineLimit(3)
                 .foregroundStyle(.white)
 
