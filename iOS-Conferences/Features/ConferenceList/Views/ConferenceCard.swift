@@ -12,6 +12,8 @@ struct ConferenceCard: View {
     let conference: Conference
     let isFavourite: Bool
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     private static let height: CGFloat = 172
     private static let cornerRadius: CGFloat = 22
     private static let notchRadius: CGFloat = 11
@@ -36,6 +38,7 @@ struct ConferenceCard: View {
             }
             favouriteMark
         }
+        .animation(reduceMotion ? nil : .snappy, value: isFavourite)
         .frame(maxWidth: .infinity)
         .frame(height: Self.height)
         .clipShape(ticket)
@@ -170,6 +173,7 @@ struct ConferenceCard: View {
                 // Sit in the body, just left of the perforation.
                 .padding(.trailing, Self.stubWidth)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                .transition(.scale.combined(with: .opacity))
         }
     }
 

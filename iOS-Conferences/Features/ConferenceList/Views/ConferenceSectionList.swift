@@ -12,6 +12,10 @@ struct ConferenceSectionList: View {
     let namespace: Namespace.ID
     let onToggleFavourite: (Conference) -> Void
 
+    /// Bumped by the swipe action so the haptic fires only on a swipe here — not when
+    /// `favouriteIDs` changes from elsewhere (e.g. the detail screen, which has its own).
+    @State private var favouriteTrigger = 0
+
     var body: some View {
         List {
             ForEach(sections) { section in
@@ -40,6 +44,7 @@ struct ConferenceSectionList: View {
             }
         }
         .listStyle(.plain)
+        .sensoryFeedback(.impact(weight: .light), trigger: favouriteTrigger)
     }
 
     @ViewBuilder
@@ -47,6 +52,7 @@ struct ConferenceSectionList: View {
         let isFavourite = favouriteIDs.contains(conference.id)
         Button {
             onToggleFavourite(conference)
+            favouriteTrigger += 1
         } label: {
             Label(
                 isFavourite ? "Unfavourite" : "Favourite",

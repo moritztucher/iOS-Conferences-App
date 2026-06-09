@@ -44,6 +44,15 @@ struct ConferenceDetailView: View {
             showsNavBarTitle = isPastTitle
         }
         .toolbar { toolbarContent }
+        .sensoryFeedback(trigger: isFavourite) { _, isNowFavourite in
+            isNowFavourite ? .success : .impact(weight: .light)
+        }
+        .sensoryFeedback(trigger: viewModel.isShowingEventEditor) { _, isPresented in
+            isPresented ? .impact(weight: .medium) : nil
+        }
+        .sensoryFeedback(.error, trigger: viewModel.calendarAccessIssue != nil) { _, hasIssue in
+            hasIssue
+        }
         .sheet(isPresented: $bindable.isShowingSafari) {
             if let url = viewModel.conference.websiteURL {
                 SafariView(url: url)
