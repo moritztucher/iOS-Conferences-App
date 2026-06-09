@@ -28,7 +28,7 @@ struct ConferenceListView: View {
     }
 
     private var isFiltering: Bool {
-        viewModel.isFilterActive || showPastConferences
+        viewModel.isFilterActive || viewModel.isRegionFilterActive || showPastConferences
     }
 
     var body: some View {
@@ -84,6 +84,7 @@ struct ConferenceListView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) { regionMenu }
         ToolbarItem(placement: .topBarTrailing) { filterMenu }
     }
 
@@ -113,11 +114,41 @@ struct ConferenceListView: View {
         .accessibilityLabel("Filter")
     }
 
+    private var regionMenu: some View {
+        Menu {
+            Button {
+                viewModel.selectedRegions.removeAll()
+            } label: {
+                Label("Global", systemImage: "globe")
+            }
+            Section("Region") {
+                ForEach(ConferenceRegion.allCases) { region in
+                    Toggle(isOn: regionBinding(region)) {
+                        Label(region.rawValue, systemImage: region.systemImage)
+                    }
+                }
+            }
+        } label: {
+            Image(systemName: viewModel.isRegionFilterActive ? "globe.americas.fill" : "globe.americas")
+        }
+        .menuActionDismissBehavior(.disabled)
+        .accessibilityLabel("Region")
+    }
+
     private func kindBinding(_ kind: ConferenceKind) -> Binding<Bool> {
         Binding(
             get: { viewModel.selectedKinds.contains(kind) },
             set: { isOn in
                 if isOn { viewModel.selectedKinds.insert(kind) } else { viewModel.selectedKinds.remove(kind) }
+            }
+        )
+    }
+
+    private func regionBinding(_ region: ConferenceRegion) -> Binding<Bool> {
+        Binding(
+            get: { viewModel.selectedRegions.contains(region) },
+            set: { isOn in
+                if isOn { viewModel.selectedRegions.insert(region) } else { viewModel.selectedRegions.remove(region) }
             }
         )
     }

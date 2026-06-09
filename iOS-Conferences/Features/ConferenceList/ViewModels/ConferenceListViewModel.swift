@@ -51,6 +51,8 @@ final class ConferenceListViewModel {
     var formatFilter: ConferenceFormatFilter = .all
     /// Multi-select kind filter. Empty is treated as "all" (see `effectiveKinds`).
     var selectedKinds: Set<ConferenceKind> = Set(ConferenceKind.allCases)
+    /// Multi-select region filter. Empty means Global (all regions).
+    var selectedRegions: Set<ConferenceRegion> = []
     let filter: Filter
 
     init(filter: Filter) {
@@ -65,6 +67,8 @@ final class ConferenceListViewModel {
     var isFilterActive: Bool {
         formatFilter != .all || effectiveKinds != Set(ConferenceKind.allCases)
     }
+
+    var isRegionFilterActive: Bool { !selectedRegions.isEmpty }
 
     /// Toggles a conference's favourite state from a swipe action.
     /// Mirrors the detail screen's toggle so both entry points behave identically.
@@ -111,6 +115,10 @@ final class ConferenceListViewModel {
             filtered = filtered.filter { !$0.isOnline }
         case .online:
             filtered = filtered.filter { $0.isOnline }
+        }
+
+        if !selectedRegions.isEmpty {
+            filtered = filtered.filter { $0.region.map(selectedRegions.contains) ?? false }
         }
 
         let trimmedQuery = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
