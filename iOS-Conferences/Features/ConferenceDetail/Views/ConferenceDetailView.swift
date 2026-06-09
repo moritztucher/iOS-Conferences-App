@@ -25,19 +25,21 @@ struct ConferenceDetailView: View {
         @Bindable var bindable = viewModel
         List {
             heroSection
-            titleSection
             mapSection
             whenAndWhereSection
             aboutSection
             actionsSection
         }
         .listStyle(.insetGrouped)
+        .ignoresSafeArea(edges: .top)
         .task(id: viewModel.conference.id) { await viewModel.resolveVenue() }
         .navigationTitle(showsNavBarTitle ? viewModel.conference.name : "")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(showsNavBarTitle ? .automatic : .hidden, for: .navigationBar)
         .onScrollGeometryChange(for: Bool.self) { geometry in
-            // Hero (180pt) + title block scrolls past ~190pt.
-            geometry.contentOffset.y > 190
+            // The name lives in the hero overlay; reveal the nav-bar title once the hero
+            // has mostly scrolled away.
+            geometry.contentOffset.y > ConferenceDetailHero.baseHeight - 80
         } action: { _, isPastTitle in
             showsNavBarTitle = isPastTitle
         }
@@ -79,26 +81,9 @@ struct ConferenceDetailView: View {
     @ViewBuilder
     private var heroSection: some View {
         Section {
-            ConferenceHeroBanner(conference: viewModel.conference)
+            ConferenceDetailHero(conference: viewModel.conference)
         }
         .listRowInsets(EdgeInsets())
-        .listRowBackground(Color.clear)
-        .listRowSeparator(.hidden)
-    }
-
-    @ViewBuilder
-    private var titleSection: some View {
-        Section {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(viewModel.conference.name)
-                    .font(.title2.weight(.semibold))
-                Text(headerSubtitle)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-            .padding(.vertical, 4)
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
     }
@@ -220,36 +205,6 @@ struct ConferenceDetailView: View {
                 ShareLink(item: viewModel.shareText)
             }
         }
-    }
-
-    // MARK: - Helpers
-
-    private var headerSubtitle: String {
-        let range = ConferenceDateStyle.range(from: viewModel.conference.startDate, to: viewModel.conference.endDate)
-        return "\(range) · \(viewModel.conference.locationShort)"
-    }
-}
-
-struct ConferenceHeroBanner: View {
-    let conference: Conference
-
-    var body: some View {
-        AsyncImage(url: conference.logoURL) { phase in
-            switch phase {
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFill()
-            case .empty, .failure:
-                ConferencePlaceholder(conference: conference)
-            @unknown default:
-                ConferencePlaceholder(conference: conference)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 180)
-        .clipped()
-        .accessibilityHidden(true)
     }
 }
 
