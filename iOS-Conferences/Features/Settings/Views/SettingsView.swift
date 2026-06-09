@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import MessageUI
+import StoreKit
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
