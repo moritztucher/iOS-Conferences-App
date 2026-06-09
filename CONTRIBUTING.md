@@ -44,6 +44,7 @@ There are three ways to contribute, in order of friction:
 | `endDate` | `String` | yes | Last day, `YYYY-MM-DD`. Inclusive. Same as `startDate` for one-day events. |
 | `startTime` | `String?` | no | Event-local start time, 24-hour `HH:mm` (e.g. `"19:00"`). Set it for timed **Watch Parties** and **Events**; omit it for multi-day conferences (they show as all-day). When present, the time appears on the card and the "Add to Calendar" action creates a timed event. |
 | `endTime` | `String?` | no | Event-local end time, 24-hour `HH:mm`. Optional even when `startTime` is set — the calendar event falls back to a 2-hour duration if it's missing. |
+| `timeZone` | `String?` | no | IANA time-zone identifier, e.g. `"Asia/Tokyo"`, `"America/Los_Angeles"`, `"Europe/Berlin"`. Set it for **online** timed events (which have no venue to derive a zone from); for in-person events it's optional and overrides the geocoded zone. Drives the zone shown on the card and used by "Add to Calendar". |
 | `locationName` | `String` | yes | Display string, e.g. `"Tokyo, Japan"` or `"Online"`. |
 | `mapQuery` | `String?` | no | Apple-Maps-friendly query (city, venue, or full address). `null` for online events. The Location row in the detail view becomes tappable when this is set. |
 | `summary` | `String` | yes | One-sentence factual description. **In your own words** — don't copy the site's marketing copy verbatim (see [Legal](#legal) below). Aim for ~100–160 characters. |
@@ -74,6 +75,26 @@ Multi-day conferences are all-day, so they omit `startTime`/`endTime`. A single-
 ```
 
 Times are the event's **local** wall-clock (no timezone offset) — `"18:30"` shows as `6:30 PM` / `18:30` per the viewer's locale.
+
+For an **online** timed event, add a `timeZone` so the time is unambiguous (there's no venue to derive it from):
+
+```json
+{
+  "id": "online-keynote-watch-2026",
+  "kind": "Watch Party",
+  "name": "Global Online Keynote Watch",
+  "startDate": "2026-06-08",
+  "endDate": "2026-06-08",
+  "startTime": "10:00",
+  "timeZone": "America/Los_Angeles",
+  "locationName": "Online",
+  "mapQuery": null,
+  "summary": "Streamed keynote watch-along for the global community.",
+  "websiteURL": "https://...",
+  "logoURL": null,
+  "tags": ["wwdc", "community"]
+}
+```
 
 ### Ordering
 

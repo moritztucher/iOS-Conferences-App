@@ -184,9 +184,15 @@ struct ConferenceCard: View {
     }
 
     /// Overline reads `TIME · LOCATION` for timed events, just `LOCATION` for conferences.
+    /// Online timed events also show the zone abbreviation, since they have no location to
+    /// imply it (e.g. `19:00 PDT · ONLINE`).
     private var overlineText: String {
         guard let time = conference.startTimeLabel else { return locationText }
-        return "\(time.uppercased()) · \(locationText)"
+        var timePart = time
+        if conference.isOnline, let abbreviation = conference.timeZoneAbbreviation {
+            timePart += " \(abbreviation)"
+        }
+        return "\(timePart.uppercased()) · \(locationText)"
     }
 
     private var accessibilityLabel: String {

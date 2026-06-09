@@ -68,6 +68,13 @@ body:
       placeholder: "22:00"
 
   - type: input
+    id: timezone
+    attributes:
+      label: Time zone (optional)
+      description: IANA identifier (e.g. America/Los_Angeles, Europe/Berlin, Asia/Tokyo). Add it for online timed events; in-person events derive it from the location automatically.
+      placeholder: "America/Los_Angeles"
+
+  - type: input
     id: location
     attributes:
       label: Location

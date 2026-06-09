@@ -47,6 +47,9 @@ final class Conference {
     /// Event-local end time as minutes from midnight. Optional even when `startTimeMinutes`
     /// is set — the calendar flow falls back to a default duration when absent.
     var endTimeMinutes: Int?
+    /// Optional IANA time-zone identifier (e.g. "Asia/Tokyo"). Mainly for online events,
+    /// which have no venue to geocode; for in-person events it overrides the geocoded zone.
+    var timeZoneIdentifier: String?
     var locationName: String
     var mapQuery: String?
     var summary: String
@@ -62,6 +65,7 @@ final class Conference {
         endDate: Date,
         startTimeMinutes: Int? = nil,
         endTimeMinutes: Int? = nil,
+        timeZoneIdentifier: String? = nil,
         locationName: String,
         mapQuery: String?,
         summary: String,
@@ -76,6 +80,7 @@ final class Conference {
         self.endDate = endDate
         self.startTimeMinutes = startTimeMinutes
         self.endTimeMinutes = endTimeMinutes
+        self.timeZoneIdentifier = timeZoneIdentifier
         self.locationName = locationName
         self.mapQuery = mapQuery
         self.summary = summary
@@ -95,6 +100,17 @@ extension Conference {
     var startTimeLabel: String? {
         guard let startTimeMinutes else { return nil }
         return ConferenceDateStyle.timeLabel(minutes: startTimeMinutes)
+    }
+
+    /// Resolved event time zone from `timeZoneIdentifier`, if set and valid.
+    var timeZone: TimeZone? {
+        timeZoneIdentifier.flatMap(TimeZone.init(identifier:))
+    }
+
+    /// Short zone abbreviation for the event date (e.g. "PDT", "JST") — shown on the card
+    /// for online timed events, which have no location to imply the zone.
+    var timeZoneAbbreviation: String? {
+        timeZone?.abbreviation(for: startDate)
     }
     var logoURL: URL? {
         guard let logoURLString else { return nil }

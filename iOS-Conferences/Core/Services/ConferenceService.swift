@@ -25,6 +25,7 @@ extension ConferenceServiceProtocol {
                 target.endDate = conference.endDate
                 target.startTimeMinutes = conference.startTimeMinutes
                 target.endTimeMinutes = conference.endTimeMinutes
+                target.timeZoneIdentifier = conference.timeZoneIdentifier
                 target.locationName = conference.locationName
                 target.mapQuery = conference.mapQuery
                 target.summary = conference.summary
@@ -118,6 +119,8 @@ private struct ConferenceDTO: Decodable {
     /// omitted for multi-day conferences.
     let startTime: String?
     let endTime: String?
+    /// Optional IANA time-zone identifier (e.g. "Asia/Tokyo"); mainly for online events.
+    let timeZone: String?
     let locationName: String
     let mapQuery: String?
     let summary: String
@@ -134,6 +137,7 @@ private struct ConferenceDTO: Decodable {
             endDate: endDate,
             startTimeMinutes: startTime.flatMap(ConferenceDateStyle.minutes(fromHHmm:)),
             endTimeMinutes: endTime.flatMap(ConferenceDateStyle.minutes(fromHHmm:)),
+            timeZoneIdentifier: timeZone,
             locationName: locationName,
             mapQuery: mapQuery,
             summary: summary,

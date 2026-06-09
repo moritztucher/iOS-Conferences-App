@@ -11,6 +11,8 @@ final class SuggestConferenceViewModel {
     /// Optional event-local times (`HH:mm`) for Watch Parties / Events; left blank for conferences.
     var startTime: String = ""
     var endTime: String = ""
+    /// Optional IANA time-zone identifier — mainly for online timed events.
+    var timeZone: String = ""
     var location: String = ""
     var summary: String = ""
     var contributor: String = ""
@@ -40,6 +42,9 @@ final class SuggestConferenceViewModel {
 
         ### Time
         \(timeText)
+
+        ### Time zone
+        \(emptyDash(timeZone))
 
         ### Location
         \(emptyDash(location))

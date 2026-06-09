@@ -9,7 +9,7 @@ struct SuggestConferenceView: View {
     @FocusState private var focusedField: Field?
 
     private enum Field: Hashable {
-        case name, websiteURL, startTime, endTime, location, contributor
+        case name, websiteURL, startTime, endTime, timeZone, location, contributor
     }
 
     var body: some View {
@@ -39,6 +39,11 @@ struct SuggestConferenceView: View {
                         .keyboardType(.numbersAndPunctuation)
                         .focused($focusedField, equals: .endTime)
                         .submitLabel(.next)
+                    TextField("Time zone (online events, e.g. Europe/Berlin)", text: $bindable.timeZone)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .focused($focusedField, equals: .timeZone)
+                        .submitLabel(.next)
                     TextField("Location (city, country) or 'Online'", text: $bindable.location)
                         .focused($focusedField, equals: .location)
                         .submitLabel(.next)
@@ -67,7 +72,8 @@ struct SuggestConferenceView: View {
                 case .name: focusedField = .websiteURL
                 case .websiteURL: focusedField = .startTime
                 case .startTime: focusedField = .endTime
-                case .endTime: focusedField = .location
+                case .endTime: focusedField = .timeZone
+                case .timeZone: focusedField = .location
                 case .location: focusedField = .contributor
                 case .contributor, .none: focusedField = nil
                 }

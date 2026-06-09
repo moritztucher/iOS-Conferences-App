@@ -31,15 +31,16 @@ final class CalendarService {
     ///
     /// `timeZone` (the geocoded venue's zone) anchors a timed event to its *local* time, so
     /// e.g. a Tokyo 19:00 party is saved as 19:00 Tokyo regardless of the viewer's zone.
-    /// Falls back to the current zone when unresolved (e.g. online events).
+    /// The conference's own `timeZone` (from the feed) wins when set — important for online
+    /// events that can't be geocoded. Falls back to the current zone when neither is known.
     func makeDraftEvent(for conference: Conference, timeZone: TimeZone? = nil) -> EKEvent {
         let event = EKEvent(eventStore: eventStore)
         event.title = conference.name
 
         if let startMinutes = conference.startTimeMinutes {
             // Timed event (Watch Party / Event): a same-day event at its wall-clock time in
-            // the venue's zone. Falls back to a 2-hour duration when no end time is provided.
-            let zone = timeZone ?? .current
+            // the event's zone. Falls back to a 2-hour duration when no end time is provided.
+            let zone = conference.timeZone ?? timeZone ?? .current
             let start = date(forDayOf: conference.startDate, minutes: startMinutes, in: zone)
             let end: Date
             if let endMinutes = conference.endTimeMinutes, endMinutes > startMinutes {
