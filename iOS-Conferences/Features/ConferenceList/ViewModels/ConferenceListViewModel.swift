@@ -154,7 +154,11 @@ final class ConferenceListViewModel {
             let groups: [ConferenceTypeGroup] = ConferenceKind.displayOrder.compactMap { kind in
                 let confs = monthConferences
                     .filter { $0.kind == kind }
-                    .sorted { $0.startDate < $1.startDate }
+                    .sorted { lhs, rhs in
+                        // Day first, then time of day (untimed events sort before timed).
+                        if lhs.startDate != rhs.startDate { return lhs.startDate < rhs.startDate }
+                        return (lhs.startTimeMinutes ?? -1) < (rhs.startTimeMinutes ?? -1)
+                    }
                 guard !confs.isEmpty else { return nil }
                 return ConferenceTypeGroup(
                     id: "\(monthKey)-\(kind.rawValue)",

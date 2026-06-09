@@ -41,6 +41,12 @@ final class Conference {
     var name: String
     var startDate: Date
     var endDate: Date
+    /// Event-local start time as minutes from midnight (0–1439). `nil` for multi-day
+    /// conferences (all-day); set for timed Watch Parties / Events.
+    var startTimeMinutes: Int?
+    /// Event-local end time as minutes from midnight. Optional even when `startTimeMinutes`
+    /// is set — the calendar flow falls back to a default duration when absent.
+    var endTimeMinutes: Int?
     var locationName: String
     var mapQuery: String?
     var summary: String
@@ -54,6 +60,8 @@ final class Conference {
         name: String,
         startDate: Date,
         endDate: Date,
+        startTimeMinutes: Int? = nil,
+        endTimeMinutes: Int? = nil,
         locationName: String,
         mapQuery: String?,
         summary: String,
@@ -66,6 +74,8 @@ final class Conference {
         self.name = name
         self.startDate = startDate
         self.endDate = endDate
+        self.startTimeMinutes = startTimeMinutes
+        self.endTimeMinutes = endTimeMinutes
         self.locationName = locationName
         self.mapQuery = mapQuery
         self.summary = summary
@@ -77,6 +87,15 @@ final class Conference {
 
 extension Conference {
     var websiteURL: URL? { URL(string: websiteURLString) }
+
+    /// Whether this event carries a wall-clock start time (Watch Parties / Events).
+    var isTimed: Bool { startTimeMinutes != nil }
+
+    /// Locale-aware short start time for display, e.g. "7:00 PM". `nil` for all-day conferences.
+    var startTimeLabel: String? {
+        guard let startTimeMinutes else { return nil }
+        return ConferenceDateStyle.timeLabel(minutes: startTimeMinutes)
+    }
     var logoURL: URL? {
         guard let logoURLString else { return nil }
         return URL(string: logoURLString)

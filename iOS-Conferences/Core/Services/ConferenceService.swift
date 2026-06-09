@@ -23,6 +23,8 @@ extension ConferenceServiceProtocol {
                 target.name = conference.name
                 target.startDate = conference.startDate
                 target.endDate = conference.endDate
+                target.startTimeMinutes = conference.startTimeMinutes
+                target.endTimeMinutes = conference.endTimeMinutes
                 target.locationName = conference.locationName
                 target.mapQuery = conference.mapQuery
                 target.summary = conference.summary
@@ -112,6 +114,10 @@ private struct ConferenceDTO: Decodable {
     let name: String
     let startDate: Date
     let endDate: Date
+    /// Optional event-local `"HH:mm"` times; present for timed Watch Parties / Events,
+    /// omitted for multi-day conferences.
+    let startTime: String?
+    let endTime: String?
     let locationName: String
     let mapQuery: String?
     let summary: String
@@ -126,6 +132,8 @@ private struct ConferenceDTO: Decodable {
             name: name,
             startDate: startDate,
             endDate: endDate,
+            startTimeMinutes: startTime.flatMap(ConferenceDateStyle.minutes(fromHHmm:)),
+            endTimeMinutes: endTime.flatMap(ConferenceDateStyle.minutes(fromHHmm:)),
             locationName: locationName,
             mapQuery: mapQuery,
             summary: summary,

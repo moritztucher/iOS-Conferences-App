@@ -125,7 +125,7 @@ struct ConferenceCard: View {
         HStack(spacing: 6) {
             Image(systemName: conference.kind.symbolName)
                 .imageScale(.small)
-            Text(locationText)
+            Text(overlineText)
                 .lineLimit(1)
         }
         .font(.caption.weight(.bold))
@@ -183,10 +183,18 @@ struct ConferenceCard: View {
         conference.isOnline ? "ONLINE" : conference.locationShort.uppercased()
     }
 
+    /// Overline reads `TIME · LOCATION` for timed events, just `LOCATION` for conferences.
+    private var overlineText: String {
+        guard let time = conference.startTimeLabel else { return locationText }
+        return "\(time.uppercased()) · \(locationText)"
+    }
+
     private var accessibilityLabel: String {
         let dateRange = ConferenceDateStyle.range(from: conference.startDate, to: conference.endDate)
         let location = conference.isOnline ? "Online" : conference.locationShort
-        var parts = [conference.name, dateRange, location]
+        var parts = [conference.name, dateRange]
+        if let time = conference.startTimeLabel { parts.append(time) }
+        parts.append(location)
         if isFavourite { parts.append("Favourite") }
         return parts.joined(separator: ", ")
     }

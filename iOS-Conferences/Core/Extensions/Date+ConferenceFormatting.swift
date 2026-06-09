@@ -29,6 +29,32 @@ enum ConferenceDateStyle {
         let endLine: String?
     }
 
+    /// Parses an event-local `"HH:mm"` (24h) string into minutes from midnight (0–1439).
+    /// Returns `nil` for malformed or out-of-range input. `nonisolated` so the JSON
+    /// decoder (a nonisolated context) can call it.
+    nonisolated static func minutes(fromHHmm string: String) -> Int? {
+        let parts = string.split(separator: ":")
+        guard parts.count == 2,
+              let hour = Int(parts[0]), let minute = Int(parts[1]),
+              (0..<24).contains(hour), (0..<60).contains(minute) else { return nil }
+        return hour * 60 + minute
+    }
+
+    /// Formats minutes-from-midnight as a locale-aware short time, e.g. "7:00 PM" / "19:00".
+    static func timeLabel(minutes: Int) -> String {
+        var comps = DateComponents()
+        comps.hour = minutes / 60
+        comps.minute = minutes % 60
+        guard let date = Calendar.current.date(from: comps) else { return "" }
+        return date.formatted(date: .omitted, time: .shortened)
+    }
+
+    /// e.g. "7:00 PM" or "7:00 – 10:00 PM" when an end time is present.
+    static func timeRangeLabel(start: Int, end: Int?) -> String {
+        guard let end else { return timeLabel(minutes: start) }
+        return "\(timeLabel(minutes: start)) – \(timeLabel(minutes: end))"
+    }
+
     static func stub(from start: Date, to end: Date) -> StubDate {
         let cal = Calendar.current
         let month = start.formatted(.dateTime.month(.abbreviated)).uppercased()
