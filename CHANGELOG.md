@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Custom UI on Liquid Glass** (ADR-0007): the detail screen's content is now floating `GlassSectionCard`s (About, When & Where with an embedded map) in a `GlassEffectContainer`, and the action bar uses the system glass button styles (`.glass` / `.glassProminent`) — replacing the stock grouped `Form`. Accessibility, Dynamic Type, and dark-mode parity are kept because the custom layer rides on system glass.
 - **Signature brand identity** (ADR-0006): a warm marigold accent replacing the system blue tint (app-wide, light + dark), and the system serif (New York) for display moments — conference names and month mastheads. Body, controls, and stock `Form` sections stay SF.
 - **Premium ticket redesign** of the list and detail (ADR-0004): full-bleed `ConferenceCard`s shaped as event tickets (`TicketShape` — perforation, notches, date stub), and a stretchy parallax detail hero (`ConferenceDetailHero` / `HeroTicketEdge`) that the card zooms into via a `.navigationTransition(.zoom)` morph.
 - Detail screen pinned bottom action bar (Website + Add to Calendar) replacing the in-list Actions section.
@@ -23,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **Typographic rhythm** unified into named type roles in `Theme`: display (serif), an `.eyebrow()` modifier for every uppercase overline (one tracking value app-wide), and a documented "ticket numeral" for the date stub — replacing scattered per-view font/tracking values.
-- **Detail screen layout** reflowed: About now leads, followed by a single "When & Where" card that folds the venue map in under the location (with an "Open in Maps" badge) instead of a separate floating card. The Date row gained a relative countdown ("In 3 months" / "Happening now"), and timed events show a dedicated Time row.
+- **Detail screen layout** reflowed: About now leads, followed by a "When & Where" card that folds the venue map in under the location (with an "Open in Maps" badge). The Date row gained a relative countdown ("In 3 months" / "Happening now"), and timed events show a dedicated Time row. The detail hero's ticket "tear" edge was dropped (clean bottom) since the content now floats as separate cards.
 - List now groups **month-first, then by type** (Conferences → Events → Watch Parties), with type sub-dividers only in mixed months; the kind filter is multi-select.
 - Filter menu now stays open while toggling options (`.menuActionDismissBehavior(.disabled)`).
 - Home-screen / App Store name finalised as **dubdub** (App Store listing: "dubdub - Conferences & Events").

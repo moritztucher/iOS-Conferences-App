@@ -76,7 +76,7 @@ No third-party SPM dependencies at MVP.
 | Feature | Location | Description |
 |---------|----------|-------------|
 | ConferenceList | `Features/ConferenceList/` | Ticket-card list (`ConferenceCard` + `TicketShape`), month-primary with kind sub-groups + counts. Region + multi-select kind/format filters. `.refreshable`; global Search tab. Shared by Conferences + Favourites (filter at the ViewModel level). See ADR-0004. |
-| ConferenceDetail | `Features/ConferenceDetail/` | Stretchy parallax ticket hero (`ConferenceDetailHero` + `HeroTicketEdge`) → stock `Form` (Map, When/Where, About) → pinned bottom CTA bar (Website + Add to Calendar). Card→hero zoom transition. Favourite toggle + `ShareLink` in toolbar. |
+| ConferenceDetail | `Features/ConferenceDetail/` | Stretchy parallax hero (`ConferenceDetailHero`, clean bottom) → floating Liquid Glass cards (`GlassSectionCard`: About, When/Where with embedded map) → pinned glass CTA bar (Website + Add to Calendar). Card→hero zoom transition. Favourite toggle + `ShareLink` in toolbar. See ADR-0007. |
 | SuggestConference | `Features/SuggestConference/` | Form sheet that pre-fills a GitHub Issue URL and opens it in `SFSafariViewController` |
 | Settings | `Features/Settings/` | `Form` with Display (show-past toggle) / Support (rate, contact) / Contribute (suggest, view source) / About (version, license) |
 
@@ -92,6 +92,7 @@ See `docs/decisions/` for detailed ADRs.
 | ADR-0004 | Premium ticket-based visual identity for the list + detail hero (custom shapes, scrims, parallax, zoom transition); stock everywhere else | 2026-06-09 |
 | ADR-0005 | Optional event-local times + IANA time zone in the feed; timed calendar events anchored to the event zone | 2026-06-09 |
 | ADR-0006 | Two signature brand levers: a warm marigold accent (replacing system blue) + the system serif (New York) for display moments only. Amends ADR-0004. | 2026-06-09 |
+| ADR-0007 | Push custom UI as far as possible by *composing* Liquid Glass (not reinventing controls); accessibility / Dynamic Type / dark-mode parity are hard criteria. Supersedes ADR-0003's stock-first stance. | 2026-06-09 |
 
 ## Data Storage
 

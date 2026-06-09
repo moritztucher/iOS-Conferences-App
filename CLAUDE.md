@@ -2,7 +2,7 @@
 
 ## Role
 
-You are a senior iOS engineer. Apply the judgment of someone who has shipped production apps for years — question requirements that conflict with platform conventions, prefer Apple-native APIs, and call out work that would not pass a senior code review. **Project-specific reinforcement (ADR-0003 + ADR-0004 + ADR-0006):** the app is **custom where it carries identity, stock where it carries trust**. The Conferences list (ticket cards) and the detail hero are a bespoke premium "ticket" design (`TicketShape`, `HeroTicketEdge`, scrims, zoom transition) — extend that system rather than reinventing it (check `docs/VIEW-INVENTORY.md` first). Identity is carried by exactly **two** brand levers (ADR-0006): a warm **marigold accent** (the `AccentColor` asset / `Theme.accent`, replacing system blue) and the **system serif** (New York via `Theme.serif`) for *display* moments only — conference names and month mastheads. Everything else stays Apple-native: SF for all body/UI/secondary text, stock system controls, custom empty states forbidden (use `ContentUnavailableView`), no reskinning the stock `Form` Settings / detail sections, no onboarding flow. Still push back on *new* custom colours/fonts beyond those two levers, and on any bundled typeface.
+You are a senior iOS engineer. Apply the judgment of someone who has shipped production apps for years — question requirements that conflict with platform conventions, prefer Apple-native APIs, and call out work that would not pass a senior code review. **Project-specific reinforcement (ADR-0003 → 0004 → 0006 → 0007):** push custom **as far as possible by composing Liquid Glass** (ADR-0007), never by reinventing system controls. The Conferences list (ticket cards) and the detail hero are a bespoke premium "ticket" design (`TicketShape`, `HeroTicketEdge`, scrims, zoom transition); custom chrome elsewhere is built from `.glassEffect(in:)` / `GlassEffectContainer` / `.buttonStyle(.glass|.glassProminent)` — extend those systems rather than reinventing (check `docs/VIEW-INVENTORY.md` first). Identity is carried by exactly **two** brand levers (ADR-0006): a warm **marigold accent** (`Theme.accent`) and the **system serif** (`Theme.serif`) for *display* moments only (conference names, month mastheads); SF for all other text. **Accessibility, Dynamic Type, and dark-mode parity are hard acceptance criteria** — they survive because the custom layer rides on system glass + semantic styles. **Stay stock** for text input, pickers, toggles, the Settings `Form` rows, `EKEventEditViewController`, `ShareLink`, `Map`, and `ContentUnavailableView` — reinventing those loses accessibility for no identity gain. No onboarding flow; push back on *new* custom colours/fonts or bundled typefaces beyond the two levers.
 
 ## View Inventory
 
@@ -19,7 +19,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - **Open source.** Repo is (or will be) public under MIT. The conference list is community-curated via PRs.
 - **Community contributions:** in-app "Suggest a conference" form pre-fills a GitHub Issue and opens it in Safari — no backend needed.
 - **No in-app monetization.** No subscriptions, no ads, no tips, no upsells. The app is fully free.
-- **Design direction (ADR-0003 → ADR-0004 → ADR-0006):** custom where it carries identity, stock where it carries trust. The list + detail hero use a bespoke **ticket** identity (`TicketShape`/`HeroTicketEdge`, full-bleed imagery + scrims, parallax hero, zoom transition, gated motion/haptics). Two brand levers carry voice (ADR-0006): a **marigold accent** (`AccentColor` asset / `Theme.accent`, replacing system blue) and the **system serif** (`Theme.serif`) for display moments only (conference names + month mastheads). Still ecosystem-native everywhere else: SF for all other text, SF Symbols, stock `Form` for Settings + detail sections, and deep system integrations (EventKit, Maps, ShareLink, Spotlight, App Intents) for the "feels like Apple built it" weight. **No `.glassEffect()` on custom views; no onboarding flow.**
+- **Design direction (ADR-0003 → 0004 → 0006 → 0007):** push custom **as far as possible by composing Liquid Glass**, never by reinventing system controls (ADR-0007). The list + detail use a bespoke **ticket** identity (`TicketShape`/`HeroTicketEdge`, full-bleed imagery + scrims, parallax hero, zoom transition, gated motion/haptics); custom chrome elsewhere uses `.glassEffect(in:)` / `GlassEffectContainer` and the system glass button styles (`.glass` / `.glassProminent`). Two brand levers carry voice (ADR-0006): a **marigold accent** (`Theme.accent`) and the **system serif** (`Theme.serif`) for display moments only. **Hard constraints (ADR-0007):** accessibility, Dynamic Type, and dark-mode parity are preserved *because* the custom layer rides on system glass + semantic styles. **Stay stock** for text input, pickers, toggles, the Settings `Form` rows, and deep system integrations (EventKit, Maps, ShareLink, `ContentUnavailableView`) — that's where a custom rebuild would *lose* accessibility for no identity gain. **No onboarding flow.**
 
 ## Project Config
 
@@ -94,13 +94,12 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 
 **Settings:** stock `Form` with Display / Support (rate, contact) / Contribute (suggest, view source) / About sections. Suggest-a-conference opens an in-app form (sheet) → pre-filled GitHub Issue in Safari.
 
-**Custom is scoped to the list cards + detail hero** (see ADR-0004) plus the two brand levers in ADR-0006. Outside that, still forbidden:
+**Custom is broad now (ADR-0007): compose custom chrome on Liquid Glass.** Use `.glassEffect(in:)` / `GlassEffectContainer` / `.buttonStyle(.glass|.glassProminent)` for bespoke containers and floating actions. Still forbidden / required:
 - No custom colours beyond the marigold accent (`Theme.accent` / `AccentColor` asset — ADR-0006); no second brand colour
 - No custom/bundled fonts; the system serif (`Theme.serif`) is for display moments only (names + month mastheads), SF everywhere else
-- No `.glassEffect()` modifiers on custom views
+- **Don't reinvent system controls** — text input, pickers, toggles, the Settings `Form` rows, `EKEventEditViewController`, `ShareLink`, `SFSafariViewController`, `Map`, `ContentUnavailableView` stay stock (that's where a custom rebuild loses accessibility/Dynamic Type for no gain)
+- Accessibility, Dynamic Type, and dark-mode parity are hard acceptance criteria — semantic fonts, no fixed-height text containers, VoiceOver labels on custom controls, reduce-motion-gated motion
 - No onboarding flow
-- No custom empty states (use `ContentUnavailableView`)
-- No reskinning the stock `Form` Settings / detail sections
 
 ## Suggest a Conference
 
