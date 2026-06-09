@@ -19,6 +19,8 @@ struct SettingsView: View {
                 acknowledgementsSection
                 aboutSection
             }
+            .scrollContentBackground(.hidden)
+            .brandBackground()
             .navigationTitle("Settings")
             .sheet(isPresented: $bindable.isShowingSuggest) {
                 SuggestConferenceView()

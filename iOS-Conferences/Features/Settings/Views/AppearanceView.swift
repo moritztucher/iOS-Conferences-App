@@ -9,6 +9,8 @@ struct AppearanceView: View {
             colorSchemeSection
             appIconSection
         }
+        .scrollContentBackground(.hidden)
+        .brandBackground()
         .navigationTitle("Appearance")
         .navigationBarTitleDisplayMode(.inline)
         .alert("Couldn't change the icon", isPresented: .init(
