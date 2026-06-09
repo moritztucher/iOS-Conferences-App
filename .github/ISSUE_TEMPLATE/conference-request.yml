@@ -54,6 +54,20 @@ body:
       placeholder: "2026-09-10"
 
   - type: input
+    id: start-time
+    attributes:
+      label: Start time (optional)
+      description: Local start time in 24-hour HH:mm — for Watch Parties / Events only. Leave blank for multi-day conferences.
+      placeholder: "19:00"
+
+  - type: input
+    id: end-time
+    attributes:
+      label: End time (optional)
+      description: Local end time in 24-hour HH:mm. Optional even when a start time is given.
+      placeholder: "22:00"
+
+  - type: input
     id: location
     attributes:
       label: Location

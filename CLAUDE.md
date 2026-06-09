@@ -109,7 +109,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 ## Suggest a Conference
 
 - **Entry point:** a row in Settings labelled "Suggest a conference" + a small button in the empty state of the list.
-- **Form fields:** name, website URL, start date, end date, city/country (or "Online"), one-line description, your name (optional, credits the contributor in the PR).
+- **Form fields:** name, website URL, start date, end date, optional start/end time (24h `HH:mm`, for watch parties/events), city/country (or "Online"), one-line description, your name (optional, credits the contributor in the PR).
 - **On submit:** construct a URL of the form
   `https://github.com/<owner>/<repo>/issues/new?template=conference-request.yml&title=...&body=...`
   populated with the form data, and open it in `SFSafariViewController`. The user finishes the submission on GitHub (signs in if not already).
