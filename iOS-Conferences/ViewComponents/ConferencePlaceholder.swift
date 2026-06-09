@@ -89,17 +89,21 @@ struct ConferencePlaceholder: View {
     }
 
     /// Hash-derived base RGB for a conference id, stable across launches.
+    ///
+    /// A curated set of deep, slightly-desaturated jewel tones (not pure saturated hues) so
+    /// the no-image majority reads as one premium, intentional palette rather than a random
+    /// assortment — and so warm members sit naturally beside the marigold brand accent.
     private static func rgb(for id: String) -> (r: Double, g: Double, b: Double) {
         let palette: [(Double, Double, Double)] = [
-            (0.00, 0.48, 1.00),
-            (0.88, 0.24, 0.18),
-            (1.00, 0.44, 0.00),
-            (0.18, 0.56, 0.25),
-            (0.40, 0.18, 0.57),
-            (0.80, 0.14, 0.34),
-            (0.00, 0.61, 0.59),
-            (0.51, 0.32, 0.13),
-            (0.45, 0.45, 0.50)
+            (0.10, 0.42, 0.45),   // deep teal
+            (0.24, 0.28, 0.55),   // indigo
+            (0.40, 0.24, 0.50),   // plum
+            (0.16, 0.40, 0.30),   // forest
+            (0.52, 0.20, 0.30),   // burgundy
+            (0.22, 0.36, 0.52),   // slate blue
+            (0.60, 0.42, 0.18),   // bronze (brand-adjacent)
+            (0.56, 0.28, 0.34),   // deep rose
+            (0.12, 0.34, 0.48)    // ocean
         ]
         var hash: UInt64 = 5381
         for byte in id.utf8 {
@@ -137,9 +141,9 @@ struct ConferencePlaceholder: View {
     /// (light top-leading, dark bottom-trailing) that pairs with the top-leading monogram
     /// and bottom-trailing watermark to give the banner real depth.
     static func mesh(for c: (r: Double, g: Double, b: Double)) -> some View {
-        let light = shade(c, by: 0.26)
+        let light = shade(c, by: 0.22)
         let base = Color(red: c.r, green: c.g, blue: c.b)
-        let dark = shade(c, by: -0.24)
+        let dark = shade(c, by: -0.34)
         return MeshGradient(
             width: 3,
             height: 3,
@@ -165,6 +169,27 @@ struct ConferencePlaceholder: View {
         let b = Double(resolved.blue)
         let luminance = 0.299 * r + 0.587 * g + 0.114 * b
         return luminance > 0.6 ? .black : .white
+    }
+}
+
+extension View {
+    /// Unifies arbitrary conference artwork (square logos, busy og:images, photos) into one
+    /// tonal family so disparate sources read as a single designed system (Track A): gently
+    /// desaturated, with a soft top-down darkening so even bright/white logos gain tonal
+    /// weight and sit beside the deep mesh placeholders. Each surface's own scrim still rides
+    /// on top for text legibility. Apply to the *success* image only — the mesh placeholder
+    /// is already in this tonal world.
+    func unifiedConferenceArtwork() -> some View {
+        self
+            .saturation(0.82)
+            .overlay {
+                LinearGradient(
+                    colors: [.black.opacity(0.45), .black.opacity(0.12), .black.opacity(0.30)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .blendMode(.multiply)
+            }
     }
 }
 
