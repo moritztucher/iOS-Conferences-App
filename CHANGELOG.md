@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **List elevation** (ADR-0007 Phase 2): conference cards now grow with Dynamic Type instead of clipping (verified at the largest accessibility sizes), gained a reduce-motion-gated scroll-in animation (fade + slight shrink), and sit over a restrained marigold "stage-light" background wash.
 - **Custom UI on Liquid Glass** (ADR-0007): the detail screen's content is now floating `GlassSectionCard`s (About, When & Where with an embedded map) in a `GlassEffectContainer`, and the action bar uses the system glass button styles (`.glass` / `.glassProminent`) — replacing the stock grouped `Form`. Accessibility, Dynamic Type, and dark-mode parity are kept because the custom layer rides on system glass.
 - **Signature brand identity** (ADR-0006): a warm marigold accent replacing the system blue tint (app-wide, light + dark), and the system serif (New York) for display moments — conference names and month mastheads. Body, controls, and stock `Form` sections stay SF.
 - **Premium ticket redesign** of the list and detail (ADR-0004): full-bleed `ConferenceCard`s shaped as event tickets (`TicketShape` — perforation, notches, date stub), and a stretchy parallax detail hero (`ConferenceDetailHero` / `HeroTicketEdge`) that the card zooms into via a `.navigationTransition(.zoom)` morph.
