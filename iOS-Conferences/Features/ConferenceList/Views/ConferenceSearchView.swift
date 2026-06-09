@@ -24,7 +24,7 @@ struct ConferenceSearchView: View {
         viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private var sections: [ConferenceListSection] {
+    private var sections: [ConferenceMonthSection] {
         viewModel.sections(
             from: conferences,
             favouriteIDs: favouriteIDs,

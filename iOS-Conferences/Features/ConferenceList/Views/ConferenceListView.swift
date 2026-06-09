@@ -19,7 +19,7 @@ struct ConferenceListView: View {
         Set(favourites.map(\.conferenceID))
     }
 
-    private var sections: [ConferenceListSection] {
+    private var sections: [ConferenceMonthSection] {
         viewModel.sections(
             from: conferences,
             favouriteIDs: favouriteIDs,

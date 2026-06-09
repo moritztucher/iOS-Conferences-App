@@ -2,9 +2,20 @@ import Foundation
 import Observation
 import SwiftData
 
-struct ConferenceListSection: Identifiable {
-    let id: String
-    let title: String
+/// A month group in the list (e.g. "JUNE 2026"), split into kind groups.
+struct ConferenceMonthSection: Identifiable {
+    let id: String          // month key, e.g. "2026-06"
+    let title: String       // e.g. "JUNE 2026" (year folded into the header)
+    let groups: [ConferenceTypeGroup]
+    /// Show per-type sub-dividers only when the month actually mixes kinds.
+    let showsTypeHeaders: Bool
+}
+
+/// A kind group within a month, sorted by day then time.
+struct ConferenceTypeGroup: Identifiable {
+    let id: String          // e.g. "2026-06-Conference"
+    let kind: ConferenceKind
+    let title: String       // e.g. "CONFERENCES"
     let conferences: [Conference]
 }
 
@@ -85,14 +96,15 @@ final class ConferenceListViewModel {
         try? context.save()
     }
 
-    /// Sections grouped by kind (Conferences → Events → Watch Parties), each sorted by
-    /// date & time. Grouping by kind keeps dense months (e.g. WWDC week) organised: the
-    /// marquee conferences sit apart from the pile of watch parties.
+    /// Month-primary sections (chronological, year folded into the title), each split into
+    /// kind groups in display order (Conferences → Events → Watch Parties) and sorted by
+    /// day then time within. Type sub-dividers only surface in months that mix kinds, so
+    /// dense months (WWDC week) get organised while quiet months stay clean.
     func sections(
         from conferences: [Conference],
         favouriteIDs: Set<String>,
         showPast: Bool
-    ) -> [ConferenceListSection] {
+    ) -> [ConferenceMonthSection] {
         var filtered = conferences
 
         if !showPast {
@@ -130,15 +142,33 @@ final class ConferenceListViewModel {
             }
         }
 
-        return ConferenceKind.displayOrder.compactMap { kind in
-            let confs = filtered
-                .filter { $0.kind == kind }
-                .sorted { $0.startDate < $1.startDate }
-            guard !confs.isEmpty else { return nil }
-            return ConferenceListSection(
-                id: kind.rawValue,
-                title: kind.pluralLabel.uppercased(),
-                conferences: confs
+        // Month-primary, chronological. Each event groups by its start month.
+        let byMonth = Dictionary(grouping: filtered) { ConferenceDateStyle.monthKey(for: $0.startDate) }
+
+        return byMonth.keys.sorted().map { monthKey in
+            let monthConferences = byMonth[monthKey] ?? []
+            let title = monthConferences.first
+                .map { ConferenceDateStyle.monthHeader(for: $0.startDate) } ?? monthKey
+
+            // Within the month: kind groups in display order, each sorted by day then time.
+            let groups: [ConferenceTypeGroup] = ConferenceKind.displayOrder.compactMap { kind in
+                let confs = monthConferences
+                    .filter { $0.kind == kind }
+                    .sorted { $0.startDate < $1.startDate }
+                guard !confs.isEmpty else { return nil }
+                return ConferenceTypeGroup(
+                    id: "\(monthKey)-\(kind.rawValue)",
+                    kind: kind,
+                    title: kind.pluralLabel.uppercased(),
+                    conferences: confs
+                )
+            }
+
+            return ConferenceMonthSection(
+                id: monthKey,
+                title: title,
+                groups: groups,
+                showsTypeHeaders: groups.count > 1
             )
         }
     }
