@@ -90,48 +90,54 @@ struct ConferenceListView: View {
 
     private var filterMenu: some View {
         Menu {
-            Toggle(isOn: $showPastConferences) {
-                Label("Include past conferences", systemImage: "clock.arrow.circlepath")
-            }
-            Section("Kind") {
-                ForEach(ConferenceKind.allCases, id: \.self) { kind in
-                    Toggle(isOn: kindBinding(kind)) {
-                        Label(kind.pluralLabel, systemImage: kind.symbolName)
+            Group {
+                Toggle(isOn: $showPastConferences) {
+                    Label("Include past conferences", systemImage: "clock.arrow.circlepath")
+                }
+                Section("Kind") {
+                    ForEach(ConferenceKind.allCases, id: \.self) { kind in
+                        Toggle(isOn: kindBinding(kind)) {
+                            Label(kind.pluralLabel, systemImage: kind.symbolName)
+                        }
                     }
                 }
-            }
-            Picker(selection: $viewModel.formatFilter) {
-                ForEach(ConferenceFormatFilter.allCases) { option in
-                    Label(option.label, systemImage: option.systemImage).tag(option)
+                Picker(selection: $viewModel.formatFilter) {
+                    ForEach(ConferenceFormatFilter.allCases) { option in
+                        Label(option.label, systemImage: option.systemImage).tag(option)
+                    }
+                } label: {
+                    Label("Format", systemImage: "globe")
                 }
-            } label: {
-                Label("Format", systemImage: "globe")
             }
+            // Applied to the menu's content (not the container) so multi-select toggles
+            // keep the menu open instead of dismissing on each tap.
+            .menuActionDismissBehavior(.disabled)
         } label: {
             Image(systemName: isFiltering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
         }
-        .menuActionDismissBehavior(.disabled)
         .accessibilityLabel("Filter")
     }
 
     private var regionMenu: some View {
         Menu {
-            Button {
-                viewModel.selectedRegions.removeAll()
-            } label: {
-                Label("Global", systemImage: "globe")
-            }
-            Section("Region") {
-                ForEach(ConferenceRegion.allCases) { region in
-                    Toggle(isOn: regionBinding(region)) {
-                        Label(region.rawValue, systemImage: region.systemImage)
+            Group {
+                Button {
+                    viewModel.selectedRegions.removeAll()
+                } label: {
+                    Label("Global", systemImage: "globe")
+                }
+                Section("Region") {
+                    ForEach(ConferenceRegion.allCases) { region in
+                        Toggle(isOn: regionBinding(region)) {
+                            Label(region.rawValue, systemImage: region.systemImage)
+                        }
                     }
                 }
             }
+            .menuActionDismissBehavior(.disabled)
         } label: {
             Image(systemName: viewModel.isRegionFilterActive ? "globe.americas.fill" : "globe.americas")
         }
-        .menuActionDismissBehavior(.disabled)
         .accessibilityLabel("Region")
     }
 
