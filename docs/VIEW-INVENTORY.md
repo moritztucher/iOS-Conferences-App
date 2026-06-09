@@ -80,7 +80,9 @@ Custom `ViewModifier`, `ButtonStyle`, `LabelStyle`, etc.
 
 | Modifier / Style | File | Apply via | Purpose |
 |------------------|------|-----------|---------|
-| _(none)_ | — | — | Per ADR-0003 (ecosystem-native), we deliberately have no custom styles. If you find yourself needing one, first check whether a system style covers it. |
+| `Theme` (brand layer) | `Core/Theme/Theme.swift` | `Theme.accent`, `Theme.serif(_:weight:)` | The two signature brand levers (ADR-0006). `Theme.accent` mirrors the `AccentColor` asset (warm marigold, applied app-wide via `.tint` at the root). `Theme.serif(_:)` returns the **system serif** (New York) at a semantic text style — use for *display* moments **only** (conference names, month mastheads). All other text stays SF. No bundled fonts; no second brand colour. |
+
+> Beyond the ticket system (ADR-0004) and the two `Theme` levers above, we still avoid custom styles per ADR-0003 — check for a system style first.
 
 ---
 

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Signature brand identity** (ADR-0006): a warm marigold accent replacing the system blue tint (app-wide, light + dark), and the system serif (New York) for display moments — conference names and month mastheads. Body, controls, and stock `Form` sections stay SF.
 - **Premium ticket redesign** of the list and detail (ADR-0004): full-bleed `ConferenceCard`s shaped as event tickets (`TicketShape` — perforation, notches, date stub), and a stretchy parallax detail hero (`ConferenceDetailHero` / `HeroTicketEdge`) that the card zooms into via a `.navigationTransition(.zoom)` morph.
 - Detail screen pinned bottom action bar (Website + Add to Calendar) replacing the in-list Actions section.
 - Haptics on favourite / add-to-calendar (`.sensoryFeedback`) and a reduce-motion-gated favourite-heart spring.

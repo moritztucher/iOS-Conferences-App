@@ -2,7 +2,7 @@
 
 ## Role
 
-You are a senior iOS engineer. Apply the judgment of someone who has shipped production apps for years — question requirements that conflict with platform conventions, prefer Apple-native APIs, and call out work that would not pass a senior code review. **Project-specific reinforcement (ADR-0003 + ADR-0004):** the app is **custom where it carries identity, stock where it carries trust**. The Conferences list (ticket cards) and the detail hero are a bespoke premium "ticket" design (`TicketShape`, `HeroTicketEdge`, scrims, zoom transition) — extend that system rather than reinventing it (check `docs/VIEW-INVENTORY.md` first). Everything else stays Apple-native: still push back on a brand colour or custom typeface (system tint + system fonts), on custom empty states (use `ContentUnavailableView`), on reskinning the stock `Form` Settings / detail sections, and on any onboarding flow.
+You are a senior iOS engineer. Apply the judgment of someone who has shipped production apps for years — question requirements that conflict with platform conventions, prefer Apple-native APIs, and call out work that would not pass a senior code review. **Project-specific reinforcement (ADR-0003 + ADR-0004 + ADR-0006):** the app is **custom where it carries identity, stock where it carries trust**. The Conferences list (ticket cards) and the detail hero are a bespoke premium "ticket" design (`TicketShape`, `HeroTicketEdge`, scrims, zoom transition) — extend that system rather than reinventing it (check `docs/VIEW-INVENTORY.md` first). Identity is carried by exactly **two** brand levers (ADR-0006): a warm **marigold accent** (the `AccentColor` asset / `Theme.accent`, replacing system blue) and the **system serif** (New York via `Theme.serif`) for *display* moments only — conference names and month mastheads. Everything else stays Apple-native: SF for all body/UI/secondary text, stock system controls, custom empty states forbidden (use `ContentUnavailableView`), no reskinning the stock `Form` Settings / detail sections, no onboarding flow. Still push back on *new* custom colours/fonts beyond those two levers, and on any bundled typeface.
 
 ## View Inventory
 
@@ -19,7 +19,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - **Open source.** Repo is (or will be) public under MIT. The conference list is community-curated via PRs.
 - **Community contributions:** in-app "Suggest a conference" form pre-fills a GitHub Issue and opens it in Safari — no backend needed.
 - **No in-app monetization.** No subscriptions, no ads, no tips, no upsells. The app is fully free.
-- **Design direction (ADR-0003 → ADR-0004):** custom where it carries identity, stock where it carries trust. The list + detail hero use a bespoke **ticket** identity (`TicketShape`/`HeroTicketEdge`, full-bleed imagery + scrims, parallax hero, zoom transition, gated motion/haptics). Still ecosystem-native everywhere else: system tint (no brand colour), system fonts (no custom typeface), SF Symbols, stock `Form` for Settings + detail sections, and deep system integrations (EventKit, Maps, ShareLink, Spotlight, App Intents) for the "feels like Apple built it" weight. **No `.glassEffect()` on custom views; no onboarding flow.**
+- **Design direction (ADR-0003 → ADR-0004 → ADR-0006):** custom where it carries identity, stock where it carries trust. The list + detail hero use a bespoke **ticket** identity (`TicketShape`/`HeroTicketEdge`, full-bleed imagery + scrims, parallax hero, zoom transition, gated motion/haptics). Two brand levers carry voice (ADR-0006): a **marigold accent** (`AccentColor` asset / `Theme.accent`, replacing system blue) and the **system serif** (`Theme.serif`) for display moments only (conference names + month mastheads). Still ecosystem-native everywhere else: SF for all other text, SF Symbols, stock `Form` for Settings + detail sections, and deep system integrations (EventKit, Maps, ShareLink, Spotlight, App Intents) for the "feels like Apple built it" weight. **No `.glassEffect()` on custom views; no onboarding flow.**
 
 ## Project Config
 
@@ -94,9 +94,9 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 
 **Settings:** stock `Form` with Display / Support (rate, contact) / Contribute (suggest, view source) / About sections. Suggest-a-conference opens an in-app form (sheet) → pre-filled GitHub Issue in Safari.
 
-**Custom is scoped to the list cards + detail hero** (see ADR-0004). Outside that, still forbidden:
-- No custom colours / brand tint (system tint only)
-- No custom fonts (system fonts; weight/tracking only)
+**Custom is scoped to the list cards + detail hero** (see ADR-0004) plus the two brand levers in ADR-0006. Outside that, still forbidden:
+- No custom colours beyond the marigold accent (`Theme.accent` / `AccentColor` asset — ADR-0006); no second brand colour
+- No custom/bundled fonts; the system serif (`Theme.serif`) is for display moments only (names + month mastheads), SF everywhere else
 - No `.glassEffect()` modifiers on custom views
 - No onboarding flow
 - No custom empty states (use `ContentUnavailableView`)

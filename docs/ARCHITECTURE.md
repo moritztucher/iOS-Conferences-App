@@ -91,6 +91,7 @@ See `docs/decisions/` for detailed ADRs.
 | ADR-0003 | Ecosystem-native UI direction: stock components only, system integrations carry the "feels like Apple" weight. *Visual layer partially superseded by ADR-0004.* | 2026-05-18 |
 | ADR-0004 | Premium ticket-based visual identity for the list + detail hero (custom shapes, scrims, parallax, zoom transition); stock everywhere else | 2026-06-09 |
 | ADR-0005 | Optional event-local times + IANA time zone in the feed; timed calendar events anchored to the event zone | 2026-06-09 |
+| ADR-0006 | Two signature brand levers: a warm marigold accent (replacing system blue) + the system serif (New York) for display moments only. Amends ADR-0004. | 2026-06-09 |
 
 ## Data Storage
 
