@@ -38,25 +38,8 @@ struct ConferenceSectionList: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(listBackground)
+        .brandBackground()
         .sensoryFeedback(.impact(weight: .light), trigger: favouriteTrigger)
-    }
-
-    /// A restrained marigold "stage-light" wash at the very top fading into the system
-    /// background — adds depth behind the month masthead and ties in the brand accent
-    /// without competing with the cards. Adapts to light/dark via the asset-backed accent
-    /// and `Color(.systemBackground)`.
-    private var listBackground: some View {
-        Color(.systemBackground)
-            .overlay(alignment: .top) {
-                LinearGradient(
-                    colors: [Theme.accent.opacity(0.12), .clear],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .frame(height: 260)
-            }
-            .ignoresSafeArea()
     }
 
     private func card(for conference: Conference) -> some View {
