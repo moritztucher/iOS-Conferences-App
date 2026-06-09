@@ -19,7 +19,7 @@ struct ConferenceSectionList: View {
     var body: some View {
         List {
             ForEach(sections) { section in
-                Section(section.title) {
+                Section {
                     ForEach(section.conferences) { conference in
                         ConferenceCard(
                             conference: conference,
@@ -40,6 +40,8 @@ struct ConferenceSectionList: View {
                             favouriteSwipeAction(for: conference)
                         }
                     }
+                } header: {
+                    MonthSectionHeader(title: section.title)
                 }
             }
         }
@@ -60,5 +62,24 @@ struct ConferenceSectionList: View {
             )
         }
         .tint(isFavourite ? .gray : .pink)
+    }
+}
+
+/// Editorial month divider for the list — bold, tracked, primary-weight, aligned to the
+/// card edge. Replaces the stock secondary plain-list header.
+private struct MonthSectionHeader: View {
+    let title: String
+
+    var body: some View {
+        Text(title)
+            .font(.title3.weight(.bold))
+            .tracking(1.5)
+            .textCase(nil)
+            .foregroundStyle(.primary)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 14)
+            .padding(.bottom, 6)
+            .padding(.horizontal, 16)
+            .listRowInsets(EdgeInsets())
     }
 }
