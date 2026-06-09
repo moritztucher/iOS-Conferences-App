@@ -19,7 +19,7 @@ struct ConferenceListView: View {
         Set(favourites.map(\.conferenceID))
     }
 
-    private var sections: [ConferenceMonthSection] {
+    private var sections: [ConferenceListSection] {
         viewModel.sections(
             from: conferences,
             favouriteIDs: favouriteIDs,
@@ -36,7 +36,7 @@ struct ConferenceListView: View {
             content
                 .navigationTitle(viewModel.filter.title)
                 .refreshable { await refresh() }
-                .toolbar { filterToolbarItem }
+                .toolbar { toolbarContent }
                 .navigationDestination(for: Route.self) { route in
                     routeDestination(for: route)
                 }
@@ -83,32 +83,43 @@ struct ConferenceListView: View {
     }
 
     @ToolbarContentBuilder
-    private var filterToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Menu {
-                Toggle(isOn: $showPastConferences) {
-                    Label("Include past conferences", systemImage: "clock.arrow.circlepath")
-                }
-                Picker(selection: $viewModel.kindFilter) {
-                    ForEach(ConferenceKindFilter.allCases) { option in
-                        Label(option.label, systemImage: option.systemImage).tag(option)
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) { filterMenu }
+    }
+
+    private var filterMenu: some View {
+        Menu {
+            Toggle(isOn: $showPastConferences) {
+                Label("Include past conferences", systemImage: "clock.arrow.circlepath")
+            }
+            Section("Kind") {
+                ForEach(ConferenceKind.allCases, id: \.self) { kind in
+                    Toggle(isOn: kindBinding(kind)) {
+                        Label(kind.pluralLabel, systemImage: kind.symbolName)
                     }
-                } label: {
-                    Label("Kind", systemImage: "rectangle.stack")
                 }
-                Picker(selection: $viewModel.formatFilter) {
-                    ForEach(ConferenceFormatFilter.allCases) { option in
-                        Label(option.label, systemImage: option.systemImage).tag(option)
-                    }
-                } label: {
-                    Label("Format", systemImage: "globe")
+            }
+            Picker(selection: $viewModel.formatFilter) {
+                ForEach(ConferenceFormatFilter.allCases) { option in
+                    Label(option.label, systemImage: option.systemImage).tag(option)
                 }
             } label: {
-                Image(systemName: isFiltering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                Label("Format", systemImage: "globe")
             }
-            .menuActionDismissBehavior(.disabled)
-            .accessibilityLabel("Filter")
+        } label: {
+            Image(systemName: isFiltering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
         }
+        .menuActionDismissBehavior(.disabled)
+        .accessibilityLabel("Filter")
+    }
+
+    private func kindBinding(_ kind: ConferenceKind) -> Binding<Bool> {
+        Binding(
+            get: { viewModel.selectedKinds.contains(kind) },
+            set: { isOn in
+                if isOn { viewModel.selectedKinds.insert(kind) } else { viewModel.selectedKinds.remove(kind) }
+            }
+        )
     }
 
     @ViewBuilder

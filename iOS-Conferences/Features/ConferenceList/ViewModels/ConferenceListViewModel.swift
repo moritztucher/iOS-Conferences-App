@@ -2,7 +2,7 @@ import Foundation
 import Observation
 import SwiftData
 
-struct ConferenceMonthSection: Identifiable {
+struct ConferenceListSection: Identifiable {
     let id: String
     let title: String
     let conferences: [Conference]
@@ -32,33 +32,6 @@ enum ConferenceFormatFilter: String, CaseIterable, Identifiable {
     }
 }
 
-enum ConferenceKindFilter: String, CaseIterable, Identifiable {
-    case all
-    case conferences
-    case watchParties
-    case events
-
-    var id: String { rawValue }
-
-    var label: String {
-        switch self {
-        case .all: return "All kinds"
-        case .conferences: return "Conferences"
-        case .watchParties: return "Watch Parties"
-        case .events: return "Events"
-        }
-    }
-
-    var systemImage: String {
-        switch self {
-        case .all: return "rectangle.stack"
-        case .conferences: return "building.columns.fill"
-        case .watchParties: return "tv"
-        case .events: return "calendar.badge.plus"
-        }
-    }
-}
-
 @MainActor
 @Observable
 final class ConferenceListViewModel {
@@ -76,15 +49,21 @@ final class ConferenceListViewModel {
 
     var searchText: String = ""
     var formatFilter: ConferenceFormatFilter = .all
-    var kindFilter: ConferenceKindFilter = .all
+    /// Multi-select kind filter. Empty is treated as "all" (see `effectiveKinds`).
+    var selectedKinds: Set<ConferenceKind> = Set(ConferenceKind.allCases)
     let filter: Filter
 
     init(filter: Filter) {
         self.filter = filter
     }
 
+    /// Empty selection falls back to all kinds, so the list is never unexpectedly empty.
+    var effectiveKinds: Set<ConferenceKind> {
+        selectedKinds.isEmpty ? Set(ConferenceKind.allCases) : selectedKinds
+    }
+
     var isFilterActive: Bool {
-        formatFilter != .all || kindFilter != .all
+        formatFilter != .all || effectiveKinds != Set(ConferenceKind.allCases)
     }
 
     /// Toggles a conference's favourite state from a swipe action.
@@ -102,11 +81,14 @@ final class ConferenceListViewModel {
         try? context.save()
     }
 
+    /// Sections grouped by kind (Conferences → Events → Watch Parties), each sorted by
+    /// date & time. Grouping by kind keeps dense months (e.g. WWDC week) organised: the
+    /// marquee conferences sit apart from the pile of watch parties.
     func sections(
         from conferences: [Conference],
         favouriteIDs: Set<String>,
         showPast: Bool
-    ) -> [ConferenceMonthSection] {
+    ) -> [ConferenceListSection] {
         var filtered = conferences
 
         if !showPast {
@@ -117,15 +99,9 @@ final class ConferenceListViewModel {
             filtered = filtered.filter { favouriteIDs.contains($0.id) }
         }
 
-        switch kindFilter {
-        case .all:
-            break
-        case .conferences:
-            filtered = filtered.filter { $0.kind == .conference }
-        case .watchParties:
-            filtered = filtered.filter { $0.kind == .watchParty }
-        case .events:
-            filtered = filtered.filter { $0.kind == .event }
+        let kinds = effectiveKinds
+        if kinds != Set(ConferenceKind.allCases) {
+            filtered = filtered.filter { kinds.contains($0.kind) }
         }
 
         switch formatFilter {
@@ -146,13 +122,16 @@ final class ConferenceListViewModel {
             }
         }
 
-        let sorted = filtered.sorted { $0.startDate < $1.startDate }
-        let grouped = Dictionary(grouping: sorted) { ConferenceDateStyle.monthKey(for: $0.startDate) }
-
-        return grouped.keys.sorted().map { key in
-            let confs = grouped[key] ?? []
-            let title = confs.first.map { ConferenceDateStyle.monthHeader(for: $0.startDate) } ?? key
-            return ConferenceMonthSection(id: key, title: title, conferences: confs)
+        return ConferenceKind.displayOrder.compactMap { kind in
+            let confs = filtered
+                .filter { $0.kind == kind }
+                .sorted { $0.startDate < $1.startDate }
+            guard !confs.isEmpty else { return nil }
+            return ConferenceListSection(
+                id: kind.rawValue,
+                title: kind.pluralLabel.uppercased(),
+                conferences: confs
+            )
         }
     }
 }

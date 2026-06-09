@@ -17,6 +17,18 @@ enum ConferenceKind: String, Codable, CaseIterable, Sendable {
         case .event: return "calendar.badge.plus"
         }
     }
+
+    /// Plural label used as the list's kind section header (e.g. "Watch Parties").
+    var pluralLabel: String {
+        switch self {
+        case .conference: return "Conferences"
+        case .watchParty: return "Watch Parties"
+        case .event: return "Events"
+        }
+    }
+
+    /// Order kind sections appear in the list: Conferences, Events, Watch Parties.
+    static let displayOrder: [ConferenceKind] = [.conference, .event, .watchParty]
 }
 
 @Model
