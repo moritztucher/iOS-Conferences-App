@@ -2,7 +2,7 @@
 
 > **Read this file before implementing any new View, ViewModifier, or shared UI component.** If a component matching what you need already exists here, reuse or extend it — do not invent a parallel one. **Update this file whenever you add, rename, or remove a shared component.**
 
-Last updated: 2026-05-18
+Last updated: 2026-06-09
 
 ---
 
@@ -21,7 +21,7 @@ Cross-feature reusable UI. Pure, stateless or self-contained, no feature-specifi
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferencePlaceholder` | `ViewComponents/ConferencePlaceholder.swift` | Typographic fallback shown when a conference has no `logoURL` or `AsyncImage` fails. Initials + hash-derived background colour. | `conference: Conference` | Uses `GeometryReader` to scale text to the container — works at 44pt thumbnail or 180pt hero. Auto-contrasting initials on a subtle top-lighter→base **gradient** derived from a stable per-id colour (9-colour hash palette via `gradient(for:)`). |
+| `ConferencePlaceholder` | `ViewComponents/ConferencePlaceholder.swift` | Typographic fallback shown when a conference has no `logoURL` or `AsyncImage` fails. Initials + hash-derived background colour. | `conference: Conference`, `style: .auto \| .card` | Uses `GeometryReader` to scale to the container. `.auto` (default): centred monogram on small tiles, full mesh hero (mesh + kind watermark + top-leading monogram) above 120pt. `.card`: mesh + watermark for depth but **no monogram** — used as `ConferenceCard`'s background, where the host overlays the conference name as the focal mark. Auto-contrasting ink; stable per-id colour (9-colour hash palette). |
 | `MailComposeView` | `ViewComponents/MailComposeView.swift` | UIViewControllerRepresentable wrapping `MFMailComposeViewController` (in-app mail compose sheet). | `recipient: String, subject: String = "", body: String = ""` | Callers should check `MFMailComposeViewController.canSendMail()` before presenting and fall back to a `mailto:` URL if false. |
 
 ---
@@ -34,9 +34,8 @@ Components scoped to a single feature, in `Features/[Feature]/Views/...`. Listed
 
 | Component | File | Purpose | Key Inputs | Notes |
 |-----------|------|---------|------------|-------|
-| `ConferenceSectionList` | `Features/ConferenceList/Views/ConferenceSectionList.swift` | Month-sectioned, inset-grouped list of conferences with a trailing favourite swipe action. Shared by the Conferences/Favourites tabs and the Search tab so every entry point renders rows identically. | `sections: [ConferenceMonthSection], favouriteIDs: Set<String>, onToggleFavourite: (Conference) -> Void` | Host owns the `NavigationStack` + `navigationDestination` and supplies the favourite toggle. The `swipeActions` (favourite/unfavourite, pink/gray) live here. |
-| `ConferenceRow` | `Features/ConferenceList/Views/ConferenceRow.swift` | Row cell for a conference in the list (logo + name + favourite marker + secondary line: kind glyph · date · location, with a `globe` glyph for online events). | `conference: Conference, isFavourite: Bool` | Used by both list tabs and the Search tab via `ConferenceSectionList`. |
-| `ConferenceLogo` | `Features/ConferenceList/Views/ConferenceRow.swift` | 44pt rounded `AsyncImage` thumbnail with `ConferencePlaceholder` fallback. | `conference: Conference, size: CGFloat` | Lives next to `ConferenceRow` (same file) since it's only used by the row. Promote to `ViewComponents/` if another feature needs it. |
+| `ConferenceSectionList` | `Features/ConferenceList/Views/ConferenceSectionList.swift` | Month-sectioned, **`.plain`** list of conferences rendered as floating full-bleed cards with a trailing favourite swipe action. Shared by the Conferences/Favourites tabs and the Search tab so every entry point renders identically. | `sections: [ConferenceMonthSection], favouriteIDs: Set<String>, onToggleFavourite: (Conference) -> Void` | Host owns the `NavigationStack` + `navigationDestination` and supplies the favourite toggle. Rows clear their background/separator/insets so `ConferenceCard` floats; navigation uses a `.background` value-based `NavigationLink` (full-card tap target, no List disclosure chevron). `swipeActions` (favourite/unfavourite, pink/gray) live here. |
+| `ConferenceCard` | `Features/ConferenceList/Views/ConferenceCard.swift` | Full-bleed image card for a conference: image (or `.card`-style `ConferencePlaceholder` mesh) fills the card under a bottom scrim, with an editorial uppercase `kind · date · location` overline and the name as the hero. Corner radius + shadow give depth. | `conference: Conference, isFavourite: Bool` | Replaces the old stock `ConferenceRow`. Background built as `Color.clear.overlay { AsyncImage }.clipped().overlay(scrim)` so any source aspect ratio (square icon vs landscape og:image) is pinned to the card bounds with a legible scrim. Heart marker top-trailing when favourited. Part of the premium card redesign. |
 
 ### ConferenceDetail
 

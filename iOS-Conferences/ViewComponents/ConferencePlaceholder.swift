@@ -11,7 +11,18 @@ import SwiftUI
 /// Colour and initials are hash-derived from the conference id/name, so each entry is
 /// visually distinct and stable across launches.
 struct ConferencePlaceholder: View {
+    /// How the placeholder presents itself.
+    /// - `auto`: size-based — a centred monogram on small tiles, a full hero (mesh +
+    ///   watermark + top-leading monogram) above `heroThreshold`.
+    /// - `card`: list-card background — mesh + kind watermark for depth, but **no
+    ///   monogram**, since the host card overlays the conference name as the focal mark.
+    enum Style {
+        case auto
+        case card
+    }
+
     let conference: Conference
+    var style: Style = .auto
 
     /// Above this height the view is acting as the detail hero rather than a list tile.
     private static let heroThreshold: CGFloat = 120
@@ -20,7 +31,7 @@ struct ConferencePlaceholder: View {
         GeometryReader { proxy in
             let h = proxy.size.height
             let w = proxy.size.width
-            let isHero = h >= Self.heroThreshold
+            let isHero = style == .card || h >= Self.heroThreshold
             let base = Self.rgb(for: conference.id)
             let baseColor = Color(red: base.r, green: base.g, blue: base.b)
             let ink = Self.foreground(on: baseColor)
@@ -33,8 +44,7 @@ struct ConferencePlaceholder: View {
                 }
 
                 // Kind watermark — oversized SF Symbol, low opacity, anchored toward the
-                // bottom-trailing corner so it balances the top-leading monogram. Hero only;
-                // on a small tile it would just be noise.
+                // bottom-trailing corner. Hero/card only; on a small tile it would just be noise.
                 if isHero {
                     Image(systemName: conference.kind.symbolName)
                         .font(.system(size: h * 0.78))
@@ -44,17 +54,20 @@ struct ConferencePlaceholder: View {
                         .accessibilityHidden(true)
                 }
 
-                // Monogram — the focal mark.
-                Text(Self.initials(for: conference.name))
-                    .font(.system(size: h * (isHero ? 0.34 : 0.42),
-                                  weight: .bold, design: .rounded))
-                    .foregroundStyle(ink)
-                    .shadow(color: .black.opacity(isHero ? 0.18 : 0),
-                            radius: isHero ? 6 : 0, y: isHero ? 2 : 0)
-                    .minimumScaleFactor(0.5)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity,
-                           alignment: isHero ? .topLeading : .center)
-                    .padding(isHero ? h * 0.11 : h * 0.1)
+                // Monogram — the focal mark. Suppressed for `.card`, where the host card's
+                // overlaid conference name is the focal mark instead.
+                if style != .card {
+                    Text(Self.initials(for: conference.name))
+                        .font(.system(size: h * (isHero ? 0.34 : 0.42),
+                                      weight: .bold, design: .rounded))
+                        .foregroundStyle(ink)
+                        .shadow(color: .black.opacity(isHero ? 0.18 : 0),
+                                radius: isHero ? 6 : 0, y: isHero ? 2 : 0)
+                        .minimumScaleFactor(0.5)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity,
+                               alignment: isHero ? .topLeading : .center)
+                        .padding(isHero ? h * 0.11 : h * 0.1)
+                }
             }
             .clipped()
         }

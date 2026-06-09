@@ -14,12 +14,20 @@ struct ConferenceSectionList: View {
             ForEach(sections) { section in
                 Section(section.title) {
                     ForEach(section.conferences) { conference in
-                        NavigationLink(value: Route.conferenceDetail(conferenceID: conference.id)) {
-                            ConferenceRow(
-                                conference: conference,
-                                isFavourite: favouriteIDs.contains(conference.id)
-                            )
+                        ConferenceCard(
+                            conference: conference,
+                            isFavourite: favouriteIDs.contains(conference.id)
+                        )
+                        // Full-card tap target without the List's NavigationLink chevron,
+                        // which would break the full-bleed card edge.
+                        .background {
+                            NavigationLink(value: Route.conferenceDetail(conferenceID: conference.id)) {
+                                Color.clear
+                            }
                         }
+                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             favouriteSwipeAction(for: conference)
                         }
@@ -27,7 +35,7 @@ struct ConferenceSectionList: View {
                 }
             }
         }
-        .listStyle(.insetGrouped)
+        .listStyle(.plain)
     }
 
     @ViewBuilder
