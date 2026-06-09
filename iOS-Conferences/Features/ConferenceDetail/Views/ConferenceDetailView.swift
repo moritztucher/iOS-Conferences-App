@@ -28,10 +28,10 @@ struct ConferenceDetailView: View {
             mapSection
             whenAndWhereSection
             aboutSection
-            actionsSection
         }
         .listStyle(.insetGrouped)
         .ignoresSafeArea(edges: .top)
+        .safeAreaInset(edge: .bottom) { bottomActionBar }
         .task(id: viewModel.conference.id) { await viewModel.resolveVenue() }
         .navigationTitle(showsNavBarTitle ? viewModel.conference.name : "")
         .navigationBarTitleDisplayMode(.inline)
@@ -164,22 +164,37 @@ struct ConferenceDetailView: View {
         }
     }
 
-    @ViewBuilder
-    private var actionsSection: some View {
-        Section {
+    private var bottomActionBar: some View {
+        HStack(spacing: 12) {
             Button {
                 viewModel.isShowingSafari = true
             } label: {
-                Label("Visit website", systemImage: "safari")
+                Label("Website", systemImage: "safari")
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, minHeight: 26)
             }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
             .disabled(viewModel.conference.websiteURL == nil)
+            .accessibilityLabel("Visit website")
 
             Button {
                 Task { await viewModel.requestCalendarAccess(via: calendarService) }
             } label: {
-                Label("Add to calendar", systemImage: "calendar.badge.plus")
+                Label("Calendar", systemImage: "calendar.badge.plus")
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, minHeight: 26)
             }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .accessibilityLabel("Add to calendar")
         }
+        .labelStyle(.titleAndIcon)
+        .lineLimit(1)
+        .minimumScaleFactor(0.85)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(.bar)
     }
 
     @ToolbarContentBuilder
