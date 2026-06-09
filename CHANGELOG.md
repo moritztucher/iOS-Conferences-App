@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Image + mesh cohesion** (Track A): real conference artwork (logos, og:images, photos) is now tonally unified (desaturated + darkened) so it reads in the same family as the placeholders, and the hash-derived placeholder palette was recurated into a deeper, desaturated jewel-tone set that harmonises with the marigold accent — the list now reads as one designed system instead of a grab-bag of sources.
 - **Settings framing** (ADR-0007 Phase 3): the Settings screens now share the same marigold background wash as the list (`.brandBackground()`) — chrome only; the `Form` rows stay stock.
 - **List elevation** (ADR-0007 Phase 2): conference cards now grow with Dynamic Type instead of clipping (verified at the largest accessibility sizes), gained a reduce-motion-gated scroll-in animation (fade + slight shrink), and sit over a restrained marigold "stage-light" background wash.
 - **Custom UI on Liquid Glass** (ADR-0007): the detail screen's content is now floating `GlassSectionCard`s (About, When & Where with an embedded map) in a `GlassEffectContainer`, and the action bar uses the system glass button styles (`.glass` / `.glassProminent`) — replacing the stock grouped `Form`. Accessibility, Dynamic Type, and dark-mode parity are kept because the custom layer rides on system glass.
