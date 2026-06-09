@@ -104,14 +104,12 @@ private struct TypeSubheader: View {
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
             Text(title)
-                .font(.subheadline.weight(.semibold))
-                .tracking(1.0)
+                .eyebrow(.subheadline, weight: .semibold)
             Spacer(minLength: 8)
             Text("\(count)")
                 .font(.footnote.weight(.semibold))
                 .monospacedDigit()
         }
-        .textCase(nil)
         .foregroundStyle(.secondary)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 10)

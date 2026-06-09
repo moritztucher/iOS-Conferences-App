@@ -128,8 +128,7 @@ struct ConferenceCard: View {
             Text(overlineText)
                 .lineLimit(1)
         }
-        .font(.caption.weight(.bold))
-        .tracking(0.8)
+        .eyebrow()
         .foregroundStyle(.white.opacity(0.95))
         .shadow(color: .black.opacity(0.4), radius: 3, y: 1)
     }
@@ -140,11 +139,10 @@ struct ConferenceCard: View {
         let date = ConferenceDateStyle.stub(from: conference.startDate, to: conference.endDate)
         return VStack(spacing: 1) {
             Text(date.month)
-                .font(.caption.weight(.bold))
-                .tracking(1.2)
+                .eyebrow()
                 .foregroundStyle(.white.opacity(0.9))
             Text(date.day)
-                .font(.system(.title, design: .rounded).weight(.heavy))
+                .font(Theme.ticketNumerals(.title))
                 .foregroundStyle(.white)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)

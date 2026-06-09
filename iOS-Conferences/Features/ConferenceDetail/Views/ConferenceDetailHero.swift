@@ -70,8 +70,7 @@ struct ConferenceDetailHero: View {
                 Text(locationText)
                     .lineLimit(1)
             }
-            .font(.caption.weight(.bold))
-            .tracking(0.9)
+            .eyebrow()
             .foregroundStyle(.white.opacity(0.95))
 
             Text(conference.name)
