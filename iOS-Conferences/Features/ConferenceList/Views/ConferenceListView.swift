@@ -9,6 +9,7 @@ struct ConferenceListView: View {
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel: ConferenceListViewModel
     @State private var path = NavigationPath()
+    @Namespace private var namespace
 
     init(filter: ConferenceListViewModel.Filter) {
         _viewModel = State(initialValue: ConferenceListViewModel(filter: filter))
@@ -50,6 +51,7 @@ struct ConferenceListView: View {
             ConferenceSectionList(
                 sections: sections,
                 favouriteIDs: favouriteIDs,
+                namespace: namespace,
                 onToggleFavourite: { conference in
                     viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
                 }
@@ -115,6 +117,7 @@ struct ConferenceListView: View {
         case .conferenceDetail(let id):
             if let conference = conferences.first(where: { $0.id == id }) {
                 ConferenceDetailView(conference: conference)
+                    .navigationTransition(.zoom(sourceID: id, in: namespace))
             } else {
                 ContentUnavailableView(
                     "Not Found",

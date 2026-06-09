@@ -7,6 +7,9 @@ import SwiftUI
 struct ConferenceSectionList: View {
     let sections: [ConferenceMonthSection]
     let favouriteIDs: Set<String>
+    /// Shared with the host's `navigationDestination` so tapping a card zooms into the
+    /// detail hero (`.navigationTransition(.zoom(sourceID:in:))`).
+    let namespace: Namespace.ID
     let onToggleFavourite: (Conference) -> Void
 
     var body: some View {
@@ -18,6 +21,7 @@ struct ConferenceSectionList: View {
                             conference: conference,
                             isFavourite: favouriteIDs.contains(conference.id)
                         )
+                        .matchedTransitionSource(id: conference.id, in: namespace)
                         // Full-card tap target without the List's NavigationLink chevron,
                         // which would break the full-bleed card edge.
                         .background {

@@ -14,6 +14,7 @@ struct ConferenceSearchView: View {
 
     @State private var viewModel = ConferenceListViewModel(filter: .all)
     @State private var path = NavigationPath()
+    @Namespace private var namespace
 
     private var favouriteIDs: Set<String> {
         Set(favourites.map(\.conferenceID))
@@ -57,6 +58,7 @@ struct ConferenceSearchView: View {
             ConferenceSectionList(
                 sections: sections,
                 favouriteIDs: favouriteIDs,
+                namespace: namespace,
                 onToggleFavourite: { conference in
                     viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
                 }
@@ -70,6 +72,7 @@ struct ConferenceSearchView: View {
         case .conferenceDetail(let id):
             if let conference = conferences.first(where: { $0.id == id }) {
                 ConferenceDetailView(conference: conference)
+                    .navigationTransition(.zoom(sourceID: id, in: namespace))
             } else {
                 ContentUnavailableView(
                     "Not Found",
