@@ -8,9 +8,8 @@ struct ConferenceDetailView: View {
     @Query private var favourites: [FavouriteConference]
 
     @State private var viewModel: ConferenceDetailViewModel
-    /// The conference name lives in the large title block under the hero; it only
-    /// appears in the navigation bar once that block has scrolled out of view, so
-    /// the name is never shown twice at rest.
+    /// The conference name lives in the hero title block; it only appears in the navigation
+    /// bar once that block has scrolled out of view, so the name is never shown twice at rest.
     @State private var showsNavBarTitle = false
 
     init(conference: Conference) {
@@ -23,12 +22,14 @@ struct ConferenceDetailView: View {
 
     var body: some View {
         @Bindable var bindable = viewModel
-        List {
-            heroSection
-            aboutSection
-            whenAndWhereSection
+        ScrollView {
+            VStack(spacing: 16) {
+                ConferenceDetailHero(conference: viewModel.conference)
+                contentCards
+                    .padding(.horizontal, 16)
+            }
+            .padding(.bottom, 8)
         }
-        .listStyle(.insetGrouped)
         .ignoresSafeArea(edges: .top)
         .safeAreaInset(edge: .bottom) { bottomActionBar }
         .task(id: viewModel.conference.id) { await viewModel.resolveVenue() }
@@ -87,43 +88,64 @@ struct ConferenceDetailView: View {
         }
     }
 
-    // MARK: - Sections
+    // MARK: - Content cards
 
-    @ViewBuilder
-    private var heroSection: some View {
-        Section {
-            ConferenceDetailHero(conference: viewModel.conference)
-        }
-        .listRowInsets(EdgeInsets())
-        .listRowBackground(Color.clear)
-        .listRowSeparator(.hidden)
-    }
-
-    @ViewBuilder
-    private var whenAndWhereSection: some View {
-        Section("When & Where") {
-            dateRow
-            if viewModel.conference.isTimed { timeRow }
-
-            if viewModel.conference.isOnline {
-                LabeledContent {
-                    Text("Online").foregroundStyle(.secondary)
-                } label: {
-                    Label("Format", systemImage: "globe")
+    /// Floating glass cards (ADR-0007) replacing the stock grouped `Form` sections — they
+    /// continue the ticket identity from the hero instead of dropping onto a generic list.
+    private var contentCards: some View {
+        GlassEffectContainer(spacing: 16) {
+            VStack(spacing: 16) {
+                if !viewModel.conference.summary.isEmpty {
+                    GlassSectionCard(title: "About") {
+                        Text(viewModel.conference.summary)
+                            .foregroundStyle(.primary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
-            } else {
-                locationRow
-                if let coordinate = viewModel.venueCoordinate {
-                    mapRow(for: coordinate)
+                GlassSectionCard(title: "When & Where") {
+                    whenAndWhereContent
                 }
             }
         }
     }
 
+    @ViewBuilder
+    private var whenAndWhereContent: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            dateRow
+            if viewModel.conference.isTimed {
+                Divider()
+                timeRow
+            }
+            Divider()
+            if viewModel.conference.isOnline {
+                onlineRow
+            } else {
+                locationRow
+            }
+            if let coordinate = viewModel.venueCoordinate {
+                mapView(for: coordinate)
+            }
+        }
+    }
+
+    // MARK: - Rows
+
+    private func rowIcon(_ name: String) -> some View {
+        Image(systemName: name)
+            .font(.body)
+            .foregroundStyle(Theme.accent)
+            .frame(width: 24, alignment: .center)
+            .accessibilityHidden(true)
+    }
+
     /// Date with a relative countdown beneath it, so the row adds information the hero's
     /// date line doesn't already carry.
     private var dateRow: some View {
-        LabeledContent {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            rowIcon("calendar")
+            Text("Date")
+            Spacer(minLength: 12)
             VStack(alignment: .trailing, spacing: 2) {
                 Text(ConferenceDateStyle.range(from: viewModel.conference.startDate, to: viewModel.conference.endDate))
                     .foregroundStyle(.secondary)
@@ -136,17 +158,17 @@ struct ConferenceDetailView: View {
                         .foregroundStyle(.tertiary)
                 }
             }
-        } label: {
-            Label("Date", systemImage: "calendar")
+            .multilineTextAlignment(.trailing)
         }
     }
 
     /// Wall-clock time for Watch Parties / Events, with the zone abbreviation when known.
     private var timeRow: some View {
-        LabeledContent {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            rowIcon("clock")
+            Text("Time")
+            Spacer(minLength: 12)
             Text(timeText).foregroundStyle(.secondary)
-        } label: {
-            Label("Time", systemImage: "clock")
         }
     }
 
@@ -159,30 +181,37 @@ struct ConferenceDetailView: View {
         return text
     }
 
+    private var onlineRow: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            rowIcon("globe")
+            Text("Format")
+            Spacer(minLength: 12)
+            Text("Online").foregroundStyle(.secondary)
+        }
+    }
+
     private var locationRow: some View {
         Button {
             viewModel.openInMaps()
         } label: {
-            LabeledContent {
-                HStack(spacing: 4) {
-                    Text(viewModel.conference.locationName)
-                        .foregroundStyle(.secondary)
-                    Image(systemName: "chevron.right")
-                        .imageScale(.small)
-                        .foregroundStyle(.tertiary)
-                }
-            } label: {
-                Label("Location", systemImage: "mappin.and.ellipse")
+            HStack(alignment: .firstTextBaseline, spacing: 12) {
+                rowIcon("mappin.and.ellipse")
+                Text("Location").foregroundStyle(.primary)
+                Spacer(minLength: 12)
+                Text(viewModel.conference.locationName)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.trailing)
+                Image(systemName: "chevron.right")
+                    .imageScale(.small)
+                    .foregroundStyle(.tertiary)
             }
         }
         .buttonStyle(.plain)
         .accessibilityHint("Opens in Maps")
     }
 
-    /// Map embedded as the section's final row — full-bleed within the grouped card so it
-    /// reads as "the venue, mapped" directly under the location, rather than a context-free
-    /// floating card. A material badge makes the tap-through to Maps explicit.
-    private func mapRow(for coordinate: CLLocationCoordinate2D) -> some View {
+    /// Venue map rounded inside the card, with a material badge making the tap-through explicit.
+    private func mapView(for coordinate: CLLocationCoordinate2D) -> some View {
         Map(initialPosition: .region(
             MKCoordinateRegion(
                 center: coordinate,
@@ -194,6 +223,7 @@ struct ConferenceDetailView: View {
         .mapStyle(.standard(elevation: .flat, pointsOfInterest: .including([.publicTransport])))
         .allowsHitTesting(false)
         .frame(height: 160)
+        .clipShape(.rect(cornerRadius: 14))
         .overlay(alignment: .bottomTrailing) {
             HStack(spacing: 4) {
                 Image(systemName: "arrow.up.forward")
@@ -207,54 +237,48 @@ struct ConferenceDetailView: View {
         }
         .contentShape(.rect)
         .onTapGesture { viewModel.openInMaps() }
-        .listRowInsets(EdgeInsets())
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Map of \(viewModel.conference.locationName)")
         .accessibilityAddTraits(.isButton)
         .accessibilityHint("Opens in Maps")
     }
 
-    @ViewBuilder
-    private var aboutSection: some View {
-        if !viewModel.conference.summary.isEmpty {
-            Section("About") {
-                Text(viewModel.conference.summary)
-                    .foregroundStyle(.primary)
-            }
-        }
-    }
+    // MARK: - Actions
 
+    /// Floating Liquid Glass action bar (ADR-0007): neutral glass Website + accent-tinted
+    /// prominent Calendar, blended in a `GlassEffectContainer` over the scrolling content.
     private var bottomActionBar: some View {
-        HStack(spacing: 12) {
-            Button {
-                viewModel.isShowingSafari = true
-            } label: {
-                Label("Website", systemImage: "safari")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, minHeight: 26)
-            }
-            .buttonStyle(.bordered)
-            .controlSize(.large)
-            .disabled(viewModel.conference.websiteURL == nil)
-            .accessibilityLabel("Visit website")
+        GlassEffectContainer(spacing: 12) {
+            HStack(spacing: 12) {
+                Button {
+                    viewModel.isShowingSafari = true
+                } label: {
+                    Label("Website", systemImage: "safari")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, minHeight: 26)
+                }
+                .buttonStyle(.glass)
+                .controlSize(.large)
+                .disabled(viewModel.conference.websiteURL == nil)
+                .accessibilityLabel("Visit website")
 
-            Button {
-                Task { await viewModel.requestCalendarAccess(via: calendarService) }
-            } label: {
-                Label("Calendar", systemImage: "calendar.badge.plus")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, minHeight: 26)
+                Button {
+                    Task { await viewModel.requestCalendarAccess(via: calendarService) }
+                } label: {
+                    Label("Calendar", systemImage: "calendar.badge.plus")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, minHeight: 26)
+                }
+                .buttonStyle(.glassProminent)
+                .controlSize(.large)
+                .accessibilityLabel("Add to calendar")
             }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-            .accessibilityLabel("Add to calendar")
+            .labelStyle(.titleAndIcon)
+            .lineLimit(1)
+            .minimumScaleFactor(0.85)
         }
-        .labelStyle(.titleAndIcon)
-        .lineLimit(1)
-        .minimumScaleFactor(0.85)
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(.bar)
     }
 
     @ToolbarContentBuilder
