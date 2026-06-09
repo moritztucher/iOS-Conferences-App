@@ -25,9 +25,8 @@ struct ConferenceDetailView: View {
         @Bindable var bindable = viewModel
         List {
             heroSection
-            mapSection
-            whenAndWhereSection
             aboutSection
+            whenAndWhereSection
         }
         .listStyle(.insetGrouped)
         .ignoresSafeArea(edges: .top)
@@ -101,42 +100,10 @@ struct ConferenceDetailView: View {
     }
 
     @ViewBuilder
-    private var mapSection: some View {
-        if let coordinate = viewModel.venueCoordinate {
-            Section {
-                Map(initialPosition: .region(
-                    MKCoordinateRegion(
-                        center: coordinate,
-                        span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-                    )
-                )) {
-                    Marker(viewModel.conference.locationShort, coordinate: coordinate)
-                }
-                .mapStyle(.standard(elevation: .flat, pointsOfInterest: .including([.publicTransport])))
-                .allowsHitTesting(false)
-                .frame(height: 170)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                .contentShape(.rect)
-                .onTapGesture { viewModel.openInMaps() }
-                .accessibilityElement(children: .contain)
-                .accessibilityLabel("Map of \(viewModel.conference.locationName)")
-                .accessibilityHint("Opens in Maps")
-            }
-            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
-        }
-    }
-
-    @ViewBuilder
     private var whenAndWhereSection: some View {
         Section("When & Where") {
-            LabeledContent {
-                Text(ConferenceDateStyle.range(from: viewModel.conference.startDate, to: viewModel.conference.endDate))
-                    .foregroundStyle(.secondary)
-            } label: {
-                Label("Date", systemImage: "calendar")
-            }
+            dateRow
+            if viewModel.conference.isTimed { timeRow }
 
             if viewModel.conference.isOnline {
                 LabeledContent {
@@ -145,25 +112,106 @@ struct ConferenceDetailView: View {
                     Label("Format", systemImage: "globe")
                 }
             } else {
-                Button {
-                    viewModel.openInMaps()
-                } label: {
-                    LabeledContent {
-                        HStack(spacing: 4) {
-                            Text(viewModel.conference.locationName)
-                                .foregroundStyle(.secondary)
-                            Image(systemName: "chevron.right")
-                                .imageScale(.small)
-                                .foregroundStyle(.tertiary)
-                        }
-                    } label: {
-                        Label("Location", systemImage: "mappin.and.ellipse")
-                    }
+                locationRow
+                if let coordinate = viewModel.venueCoordinate {
+                    mapRow(for: coordinate)
                 }
-                .buttonStyle(.plain)
-                .accessibilityHint("Opens in Maps")
             }
         }
+    }
+
+    /// Date with a relative countdown beneath it, so the row adds information the hero's
+    /// date line doesn't already carry.
+    private var dateRow: some View {
+        LabeledContent {
+            VStack(alignment: .trailing, spacing: 2) {
+                Text(ConferenceDateStyle.range(from: viewModel.conference.startDate, to: viewModel.conference.endDate))
+                    .foregroundStyle(.secondary)
+                if let countdown = ConferenceDateStyle.countdown(
+                    from: viewModel.conference.startDate,
+                    to: viewModel.conference.endDate
+                ) {
+                    Text(countdown)
+                        .font(.caption)
+                        .foregroundStyle(.tertiary)
+                }
+            }
+        } label: {
+            Label("Date", systemImage: "calendar")
+        }
+    }
+
+    /// Wall-clock time for Watch Parties / Events, with the zone abbreviation when known.
+    private var timeRow: some View {
+        LabeledContent {
+            Text(timeText).foregroundStyle(.secondary)
+        } label: {
+            Label("Time", systemImage: "clock")
+        }
+    }
+
+    private var timeText: String {
+        guard let start = viewModel.conference.startTimeMinutes else { return "" }
+        var text = ConferenceDateStyle.timeRangeLabel(start: start, end: viewModel.conference.endTimeMinutes)
+        if let abbreviation = viewModel.conference.timeZoneAbbreviation {
+            text += " \(abbreviation)"
+        }
+        return text
+    }
+
+    private var locationRow: some View {
+        Button {
+            viewModel.openInMaps()
+        } label: {
+            LabeledContent {
+                HStack(spacing: 4) {
+                    Text(viewModel.conference.locationName)
+                        .foregroundStyle(.secondary)
+                    Image(systemName: "chevron.right")
+                        .imageScale(.small)
+                        .foregroundStyle(.tertiary)
+                }
+            } label: {
+                Label("Location", systemImage: "mappin.and.ellipse")
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint("Opens in Maps")
+    }
+
+    /// Map embedded as the section's final row — full-bleed within the grouped card so it
+    /// reads as "the venue, mapped" directly under the location, rather than a context-free
+    /// floating card. A material badge makes the tap-through to Maps explicit.
+    private func mapRow(for coordinate: CLLocationCoordinate2D) -> some View {
+        Map(initialPosition: .region(
+            MKCoordinateRegion(
+                center: coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+            )
+        )) {
+            Marker(viewModel.conference.locationShort, coordinate: coordinate)
+        }
+        .mapStyle(.standard(elevation: .flat, pointsOfInterest: .including([.publicTransport])))
+        .allowsHitTesting(false)
+        .frame(height: 160)
+        .overlay(alignment: .bottomTrailing) {
+            HStack(spacing: 4) {
+                Image(systemName: "arrow.up.forward")
+                Text("Open in Maps")
+            }
+            .font(.caption2.weight(.semibold))
+            .padding(.horizontal, 9)
+            .padding(.vertical, 5)
+            .background(.regularMaterial, in: Capsule())
+            .padding(10)
+        }
+        .contentShape(.rect)
+        .onTapGesture { viewModel.openInMaps() }
+        .listRowInsets(EdgeInsets())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Map of \(viewModel.conference.locationName)")
+        .accessibilityAddTraits(.isButton)
+        .accessibilityHint("Opens in Maps")
     }
 
     @ViewBuilder

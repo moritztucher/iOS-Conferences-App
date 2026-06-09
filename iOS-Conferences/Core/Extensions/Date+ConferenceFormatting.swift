@@ -14,6 +14,23 @@ enum ConferenceDateStyle {
         date.formatted(.dateTime.month(.wide).year()).uppercased()
     }
 
+    /// Relative status for the detail screen's Date row: a localized countdown before the
+    /// event ("In 3 months", "Tomorrow"), "Happening now" during it, and `nil` once it has
+    /// ended (so the row isn't cluttered for past events). Day-granular, so the bucket is
+    /// stable across the event day regardless of the time of day.
+    static func countdown(from start: Date, to end: Date, now: Date = .now) -> String? {
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: now)
+        let startDay = cal.startOfDay(for: start)
+        let endDay = cal.startOfDay(for: end)
+        if today > endDay { return nil }
+        if today >= startDay { return "Happening now" }
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        let relative = formatter.localizedString(for: startDay, relativeTo: today)
+        return relative.prefix(1).uppercased() + relative.dropFirst()
+    }
+
     /// Stable key for grouping a date by month — used by the list view model.
     static func monthKey(for date: Date) -> String {
         let comps = Calendar.current.dateComponents([.year, .month], from: date)
