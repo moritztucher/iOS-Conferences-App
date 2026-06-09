@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Swift Craft 2026 (Folkestone), NSSpain XIV (Logroño, dates TBA), swiftCon Berlin 2026, and Swift Bharat 2026 (Mumbai) added to the live feed.
 
 ### Changed
+- **Detail screen layout** reflowed: About now leads, followed by a single "When & Where" card that folds the venue map in under the location (with an "Open in Maps" badge) instead of a separate floating card. The Date row gained a relative countdown ("In 3 months" / "Happening now"), and timed events show a dedicated Time row.
 - List now groups **month-first, then by type** (Conferences → Events → Watch Parties), with type sub-dividers only in mixed months; the kind filter is multi-select.
 - Filter menu now stays open while toggling options (`.menuActionDismissBehavior(.disabled)`).
 - Home-screen / App Store name finalised as **dubdub** (App Store listing: "dubdub - Conferences & Events").
