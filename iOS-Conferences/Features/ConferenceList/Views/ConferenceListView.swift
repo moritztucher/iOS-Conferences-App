@@ -34,7 +34,10 @@ struct ConferenceListView: View {
     var body: some View {
         NavigationStack(path: $path) {
             content
-                .navigationTitle(viewModel.filter.title)
+                // Conferences tab: drop the large title (redundant with the tab bar label)
+                // so the month header leads. Favourites keeps its title.
+                .navigationTitle(viewModel.filter == .all ? "" : viewModel.filter.title)
+                .navigationBarTitleDisplayMode(viewModel.filter == .all ? .inline : .large)
                 .refreshable { await refresh() }
                 .toolbar { toolbarContent }
                 .navigationDestination(for: Route.self) { route in
