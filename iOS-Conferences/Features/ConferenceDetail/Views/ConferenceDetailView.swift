@@ -61,7 +61,10 @@ struct ConferenceDetailView: View {
         }
         .sheet(isPresented: $bindable.isShowingEventEditor) {
             EventEditorView(
-                event: calendarService.makeDraftEvent(for: viewModel.conference),
+                event: calendarService.makeDraftEvent(
+                    for: viewModel.conference,
+                    timeZone: viewModel.venueTimeZone
+                ),
                 eventStore: calendarService.eventStore
             )
             .ignoresSafeArea()
