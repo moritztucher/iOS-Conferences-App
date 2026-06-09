@@ -8,6 +8,9 @@ final class SuggestConferenceViewModel {
     var websiteURL: String = ""
     var startDate: Date = .now
     var endDate: Date = Date.now.addingTimeInterval(86_400)
+    /// Optional event-local times (`HH:mm`) for Watch Parties / Events; left blank for conferences.
+    var startTime: String = ""
+    var endTime: String = ""
     var location: String = ""
     var summary: String = ""
     var contributor: String = ""
@@ -34,6 +37,9 @@ final class SuggestConferenceViewModel {
 
         ### Dates
         \(ConferenceDateStyle.range(from: startDate, to: endDate))
+
+        ### Time
+        \(timeText)
 
         ### Location
         \(emptyDash(location))
@@ -73,5 +79,13 @@ final class SuggestConferenceViewModel {
     private func emptyDash(_ value: String) -> String {
         let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmed.isEmpty ? "—" : trimmed
+    }
+
+    /// "19:00 – 22:00", "19:00", or "—" — for the submission body.
+    private var timeText: String {
+        let start = startTime.trimmingCharacters(in: .whitespacesAndNewlines)
+        let end = endTime.trimmingCharacters(in: .whitespacesAndNewlines)
+        if start.isEmpty { return "—" }
+        return end.isEmpty ? start : "\(start) – \(end)"
     }
 }

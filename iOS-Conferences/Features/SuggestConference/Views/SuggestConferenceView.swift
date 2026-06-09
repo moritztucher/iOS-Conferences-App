@@ -9,7 +9,7 @@ struct SuggestConferenceView: View {
     @FocusState private var focusedField: Field?
 
     private enum Field: Hashable {
-        case name, websiteURL, location, contributor
+        case name, websiteURL, startTime, endTime, location, contributor
     }
 
     var body: some View {
@@ -31,6 +31,14 @@ struct SuggestConferenceView: View {
                 Section("When & Where (Optional)") {
                     DatePicker("Start", selection: $bindable.startDate, displayedComponents: .date)
                     DatePicker("End", selection: $bindable.endDate, in: viewModel.startDate..., displayedComponents: .date)
+                    TextField("Start time (optional, e.g. 19:00)", text: $bindable.startTime)
+                        .keyboardType(.numbersAndPunctuation)
+                        .focused($focusedField, equals: .startTime)
+                        .submitLabel(.next)
+                    TextField("End time (optional)", text: $bindable.endTime)
+                        .keyboardType(.numbersAndPunctuation)
+                        .focused($focusedField, equals: .endTime)
+                        .submitLabel(.next)
                     TextField("Location (city, country) or 'Online'", text: $bindable.location)
                         .focused($focusedField, equals: .location)
                         .submitLabel(.next)
@@ -57,7 +65,9 @@ struct SuggestConferenceView: View {
             .onSubmit {
                 switch focusedField {
                 case .name: focusedField = .websiteURL
-                case .websiteURL: focusedField = .location
+                case .websiteURL: focusedField = .startTime
+                case .startTime: focusedField = .endTime
+                case .endTime: focusedField = .location
                 case .location: focusedField = .contributor
                 case .contributor, .none: focusedField = nil
                 }
