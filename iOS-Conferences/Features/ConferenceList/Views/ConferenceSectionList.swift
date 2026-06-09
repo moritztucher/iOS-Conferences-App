@@ -17,6 +17,8 @@ struct ConferenceSectionList: View {
     /// `favouriteIDs` changes from elsewhere (e.g. the detail screen, which has its own).
     @State private var favouriteTrigger = 0
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         List {
             ForEach(sections) { month in
@@ -35,7 +37,26 @@ struct ConferenceSectionList: View {
             }
         }
         .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(listBackground)
         .sensoryFeedback(.impact(weight: .light), trigger: favouriteTrigger)
+    }
+
+    /// A restrained marigold "stage-light" wash at the very top fading into the system
+    /// background — adds depth behind the month masthead and ties in the brand accent
+    /// without competing with the cards. Adapts to light/dark via the asset-backed accent
+    /// and `Color(.systemBackground)`.
+    private var listBackground: some View {
+        Color(.systemBackground)
+            .overlay(alignment: .top) {
+                LinearGradient(
+                    colors: [Theme.accent.opacity(0.12), .clear],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(height: 260)
+            }
+            .ignoresSafeArea()
     }
 
     private func card(for conference: Conference) -> some View {
@@ -43,13 +64,21 @@ struct ConferenceSectionList: View {
             conference: conference,
             isFavourite: favouriteIDs.contains(conference.id)
         )
-        .matchedTransitionSource(id: conference.id, in: namespace)
-        // Full-card tap target without the List's NavigationLink chevron,
-        // which would break the full-bleed card edge.
+        // Full-card tap target without the List's NavigationLink chevron, which would break
+        // the full-bleed card edge. Glued directly to the card (before the scroll transition)
+        // so it scales *with* the card and the disclosure indicator stays hidden behind it.
         .background {
             NavigationLink(value: Route.conferenceDetail(conferenceID: conference.id)) {
                 Color.clear
             }
+        }
+        .matchedTransitionSource(id: conference.id, in: namespace)
+        // Subtle "alive" entrance/exit as cards cross the viewport edges — fade + slight
+        // shrink. Reduce-motion collapses it to the identity (no movement).
+        .scrollTransition { content, phase in
+            content
+                .opacity(reduceMotion || phase.isIdentity ? 1 : 0.5)
+                .scaleEffect(reduceMotion || phase.isIdentity ? 1 : 0.94)
         }
         .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
         .listRowSeparator(.hidden)
