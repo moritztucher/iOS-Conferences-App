@@ -80,7 +80,8 @@ Custom `ViewModifier`, `ButtonStyle`, `LabelStyle`, etc.
 
 | Modifier / Style | File | Apply via | Purpose |
 |------------------|------|-----------|---------|
-| `Theme` (brand layer) | `Core/Theme/Theme.swift` | `Theme.accent`, `Theme.serif(_:weight:)` | The two signature brand levers (ADR-0006). `Theme.accent` mirrors the `AccentColor` asset (warm marigold, applied app-wide via `.tint` at the root). `Theme.serif(_:)` returns the **system serif** (New York) at a semantic text style — use for *display* moments **only** (conference names, month mastheads). All other text stays SF. No bundled fonts; no second brand colour. |
+| `Theme` (brand layer) | `Core/Theme/Theme.swift` | `Theme.accent`, `Theme.serif(_:weight:)`, `Theme.ticketNumerals(_:)`, `Theme.eyebrowTracking` | The signature brand levers (ADR-0006) + the app's named type roles. `Theme.accent` mirrors the `AccentColor` asset (warm marigold, applied app-wide via `.tint` at the root). **Type roles:** `serif(_:)` = *display* (New York; conference names + month mastheads only); `ticketNumerals(_:)` = the rounded-heavy date-stub day (the only `design: .rounded` in the app — a deliberate "ticket numeral"); the eyebrow role is applied via the `.eyebrow()` modifier below. All other text stays stock SF. No bundled fonts; no second brand colour. |
+| `.eyebrow()` (View modifier) | `Core/Theme/Theme.swift` | `.eyebrow(_:weight:)` | The **eyebrow** type role: small uppercase, tracked SF above a display title — the `kind · location` overlines (card + hero), the stub month, and the kind sub-dividers. Bundles font + `Theme.eyebrowTracking` + uppercasing so every overline matches; foreground colour is left to the caller (white over imagery, secondary in lists). Extracted per the "modifier used in 3+ places" rule. |
 
 > Beyond the ticket system (ADR-0004) and the two `Theme` levers above, we still avoid custom styles per ADR-0003 — check for a system style first.
 
