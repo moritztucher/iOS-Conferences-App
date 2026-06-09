@@ -66,6 +66,7 @@ struct ConferenceCard: View {
                         image
                             .resizable()
                             .scaledToFill()
+                            .unifiedConferenceArtwork()
                     case .empty, .failure:
                         ConferencePlaceholder(conference: conference, style: .card)
                     @unknown default:

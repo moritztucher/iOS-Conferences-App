@@ -33,7 +33,7 @@ struct ConferenceDetailHero: View {
                 AsyncImage(url: conference.logoURL) { phase in
                     switch phase {
                     case .success(let image):
-                        image.resizable().scaledToFill()
+                        image.resizable().scaledToFill().unifiedConferenceArtwork()
                     case .empty, .failure:
                         ConferencePlaceholder(conference: conference, style: .card)
                     @unknown default:
