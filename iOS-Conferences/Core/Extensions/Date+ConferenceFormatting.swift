@@ -19,4 +19,29 @@ enum ConferenceDateStyle {
         let comps = Calendar.current.dateComponents([.year, .month], from: date)
         return String(format: "%04d-%02d", comps.year ?? 0, comps.month ?? 0)
     }
+
+    /// Date broken into ticket-stub lines: a small month label over a large day (range),
+    /// with an optional bottom line for the rare cross-month event.
+    /// e.g. `JUN` / `8–12`, `JUN` / `9`, or `JUN` / `28` / `– JUL 2`.
+    struct StubDate {
+        let month: String
+        let day: String
+        let endLine: String?
+    }
+
+    static func stub(from start: Date, to end: Date) -> StubDate {
+        let cal = Calendar.current
+        let month = start.formatted(.dateTime.month(.abbreviated)).uppercased()
+        let startDay = cal.component(.day, from: start)
+        let endDay = cal.component(.day, from: end)
+
+        if cal.isDate(start, inSameDayAs: end) {
+            return StubDate(month: month, day: "\(startDay)", endLine: nil)
+        }
+        if cal.isDate(start, equalTo: end, toGranularity: .month) {
+            return StubDate(month: month, day: "\(startDay)–\(endDay)", endLine: nil)
+        }
+        let endShort = end.formatted(.dateTime.month(.abbreviated).day()).uppercased()
+        return StubDate(month: month, day: "\(startDay)", endLine: "– \(endShort)")
+    }
 }

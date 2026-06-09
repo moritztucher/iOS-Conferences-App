@@ -1,37 +1,46 @@
 import SwiftUI
 
-/// Full-bleed image card for a conference in the list. The conference's image
-/// (or the hash-derived `ConferencePlaceholder` mesh, used for almost every entry
-/// since no logos are bundled) fills the card; a bottom scrim keeps the overlaid
-/// text legible against any image. The name is the hero, sat under an editorial
-/// uppercase date · location overline.
+/// Event-ticket card for a conference in the list. The conference's image (or the
+/// `.card`-style `ConferencePlaceholder` mesh, used for almost every entry since no
+/// logos are bundled) fills the card under a bottom scrim. A perforation with punched
+/// notches (`TicketShape`) divides it into a main body — `kind · location` overline +
+/// the name as the hero — and a trailing stub carrying the date as the "admit one" block.
 ///
-/// Replaces the old stock `ConferenceRow` cell as part of the premium card redesign.
-/// Designed to be hosted in a `.plain` `List` with cleared row backgrounds so the
-/// cards float — see `ConferenceSectionList`.
+/// Hosted in a `.plain` `List` with cleared row backgrounds so the tickets float — see
+/// `ConferenceSectionList`.
 struct ConferenceCard: View {
     let conference: Conference
     let isFavourite: Bool
 
     private static let height: CGFloat = 172
     private static let cornerRadius: CGFloat = 22
+    private static let notchRadius: CGFloat = 11
+    private static let stubWidth: CGFloat = 80
+
+    private var ticket: TicketShape {
+        TicketShape(cornerRadius: Self.cornerRadius,
+                    notchRadius: Self.notchRadius,
+                    stubWidth: Self.stubWidth)
+    }
 
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
+        ZStack {
             // Base floors the ZStack's size so an oversized scaledToFill image can't
             // drive layout; it also backs any image with transparency.
             Color.black
             background
+            perforation
+            HStack(spacing: 0) {
+                mainBody
+                stub
+            }
             favouriteMark
-            content
         }
         .frame(maxWidth: .infinity)
         .frame(height: Self.height)
-        .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous))
+        .clipShape(ticket)
         .overlay(
-            // Hairline keeps the card defined against light images / light mode.
-            RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
-                .strokeBorder(.white.opacity(0.10), lineWidth: 0.5)
+            ticket.stroke(.white.opacity(0.10), lineWidth: 0.5)
         )
         .shadow(color: .black.opacity(0.28), radius: 14, x: 0, y: 8)
         .accessibilityElement(children: .ignore)
@@ -81,9 +90,22 @@ struct ConferenceCard: View {
         )
     }
 
-    // MARK: - Overlaid content
+    /// Dashed perforation line, drawn between the two notches on the stub seam.
+    private var perforation: some View {
+        HStack(spacing: 0) {
+            Spacer(minLength: 0)
+            VerticalDashedLine()
+                .stroke(style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: [3, 4]))
+                .foregroundStyle(.white.opacity(0.6))
+                .frame(width: 1.5)
+                .padding(.vertical, Self.notchRadius + 3)
+                .padding(.trailing, Self.stubWidth)
+        }
+    }
 
-    private var content: some View {
+    // MARK: - Main body
+
+    private var mainBody: some View {
         VStack(alignment: .leading, spacing: 6) {
             overline
             Text(conference.name)
@@ -93,14 +115,14 @@ struct ConferenceCard: View {
                 .shadow(color: .black.opacity(0.4), radius: 4, y: 1)
         }
         .padding(18)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
     }
 
     private var overline: some View {
         HStack(spacing: 6) {
             Image(systemName: conference.kind.symbolName)
                 .imageScale(.small)
-            Text(overlineText)
+            Text(locationText)
                 .lineLimit(1)
         }
         .font(.caption.weight(.bold))
@@ -109,45 +131,74 @@ struct ConferenceCard: View {
         .shadow(color: .black.opacity(0.4), radius: 3, y: 1)
     }
 
+    // MARK: - Stub
+
+    private var stub: some View {
+        let date = ConferenceDateStyle.stub(from: conference.startDate, to: conference.endDate)
+        return VStack(spacing: 1) {
+            Text(date.month)
+                .font(.caption.weight(.bold))
+                .tracking(1.2)
+                .foregroundStyle(.white.opacity(0.9))
+            Text(date.day)
+                .font(.system(.title, design: .rounded).weight(.heavy))
+                .foregroundStyle(.white)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
+            if let endLine = date.endLine {
+                Text(endLine)
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(.white.opacity(0.9))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+            }
+        }
+        .shadow(color: .black.opacity(0.45), radius: 3, y: 1)
+        .padding(.horizontal, 6)
+        .frame(maxHeight: .infinity)
+        .frame(width: Self.stubWidth)
+    }
+
     @ViewBuilder
     private var favouriteMark: some View {
         if isFavourite {
-            VStack {
-                HStack {
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .shadow(color: .black.opacity(0.45), radius: 4, y: 1)
-                }
-                Spacer()
-            }
-            .padding(16)
+            Image(systemName: "heart.fill")
+                .font(.headline)
+                .foregroundStyle(.white)
+                .shadow(color: .black.opacity(0.45), radius: 4, y: 1)
+                .padding(14)
+                // Sit in the body, just left of the perforation.
+                .padding(.trailing, Self.stubWidth)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
         }
     }
 
     // MARK: - Text
 
-    private var dateRange: String {
-        ConferenceDateStyle.range(from: conference.startDate, to: conference.endDate)
-    }
-
     private var locationText: String {
-        conference.isOnline ? "Online" : conference.locationShort
-    }
-
-    private var overlineText: String {
-        "\(dateRange) · \(locationText)".uppercased()
+        conference.isOnline ? "ONLINE" : conference.locationShort.uppercased()
     }
 
     private var accessibilityLabel: String {
-        var parts = [conference.name, dateRange, locationText]
+        let dateRange = ConferenceDateStyle.range(from: conference.startDate, to: conference.endDate)
+        let location = conference.isOnline ? "Online" : conference.locationShort
+        var parts = [conference.name, dateRange, location]
         if isFavourite { parts.append("Favourite") }
         return parts.joined(separator: ", ")
     }
 }
 
-#Preview("Cards") {
+/// A vertical line filling its bounds — stroked with a dash for the ticket perforation.
+private struct VerticalDashedLine: Shape {
+    func path(in rect: CGRect) -> Path {
+        var p = Path()
+        p.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        p.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+        return p
+    }
+}
+
+#Preview("Tickets") {
     ScrollView {
         VStack(spacing: 12) {
             ConferenceCard(conference: .sample, isFavourite: true)
