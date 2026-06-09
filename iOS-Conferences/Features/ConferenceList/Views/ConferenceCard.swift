@@ -14,7 +14,10 @@ struct ConferenceCard: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private static let height: CGFloat = 172
+    /// Floor height at default type sizes. The card grows beyond this when the name +
+    /// overline need more room (large Dynamic Type), so text never clips — an ADR-0007
+    /// hard criterion. The image fills whatever height results.
+    private static let minHeight: CGFloat = 172
     private static let cornerRadius: CGFloat = 22
     private static let notchRadius: CGFloat = 11
     private static let stubWidth: CGFloat = 80
@@ -26,21 +29,18 @@ struct ConferenceCard: View {
     }
 
     var body: some View {
-        ZStack {
-            // Base floors the ZStack's size so an oversized scaledToFill image can't
-            // drive layout; it also backs any image with transparency.
-            Color.black
-            background
-            perforation
-            HStack(spacing: 0) {
-                mainBody
-                stub
-            }
-            favouriteMark
+        HStack(alignment: .bottom, spacing: 0) {
+            mainBody
+            stub
         }
+        // The content (text) drives the height; `minHeight` floors it at default sizes and
+        // it grows for large Dynamic Type. The image rides behind as a `.background` so it
+        // fills the resulting bounds instead of driving layout.
+        .frame(maxWidth: .infinity, minHeight: Self.minHeight)
+        .background { imageBackground }
+        .overlay { perforation }
+        .overlay { favouriteMark }
         .animation(reduceMotion ? nil : .snappy, value: isFavourite)
-        .frame(maxWidth: .infinity)
-        .frame(height: Self.height)
         .clipShape(ticket)
         .overlay(
             ticket.stroke(.white.opacity(0.10), lineWidth: 0.5)
@@ -53,12 +53,12 @@ struct ConferenceCard: View {
 
     // MARK: - Background
 
-    private var background: some View {
-        // Color.clear defines the card-sized container; the image is overlaid *into* it
-        // and clipped, so a scaledToFill image can never drive layout — regardless of the
-        // source aspect ratio (a square apple-touch-icon vs a landscape og:image). The
-        // scrim then rides on top of the clipped image so text always reads.
-        Color.clear
+    private var imageBackground: some View {
+        // Color.black floors the size and backs any image with transparency; the image is
+        // overlaid *into* it and clipped, so a scaledToFill image can never drive layout —
+        // regardless of the source aspect ratio (a square apple-touch-icon vs a landscape
+        // og:image). The scrim then rides on top of the clipped image so text always reads.
+        Color.black
             .overlay {
                 AsyncImage(url: conference.logoURL) { phase in
                     switch phase {
@@ -118,7 +118,9 @@ struct ConferenceCard: View {
                 .shadow(color: .black.opacity(0.4), radius: 4, y: 1)
         }
         .padding(18)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+        // Width fills; height is natural so the text drives the card's height. Vertical
+        // placement (bottom) comes from the enclosing `HStack(alignment: .bottom)`.
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var overline: some View {
@@ -140,6 +142,7 @@ struct ConferenceCard: View {
         return VStack(spacing: 1) {
             Text(date.month)
                 .eyebrow()
+                .lineLimit(1)
                 .foregroundStyle(.white.opacity(0.9))
             Text(date.day)
                 .font(Theme.ticketNumerals(.title))
@@ -158,6 +161,10 @@ struct ConferenceCard: View {
         .padding(.horizontal, 6)
         .frame(maxHeight: .infinity)
         .frame(width: Self.stubWidth)
+        // The stub is a compact, fixed-width "ticket number" badge: clamp its Dynamic Type
+        // so the numerals stay legible instead of ballooning/truncating at accessibility
+        // sizes. The full date still scales in the detail's When & Where row + VoiceOver.
+        .dynamicTypeSize(...DynamicTypeSize.xxLarge)
     }
 
     @ViewBuilder
