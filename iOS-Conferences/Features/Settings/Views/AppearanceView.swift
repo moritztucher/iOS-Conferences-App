@@ -59,18 +59,21 @@ struct AppearanceView: View {
 
     @ViewBuilder
     private func row(for icon: AppIcon) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 14) {
+            // Collectible-sized artwork (EMO-2): these are the app's easter-egg layer, so
+            // each ticket gets the weight of a collection piece, not a settings thumbnail.
             Image(icon.previewAsset)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 60, height: 60)
-                .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+                .frame(width: 72, height: 72)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .strokeBorder(.separator, lineWidth: 0.5)
                 )
             VStack(alignment: .leading, spacing: 2) {
                 Text(icon.title)
+                    .fontWeight(.medium)
                 Text(icon.subtitle)
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -82,6 +85,7 @@ struct AppearanceView: View {
                     .fontWeight(.semibold)
             }
         }
+        .padding(.vertical, 4)
         .contentShape(.rect)
     }
 }
