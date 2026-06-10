@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// Event-ticket card for a conference in the list. The conference's image (or the
-/// `.card`-style `ConferencePlaceholder` mesh, used for almost every entry since no
-/// logos are bundled) fills the card under a bottom scrim. A perforation with punched
-/// notches (`TicketShape`) divides it into a main body — `kind · location` overline +
+/// Event-ticket card for a conference in the list. The `.card`-style
+/// `ConferencePlaceholder` mesh is the card's *only* background — real artwork is
+/// unpredictable (washed photos, baked-in typography) and fought the overlay text, so it
+/// appears as a small top-leading `logoBadge` instead. A perforation with punched
+/// notches (`TicketShape`) divides the card into a main body — `kind · location` overline +
 /// the name as the hero — and a trailing stub carrying the date as the "admit one" block.
 ///
 /// Hosted in a `.plain` `List` with cleared row backgrounds so the tickets float — see
@@ -13,6 +14,7 @@ struct ConferenceCard: View {
     let isFavourite: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.colorScheme) private var colorScheme
 
     /// Floor height at default type sizes. The card grows beyond this when the name +
     /// overline need more room (large Dynamic Type), so text never clips — an ADR-0007
@@ -22,19 +24,24 @@ struct ConferenceCard: View {
     private static let notchRadius: CGFloat = 11
     private static let stubWidth: CGFloat = 80
 
-    // Aliveness levers (see `artwork` + `scrim`). Live = upcoming/ongoing; past = ended.
-    // Live tickets are pushed bright + saturated so they read alive. Past tickets sit at a
-    // normal mid brightness but desaturated, so they read "done" without going pitch-dark.
-    // The deep mesh placeholders need a much bigger lift than real photos (which already
-    // carry their own colour), so the two branches are tuned separately.
-    private static let liveMeshLighten: Double = 1.85   // vibrant lift of the deep base tone
-    private static let liveMeshSaturation: Double = 1.20
+    // Aliveness levers (see `meshBackground` + `scrim`). Live = upcoming/ongoing; past =
+    // ended. Live tickets are *strongly saturated* — a rich jewel, not a washed pastel
+    // (saturation is what reads "alive"; excess lightness is what read as muted). The
+    // brightness lift is mode-aware: against the dark wash the deep tones need a real lift
+    // to glow, but on the light cream the same lift turns them pastel and costs the white
+    // text its contrast — there the near-base depth is what pops. Past tickets sit at
+    // their deep base and desaturate, so they read "done" without going pitch-dark.
+    // Tuned against full-opacity rendering (the old values compensated for a scroll-
+    // transition bug that drew every card at 0.5 alpha — see ConferenceSectionList).
+    private static let liveMeshLightenDark: Double = 1.2
+    private static let liveMeshLightenLight: Double = 1.0   // true jewel base — depth is the pop on cream
+    private static let liveMeshSaturation: Double = 1.2
     private static let pastMeshLighten: Double = 1.0
     private static let pastMeshSaturation: Double = 0.70
-    private static let liveImageSaturation: Double = 1.22
-    private static let liveImageBrightness: Double = 0.07
-    private static let pastImageSaturation: Double = 0.82
-    private static let pastImageBrightness: Double = 0.02
+
+    private var liveMeshLighten: Double {
+        colorScheme == .dark ? Self.liveMeshLightenDark : Self.liveMeshLightenLight
+    }
 
     private var ticket: TicketShape {
         TicketShape(cornerRadius: Self.cornerRadius,
@@ -51,8 +58,9 @@ struct ConferenceCard: View {
         // it grows for large Dynamic Type. The image rides behind as a `.background` so it
         // fills the resulting bounds instead of driving layout.
         .frame(maxWidth: .infinity, minHeight: Self.minHeight)
-        .background { imageBackground }
+        .background { meshBackground }
         .overlay { perforation }
+        .overlay { logoBadge }
         .overlay { favouriteMark }
         .animation(reduceMotion ? nil : .snappy, value: isFavourite)
         .clipShape(ticket)
@@ -67,76 +75,67 @@ struct ConferenceCard: View {
 
     // MARK: - Background
 
-    private var imageBackground: some View {
-        // Color.black floors the size and backs any image with transparency; the image is
-        // overlaid *into* it and clipped, so a scaledToFill image can never drive layout —
-        // regardless of the source aspect ratio (a square apple-touch-icon vs a landscape
-        // og:image). The scrim then rides on top of the clipped image so text always reads.
-        Color.black
-            .overlay { artwork }
-            .clipped()
-            .overlay(scrim)
-    }
-
-    // Aliveness treatment applied to the artwork *under* the scrim, so text contrast is
-    // untouched. The mesh placeholder gets a far bigger lift than a real photo, because the
-    // deep jewel tones are what read as "already done"; photos carry their own colour.
-    @ViewBuilder
-    private var artwork: some View {
-        AsyncImage(url: conference.logoURL) { phase in
-            switch phase {
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .unifiedConferenceArtwork()
-                    .saturation(conference.isPast ? Self.pastImageSaturation : Self.liveImageSaturation)
-                    .brightness(conference.isPast ? Self.pastImageBrightness : Self.liveImageBrightness)
-            case .empty, .failure:
-                meshPlaceholder
-            @unknown default:
-                meshPlaceholder
-            }
-        }
-    }
-
-    private var meshPlaceholder: some View {
-        // `lighten` brightens the tone vibrantly (hue/saturation preserved); the small
-        // saturation nudge on top just sharpens it. Past tones stay near their base and
-        // desaturate so they read "done".
+    /// The mesh is the card's only background — a controlled canvas, so the jewel tones
+    /// stay saturated and the scrim stays a thin anchor: vibrancy and legibility no longer
+    /// compete (the old full-bleed artwork needed a heavy veil that read as "past").
+    private var meshBackground: some View {
         ConferencePlaceholder(
             conference: conference,
             style: .card,
-            lighten: conference.isPast ? Self.pastMeshLighten : Self.liveMeshLighten
+            lighten: conference.isPast ? Self.pastMeshLighten : liveMeshLighten
         )
         .saturation(conference.isPast ? Self.pastMeshSaturation : Self.liveMeshSaturation)
+        .overlay(scrim)
     }
 
-    /// Bottom-weighted darkening so the overline + name read on *any* image — including
-    /// light og:images like the WWDC logo card — plus a faint top darken to keep the
-    /// favourite mark legible. Live tickets use a lighter mid/upper scrim so the artwork's
-    /// colour shows through and the card reads vibrant; past tickets keep the heavier
-    /// darkening (and are veiled on top) so they recede. The bottom stays dark in both so
-    /// the name + overline always clear the legibility bar (ADR-0007).
+    /// Past tickets only: the full-card darkening that makes ended tickets recede (the
+    /// aliveness split, ADR-0007). Live tickets get *no* scrim at all — the mesh is a
+    /// controlled canvas and the text carries its own shadows, so any veil just reads as
+    /// gray and drags a live card toward "past".
+    @ViewBuilder
     private var scrim: some View {
-        let stops: [Gradient.Stop] = conference.isPast
-            ? [
-                .init(color: .black.opacity(0.16), location: 0.0),
-                .init(color: .clear, location: 0.32),
-                .init(color: .black.opacity(0.20), location: 0.56),
-                .init(color: .black.opacity(0.84), location: 1.0)
-            ]
-            : [
-                .init(color: .black.opacity(0.04), location: 0.0),
-                .init(color: .clear, location: 0.42),
-                // The lower stops are the legibility floor for artwork with baked-in
-                // typography (og:images that are mostly text): strong only in the
-                // text-anchor zone, so the body of a live ticket keeps its colour and
-                // doesn't read as a veiled "past" card.
-                .init(color: .black.opacity(0.22), location: 0.68),
-                .init(color: .black.opacity(0.82), location: 1.0)
-            ]
-        return LinearGradient(stops: stops, startPoint: .top, endPoint: .bottom)
+        if conference.isPast {
+            LinearGradient(
+                stops: [
+                    .init(color: .black.opacity(0.16), location: 0.0),
+                    .init(color: .clear, location: 0.32),
+                    .init(color: .black.opacity(0.20), location: 0.56),
+                    .init(color: .black.opacity(0.84), location: 1.0)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+    }
+
+    /// The conference's real artwork, demoted from card background to a small brand badge
+    /// in the top-leading corner — the only quiet corner (heart top-trailing, text bottom,
+    /// watermark bottom-trailing). Shown only once it loads; the mesh card is complete
+    /// without it. Past tickets mute the badge along with everything else.
+    @ViewBuilder
+    private var logoBadge: some View {
+        if let url = conference.logoURL {
+            AsyncImage(url: url) { phase in
+                if case .success(let image) = phase {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 42, height: 42)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .stroke(.white.opacity(0.3), lineWidth: 1)
+                        )
+                        .shadow(color: .black.opacity(0.3), radius: 4, y: 2)
+                        .saturation(conference.isPast ? 0.6 : 1)
+                        .opacity(conference.isPast ? 0.75 : 1)
+                        .transition(.opacity)
+                }
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .accessibilityHidden(true)
+        }
     }
 
     /// Dashed perforation line, drawn between the two notches on the stub seam.
