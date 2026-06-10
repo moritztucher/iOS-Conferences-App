@@ -17,8 +17,6 @@ struct ConferenceSectionList: View {
     /// `favouriteIDs` changes from elsewhere (e.g. the detail screen, which has its own).
     @State private var favouriteTrigger = 0
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
     var body: some View {
         List {
             ForEach(sections) { month in
@@ -56,13 +54,10 @@ struct ConferenceSectionList: View {
             }
         }
         .matchedTransitionSource(id: conference.id, in: namespace)
-        // Subtle "alive" entrance/exit as cards cross the viewport edges — fade + slight
-        // shrink. Reduce-motion collapses it to the identity (no movement).
-        .scrollTransition { content, phase in
-            content
-                .opacity(reduceMotion || phase.isIdentity ? 1 : 0.5)
-                .scaleEffect(reduceMotion || phase.isIdentity ? 1 : 0.94)
-        }
+        // NOTE: no `.scrollTransition` here — inside a `List` the phase never resolves to
+        // identity, so the edge fade applied permanently to every row (cards rendered at a
+        // flat 0.5 opacity — the "grayed ticket" bug). Re-adding any scroll effect must be
+        // verified against rendered pixels, not just the modifier's documentation.
         .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
