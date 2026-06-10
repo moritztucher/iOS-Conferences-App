@@ -28,15 +28,16 @@ In the stub, centered both horizontally in its 192-pixel width and vertically in
 
 The ticket's printing is in a bright cool silver-white ink (#E8EAEC) in clean Myriad-style type, each glyph carrying a faint glass-edge glint, rotated together with the ticket. All printing is on the body:
 
-1. In the body's left area, inset 48 pixels from the ticket's left edge and vertically centered: a two-line stack in Myriad-style capitals, letters 32 pixels tall per line, wide letter-spacing, 14 pixels between lines:
-   - "APPLE REINVENTS"
-   - "THE PHONE"
+1. In the body's left area, inset 48 pixels from the ticket's left edge and vertically centered: a three-line quote in Myriad-style mixed-case type, letters 30 pixels tall per line (cap height), normal letter-spacing, 12 pixels between lines — the keynote's reveal line, written exactly:
+   - "An iPod, a phone,"
+   - "and an internet"
+   - "communicator."
 2. To the right of that stack, horizontally centered in the remaining body width, a vertical stack of three text elements, the stack as a whole vertically centered in the ticket's 280-pixel height, with 14 pixels of space between elements:
    - The words "JAN 9" — Myriad-style capitals, letters 42 pixels tall, wide letter-spacing.
    - The number "2007" — semibold Myriad-style numerals, digits 110 pixels tall, the focal point of the entire icon.
    - The words "MOSCONE CENTER, SAN FRANCISCO" — small Myriad-style capitals, letters 20 pixels tall, wide letter-spacing.
 
-Nothing else: no rules, no barcode, no shadows onto the transparent background, and nothing touches the canvas edges. Verify the text reads exactly "APPLE REINVENTS", "THE PHONE", "JAN 9", "2007", and "MOSCONE CENTER, SAN FRANCISCO". Output as a transparent-background PNG.
+Nothing else: no rules, no barcode, no shadows onto the transparent background, and nothing touches the canvas edges. Verify the text reads exactly "An iPod, a phone,", "and an internet", "communicator.", "JAN 9", "2007", and "MOSCONE CENTER, SAN FRANCISCO" — in particular "iPod" with a lowercase i and capital P. Output as a transparent-background PNG.
 
 ---
 
