@@ -32,7 +32,7 @@ struct ConferenceSectionList: View {
                         }
                     }
                 } header: {
-                    MonthSectionHeader(title: month.title)
+                    MonthSectionHeader(title: month.title, isPast: month.isPast)
                 }
             }
         }
@@ -87,10 +87,14 @@ struct ConferenceSectionList: View {
     }
 }
 
-/// Primary month divider — bold, tracked, primary-weight, aligned to the card edge, with
-/// the year folded in (e.g. "JUNE 2026"). The pinned `.plain` section header.
+/// Primary month divider — bold, tracked, aligned to the card edge, with the year folded
+/// in (e.g. "JUNE 2026"). The pinned `.plain` section header: the serif sits on a glass
+/// capsule so it stays legible riding over card artwork mid-scroll (the same system the
+/// toolbar buttons use), instead of colliding with whatever ticket happens to be under it.
+/// Past months recede to match the aliveness treatment of the tickets beneath them.
 private struct MonthSectionHeader: View {
     let title: String
+    let isPast: Bool
 
     var body: some View {
         Text(title)
@@ -98,9 +102,13 @@ private struct MonthSectionHeader: View {
             .tracking(0.5)
             .textCase(nil)
             .foregroundStyle(.primary)
+            .opacity(isPast ? 0.55 : 1)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 6)
+            .glassEffect()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 14)
-            .padding(.bottom, 6)
+            .padding(.top, 8)
+            .padding(.bottom, 4)
             .padding(.horizontal, 16)
             .listRowInsets(EdgeInsets())
     }

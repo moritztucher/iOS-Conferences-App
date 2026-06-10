@@ -9,6 +9,9 @@ struct ConferenceMonthSection: Identifiable {
     let groups: [ConferenceTypeGroup]
     /// Show per-type sub-dividers only when the month actually mixes kinds.
     let showsTypeHeaders: Bool
+    /// Display-only: true when every conference in the month has ended, so the month
+    /// masthead can recede with the same aliveness treatment as its tickets.
+    let isPast: Bool
 }
 
 /// A kind group within a month, sorted by day then time.
@@ -172,7 +175,8 @@ final class ConferenceListViewModel {
                 id: monthKey,
                 title: title,
                 groups: groups,
-                showsTypeHeaders: groups.count > 1
+                showsTypeHeaders: groups.count > 1,
+                isPast: monthConferences.allSatisfy(\.isPast)
             )
         }
     }
