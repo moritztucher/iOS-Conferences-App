@@ -128,12 +128,13 @@ struct ConferenceCard: View {
             ]
             : [
                 .init(color: .black.opacity(0.04), location: 0.0),
-                .init(color: .clear, location: 0.38),
+                .init(color: .clear, location: 0.42),
                 // The lower stops are the legibility floor for artwork with baked-in
-                // typography (og:images that are mostly text) — tuned so the overlay
-                // always wins without dimming well-behaved artwork's upper half.
-                .init(color: .black.opacity(0.30), location: 0.62),
-                .init(color: .black.opacity(0.84), location: 1.0)
+                // typography (og:images that are mostly text): strong only in the
+                // text-anchor zone, so the body of a live ticket keeps its colour and
+                // doesn't read as a veiled "past" card.
+                .init(color: .black.opacity(0.22), location: 0.68),
+                .init(color: .black.opacity(0.82), location: 1.0)
             ]
         return LinearGradient(stops: stops, startPoint: .top, endPoint: .bottom)
     }
