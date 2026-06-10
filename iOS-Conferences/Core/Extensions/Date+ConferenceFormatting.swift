@@ -46,6 +46,19 @@ enum ConferenceDateStyle {
         let endLine: String?
     }
 
+    /// Formats minutes-from-midnight as the fixed 24h `"HH:mm"` the suggestion issue
+    /// template expects — deliberately locale-independent, because the issue body is
+    /// machine-read by the curation flow (the inverse of `minutes(fromHHmm:)`).
+    static func submissionTime(minutes: Int) -> String {
+        String(format: "%02d:%02d", minutes / 60, minutes % 60)
+    }
+
+    /// e.g. `"19:00 – 22:00"` — the fixed 24h time range for the suggestion issue body.
+    static func submissionTimeRange(start: Int, end: Int) -> String {
+        guard start != end else { return submissionTime(minutes: start) }
+        return "\(submissionTime(minutes: start)) – \(submissionTime(minutes: end))"
+    }
+
     /// Parses an event-local `"HH:mm"` (24h) string into minutes from midnight (0–1439).
     /// Returns `nil` for malformed or out-of-range input. `nonisolated` so the JSON
     /// decoder (a nonisolated context) can call it.

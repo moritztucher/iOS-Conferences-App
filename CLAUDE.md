@@ -104,7 +104,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 ## Suggest a Conference
 
 - **Entry point:** a row in Settings labelled "Suggest a conference" + a small button in the empty state of the list.
-- **Form fields:** name, website URL, start date, end date, optional start/end time (24h `HH:mm`, for watch parties/events), optional IANA time zone (for online timed events), city/country (or "Online"), one-line description, your name (optional, credits the contributor in the PR).
+- **Form fields:** name, website URL, then a Calendar-app-style **When** section — All-day toggle (default on), Starts/Ends date pickers that gain time components when All-day is off, and a pushed searchable Time Zone chooser (IANA zones, device zone default) — a **Where** section (city/country or "Online"), one-line description, your name (optional, credits the contributor in the PR). The submitted issue body keeps the fixed 24h `HH:mm` times + IANA identifier the template expects.
 - **On submit:** construct a URL of the form
   `https://github.com/<owner>/<repo>/issues/new?template=conference-request.yml&title=...&body=...`
   populated with the form data, and open it in `SFSafariViewController`. The user finishes the submission on GitHub (signs in if not already).

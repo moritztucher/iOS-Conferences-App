@@ -52,7 +52,9 @@ Components scoped to a single feature, in `Features/[Feature]/Views/...`. Listed
 
 ### SuggestConference
 
-No feature-scoped reusable components yet.
+| Component | File | Purpose | Key Inputs | Notes |
+|-----------|------|---------|------------|-------|
+| `TimeZonePickerView` | `Features/SuggestConference/Views/TimeZonePickerView.swift` | Calendar-app-style time-zone chooser: searchable list of IANA zones (city title, identifier + zone name subtitle), pushed from the suggest form's "Time Zone" row; selecting pops back. | `selection: Binding<String>` | `cityName(for:)` / `offsetLabel(for:)` are exposed for the form's `LabeledContent` row. |
 
 ### Settings
 
@@ -73,7 +75,7 @@ Top-level Views that represent a tab root or pushed destination.
 | `SettingsView` | `Features/Settings/Views/SettingsView.swift` | Settings | `SettingsViewModel` | Stock `Form` (Display, Support, Contribute, Acknowledgements, About) over the shared `.brandBackground()` wash (ADR-0007 Phase 3 — chrome only; rows stay stock). |
 | `AppearanceView` | `Features/Settings/Views/AppearanceView.swift` | Settings | `AppIconViewModel` | Pushed from Settings → Display. Two stock `List` sections: **Color Scheme** (segmented `Picker` → System/Light/Dark, persisted via `@AppStorage("settings.colorScheme")`, applied app-wide with `.preferredColorScheme` at the root) and **App Icon** (a row per `AppIcon` case — preview image + title + date/venue subtitle + checkmark, switched via `AppIconService` / `setAlternateIconName`). Icons are collectible Apple-history milestones; default is the ticket-fan icon. |
 | `AcknowledgementsView` | `Features/Settings/Views/AcknowledgementsView.swift` | Settings | — | Pushed from Settings via `NavigationLink`. List of credits; each row opens its URL in a `SafariView` sheet. |
-| `SuggestConferenceView` | `Features/SuggestConference/Views/SuggestConferenceView.swift` | SuggestConference | `SuggestConferenceViewModel` | Sheet form. `.safeAreaInset(.bottom)` stacks primary "Email suggestion" + secondary "Submit as GitHub Issue instead". |
+| `SuggestConferenceView` | `Features/SuggestConference/Views/SuggestConferenceView.swift` | SuggestConference | `SuggestConferenceViewModel` | Sheet form. **When** section is Calendar-app style: All-day toggle (default on) whose off state reveals the time components on the Starts/Ends `DatePicker`s plus a pushed `TimeZonePickerView` row; **Where** holds the location field. `.safeAreaInset(.bottom)` stacks primary "Email suggestion" (`.glassProminent`) + secondary "Submit as GitHub Issue instead". The submission body keeps the fixed 24h `HH:mm` + IANA-identifier format (`ConferenceDateStyle.submissionTimeRange`). |
 
 ---
 

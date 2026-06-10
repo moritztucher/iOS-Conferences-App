@@ -9,7 +9,7 @@ struct SuggestConferenceView: View {
     @FocusState private var focusedField: Field?
 
     private enum Field: Hashable {
-        case name, websiteURL, startTime, endTime, timeZone, location, contributor
+        case name, websiteURL, location, contributor
     }
 
     var body: some View {
@@ -28,22 +28,31 @@ struct SuggestConferenceView: View {
                         .submitLabel(.next)
                 }
 
-                Section("When & Where (Optional)") {
-                    DatePicker("Start", selection: $bindable.startDate, displayedComponents: .date)
-                    DatePicker("End", selection: $bindable.endDate, in: viewModel.startDate..., displayedComponents: .date)
-                    TextField("Start time (optional, e.g. 19:00)", text: $bindable.startTime)
-                        .keyboardType(.numbersAndPunctuation)
-                        .focused($focusedField, equals: .startTime)
-                        .submitLabel(.next)
-                    TextField("End time (optional)", text: $bindable.endTime)
-                        .keyboardType(.numbersAndPunctuation)
-                        .focused($focusedField, equals: .endTime)
-                        .submitLabel(.next)
-                    TextField("Time zone (online events, e.g. Europe/Berlin)", text: $bindable.timeZone)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .focused($focusedField, equals: .timeZone)
-                        .submitLabel(.next)
+                // Calendar-app-style entry: an All-day toggle whose off state reveals the
+                // time components on the date pickers and a pushed Time Zone chooser.
+                Section("When") {
+                    Toggle("All-day", isOn: $bindable.isAllDay.animation())
+                    DatePicker(
+                        "Starts",
+                        selection: $bindable.startDate,
+                        displayedComponents: viewModel.isAllDay ? [.date] : [.date, .hourAndMinute]
+                    )
+                    DatePicker(
+                        "Ends",
+                        selection: $bindable.endDate,
+                        in: viewModel.startDate...,
+                        displayedComponents: viewModel.isAllDay ? [.date] : [.date, .hourAndMinute]
+                    )
+                    if !viewModel.isAllDay {
+                        NavigationLink {
+                            TimeZonePickerView(selection: $bindable.timeZoneID)
+                        } label: {
+                            LabeledContent("Time Zone", value: TimeZonePickerView.cityName(for: viewModel.timeZoneID))
+                        }
+                    }
+                }
+
+                Section("Where") {
                     TextField("Location (city, country) or 'Online'", text: $bindable.location)
                         .focused($focusedField, equals: .location)
                         .submitLabel(.next)
@@ -70,10 +79,7 @@ struct SuggestConferenceView: View {
             .onSubmit {
                 switch focusedField {
                 case .name: focusedField = .websiteURL
-                case .websiteURL: focusedField = .startTime
-                case .startTime: focusedField = .endTime
-                case .endTime: focusedField = .timeZone
-                case .timeZone: focusedField = .location
+                case .websiteURL: focusedField = .location
                 case .location: focusedField = .contributor
                 case .contributor, .none: focusedField = nil
                 }

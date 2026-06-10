@@ -6,13 +6,15 @@ import Observation
 final class SuggestConferenceViewModel {
     var name: String = ""
     var websiteURL: String = ""
+    /// Calendar-style "When": all-day by default (the common case for conferences);
+    /// toggling off reveals the time components of the start/end pickers, Watch Party /
+    /// Event style. The dates carry the time of day when `isAllDay` is false.
+    var isAllDay: Bool = true
     var startDate: Date = .now
     var endDate: Date = Date.now.addingTimeInterval(86_400)
-    /// Optional event-local times (`HH:mm`) for Watch Parties / Events; left blank for conferences.
-    var startTime: String = ""
-    var endTime: String = ""
-    /// Optional IANA time-zone identifier — mainly for online timed events.
-    var timeZone: String = ""
+    /// IANA identifier the times are anchored to — mainly relevant for online timed
+    /// events. Defaults to the device zone, like the Calendar app.
+    var timeZoneID: String = TimeZone.current.identifier
     var location: String = ""
     var summary: String = ""
     var contributor: String = ""
@@ -44,7 +46,7 @@ final class SuggestConferenceViewModel {
         \(timeText)
 
         ### Time zone
-        \(emptyDash(timeZone))
+        \(isAllDay ? "—" : timeZoneID)
 
         ### Location
         \(emptyDash(location))
@@ -86,11 +88,18 @@ final class SuggestConferenceViewModel {
         return trimmed.isEmpty ? "—" : trimmed
     }
 
-    /// "19:00 – 22:00", "19:00", or "—" — for the submission body.
+    /// "19:00 – 22:00" (fixed 24h, the format the issue template expects) or "—" for
+    /// all-day — derived from the time components the pickers wrote into the dates.
     private var timeText: String {
-        let start = startTime.trimmingCharacters(in: .whitespacesAndNewlines)
-        let end = endTime.trimmingCharacters(in: .whitespacesAndNewlines)
-        if start.isEmpty { return "—" }
-        return end.isEmpty ? start : "\(start) – \(end)"
+        guard !isAllDay else { return "—" }
+        return ConferenceDateStyle.submissionTimeRange(
+            start: minutesOfDay(of: startDate),
+            end: minutesOfDay(of: endDate)
+        )
+    }
+
+    private func minutesOfDay(of date: Date) -> Int {
+        let parts = Calendar.current.dateComponents([.hour, .minute], from: date)
+        return (parts.hour ?? 0) * 60 + (parts.minute ?? 0)
     }
 }
