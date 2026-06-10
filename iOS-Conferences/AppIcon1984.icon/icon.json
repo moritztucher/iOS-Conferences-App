@@ -1,0 +1,50 @@
+{
+  "fill": {
+    "linear-gradient": [
+      "display-p3:0.24706,0.23137,0.21176,1.00000",
+      "srgb:0.11765,0.10980,0.09804,1.00000"
+    ],
+    "orientation": {
+      "start": {
+        "x": 0.5,
+        "y": 0
+      },
+      "stop": {
+        "x": 0.5,
+        "y": 0.7
+      }
+    }
+  },
+  "groups": [
+    {
+      "layers": [
+        {
+          "glass": false,
+          "image-name": "Ticket1984.png",
+          "name": "Ticket1984",
+          "position": {
+            "scale": 1,
+            "translation-in-points": [
+              -9,
+              13.5
+            ]
+          }
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.5
+      }
+    }
+  ],
+  "supported-platforms": {
+    "circles": [
+      "watchOS"
+    ],
+    "squares": "shared"
+  }
+}
