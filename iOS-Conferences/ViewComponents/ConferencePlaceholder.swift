@@ -23,6 +23,11 @@ struct ConferencePlaceholder: View {
 
     let conference: Conference
     var style: Style = .auto
+    /// Multiplicative lift on the base tone before the mesh is built. `> 1` brightens while
+    /// preserving hue *and* saturation (scaling RGB keeps their ratios) — i.e. a genuinely
+    /// vibrant lift, not the grey wash a `.brightness()` overlay would add. Host cards pass a
+    /// strong value for live tickets, ~1 for past.
+    var lighten: Double = 1.0
 
     /// Above this height the view is acting as the detail hero rather than a list tile.
     private static let heroThreshold: CGFloat = 120
@@ -32,7 +37,7 @@ struct ConferencePlaceholder: View {
             let h = proxy.size.height
             let w = proxy.size.width
             let isHero = style == .card || h >= Self.heroThreshold
-            let base = Self.rgb(for: conference.id)
+            let base = Self.lit(Self.rgb(for: conference.id), by: lighten)
             let baseColor = Color(red: base.r, green: base.g, blue: base.b)
             let ink = Self.foreground(on: baseColor)
 
@@ -117,6 +122,13 @@ struct ConferencePlaceholder: View {
         return Color(red: c.r, green: c.g, blue: c.b)
     }
 
+    /// Multiplicatively brightens a base tone, clamped to [0, 1]. Scaling all channels by the
+    /// same factor preserves their ratios → same hue & saturation, just brighter (vibrant),
+    /// unlike `shade`/`.brightness` which blend toward white and desaturate.
+    static func lit(_ c: (r: Double, g: Double, b: Double), by factor: Double) -> (r: Double, g: Double, b: Double) {
+        (min(c.r * factor, 1), min(c.g * factor, 1), min(c.b * factor, 1))
+    }
+
     /// Lightens (`amount > 0`) or darkens (`amount < 0`) a base colour, clamped to [0, 1].
     private static func shade(_ c: (r: Double, g: Double, b: Double), by amount: Double) -> Color {
         func adjust(_ v: Double) -> Double {
@@ -179,12 +191,15 @@ extension View {
     /// weight and sit beside the deep mesh placeholders. Each surface's own scrim still rides
     /// on top for text legibility. Apply to the *success* image only — the mesh placeholder
     /// is already in this tonal world.
+    /// A light tonal baseline so disparate real artwork (square logos, busy og:images,
+    /// photos) reads in the same family without going dark — the per-ticket aliveness
+    /// (saturation/brightness for past vs live) is applied on top by the host card.
     func unifiedConferenceArtwork() -> some View {
         self
-            .saturation(0.82)
+            .saturation(0.95)
             .overlay {
                 LinearGradient(
-                    colors: [.black.opacity(0.45), .black.opacity(0.12), .black.opacity(0.30)],
+                    colors: [.black.opacity(0.16), .black.opacity(0.04), .black.opacity(0.14)],
                     startPoint: .top,
                     endPoint: .bottom
                 )

@@ -22,6 +22,20 @@ struct ConferenceCard: View {
     private static let notchRadius: CGFloat = 11
     private static let stubWidth: CGFloat = 80
 
+    // Aliveness levers (see `artwork` + `scrim`). Live = upcoming/ongoing; past = ended.
+    // Live tickets are pushed bright + saturated so they read alive. Past tickets sit at a
+    // normal mid brightness but desaturated, so they read "done" without going pitch-dark.
+    // The deep mesh placeholders need a much bigger lift than real photos (which already
+    // carry their own colour), so the two branches are tuned separately.
+    private static let liveMeshLighten: Double = 1.85   // vibrant lift of the deep base tone
+    private static let liveMeshSaturation: Double = 1.20
+    private static let pastMeshLighten: Double = 1.0
+    private static let pastMeshSaturation: Double = 0.70
+    private static let liveImageSaturation: Double = 1.22
+    private static let liveImageBrightness: Double = 0.07
+    private static let pastImageSaturation: Double = 0.82
+    private static let pastImageBrightness: Double = 0.02
+
     private var ticket: TicketShape {
         TicketShape(cornerRadius: Self.cornerRadius,
                     notchRadius: Self.notchRadius,
@@ -59,39 +73,66 @@ struct ConferenceCard: View {
         // regardless of the source aspect ratio (a square apple-touch-icon vs a landscape
         // og:image). The scrim then rides on top of the clipped image so text always reads.
         Color.black
-            .overlay {
-                AsyncImage(url: conference.logoURL) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .unifiedConferenceArtwork()
-                    case .empty, .failure:
-                        ConferencePlaceholder(conference: conference, style: .card)
-                    @unknown default:
-                        ConferencePlaceholder(conference: conference, style: .card)
-                    }
-                }
-            }
+            .overlay { artwork }
             .clipped()
             .overlay(scrim)
     }
 
+    // Aliveness treatment applied to the artwork *under* the scrim, so text contrast is
+    // untouched. The mesh placeholder gets a far bigger lift than a real photo, because the
+    // deep jewel tones are what read as "already done"; photos carry their own colour.
+    @ViewBuilder
+    private var artwork: some View {
+        AsyncImage(url: conference.logoURL) { phase in
+            switch phase {
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .unifiedConferenceArtwork()
+                    .saturation(conference.isPast ? Self.pastImageSaturation : Self.liveImageSaturation)
+                    .brightness(conference.isPast ? Self.pastImageBrightness : Self.liveImageBrightness)
+            case .empty, .failure:
+                meshPlaceholder
+            @unknown default:
+                meshPlaceholder
+            }
+        }
+    }
+
+    private var meshPlaceholder: some View {
+        // `lighten` brightens the tone vibrantly (hue/saturation preserved); the small
+        // saturation nudge on top just sharpens it. Past tones stay near their base and
+        // desaturate so they read "done".
+        ConferencePlaceholder(
+            conference: conference,
+            style: .card,
+            lighten: conference.isPast ? Self.pastMeshLighten : Self.liveMeshLighten
+        )
+        .saturation(conference.isPast ? Self.pastMeshSaturation : Self.liveMeshSaturation)
+    }
+
     /// Bottom-weighted darkening so the overline + name read on *any* image — including
     /// light og:images like the WWDC logo card — plus a faint top darken to keep the
-    /// favourite mark legible.
+    /// favourite mark legible. Live tickets use a lighter mid/upper scrim so the artwork's
+    /// colour shows through and the card reads vibrant; past tickets keep the heavier
+    /// darkening (and are veiled on top) so they recede. The bottom stays dark in both so
+    /// the name + overline always clear the legibility bar (ADR-0007).
     private var scrim: some View {
-        LinearGradient(
-            stops: [
-                .init(color: .black.opacity(0.30), location: 0.0),
-                .init(color: .clear, location: 0.28),
-                .init(color: .black.opacity(0.45), location: 0.52),
-                .init(color: .black.opacity(0.92), location: 1.0)
-            ],
-            startPoint: .top,
-            endPoint: .bottom
-        )
+        let stops: [Gradient.Stop] = conference.isPast
+            ? [
+                .init(color: .black.opacity(0.16), location: 0.0),
+                .init(color: .clear, location: 0.32),
+                .init(color: .black.opacity(0.20), location: 0.56),
+                .init(color: .black.opacity(0.84), location: 1.0)
+            ]
+            : [
+                .init(color: .black.opacity(0.04), location: 0.0),
+                .init(color: .clear, location: 0.42),
+                .init(color: .black.opacity(0.06), location: 0.64),
+                .init(color: .black.opacity(0.74), location: 1.0)
+            ]
+        return LinearGradient(stops: stops, startPoint: .top, endPoint: .bottom)
     }
 
     /// Dashed perforation line, drawn between the two notches on the stub seam.
