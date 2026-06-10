@@ -30,15 +30,17 @@ In the stub, centered both horizontally in its 192-pixel width and vertically in
 
 The ticket's text appears to float inside the glass: luminous white (#F2F0FA) with a very subtle glow, in clean modern sans-serif type like SF Pro, rotated together with the ticket. All text is on the body:
 
-1. In the body's left area, inset 48 pixels from the ticket's left edge and vertically centered: a two-line stack in capitals, letters 32 pixels tall per line, wide letter-spacing, 14 pixels between lines:
-   - "SPATIAL"
-   - "COMPUTING"
+1. In the body's left area, inset 48 pixels from the ticket's left edge and vertically centered: a four-line quote in mixed-case type, letters 26 pixels tall per line (cap height), normal letter-spacing, 12 pixels between lines — Tim Cook's line from the reveal, written exactly:
+   - "It's the first"
+   - "Apple product"
+   - "you look through,"
+   - "and not at."
 2. To the right of that stack, horizontally centered in the remaining body width, a vertical stack of three text elements, the stack as a whole vertically centered in the ticket's 280-pixel height, with 14 pixels of space between elements:
    - The words "JUN 5" — capitals, letters 42 pixels tall, wide letter-spacing.
    - The number "2023" — semibold numerals, digits 110 pixels tall, the focal point of the entire icon.
    - The words "APPLE PARK, CUPERTINO" — small capitals, letters 22 pixels tall, wide letter-spacing.
 
-Nothing else: no rules, no barcode, no shadows onto the transparent background, and nothing touches the canvas edges. Verify the text reads exactly "SPATIAL", "COMPUTING", "JUN 5", "2023", and "APPLE PARK, CUPERTINO" — in particular the year must be exactly "2023". Output as a transparent-background PNG.
+Nothing else: no rules, no barcode, no shadows onto the transparent background, and nothing touches the canvas edges. Verify the text reads exactly "It's the first", "Apple product", "you look through,", "and not at.", "JUN 5", "2023", and "APPLE PARK, CUPERTINO" — in particular the year must be exactly "2023". Output as a transparent-background PNG.
 
 ---
 
