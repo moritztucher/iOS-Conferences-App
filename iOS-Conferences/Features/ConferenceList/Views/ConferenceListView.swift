@@ -64,25 +64,28 @@ struct ConferenceListView: View {
 
     @ViewBuilder
     private var emptyState: some View {
-        if viewModel.filter == .favourites {
-            ContentUnavailableView(
-                "No Favourites",
-                systemImage: "heart",
-                description: Text("Tap the heart on a conference to keep it here.")
-            )
-        } else if isFiltering {
-            ContentUnavailableView(
-                "No Matches",
-                systemImage: "line.3.horizontal.decrease",
-                description: Text("No conferences match your current filter.")
-            )
-        } else {
-            ContentUnavailableView(
-                "No Conferences",
-                systemImage: "calendar",
-                description: Text("Pull down to refresh.")
-            )
+        Group {
+            if viewModel.filter == .favourites {
+                ContentUnavailableView(
+                    "No Favourites",
+                    systemImage: "heart",
+                    description: Text("Heart any conference to hold your spot.")
+                )
+            } else if isFiltering {
+                ContentUnavailableView(
+                    "No Matches",
+                    systemImage: "line.3.horizontal.decrease",
+                    description: Text("No conferences match your current filter.")
+                )
+            } else {
+                ContentUnavailableView(
+                    "No Conferences",
+                    systemImage: "calendar",
+                    description: Text("Pull down to refresh.")
+                )
+            }
         }
+        .ticketEmptyStateBackdrop()
     }
 
     @ToolbarContentBuilder

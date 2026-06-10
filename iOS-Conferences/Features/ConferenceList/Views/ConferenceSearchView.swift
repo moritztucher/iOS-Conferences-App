@@ -52,8 +52,10 @@ struct ConferenceSearchView: View {
                 systemImage: "magnifyingglass",
                 description: Text("Find a conference by name, location, or tag.")
             )
+            .ticketEmptyStateBackdrop()
         } else if sections.isEmpty {
             ContentUnavailableView.search(text: viewModel.searchText)
+                .ticketEmptyStateBackdrop()
         } else {
             ConferenceSectionList(
                 sections: sections,
