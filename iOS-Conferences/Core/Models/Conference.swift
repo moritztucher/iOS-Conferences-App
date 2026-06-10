@@ -140,4 +140,14 @@ extension Conference {
         }
         return locationName
     }
+
+    /// Display-only: just the city — for the card overline, whose lead slot (time/kind)
+    /// shares one line with the location. The fuller `locationShort` stays in the detail
+    /// hero and the When & Where row.
+    var locationCity: String {
+        locationName
+            .split(separator: ",")
+            .first
+            .map { $0.trimmingCharacters(in: .whitespaces) } ?? locationName
+    }
 }

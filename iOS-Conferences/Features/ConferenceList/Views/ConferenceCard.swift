@@ -128,9 +128,12 @@ struct ConferenceCard: View {
             ]
             : [
                 .init(color: .black.opacity(0.04), location: 0.0),
-                .init(color: .clear, location: 0.42),
-                .init(color: .black.opacity(0.06), location: 0.64),
-                .init(color: .black.opacity(0.74), location: 1.0)
+                .init(color: .clear, location: 0.38),
+                // The lower stops are the legibility floor for artwork with baked-in
+                // typography (og:images that are mostly text) — tuned so the overlay
+                // always wins without dimming well-behaved artwork's upper half.
+                .init(color: .black.opacity(0.30), location: 0.62),
+                .init(color: .black.opacity(0.84), location: 1.0)
             ]
         return LinearGradient(stops: stops, startPoint: .top, endPoint: .bottom)
     }
@@ -227,14 +230,18 @@ struct ConferenceCard: View {
     // MARK: - Text
 
     private var locationText: String {
-        conference.isOnline ? "ONLINE" : conference.locationShort.uppercased()
+        conference.isOnline ? "ONLINE" : conference.locationCity.uppercased()
     }
 
-    /// Overline reads `TIME · LOCATION` for timed events, just `LOCATION` for conferences.
-    /// Online timed events also show the zone abbreviation, since they have no location to
-    /// imply it (e.g. `19:00 PDT · ONLINE`).
+    /// Overline grammar: `[TIME or KIND] · LOCATION` — the lead slot always carries the
+    /// card's differentiator. Timed events lead with the wall-clock time; untimed entries
+    /// lead with the kind word, so a run of same-city cards doesn't read as one repeated
+    /// location column. Online timed events also show the zone abbreviation, since they
+    /// have no location to imply it (e.g. `19:00 PDT · ONLINE`).
     private var overlineText: String {
-        guard let time = conference.startTimeLabel else { return locationText }
+        guard let time = conference.startTimeLabel else {
+            return "\(conference.kind.rawValue.uppercased()) · \(locationText)"
+        }
         var timePart = time
         if conference.isOnline, let abbreviation = conference.timeZoneAbbreviation {
             timePart += " \(abbreviation)"
