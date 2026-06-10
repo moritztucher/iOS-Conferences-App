@@ -89,9 +89,12 @@ struct SuggestConferenceView: View {
                 VStack(spacing: 8) {
                     Button(action: submitViaEmail) {
                         Label("Email suggestion", systemImage: "envelope")
-                            .frame(maxWidth: .infinity)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, minHeight: 26)
                     }
-                    .buttonStyle(.borderedProminent)
+                    // Same action-bar language as the detail screen's pinned bar (ADR-0007)
+                    // — this was the app's only `.borderedProminent`.
+                    .buttonStyle(.glassProminent)
                     .controlSize(.large)
                     .disabled(!viewModel.isSubmittable)
 
