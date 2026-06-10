@@ -1,0 +1,50 @@
+{
+  "fill": {
+    "linear-gradient": [
+      "display-p3:0.27059,0.20000,0.11373,1.00000",
+      "srgb:0.14118,0.10588,0.06667,1.00000"
+    ],
+    "orientation": {
+      "start": {
+        "x": 0.5,
+        "y": 0
+      },
+      "stop": {
+        "x": 0.5,
+        "y": 0.7
+      }
+    }
+  },
+  "groups": [
+    {
+      "layers": [
+        {
+          "glass": false,
+          "image-name": "TicketsFlat.png",
+          "name": "TicketsFlat",
+          "position": {
+            "scale": 1,
+            "translation-in-points": [
+              -2.5,
+              -6.5
+            ]
+          }
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.5
+      }
+    }
+  ],
+  "supported-platforms": {
+    "circles": [
+      "watchOS"
+    ],
+    "squares": "shared"
+  }
+}
