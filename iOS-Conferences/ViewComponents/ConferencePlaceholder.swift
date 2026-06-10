@@ -28,6 +28,13 @@ struct ConferencePlaceholder: View {
     /// vibrant lift, not the grey wash a `.brightness()` overlay would add. Host cards pass a
     /// strong value for live tickets, ~1 for past.
     var lighten: Double = 1.0
+    /// Sub-perceptual idle drift of the mesh keypoints — the detail hero's "you've arrived"
+    /// moment (MOTION-1). Off by default so the scrolling list stays static; gated behind
+    /// reduce-motion.
+    var breathes: Bool = false
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var meshPhase: Float = 0
 
     /// Above this height the view is acting as the detail hero rather than a list tile.
     private static let heroThreshold: CGFloat = 120
@@ -43,7 +50,7 @@ struct ConferencePlaceholder: View {
 
             ZStack {
                 if isHero {
-                    Self.mesh(for: base)
+                    Self.mesh(for: base, phase: meshPhase)
                 } else {
                     Self.gradient(for: conference.id)
                 }
@@ -76,6 +83,12 @@ struct ConferencePlaceholder: View {
             }
             .clipped()
         }
+        .onAppear {
+            guard breathes, !reduceMotion else { return }
+            withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
+                meshPhase = 1
+            }
+        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(conference.name)
     }
@@ -98,18 +111,19 @@ struct ConferencePlaceholder: View {
     /// A curated set of deep, slightly-desaturated jewel tones (not pure saturated hues) so
     /// the no-image majority reads as one premium, intentional palette rather than a random
     /// assortment — and so warm members sit naturally beside the marigold brand accent.
+    private static let palette: [(Double, Double, Double)] = [
+        (0.10, 0.42, 0.45),   // deep teal
+        (0.24, 0.28, 0.55),   // indigo
+        (0.40, 0.24, 0.50),   // plum
+        (0.16, 0.40, 0.30),   // forest
+        (0.52, 0.20, 0.30),   // burgundy
+        (0.22, 0.36, 0.52),   // slate blue
+        (0.60, 0.42, 0.18),   // bronze (brand-adjacent)
+        (0.56, 0.28, 0.34),   // deep rose
+        (0.12, 0.34, 0.48)    // ocean
+    ]
+
     private static func rgb(for id: String) -> (r: Double, g: Double, b: Double) {
-        let palette: [(Double, Double, Double)] = [
-            (0.10, 0.42, 0.45),   // deep teal
-            (0.24, 0.28, 0.55),   // indigo
-            (0.40, 0.24, 0.50),   // plum
-            (0.16, 0.40, 0.30),   // forest
-            (0.52, 0.20, 0.30),   // burgundy
-            (0.22, 0.36, 0.52),   // slate blue
-            (0.60, 0.42, 0.18),   // bronze (brand-adjacent)
-            (0.56, 0.28, 0.34),   // deep rose
-            (0.12, 0.34, 0.48)    // ocean
-        ]
         var hash: UInt64 = 5381
         for byte in id.utf8 {
             hash = (hash &* 33) &+ UInt64(byte)
@@ -152,7 +166,10 @@ struct ConferencePlaceholder: View {
     /// Richer 3×3 mesh gradient for the detail hero: a diagonal light → dark sweep
     /// (light top-leading, dark bottom-trailing) that pairs with the top-leading monogram
     /// and bottom-trailing watermark to give the banner real depth.
-    static func mesh(for c: (r: Double, g: Double, b: Double)) -> some View {
+    ///
+    /// `phase` (0…1) drifts the interior + mid-edge keypoints a few points — the breathe.
+    /// At 0 the mesh is the static layout used everywhere else.
+    static func mesh(for c: (r: Double, g: Double, b: Double), phase: Float = 0) -> some View {
         let light = shade(c, by: 0.22)
         let base = Color(red: c.r, green: c.g, blue: c.b)
         let dark = shade(c, by: -0.34)
@@ -160,9 +177,9 @@ struct ConferencePlaceholder: View {
             width: 3,
             height: 3,
             points: [
-                [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
-                [0.0, 0.5], [0.5, 0.5], [1.0, 0.5],
-                [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                [0.0, 0.0], [0.5 - 0.02 * phase, 0.0], [1.0, 0.0],
+                [0.0, 0.5 + 0.02 * phase], [0.5 + 0.03 * phase, 0.5 - 0.025 * phase], [1.0, 0.5 - 0.02 * phase],
+                [0.0, 1.0], [0.5 + 0.02 * phase, 1.0], [1.0, 1.0]
             ],
             colors: [
                 light, light, base,
@@ -170,6 +187,13 @@ struct ConferencePlaceholder: View {
                 base, dark, dark
             ]
         )
+    }
+
+    /// The curated jewel palette as `Color`s, for surfaces that echo the ticket world
+    /// without a conference to hash (e.g. the empty-state ghost tickets).
+    static func paletteTone(_ index: Int) -> Color {
+        let c = palette[index % palette.count]
+        return Color(red: c.0, green: c.1, blue: c.2)
     }
 
     /// Picks black or white initials for the best contrast against `background`,

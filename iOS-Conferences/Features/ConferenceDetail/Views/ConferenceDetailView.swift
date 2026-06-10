@@ -31,6 +31,9 @@ struct ConferenceDetailView: View {
             .padding(.bottom, 8)
         }
         .ignoresSafeArea(edges: .top)
+        // The detail is an immersive leaf screen: hide the tab bar so the full-bleed hero
+        // and the pinned action bar own the bottom edge (the bar returns on pop).
+        .toolbarVisibility(.hidden, for: .tabBar)
         .safeAreaInset(edge: .bottom) { bottomActionBar }
         .task(id: viewModel.conference.id) { await viewModel.resolveVenue() }
         .navigationTitle(showsNavBarTitle ? viewModel.conference.name : "")

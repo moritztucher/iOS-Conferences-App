@@ -17,6 +17,10 @@ struct ConferenceDetailHero: View {
             ZStack(alignment: .bottomLeading) {
                 background
                 titleOverlay
+                    // Dissolve the title block as the hero scrolls away (starting 80pt up,
+                    // gone by 200pt) so the name never slides un-staged beneath the toolbar
+                    // buttons — the nav-bar title takes over right after (reveals at 220pt).
+                    .opacity(1 - min(max((-minY - 80) / 120, 0), 1))
             }
             .frame(width: geo.size.width, height: Self.baseHeight + stretch)
             .clipShape(Rectangle())
@@ -35,9 +39,9 @@ struct ConferenceDetailHero: View {
                     case .success(let image):
                         image.resizable().scaledToFill().unifiedConferenceArtwork()
                     case .empty, .failure:
-                        ConferencePlaceholder(conference: conference, style: .card)
+                        ConferencePlaceholder(conference: conference, style: .card, breathes: true)
                     @unknown default:
-                        ConferencePlaceholder(conference: conference, style: .card)
+                        ConferencePlaceholder(conference: conference, style: .card, breathes: true)
                     }
                 }
             }

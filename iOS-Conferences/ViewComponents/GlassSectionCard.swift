@@ -15,7 +15,7 @@ struct GlassSectionCard<Content: View>: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 12) {
             if let title {
                 Text(title)
                     .eyebrow(.footnote)
@@ -25,7 +25,8 @@ struct GlassSectionCard<Content: View>: View {
             content
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(18)
+        .padding(.horizontal, 18)
+        .padding(.vertical, 14)
         .glassEffect(in: .rect(cornerRadius: 24))
     }
 }
