@@ -15,7 +15,7 @@ ticket is a horizontal rounded rectangle 640×280 px, 36 px corner radius.
 
 ## Layer 1 — rearmost cream ticket (complete, with print)
 
-A 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
+A square 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
 
 The image contains exactly one event ticket made of warm cream paper (#F2EAD9): a horizontal rounded rectangle 640 pixels wide and 280 pixels tall with 36-pixel rounded corners, centered at (438, 412), rotated 32 degrees with its right end raised and its left end lowered. Very subtle paper grain and a faint warm-white highlight along its top edge so the paper reads slightly thick.
 
@@ -29,7 +29,7 @@ Nothing else: no other text, no perforation, no stub. No shadow is cast onto the
 
 ## Layer 2 — middle cream ticket (complete, with print)
 
-A 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
+A square 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
 
 The image contains exactly one event ticket made of warm cream paper (#F2EAD9): a horizontal rounded rectangle 640 pixels wide and 280 pixels tall with 36-pixel rounded corners, centered at (462, 442), rotated 24 degrees with its right end raised and its left end lowered. Very subtle paper grain and a faint warm-white highlight along its top edge.
 
@@ -43,7 +43,7 @@ Nothing else: no other text, no perforation, no stub. No shadow onto the transpa
 
 ## Layer 3 — front cream ticket (complete, with print)
 
-A 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
+A square 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
 
 The image contains exactly one event ticket made of warm cream paper (#F2EAD9): a horizontal rounded rectangle 640 pixels wide and 280 pixels tall with 36-pixel rounded corners, centered at (488, 472), rotated 16 degrees with its right end raised and its left end lowered. Very subtle paper grain and a faint warm-white highlight along its top edge.
 
@@ -57,7 +57,7 @@ Nothing else: no other text, no perforation, no stub. No shadow onto the transpa
 
 ## Layer 4 — marigold lead ticket (complete, with print)
 
-A 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
+A square 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
 
 The image contains exactly one event ticket made of warm marigold paper (#F2A33C): a horizontal rounded rectangle 640 pixels wide and 280 pixels tall with 36-pixel rounded corners, centered at (512, 596), rotated 8 degrees with its right end raised and its left end lowered. Subtle paper grain and a faint lighter highlight along its top edge.
 
@@ -80,7 +80,7 @@ Nothing else: no rules, no shadows, no outlines. Verify the text reads exactly "
 
 For the one-layer fallback (or quick previews), bake everything into a single PNG. Because Icon Composer can't generate inter-layer depth for a flat image, soft contact shadows between the tickets ARE baked in here (still no shadow onto the transparent canvas itself).
 
-A 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
+A square 1024×1024 PNG with a fully transparent background. Coordinates: x runs left to right, y runs top to bottom, origin at the top-left corner.
 
 The image contains a loose fanned stack of four event tickets. Every ticket is a horizontal rounded rectangle 640 pixels wide and 280 pixels tall with 36-pixel rounded corners, rotated with its right end raised and its left end lowered. Drawn rear to front, each ticket fully occluding the ones behind it where they overlap:
 
