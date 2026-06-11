@@ -27,17 +27,24 @@ The ticket has a perforated stub on its right end. Measured along the ticket's o
 
 In the stub, centered exactly horizontally in its 192-pixel width and vertically centered in the space above the rainbow stripe (described below), a die-cut silhouette is punched fully through the card: the front-face outline of the classic 1984 Macintosh computer — a vertical, slightly tapered boxy shape with its wide "chin" below the screen area — about 110 pixels tall, the hole showing the transparent background, well clear of the stripe. Keep the cut a single simple closed silhouette so it reads at small sizes. The cut edge shows the slight thickness of the card.
 
-A thin six-colour rainbow stripe is printed along the ticket's lower edge, rotated together with the ticket: six tight horizontal bands in the canonical Apple-logo order green (#61BB46), yellow (#FDB827), orange (#F5821F), red (#E03A3E), purple (#963D97), blue (#009DDC), together 24 pixels tall. The stripe spans the ticket's entire 640-pixel width, running uninterrupted from the ticket's left edge all the way to its right edge — crossing the perforation seam and continuing through the stub — with its top edge 56 pixels up from the ticket's bottom edge. (The Macintosh die-cut sits above the stripe and is not touched by it.)
+A rainbow stripe is printed along the ticket's lower edge, rotated together with the ticket. The stripe is made of EXACTLY SIX horizontal color bands — not three, not four, not five: six — stacked tightly with no gaps, each band exactly 4 pixels tall, every band a clearly different color, none merged and none omitted, in the canonical Apple-logo order from top to bottom:
+1. green #61BB46
+2. yellow #FDB827
+3. orange #F5821F
+4. red #E03A3E
+5. purple #963D97
+6. blue #009DDC
+Together the six bands are 24 pixels tall. The stripe spans the ticket's entire 640-pixel width, running uninterrupted from the ticket's left edge all the way to its right edge — crossing the perforation seam and continuing through the stub — with its top edge 56 pixels up from the ticket's bottom edge. (The Macintosh die-cut sits above the stripe and is not touched by it.) Count the bands before finishing: there must be six distinct colors, with purple and blue both present below the red.
 
 The ticket's printing is in warm near-black ink (#2B2B29) with a subtle dot-matrix print texture, rotated together with the ticket. All printing is on the body, in the area above the rainbow stripe:
 
-1. In the body's left area, inset 48 pixels from the ticket's left edge: the word "hello." written in a single flowing handwritten script line, like the script from the Macintosh introduction, about 90 pixels tall including the descender. The script is vertically centered in the space above the stripe so its vertical center lines up exactly with the center of the large "1984" numerals.
+1. In the body's left area, inset 48 pixels from the ticket's left edge: the word "hello." written in a single flowing handwritten script line, like the script from the Macintosh introduction, 110 pixels tall including the descender — the SAME height as the large "1984" numerals. Its vertical center sits exactly on the same horizontal line as the center of the "1984" numerals, so "hello." and "1984" read as one row, with "JAN 24" in the row above and "FLINT CENTER, CUPERTINO" in the row below.
 2. To the right of the script, horizontally centered in the remaining body width, a vertical stack of three text elements, each line center-aligned with the others, the stack as a whole vertically centered in the space above the stripe, with 14 pixels of space between elements:
    - The words "JAN 24" — blocky bitmap serif capitals in the style of the Chicago typeface, letters 42 pixels tall, wide letter-spacing. The middle letter is an N, not an H: its diagonal must run from the top of the left stem to the bottom of the right stem.
    - The number "1984" — very heavy blocky bitmap numerals in the same Chicago style, digits 110 pixels tall, the focal point of the entire icon.
    - The words "FLINT CENTER, CUPERTINO" — small bitmap capitals, letters 22 pixels tall, wide letter-spacing.
 
-Nothing else: no rules, no barcode, no shadows onto the transparent background, and nothing touches the canvas edges. Verify the text reads exactly "hello.", "JAN 24" (with the letter N, never "JAH"), "1984", and "FLINT CENTER, CUPERTINO". Output as a transparent-background PNG.
+Nothing else: no rules, no barcode, no shadows onto the transparent background, and nothing touches the canvas edges. Verify the text reads exactly "hello.", "JAN 24" (with the letter N, never "JAH"), "1984", and "FLINT CENTER, CUPERTINO" — and verify the rainbow stripe has exactly six distinct color bands (green, yellow, orange, red, purple, blue). Output as a transparent-background PNG.
 
 ---
 
