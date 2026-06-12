@@ -30,6 +30,7 @@ A rainbow stripe runs along the ticket's lower edge, spanning its entire width e
 All printing is warm near-black ink (#2B2B29) with light dot-matrix texture, on the body above the stripe, rotated with the ticket:
 1. Left, inset 48 pixels: "hello." in the flowing Macintosh-introduction script, 110 pixels tall — the SAME height as the "1984" numerals, its center on the same horizontal line, so "hello." and "1984" form one row.
 2. To its right, centered in the remaining width, a center-aligned stack: "JAN 24" in Chicago-style bitmap capitals, 42 pixels tall (the middle letter is an N, never an H); "1984" in very heavy bitmap numerals, 110 pixels tall, the focal point; "FLINT CENTER, CUPERTINO" in small bitmap capitals, 22 pixels tall.
+3. On the stub, horizontally centered, in the area above the stripe: the front face of the classic 1984 Macintosh drawn as a simple bitmap-style line illustration in the same ink — boxy case, screen, floppy slot, wide "chin" — about 110 pixels tall.
 
 Nothing else — no barcode, no shadows onto the background, nothing touching the canvas edges. Verify: "hello.", "JAN 24" (never "JAH"), "1984", "FLINT CENTER, CUPERTINO", and exactly six rainbow bands.
 
