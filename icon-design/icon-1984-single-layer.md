@@ -25,8 +25,6 @@ One event ticket of matte Apple-Beige card stock (#C4C0AA, the original Macintos
 
 The right 192 pixels are a tear-off stub, separated by a vertical perforation seam: a dashed line (#8F8B77, 3 pixels thick) running between two semicircular notches of 22-pixel radius punched into the top and bottom edges at the seam — the notches are cut through, showing the transparent background.
 
-Punched fully through the stub, horizontally centered, in the area above the rainbow stripe: the front-face silhouette of the classic 1984 Macintosh — a boxy shape with its wide "chin" — about 110 pixels tall, one simple closed cut showing the transparent background.
-
 A rainbow stripe runs along the ticket's lower edge, spanning its entire width edge to edge — continuing uninterrupted through the seam and stub — its top edge 56 pixels above the ticket's bottom edge. It has EXACTLY SIX bands, each 4 pixels tall, no gaps, top to bottom: green #61BB46, yellow #FDB827, orange #F5821F, red #E03A3E, purple #963D97, blue #009DDC. Six distinct colors — purple AND blue must both appear below the red.
 
 All printing is warm near-black ink (#2B2B29) with light dot-matrix texture, on the body above the stripe, rotated with the ticket:
