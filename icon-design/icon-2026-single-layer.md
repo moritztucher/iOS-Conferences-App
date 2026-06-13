@@ -27,9 +27,9 @@ The right 192 pixels are a tear-off stub, separated by a vertical perforation se
 All type is etched into the glass — luminous near-white (#F5F7FA) with a faint cool glow — clean SF-Pro-style sans-serif, rotated with the ticket:
 1. Left, inset 48 pixels: a center-aligned two-line stack in etched capitals, 32 pixels tall per line — "ALL SYSTEMS" / "GLOW" — vertically centered on the same horizontal line as the "2026" numerals.
 2. To its right, centered in the remaining width, a center-aligned stack: "JUN 8" in capitals, 42 pixels tall; "2026" in semibold numerals, 110 pixels tall, the focal point; "APPLE PARK, CUPERTINO" in small capitals, 22 pixels tall.
-3. On the stub, horizontally and vertically centered: the WWDC26 Apple logo — a glowing, three-dimensional metallic Apple with white, blue, and amber light refraction (#EAF2FB / #4DA6FF / #FFB347), a soft luminous halo bleeding into the glass — about 110 pixels tall, light embedded in the glass, not a sticker.
+3. On the stub, horizontally and vertically centered, the official WWDC26 lockup: a glowing, three-dimensional metallic Apple logo with white, blue, and amber light refraction (#EAF2FB / #4DA6FF / #FFB347) and a soft luminous halo bleeding into the glass — about 90 pixels tall — and directly beneath it the word "WWDC26" in silver (#C8CDD4), small etched capitals about 18 pixels tall with wide letter-spacing. Apple plus text together are vertically centered in the stub; the Apple is light embedded in the glass, not a sticker.
 
-Nothing else — no rules, no barcode, no shadows onto the background, nothing touching the canvas edges. Verify: "ALL SYSTEMS", "GLOW", "JUN 8", "2026", "APPLE PARK, CUPERTINO".
+Nothing else — no rules, no barcode, no shadows onto the background, nothing touching the canvas edges. Verify: "ALL SYSTEMS", "GLOW", "JUN 8", "2026", "WWDC26", "APPLE PARK, CUPERTINO".
 
 ---
 
