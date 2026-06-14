@@ -14,6 +14,7 @@ struct iOS_ConferencesApp: App {
         WindowGroup {
             RootTabView()
                 .environment(calendarService)
+                .tint(Theme.accent)
                 .preferredColorScheme(colorScheme)
         }
         .modelContainer(for: [Conference.self, FavouriteConference.self]) { result in

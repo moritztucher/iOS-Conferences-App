@@ -28,9 +28,31 @@ struct SuggestConferenceView: View {
                         .submitLabel(.next)
                 }
 
-                Section("When & Where (Optional)") {
-                    DatePicker("Start", selection: $bindable.startDate, displayedComponents: .date)
-                    DatePicker("End", selection: $bindable.endDate, in: viewModel.startDate..., displayedComponents: .date)
+                // Calendar-app-style entry: an All-day toggle whose off state reveals the
+                // time components on the date pickers and a pushed Time Zone chooser.
+                Section("When") {
+                    Toggle("All-day", isOn: $bindable.isAllDay.animation())
+                    DatePicker(
+                        "Starts",
+                        selection: $bindable.startDate,
+                        displayedComponents: viewModel.isAllDay ? [.date] : [.date, .hourAndMinute]
+                    )
+                    DatePicker(
+                        "Ends",
+                        selection: $bindable.endDate,
+                        in: viewModel.startDate...,
+                        displayedComponents: viewModel.isAllDay ? [.date] : [.date, .hourAndMinute]
+                    )
+                    if !viewModel.isAllDay {
+                        NavigationLink {
+                            TimeZonePickerView(selection: $bindable.timeZoneID)
+                        } label: {
+                            LabeledContent("Time Zone", value: TimeZonePickerView.cityName(for: viewModel.timeZoneID))
+                        }
+                    }
+                }
+
+                Section("Where") {
                     TextField("Location (city, country) or 'Online'", text: $bindable.location)
                         .focused($focusedField, equals: .location)
                         .submitLabel(.next)
@@ -73,9 +95,12 @@ struct SuggestConferenceView: View {
                 VStack(spacing: 8) {
                     Button(action: submitViaEmail) {
                         Label("Email suggestion", systemImage: "envelope")
-                            .frame(maxWidth: .infinity)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, minHeight: 26)
                     }
-                    .buttonStyle(.borderedProminent)
+                    // Same action-bar language as the detail screen's pinned bar (ADR-0007)
+                    // — this was the app's only `.borderedProminent`.
+                    .buttonStyle(.glassProminent)
                     .controlSize(.large)
                     .disabled(!viewModel.isSubmittable)
 

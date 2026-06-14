@@ -9,6 +9,7 @@ struct ConferenceListView: View {
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel: ConferenceListViewModel
     @State private var path = NavigationPath()
+    @Namespace private var namespace
 
     init(filter: ConferenceListViewModel.Filter) {
         _viewModel = State(initialValue: ConferenceListViewModel(filter: filter))
@@ -27,15 +28,18 @@ struct ConferenceListView: View {
     }
 
     private var isFiltering: Bool {
-        viewModel.isFilterActive || showPastConferences
+        viewModel.isFilterActive || viewModel.isRegionFilterActive || showPastConferences
     }
 
     var body: some View {
         NavigationStack(path: $path) {
             content
-                .navigationTitle(viewModel.filter.title)
+                // Conferences tab: drop the large title (redundant with the tab bar label)
+                // so the month header leads. Favourites keeps its title.
+                .navigationTitle(viewModel.filter == .all ? "" : viewModel.filter.title)
+                .navigationBarTitleDisplayMode(viewModel.filter == .all ? .inline : .large)
                 .refreshable { await refresh() }
-                .toolbar { filterToolbarItem }
+                .toolbar { toolbarContent }
                 .navigationDestination(for: Route.self) { route in
                     routeDestination(for: route)
                 }
@@ -50,6 +54,7 @@ struct ConferenceListView: View {
             ConferenceSectionList(
                 sections: sections,
                 favouriteIDs: favouriteIDs,
+                namespace: namespace,
                 onToggleFavourite: { conference in
                     viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
                 }
@@ -59,40 +64,48 @@ struct ConferenceListView: View {
 
     @ViewBuilder
     private var emptyState: some View {
-        if viewModel.filter == .favourites {
-            ContentUnavailableView(
-                "No Favourites",
-                systemImage: "heart",
-                description: Text("Tap the heart on a conference to keep it here.")
-            )
-        } else if isFiltering {
-            ContentUnavailableView(
-                "No Matches",
-                systemImage: "line.3.horizontal.decrease",
-                description: Text("No conferences match your current filter.")
-            )
-        } else {
-            ContentUnavailableView(
-                "No Conferences",
-                systemImage: "calendar",
-                description: Text("Pull down to refresh.")
-            )
+        Group {
+            if viewModel.filter == .favourites {
+                ContentUnavailableView(
+                    "No Favourites",
+                    systemImage: "heart",
+                    description: Text("Heart any conference to hold your spot.")
+                )
+            } else if isFiltering {
+                ContentUnavailableView(
+                    "No Matches",
+                    systemImage: "line.3.horizontal.decrease",
+                    description: Text("No conferences match your current filter.")
+                )
+            } else {
+                ContentUnavailableView(
+                    "No Conferences",
+                    systemImage: "calendar",
+                    description: Text("Pull down to refresh.")
+                )
+            }
         }
+        .ticketEmptyStateBackdrop()
     }
 
     @ToolbarContentBuilder
-    private var filterToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Menu {
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) { regionMenu }
+        ToolbarItem(placement: .topBarTrailing) { filterMenu }
+    }
+
+    private var filterMenu: some View {
+        Menu {
+            Group {
                 Toggle(isOn: $showPastConferences) {
                     Label("Include past conferences", systemImage: "clock.arrow.circlepath")
                 }
-                Picker(selection: $viewModel.kindFilter) {
-                    ForEach(ConferenceKindFilter.allCases) { option in
-                        Label(option.label, systemImage: option.systemImage).tag(option)
+                Section("Kind") {
+                    ForEach(ConferenceKind.allCases, id: \.self) { kind in
+                        Toggle(isOn: kindBinding(kind)) {
+                            Label(kind.pluralLabel, systemImage: kind.symbolName)
+                        }
                     }
-                } label: {
-                    Label("Kind", systemImage: "rectangle.stack")
                 }
                 Picker(selection: $viewModel.formatFilter) {
                     ForEach(ConferenceFormatFilter.allCases) { option in
@@ -101,12 +114,55 @@ struct ConferenceListView: View {
                 } label: {
                     Label("Format", systemImage: "globe")
                 }
-            } label: {
-                Image(systemName: isFiltering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            }
+            // Applied to the menu's content (not the container) so multi-select toggles
+            // keep the menu open instead of dismissing on each tap.
+            .menuActionDismissBehavior(.disabled)
+        } label: {
+            Image(systemName: isFiltering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+        }
+        .accessibilityLabel("Filter")
+    }
+
+    private var regionMenu: some View {
+        Menu {
+            Group {
+                Button {
+                    viewModel.selectedRegions.removeAll()
+                } label: {
+                    Label("Global", systemImage: "globe")
+                }
+                Section("Region") {
+                    ForEach(ConferenceRegion.allCases) { region in
+                        Toggle(isOn: regionBinding(region)) {
+                            Label(region.rawValue, systemImage: region.systemImage)
+                        }
+                    }
+                }
             }
             .menuActionDismissBehavior(.disabled)
-            .accessibilityLabel("Filter")
+        } label: {
+            Image(systemName: viewModel.isRegionFilterActive ? "globe.americas.fill" : "globe.americas")
         }
+        .accessibilityLabel("Region")
+    }
+
+    private func kindBinding(_ kind: ConferenceKind) -> Binding<Bool> {
+        Binding(
+            get: { viewModel.selectedKinds.contains(kind) },
+            set: { isOn in
+                if isOn { viewModel.selectedKinds.insert(kind) } else { viewModel.selectedKinds.remove(kind) }
+            }
+        )
+    }
+
+    private func regionBinding(_ region: ConferenceRegion) -> Binding<Bool> {
+        Binding(
+            get: { viewModel.selectedRegions.contains(region) },
+            set: { isOn in
+                if isOn { viewModel.selectedRegions.insert(region) } else { viewModel.selectedRegions.remove(region) }
+            }
+        )
     }
 
     @ViewBuilder
@@ -115,6 +171,7 @@ struct ConferenceListView: View {
         case .conferenceDetail(let id):
             if let conference = conferences.first(where: { $0.id == id }) {
                 ConferenceDetailView(conference: conference)
+                    .navigationTransition(.zoom(sourceID: id, in: namespace))
             } else {
                 ContentUnavailableView(
                     "Not Found",

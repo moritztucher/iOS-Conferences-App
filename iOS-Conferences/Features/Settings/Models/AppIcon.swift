@@ -63,4 +63,18 @@ enum AppIcon: String, CaseIterable, Identifiable {
         case .wwdc26: "8 Jun 2026 · Apple Park"
         }
     }
+
+    /// One line of lore shown under the ticket in the wallet — why this moment earned
+    /// a collectible.
+    var lore: String {
+        switch self {
+        case .default: "The ticket fan from dubdub's very first commit."
+        case .appleFounding: "Two Steves incorporate Apple Computer — on April Fools' Day."
+        case .macintosh: "The Macintosh introduces itself at Flint Center."
+        case .iPod: "A thousand songs in your pocket."
+        case .iPhone: "An iPod, a phone, an internet communicator."
+        case .visionPro: "One more thing: spatial computing arrives at Apple Park."
+        case .wwdc26: "Liquid Glass premieres — and this app ships."
+        }
+    }
 }

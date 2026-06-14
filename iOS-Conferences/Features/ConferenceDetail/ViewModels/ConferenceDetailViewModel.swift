@@ -17,6 +17,9 @@ final class ConferenceDetailViewModel {
 
     /// Resolved lazily from the conference's location for the embedded venue map.
     var venueCoordinate: CLLocationCoordinate2D?
+    /// The venue's time zone, resolved alongside the coordinate. Used so an added calendar
+    /// event sits at the event's *local* time, not the viewer's.
+    var venueTimeZone: TimeZone?
 
     private let venueService: VenueLocating
 
@@ -47,13 +50,14 @@ final class ConferenceDetailViewModel {
         self.venueService = venueService
     }
 
-    /// Geocodes the venue (once) for the embedded map.
+    /// Geocodes the venue (once) for the embedded map and the calendar time zone.
     /// No-ops for online events or when already resolved.
     func resolveVenue() async {
         guard !conference.isOnline, venueCoordinate == nil else { return }
         let query = conference.mapQuery ?? conference.locationName
-        guard let coordinate = await venueService.coordinate(for: query) else { return }
-        venueCoordinate = coordinate
+        guard let venue = await venueService.resolve(query) else { return }
+        venueCoordinate = venue.coordinate
+        venueTimeZone = venue.timeZone
     }
 
     func isFavourite(in favourites: [FavouriteConference]) -> Bool {

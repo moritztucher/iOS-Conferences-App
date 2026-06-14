@@ -17,6 +17,18 @@ enum ConferenceKind: String, Codable, CaseIterable, Sendable {
         case .event: return "calendar.badge.plus"
         }
     }
+
+    /// Plural label used as the list's kind section header (e.g. "Watch Parties").
+    var pluralLabel: String {
+        switch self {
+        case .conference: return "Conferences"
+        case .watchParty: return "Watch Parties"
+        case .event: return "Events"
+        }
+    }
+
+    /// Order kind sections appear in the list: Conferences, Events, Watch Parties.
+    static let displayOrder: [ConferenceKind] = [.conference, .event, .watchParty]
 }
 
 @Model
@@ -29,6 +41,15 @@ final class Conference {
     var name: String
     var startDate: Date
     var endDate: Date
+    /// Event-local start time as minutes from midnight (0–1439). `nil` for multi-day
+    /// conferences (all-day); set for timed Watch Parties / Events.
+    var startTimeMinutes: Int?
+    /// Event-local end time as minutes from midnight. Optional even when `startTimeMinutes`
+    /// is set — the calendar flow falls back to a default duration when absent.
+    var endTimeMinutes: Int?
+    /// Optional IANA time-zone identifier (e.g. "Asia/Tokyo"). Mainly for online events,
+    /// which have no venue to geocode; for in-person events it overrides the geocoded zone.
+    var timeZoneIdentifier: String?
     var locationName: String
     var mapQuery: String?
     var summary: String
@@ -42,6 +63,9 @@ final class Conference {
         name: String,
         startDate: Date,
         endDate: Date,
+        startTimeMinutes: Int? = nil,
+        endTimeMinutes: Int? = nil,
+        timeZoneIdentifier: String? = nil,
         locationName: String,
         mapQuery: String?,
         summary: String,
@@ -54,6 +78,9 @@ final class Conference {
         self.name = name
         self.startDate = startDate
         self.endDate = endDate
+        self.startTimeMinutes = startTimeMinutes
+        self.endTimeMinutes = endTimeMinutes
+        self.timeZoneIdentifier = timeZoneIdentifier
         self.locationName = locationName
         self.mapQuery = mapQuery
         self.summary = summary
@@ -65,6 +92,26 @@ final class Conference {
 
 extension Conference {
     var websiteURL: URL? { URL(string: websiteURLString) }
+
+    /// Whether this event carries a wall-clock start time (Watch Parties / Events).
+    var isTimed: Bool { startTimeMinutes != nil }
+
+    /// Locale-aware short start time for display, e.g. "7:00 PM". `nil` for all-day conferences.
+    var startTimeLabel: String? {
+        guard let startTimeMinutes else { return nil }
+        return ConferenceDateStyle.timeLabel(minutes: startTimeMinutes)
+    }
+
+    /// Resolved event time zone from `timeZoneIdentifier`, if set and valid.
+    var timeZone: TimeZone? {
+        timeZoneIdentifier.flatMap(TimeZone.init(identifier:))
+    }
+
+    /// Short zone abbreviation for the event date (e.g. "PDT", "JST") — shown on the card
+    /// for online timed events, which have no location to imply the zone.
+    var timeZoneAbbreviation: String? {
+        timeZone?.abbreviation(for: startDate)
+    }
     var logoURL: URL? {
         guard let logoURLString else { return nil }
         return URL(string: logoURLString)
@@ -92,5 +139,15 @@ extension Conference {
             return parts.dropLast().joined(separator: ", ")
         }
         return locationName
+    }
+
+    /// Display-only: just the city — for the card overline, whose lead slot (time/kind)
+    /// shares one line with the location. The fuller `locationShort` stays in the detail
+    /// hero and the When & Where row.
+    var locationCity: String {
+        locationName
+            .split(separator: ",")
+            .first
+            .map { $0.trimmingCharacters(in: .whitespaces) } ?? locationName
     }
 }

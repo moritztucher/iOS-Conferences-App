@@ -11,7 +11,30 @@ import SwiftUI
 /// Colour and initials are hash-derived from the conference id/name, so each entry is
 /// visually distinct and stable across launches.
 struct ConferencePlaceholder: View {
+    /// How the placeholder presents itself.
+    /// - `auto`: size-based — a centred monogram on small tiles, a full hero (mesh +
+    ///   watermark + top-leading monogram) above `heroThreshold`.
+    /// - `card`: list-card background — mesh + kind watermark for depth, but **no
+    ///   monogram**, since the host card overlays the conference name as the focal mark.
+    enum Style {
+        case auto
+        case card
+    }
+
     let conference: Conference
+    var style: Style = .auto
+    /// Multiplicative lift on the base tone before the mesh is built. `> 1` brightens while
+    /// preserving hue *and* saturation (scaling RGB keeps their ratios) — i.e. a genuinely
+    /// vibrant lift, not the grey wash a `.brightness()` overlay would add. Host cards pass a
+    /// strong value for live tickets, ~1 for past.
+    var lighten: Double = 1.0
+    /// Sub-perceptual idle drift of the mesh keypoints — the detail hero's "you've arrived"
+    /// moment (MOTION-1). Off by default so the scrolling list stays static; gated behind
+    /// reduce-motion.
+    var breathes: Bool = false
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var meshPhase: Float = 0
 
     /// Above this height the view is acting as the detail hero rather than a list tile.
     private static let heroThreshold: CGFloat = 120
@@ -20,21 +43,20 @@ struct ConferencePlaceholder: View {
         GeometryReader { proxy in
             let h = proxy.size.height
             let w = proxy.size.width
-            let isHero = h >= Self.heroThreshold
-            let base = Self.rgb(for: conference.id)
+            let isHero = style == .card || h >= Self.heroThreshold
+            let base = Self.lit(Self.rgb(for: conference.id), by: lighten)
             let baseColor = Color(red: base.r, green: base.g, blue: base.b)
             let ink = Self.foreground(on: baseColor)
 
             ZStack {
                 if isHero {
-                    Self.mesh(for: base)
+                    Self.mesh(for: base, phase: meshPhase)
                 } else {
                     Self.gradient(for: conference.id)
                 }
 
                 // Kind watermark — oversized SF Symbol, low opacity, anchored toward the
-                // bottom-trailing corner so it balances the top-leading monogram. Hero only;
-                // on a small tile it would just be noise.
+                // bottom-trailing corner. Hero/card only; on a small tile it would just be noise.
                 if isHero {
                     Image(systemName: conference.kind.symbolName)
                         .font(.system(size: h * 0.78))
@@ -44,19 +66,28 @@ struct ConferencePlaceholder: View {
                         .accessibilityHidden(true)
                 }
 
-                // Monogram — the focal mark.
-                Text(Self.initials(for: conference.name))
-                    .font(.system(size: h * (isHero ? 0.34 : 0.42),
-                                  weight: .bold, design: .rounded))
-                    .foregroundStyle(ink)
-                    .shadow(color: .black.opacity(isHero ? 0.18 : 0),
-                            radius: isHero ? 6 : 0, y: isHero ? 2 : 0)
-                    .minimumScaleFactor(0.5)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity,
-                           alignment: isHero ? .topLeading : .center)
-                    .padding(isHero ? h * 0.11 : h * 0.1)
+                // Monogram — the focal mark. Suppressed for `.card`, where the host card's
+                // overlaid conference name is the focal mark instead.
+                if style != .card {
+                    Text(Self.initials(for: conference.name))
+                        .font(.system(size: h * (isHero ? 0.34 : 0.42),
+                                      weight: .bold, design: .rounded))
+                        .foregroundStyle(ink)
+                        .shadow(color: .black.opacity(isHero ? 0.18 : 0),
+                                radius: isHero ? 6 : 0, y: isHero ? 2 : 0)
+                        .minimumScaleFactor(0.5)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity,
+                               alignment: isHero ? .topLeading : .center)
+                        .padding(isHero ? h * 0.11 : h * 0.1)
+                }
             }
             .clipped()
+        }
+        .onAppear {
+            guard breathes, !reduceMotion else { return }
+            withAnimation(.easeInOut(duration: 4).repeatForever(autoreverses: true)) {
+                meshPhase = 1
+            }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(conference.name)
@@ -76,18 +107,23 @@ struct ConferencePlaceholder: View {
     }
 
     /// Hash-derived base RGB for a conference id, stable across launches.
+    ///
+    /// A curated set of deep, slightly-desaturated jewel tones (not pure saturated hues) so
+    /// the no-image majority reads as one premium, intentional palette rather than a random
+    /// assortment — and so warm members sit naturally beside the marigold brand accent.
+    private static let palette: [(Double, Double, Double)] = [
+        (0.10, 0.42, 0.45),   // deep teal
+        (0.24, 0.28, 0.55),   // indigo
+        (0.40, 0.24, 0.50),   // plum
+        (0.16, 0.40, 0.30),   // forest
+        (0.52, 0.20, 0.30),   // burgundy
+        (0.22, 0.36, 0.52),   // slate blue
+        (0.60, 0.42, 0.18),   // bronze (brand-adjacent)
+        (0.56, 0.28, 0.34),   // deep rose
+        (0.12, 0.34, 0.48)    // ocean
+    ]
+
     private static func rgb(for id: String) -> (r: Double, g: Double, b: Double) {
-        let palette: [(Double, Double, Double)] = [
-            (0.00, 0.48, 1.00),
-            (0.88, 0.24, 0.18),
-            (1.00, 0.44, 0.00),
-            (0.18, 0.56, 0.25),
-            (0.40, 0.18, 0.57),
-            (0.80, 0.14, 0.34),
-            (0.00, 0.61, 0.59),
-            (0.51, 0.32, 0.13),
-            (0.45, 0.45, 0.50)
-        ]
         var hash: UInt64 = 5381
         for byte in id.utf8 {
             hash = (hash &* 33) &+ UInt64(byte)
@@ -98,6 +134,13 @@ struct ConferencePlaceholder: View {
     static func color(for id: String) -> Color {
         let c = rgb(for: id)
         return Color(red: c.r, green: c.g, blue: c.b)
+    }
+
+    /// Multiplicatively brightens a base tone, clamped to [0, 1]. Scaling all channels by the
+    /// same factor preserves their ratios → same hue & saturation, just brighter (vibrant),
+    /// unlike `shade`/`.brightness` which blend toward white and desaturate.
+    static func lit(_ c: (r: Double, g: Double, b: Double), by factor: Double) -> (r: Double, g: Double, b: Double) {
+        (min(c.r * factor, 1), min(c.g * factor, 1), min(c.b * factor, 1))
     }
 
     /// Lightens (`amount > 0`) or darkens (`amount < 0`) a base colour, clamped to [0, 1].
@@ -123,17 +166,20 @@ struct ConferencePlaceholder: View {
     /// Richer 3×3 mesh gradient for the detail hero: a diagonal light → dark sweep
     /// (light top-leading, dark bottom-trailing) that pairs with the top-leading monogram
     /// and bottom-trailing watermark to give the banner real depth.
-    static func mesh(for c: (r: Double, g: Double, b: Double)) -> some View {
-        let light = shade(c, by: 0.26)
+    ///
+    /// `phase` (0…1) drifts the interior + mid-edge keypoints a few points — the breathe.
+    /// At 0 the mesh is the static layout used everywhere else.
+    static func mesh(for c: (r: Double, g: Double, b: Double), phase: Float = 0) -> some View {
+        let light = shade(c, by: 0.22)
         let base = Color(red: c.r, green: c.g, blue: c.b)
-        let dark = shade(c, by: -0.24)
+        let dark = shade(c, by: -0.34)
         return MeshGradient(
             width: 3,
             height: 3,
             points: [
-                [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
-                [0.0, 0.5], [0.5, 0.5], [1.0, 0.5],
-                [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                [0.0, 0.0], [0.5 - 0.02 * phase, 0.0], [1.0, 0.0],
+                [0.0, 0.5 + 0.02 * phase], [0.5 + 0.03 * phase, 0.5 - 0.025 * phase], [1.0, 0.5 - 0.02 * phase],
+                [0.0, 1.0], [0.5 + 0.02 * phase, 1.0], [1.0, 1.0]
             ],
             colors: [
                 light, light, base,
@@ -141,6 +187,13 @@ struct ConferencePlaceholder: View {
                 base, dark, dark
             ]
         )
+    }
+
+    /// The curated jewel palette as `Color`s, for surfaces that echo the ticket world
+    /// without a conference to hash (e.g. the empty-state ghost tickets).
+    static func paletteTone(_ index: Int) -> Color {
+        let c = palette[index % palette.count]
+        return Color(red: c.0, green: c.1, blue: c.2)
     }
 
     /// Picks black or white initials for the best contrast against `background`,
@@ -152,6 +205,30 @@ struct ConferencePlaceholder: View {
         let b = Double(resolved.blue)
         let luminance = 0.299 * r + 0.587 * g + 0.114 * b
         return luminance > 0.6 ? .black : .white
+    }
+}
+
+extension View {
+    /// Unifies arbitrary conference artwork (square logos, busy og:images, photos) into one
+    /// tonal family so disparate sources read as a single designed system (Track A): gently
+    /// desaturated, with a soft top-down darkening so even bright/white logos gain tonal
+    /// weight and sit beside the deep mesh placeholders. Each surface's own scrim still rides
+    /// on top for text legibility. Apply to the *success* image only — the mesh placeholder
+    /// is already in this tonal world.
+    /// A light tonal baseline so disparate real artwork (square logos, busy og:images,
+    /// photos) reads in the same family without going dark — the per-ticket aliveness
+    /// (saturation/brightness for past vs live) is applied on top by the host card.
+    func unifiedConferenceArtwork() -> some View {
+        self
+            .saturation(0.95)
+            .overlay {
+                LinearGradient(
+                    colors: [.black.opacity(0.16), .black.opacity(0.04), .black.opacity(0.14)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .blendMode(.multiply)
+            }
     }
 }
 

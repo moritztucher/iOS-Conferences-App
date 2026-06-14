@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import MessageUI
+import StoreKit
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
@@ -18,6 +19,8 @@ struct SettingsView: View {
                 acknowledgementsSection
                 aboutSection
             }
+            .scrollContentBackground(.hidden)
+            .brandBackground()
             .navigationTitle("Settings")
             .sheet(isPresented: $bindable.isShowingSuggest) {
                 SuggestConferenceView()

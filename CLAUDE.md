@@ -2,11 +2,11 @@
 
 ## Role
 
-You are a senior iOS engineer. Apply the judgment of someone who has shipped production apps for years — question requirements that conflict with platform conventions, prefer Apple-native APIs, and call out work that would not pass a senior code review. **Project-specific reinforcement:** ADR-0003 mandates ecosystem-native design — push back on any suggestion that would add custom design tokens, custom `.glassEffect()` usage, custom empty states, or an onboarding flow.
+You are a senior iOS engineer. Apply the judgment of someone who has shipped production apps for years — question requirements that conflict with platform conventions, prefer Apple-native APIs, and call out work that would not pass a senior code review. **Project-specific reinforcement (ADR-0003 → 0004 → 0006 → 0007):** push custom **as far as possible by composing Liquid Glass** (ADR-0007), never by reinventing system controls. The Conferences list (ticket cards) and the detail hero are a bespoke premium "ticket" design (`TicketShape`, `HeroTicketEdge`, scrims, zoom transition); custom chrome elsewhere is built from `.glassEffect(in:)` / `GlassEffectContainer` / `.buttonStyle(.glass|.glassProminent)` — extend those systems rather than reinventing (check `docs/VIEW-INVENTORY.md` first). Identity is carried by exactly **two** brand levers (ADR-0006): a warm **marigold accent** (`Theme.accent`) and the **system serif** (`Theme.serif`) for *display* moments only (conference names, month mastheads); SF for all other text. **Accessibility, Dynamic Type, and dark-mode parity are hard acceptance criteria** — they survive because the custom layer rides on system glass + semantic styles. **Stay stock** for text input, pickers, toggles, the Settings `Form` rows, `EKEventEditViewController`, `ShareLink`, `Map`, and `ContentUnavailableView` — reinventing those loses accessibility for no identity gain. No onboarding flow; push back on *new* custom colours/fonts or bundled typefaces beyond the two levers.
 
 ## View Inventory
 
-Read `docs/VIEW-INVENTORY.md` before implementing any new View, ViewModifier, or shared UI component. If a matching component already exists, reuse or extend it. When you add, rename, or delete a shared component, update `docs/VIEW-INVENTORY.md` in the same diff. Given this project's ecosystem-native stance, the inventory should stay small — prefer stock SwiftUI components over custom ones.
+Read `docs/VIEW-INVENTORY.md` before implementing any new View, ViewModifier, or shared UI component. If a matching component already exists, reuse or extend it. When you add, rename, or delete a shared component, update `docs/VIEW-INVENTORY.md` in the same diff. The inventory now includes the bespoke ticket system (`TicketShape`, `ConferenceCard`, `ConferenceDetailHero`, `HeroTicketEdge`) — extend those for list/detail visuals; outside that, still prefer stock SwiftUI over new custom components.
 
 # iOS-Conferences
 
@@ -19,7 +19,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - **Open source.** Repo is (or will be) public under MIT. The conference list is community-curated via PRs.
 - **Community contributions:** in-app "Suggest a conference" form pre-fills a GitHub Issue and opens it in Safari — no backend needed.
 - **No in-app monetization.** No subscriptions, no ads, no tips, no upsells. The app is fully free.
-- **Design direction (ADR-0003):** ecosystem-native. Zero custom design tokens — system tint, system fonts, SF Symbols, stock `List` / `Form` / `TabView`. **No `.glassEffect()` on custom views** (system applies Liquid Glass to tabs/toolbars/sheets automatically). Deep system integrations (EventKit, Maps, ShareLink, Spotlight, App Intents) carry the "feels like Apple built it" weight. **No onboarding flow.**
+- **Design direction (ADR-0003 → 0004 → 0006 → 0007):** push custom **as far as possible by composing Liquid Glass**, never by reinventing system controls (ADR-0007). The list + detail use a bespoke **ticket** identity (`TicketShape`/`HeroTicketEdge`, full-bleed imagery + scrims, parallax hero, zoom transition, gated motion/haptics); custom chrome elsewhere uses `.glassEffect(in:)` / `GlassEffectContainer` and the system glass button styles (`.glass` / `.glassProminent`). Two brand levers carry voice (ADR-0006): a **marigold accent** (`Theme.accent`) and the **system serif** (`Theme.serif`) for display moments only. **Hard constraints (ADR-0007):** accessibility, Dynamic Type, and dark-mode parity are preserved *because* the custom layer rides on system glass + semantic styles. **Stay stock** for text input, pickers, toggles, the Settings `Form` rows, and deep system integrations (EventKit, Maps, ShareLink, `ContentUnavailableView`) — that's where a custom rebuild would *lose* accessibility for no identity gain. **No onboarding flow.**
 
 ## Project Config
 
@@ -72,44 +72,39 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 - **Data source:** prefer official APIs/feeds (Sessionize, Pretalx, conference RSS) over scraping. If scraping, respect `robots.txt` and the site's ToS.
 - **Privacy:** no user accounts and no personal data collected initially → low-risk for GDPR. Add a `PrivacyInfo.xcprivacy` file before App Store submission. If calendar permission is requested, include a clear `NSCalendarsUsageDescription`.
 
-## UI Shape (per ADR-0003)
+## UI Shape (per ADR-0003 + ADR-0004)
 
-**Root navigation: 3-tab `TabView`** (Liquid Glass auto-adopted)
+**Root navigation: 3-tab `TabView`** (+ a `Tab(role: .search)`) — Liquid Glass auto-adopted
 - **Conferences** — list of all upcoming conferences
 - **Favourites** — same list view, filtered
-- **Settings** — `Form` with Support / Contribute / About sections
+- **Settings** — `Form` with Display / Support / Contribute / About sections
+- **Search** — global search tab hosting `ConferenceSearchView`
 
-**Conference list:**
-- Large nav title.
-- `.searchable` (name + location).
-- `Section` per month (`MAY 2026`, etc.).
-- Row: `Label` style — primary = name, secondary = "Jun 8–12 · Cupertino".
-- Sort ascending by `startDate`. Past hidden by default (toggle in Settings).
-- `.refreshable` pull-to-refresh.
-- `ContentUnavailableView` for empty states.
+**Conference list** (bespoke ticket cards — `ConferenceSectionList`):
+- Large nav title; region + filter menus in the toolbar (both multi-select, stay open while toggling).
+- Grouped **month-primary** (`JUNE 2026`, year folded in), then by kind (Conference → Event → Watch Party) with editorial sub-dividers + counts shown only in mixed months. Sorted day → time within.
+- Rows are `ConferenceCard`: full-bleed image / mesh placeholder, `TicketShape` perforation + notches, date stub, `kind · location` (+ time for timed events) overline, name as hero. Swipe-to-favourite. Tapping zooms into the detail hero (`matchedTransitionSource` + `.navigationTransition(.zoom)`).
+- Past hidden by default (Settings toggle). `.refreshable` pull-to-refresh. `ContentUnavailableView` for empty states.
 
-**Conference detail** (Calendar-event-detail pattern):
-1. `.navigationTitle(.large)` = conference name.
-2. Toolbar: favourite toggle (`heart` / `heart.fill`), `ShareLink`.
-3. `Form`:
-   - Section "When & Where": date row, location row (tap → Apple Maps).
-   - Section "About": description text.
-   - Section "Actions": row "Visit website" → `SFSafariViewController`; row "Add to calendar" → `EKEventEditViewController` (system event editor sheet).
+**Conference detail:**
+1. `ConferenceDetailHero` — full-bleed stretchy parallax hero (`HeroTicketEdge` tear line); name + date overlaid; nav-bar title fades in on scroll.
+2. Toolbar: favourite toggle (`heart`/`heart.fill`, springs), `ShareLink`.
+3. Stock `Form` sections below the hero: embedded **Map** card, **When & Where**, **About**.
+4. Pinned `.safeAreaInset(.bottom)` action bar: **Website** + **Add to Calendar** (`EKEventEditViewController`; timed events anchored to the venue/feed time zone).
 
-**Settings:** stock `Form` with Display / Support (rate, contact) / Contribute (suggest, view source) / About sections. Suggest-a-conference row opens an in-app form (sheet) that ultimately opens a pre-filled GitHub Issue in Safari.
+**Settings:** stock `Form` with Display / Support (rate, contact) / Contribute (suggest, view source) / About sections. Suggest-a-conference opens an in-app form (sheet) → pre-filled GitHub Issue in Safari.
 
-**Forbidden in code:**
-- No custom colours / brand tint
-- No custom fonts
-- No `.glassEffect()` modifiers on custom views
+**Custom is broad now (ADR-0007): compose custom chrome on Liquid Glass.** Use `.glassEffect(in:)` / `GlassEffectContainer` / `.buttonStyle(.glass|.glassProminent)` for bespoke containers and floating actions. Still forbidden / required:
+- No custom colours beyond the marigold accent (`Theme.accent` / `AccentColor` asset — ADR-0006); no second brand colour
+- No custom/bundled fonts; the system serif (`Theme.serif`) is for display moments only (names + month mastheads), SF everywhere else
+- **Don't reinvent system controls** — text input, pickers, toggles, the Settings `Form` rows, `EKEventEditViewController`, `ShareLink`, `SFSafariViewController`, `Map`, `ContentUnavailableView` stay stock (that's where a custom rebuild loses accessibility/Dynamic Type for no gain)
+- Accessibility, Dynamic Type, and dark-mode parity are hard acceptance criteria — semantic fonts, no fixed-height text containers, VoiceOver labels on custom controls, reduce-motion-gated motion
 - No onboarding flow
-- No custom empty states (use `ContentUnavailableView`)
-- No custom list row backgrounds / cards
 
 ## Suggest a Conference
 
 - **Entry point:** a row in Settings labelled "Suggest a conference" + a small button in the empty state of the list.
-- **Form fields:** name, website URL, start date, end date, city/country (or "Online"), one-line description, your name (optional, credits the contributor in the PR).
+- **Form fields:** name, website URL, then a Calendar-app-style **When** section — All-day toggle (default on), Starts/Ends date pickers that gain time components when All-day is off, and a pushed searchable Time Zone chooser (IANA zones, device zone default) — a **Where** section (city/country or "Online"), one-line description, your name (optional, credits the contributor in the PR). The submitted issue body keeps the fixed 24h `HH:mm` times + IANA identifier the template expects.
 - **On submit:** construct a URL of the form
   `https://github.com/<owner>/<repo>/issues/new?template=conference-request.yml&title=...&body=...`
   populated with the form data, and open it in `SFSafariViewController`. The user finishes the submission on GitHub (signs in if not already).

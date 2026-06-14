@@ -345,6 +345,9 @@ extension Conference {
     fileprivate static func makeDate(_ year: Int, _ month: Int, _ day: Int) -> Date {
         Calendar.current.date(from: DateComponents(year: year, month: month, day: day)) ?? .now
     }
+
+    /// Minutes from midnight for an event-local `HH:mm` start/end time.
+    fileprivate static func makeTime(_ hour: Int, _ minute: Int = 0) -> Int { hour * 60 + minute }
 }
 
 @MainActor
