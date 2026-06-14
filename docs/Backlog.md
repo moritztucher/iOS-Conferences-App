@@ -66,7 +66,6 @@
 - [ ]
 
 ### Medium Priority
-- [ ] **Delete the legacy `AppIcon*.appiconset`s.** All seven `.icon` packages (default + six eras) now ship and fully shadow them — the appiconsets are dead weight. Remove `AppIcon.appiconset` and the six `AppIcon<YEAR>.appiconset`s from `Assets.xcassets` once happy with the rendered set.
 - [ ] Optional icon polish: 2026 stub omits the silver "WWDC26" wordmark under the metallic Apple (looks great without it — decide if the lockup is wanted); 1984 rainbow runs red-top rather than canonical green-top (full six bands, edge to edge — cosmetic).
 
 ### Low Priority
