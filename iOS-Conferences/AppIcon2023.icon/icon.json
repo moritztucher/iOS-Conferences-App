@@ -1,7 +1,7 @@
 {
   "fill": {
     "linear-gradient": [
-      "srgb:0.10980,0.10980,0.14118,1.00000",
+      "display-p3:0.10980,0.10980,0.14118,1.00000",
       "srgb:0.01961,0.01961,0.02745,1.00000"
     ],
     "orientation": {
@@ -21,14 +21,7 @@
         {
           "glass": false,
           "image-name": "Ticket2023.png",
-          "name": "Ticket2023",
-          "position": {
-            "scale": 1,
-            "translation-in-points": [
-              0,
-              21
-            ]
-          }
+          "name": "Ticket2023"
         }
       ],
       "shadow": {

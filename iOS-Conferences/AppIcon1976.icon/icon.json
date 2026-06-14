@@ -1,7 +1,7 @@
 {
   "fill": {
     "linear-gradient": [
-      "srgb:0.16471,0.12157,0.08627,1.00000",
+      "display-p3:0.16471,0.12157,0.08627,1.00000",
       "srgb:0.07843,0.05098,0.03137,1.00000"
     ],
     "orientation": {
@@ -21,14 +21,7 @@
         {
           "glass": false,
           "image-name": "Ticket1976.png",
-          "name": "Ticket1976",
-          "position": {
-            "scale": 1,
-            "translation-in-points": [
-              0,
-              0
-            ]
-          }
+          "name": "Ticket1976"
         }
       ],
       "shadow": {

@@ -1,8 +1,8 @@
 {
   "fill": {
     "linear-gradient": [
-      "display-p3:0.10980,0.17255,0.27451,1.00000",
-      "display-p3:0.01961,0.03137,0.06275,1.00000"
+      "display-p3:0.03922,0.04314,0.05882,1.00000",
+      "srgb:0.00000,0.00000,0.00000,1.00000"
     ],
     "orientation": {
       "start": {
@@ -19,9 +19,9 @@
     {
       "layers": [
         {
-          "glass": false,
-          "image-name": "Ticket2007.png",
-          "name": "Ticket2007"
+          "glass": true,
+          "image-name": "Ticket2026.png",
+          "name": "Ticket2026"
         }
       ],
       "shadow": {
