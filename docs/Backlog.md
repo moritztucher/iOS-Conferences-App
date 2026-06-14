@@ -66,11 +66,8 @@
 - [ ]
 
 ### Medium Priority
-- [ ] **Rework `AppIcon1984.icon` artwork:** the date renders "JAH 24" instead of "JAN 24" (bitmap N came out as an H). Regenerate from `icon-design/icon-1984-single-layer.md` ("fix the text to read exactly: JAN 24") and swap the PNG into `AppIcon1984.icon/Assets/Ticket1984.png`.
-- [ ] **Generate the 2001 iPod ticket** (`icon-design/icon-2001-single-layer.md`) and assemble `AppIcon2001.icon`; until then 2001 falls back to the legacy appiconset.
-- [ ] **Generate the 2026 WWDC26 ticket** (`icon-design/icon-2026-single-layer.md`) and assemble `AppIcon2026.icon`; until then 2026 falls back to the legacy appiconset.
-- [ ] Optional icon polish: 2007 fill is the solid fallback `#11181C` — switch to the stage gradient `#0C0E10 → #17444F` if the aqua floor is wanted; stub motifs rendered printed rather than die-cut on all era tickets (consistent, decide set-wide); 2023 quote picked up quotation marks + an extra comma.
-- [ ] After all six era `.icon` packages land: delete the legacy `AppIcon*.appiconset`s and refresh `IconPreview-*` thumbnails from the composed light renderings.
+- [ ] **Delete the legacy `AppIcon*.appiconset`s.** All seven `.icon` packages (default + six eras) now ship and fully shadow them — the appiconsets are dead weight. Remove `AppIcon.appiconset` and the six `AppIcon<YEAR>.appiconset`s from `Assets.xcassets` once happy with the rendered set.
+- [ ] Optional icon polish: 2026 stub omits the silver "WWDC26" wordmark under the metallic Apple (looks great without it — decide if the lockup is wanted); 1984 rainbow runs red-top rather than canonical green-top (full six bands, edge to edge — cosmetic).
 
 ### Low Priority
 - [ ]
