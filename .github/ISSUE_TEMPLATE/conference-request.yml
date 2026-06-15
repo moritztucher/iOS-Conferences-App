@@ -54,6 +54,27 @@ body:
       placeholder: "2026-09-10"
 
   - type: input
+    id: start-time
+    attributes:
+      label: Start time (optional)
+      description: Local start time in 24-hour HH:mm — for Watch Parties / Events only. Leave blank for multi-day conferences.
+      placeholder: "19:00"
+
+  - type: input
+    id: end-time
+    attributes:
+      label: End time (optional)
+      description: Local end time in 24-hour HH:mm. Optional even when a start time is given.
+      placeholder: "22:00"
+
+  - type: input
+    id: timezone
+    attributes:
+      label: Time zone (optional)
+      description: IANA identifier (e.g. America/Los_Angeles, Europe/Berlin, Asia/Tokyo). Add it for online timed events; in-person events derive it from the location automatically.
+      placeholder: "America/Los_Angeles"
+
+  - type: input
     id: location
     attributes:
       label: Location

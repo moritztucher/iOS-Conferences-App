@@ -28,6 +28,8 @@ struct AcknowledgementsView: View {
             }
             .buttonStyle(.plain)
         }
+        .scrollContentBackground(.hidden)
+        .brandBackground()
         .navigationTitle("Acknowledgements")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $selectedItem) { item in

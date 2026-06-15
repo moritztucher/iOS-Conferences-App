@@ -1330,6 +1330,22 @@
     ]
   },
   {
+    "id": "swift-conf-indonesia-2026",
+    "kind": "Conference",
+    "name": "Swift Conf Indonesia",
+    "startDate": "2026-07-04",
+    "endDate": "2026-07-05",
+    "locationName": "Jakarta, Indonesia",
+    "mapQuery": "Apple Developer Institute for Professionals, Jl. M.H. Thamrin No. 10, Tanah Abang, Jakarta Pusat, Indonesia",
+    "summary": "Indonesia's first Swift conference — talks, workshops and discussion circles for developers of every level, with networking alongside Swift experts from Indonesia and abroad.",
+    "websiteURL": "https://events.zoom.us/ev/Ak7afLpOD12YzGD6W7z7zK-IrFm7lDceLyIglo8w-3cRnUybn-Gx~AvM1tOkv4U-EKGtEOoFGFJWrVcYfYZk70b_UgNe0RMu9zKMvMHJGD-T70Q",
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
     "id": "swift-rockies-2026",
     "kind": "Conference",
     "name": "Swift Rockies",

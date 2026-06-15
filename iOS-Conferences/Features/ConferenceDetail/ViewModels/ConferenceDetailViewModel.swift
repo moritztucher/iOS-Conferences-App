@@ -1,6 +1,8 @@
 import SwiftUI
 import SwiftData
 import EventKit
+import MapKit
+import CoreLocation
 import UIKit
 import Observation
 
@@ -12,6 +14,14 @@ final class ConferenceDetailViewModel {
     var isShowingSafari = false
     var isShowingEventEditor = false
     var calendarAccessIssue: CalendarAccessIssue?
+
+    /// Resolved lazily from the conference's location for the embedded venue map.
+    var venueCoordinate: CLLocationCoordinate2D?
+    /// The venue's time zone, resolved alongside the coordinate. Used so an added calendar
+    /// event sits at the event's *local* time, not the viewer's.
+    var venueTimeZone: TimeZone?
+
+    private let venueService: VenueLocating
 
     enum CalendarAccessIssue: Identifiable {
         case denied
@@ -35,8 +45,19 @@ final class ConferenceDetailViewModel {
         }
     }
 
-    init(conference: Conference) {
+    init(conference: Conference, venueService: VenueLocating = VenueLocationService()) {
         self.conference = conference
+        self.venueService = venueService
+    }
+
+    /// Geocodes the venue (once) for the embedded map and the calendar time zone.
+    /// No-ops for online events or when already resolved.
+    func resolveVenue() async {
+        guard !conference.isOnline, venueCoordinate == nil else { return }
+        let query = conference.mapQuery ?? conference.locationName
+        guard let venue = await venueService.resolve(query) else { return }
+        venueCoordinate = venue.coordinate
+        venueTimeZone = venue.timeZone
     }
 
     func isFavourite(in favourites: [FavouriteConference]) -> Bool {

@@ -4,12 +4,12 @@ An open, community-curated list of iOS / Apple-platform developer conferences an
 
 Home-screen name: **dubdub**. App Store listing: **dubdub - Conferences & Events**.
 
-Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. Designed to feel like an extension of the Apple ecosystem: stock components, system integrations, no custom design language.
+Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. The browse experience has a bespoke **ticket** identity — full-bleed ticket cards that zoom into a stretchy ticket hero — while everything else stays Apple-native (stock `Form` settings, deep EventKit / Maps / ShareLink integrations, system tint and fonts). See [ADR-0004](docs/decisions/ADR-0004-premium-ticket-identity.md).
 
 ## What it does
 
-- **Browse** every upcoming Apple-platform conference, watch party, and community event, grouped by month.
-- **Filter** by kind (Conferences / Watch Parties / Events), format (In person / Online), and toggle past entries on or off.
+- **Browse** every upcoming Apple-platform conference, watch party, and community event as ticket cards — grouped by month, then by type (Conferences → Events → Watch Parties).
+- **Filter** by kind and world region (both multi-select), by format (In person / Online), and toggle past entries on or off.
 - **Search** by name, location, or tag (`swift`, `wwdc`, `visionos`, `community`, …).
 - **Favourite** entries you're considering — stored locally, no account needed.
 - **Add to calendar** with the system event editor (`EKEventEditViewController`) — you pick the calendar, alerts, notes.

@@ -66,7 +66,7 @@
 - [ ]
 
 ### Medium Priority
-- [ ]
+- [ ] Optional icon polish: 2026 stub omits the silver "WWDC26" wordmark under the metallic Apple (looks great without it — decide if the lockup is wanted); 1984 rainbow runs red-top rather than canonical green-top (full six bands, edge to edge — cosmetic).
 
 ### Low Priority
 - [ ]
@@ -91,4 +91,8 @@
 - [ ] Submit-a-conference flow (community-curated)
 - [ ] Apple Sign-In + CloudKit sync if favourites become a thing
 - [ ] WidgetKit widget showing the next 3 conferences
+- [ ] Single-favourite countdown widget (small) — see `feature-ideas-2026-06-07.md`
+- [ ] Local "I'm attending" flag → drives Live Activity — see `feature-ideas-2026-06-07.md`
 - [ ] visionOS / iPad layout
+
+> 2026-06-07 brainstorm (Live Activity, attendance, schedule-pull, countdown widget) documented with trade-offs in `feature-ideas-2026-06-07.md`.

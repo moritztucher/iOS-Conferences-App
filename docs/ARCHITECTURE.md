@@ -75,8 +75,8 @@ No third-party SPM dependencies at MVP.
 
 | Feature | Location | Description |
 |---------|----------|-------------|
-| ConferenceList | `Features/ConferenceList/` | Sorted list (`List` + `Section` per month). `.searchable`, `.refreshable`. Used by both the Conferences tab and the Favourites tab (filter applied at the ViewModel level). |
-| ConferenceDetail | `Features/ConferenceDetail/` | Calendar-event-detail pattern: large nav title + `Form` (When/Where, About, Actions). Favourite toggle and `ShareLink` in toolbar. |
+| ConferenceList | `Features/ConferenceList/` | Ticket-card list (`ConferenceCard` + `TicketShape`), month-primary with kind sub-groups + counts. Region + multi-select kind/format filters. `.refreshable`; global Search tab. Shared by Conferences + Favourites (filter at the ViewModel level). See ADR-0004. |
+| ConferenceDetail | `Features/ConferenceDetail/` | Stretchy parallax hero (`ConferenceDetailHero`, clean bottom) → floating Liquid Glass cards (`GlassSectionCard`: About, When/Where with embedded map) → pinned glass CTA bar (Website + Add to Calendar). Card→hero zoom transition. Favourite toggle + `ShareLink` in toolbar. See ADR-0007. |
 | SuggestConference | `Features/SuggestConference/` | Form sheet that pre-fills a GitHub Issue URL and opens it in `SFSafariViewController` |
 | Settings | `Features/Settings/` | `Form` with Display (show-past toggle) / Support (rate, contact) / Contribute (suggest, view source) / About (version, license) |
 
@@ -88,7 +88,11 @@ See `docs/decisions/` for detailed ADRs.
 |----------|---------|------|
 | ADR-0001 | Initial architecture: SwiftData + REST + simple NavigationStack, no auth, EventKit + SafariServices | 2026-05-18 |
 | ADR-0002 | Data source (`conferences.json` in public GitHub repo), open source under MIT. *Original monetization decision (StoreKit 2 tip) reversed — the app no longer ships any in-app purchase.* | 2026-05-18 |
-| ADR-0003 | Ecosystem-native UI direction: stock components only, system integrations carry the "feels like Apple" weight | 2026-05-18 |
+| ADR-0003 | Ecosystem-native UI direction: stock components only, system integrations carry the "feels like Apple" weight. *Visual layer partially superseded by ADR-0004.* | 2026-05-18 |
+| ADR-0004 | Premium ticket-based visual identity for the list + detail hero (custom shapes, scrims, parallax, zoom transition); stock everywhere else | 2026-06-09 |
+| ADR-0005 | Optional event-local times + IANA time zone in the feed; timed calendar events anchored to the event zone | 2026-06-09 |
+| ADR-0006 | Two signature brand levers: a warm marigold accent (replacing system blue) + the system serif (New York) for display moments only. Amends ADR-0004. | 2026-06-09 |
+| ADR-0007 | Push custom UI as far as possible by *composing* Liquid Glass (not reinventing controls); accessibility / Dynamic Type / dark-mode parity are hard criteria. Supersedes ADR-0003's stock-first stance. | 2026-06-09 |
 
 ## Data Storage
 

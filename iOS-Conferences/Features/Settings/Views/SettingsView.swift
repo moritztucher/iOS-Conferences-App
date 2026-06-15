@@ -1,9 +1,11 @@
 import SwiftUI
 import SwiftData
 import MessageUI
+import StoreKit
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
+    @Environment(\.requestReview) private var requestReview
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel = SettingsViewModel()
 
@@ -17,6 +19,8 @@ struct SettingsView: View {
                 acknowledgementsSection
                 aboutSection
             }
+            .scrollContentBackground(.hidden)
+            .brandBackground()
             .navigationTitle("Settings")
             .sheet(isPresented: $bindable.isShowingSuggest) {
                 SuggestConferenceView()
@@ -35,13 +39,19 @@ struct SettingsView: View {
         }
     }
 
-    @ViewBuilder
+   @ViewBuilder
     private var supportSection: some View {
         Section("Support") {
             Button {
                 contactMe()
             } label: {
                 Label("Contact me", systemImage: "envelope")
+            }
+            
+            Button {
+                requestReview()
+            } label: {
+                Label("Rate dubdub", systemImage: "star")
             }
         }
     }
@@ -66,6 +76,11 @@ struct SettingsView: View {
     private var displaySection: some View {
         Section("Display") {
             Toggle("Show past conferences", isOn: $showPastConferences)
+            NavigationLink {
+                AppearanceView()
+            } label: {
+                Label("Appearance", systemImage: "circle.lefthalf.filled")
+            }
         }
     }
 

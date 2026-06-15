@@ -4,11 +4,18 @@ import SwiftData
 @main
 struct iOS_ConferencesApp: App {
     @State private var calendarService = CalendarService()
+    @AppStorage("settings.colorScheme") private var colorSchemeRaw = AppColorScheme.system.rawValue
+
+    private var colorScheme: ColorScheme? {
+        AppColorScheme(rawValue: colorSchemeRaw)?.colorScheme
+    }
 
     var body: some Scene {
         WindowGroup {
             RootTabView()
                 .environment(calendarService)
+                .tint(Theme.accent)
+                .preferredColorScheme(colorScheme)
         }
         .modelContainer(for: [Conference.self, FavouriteConference.self]) { result in
             if case .success(let container) = result {

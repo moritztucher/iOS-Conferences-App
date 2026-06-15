@@ -2,7 +2,9 @@
 
 ## Status
 
-Accepted
+**Partially superseded by [ADR-0004](ADR-0004-premium-ticket-identity.md) (2026-06-09).**
+
+The *visual layer* decision here (zero custom design tokens, stock `List`/`Form` rows, no custom shapes/transitions) was reversed for the Conferences list and the detail hero — see ADR-0004 for the premium ticket-based identity that replaced it. **Still in force:** the deep system integrations (EventKit, Maps, ShareLink, in-app review), the stock `Form`-based Settings and the detail's When/Where/About/Map sections, `ContentUnavailableView` empty states, system tint (no brand colour), and **no onboarding**. In other words, ADR-0004 narrows the "stock everything" stance to "stock where it carries trust, custom where it carries identity."
 
 ## Context
 
