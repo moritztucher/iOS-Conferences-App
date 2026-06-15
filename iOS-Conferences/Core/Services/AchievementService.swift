@@ -97,6 +97,22 @@ final class AchievementService {
         }
     }
 
+    /// Present any *deferred* celebrations — seasonal tickets earned silently at launch that
+    /// have been waiting for a calm moment. Called when the user reaches the Appearance
+    /// screen (the collection's home), so the celebration lands there instead of over the
+    /// first screen on cold launch. Each is marked shown so it fires exactly once.
+    func flushDeferredCelebrations() {
+        guard let context else { return }
+        let rows = (try? context.fetch(FetchDescriptor<UnlockedIcon>())) ?? []
+        for row in rows where !row.celebrationShown {
+            if let icon = AppIcon.allCases.first(where: { $0.id == row.iconID }) {
+                celebrationQueue.append(icon)
+            }
+            row.celebrationShown = true
+        }
+        try? context.save()
+    }
+
     /// Pop the celebrated ticket once its sheet is dismissed.
     func dismissCurrentCelebration() {
         guard !celebrationQueue.isEmpty else { return }
@@ -113,9 +129,12 @@ final class AchievementService {
     private func unlock(_ icon: AppIcon) {
         guard !isUnlocked(icon), let context else { return }
         unlockedIDs.insert(icon.id)
-        context.insert(UnlockedIcon(iconID: icon.id))
+        // A seasonal ticket earned at launch celebrates *later* (deferred to the Appearance
+        // screen) — stored unshown. Everything else earned at launch is a discovery of past
+        // activity and stays silent forever; live earnings celebrate now.
+        let deferred = isReplaying && icon.isSeasonal
+        context.insert(UnlockedIcon(iconID: icon.id, celebrationShown: !deferred))
         try? context.save()
-        // Launch/replay discoveries land silently; only live earnings celebrate.
         if !isReplaying { celebrationQueue.append(icon) }
     }
 }

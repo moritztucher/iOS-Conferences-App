@@ -13,8 +13,13 @@ struct AppearanceView: View {
         .scrollContentBackground(.hidden)
         .brandBackground()
         .sensoryFeedback(.impact(weight: .medium), trigger: viewModel.selected)
-        // Catch any favourite-threshold ticket earned since this screen was last open.
-        .task { achievements.reevaluateFavourites() }
+        .task {
+            // Catch any favourite-threshold ticket earned since this screen was last open,
+            // then present any seasonal ticket whose celebration was deferred from launch —
+            // this screen, the collection's home, is the calm moment to land it.
+            achievements.reevaluateFavourites()
+            achievements.flushDeferredCelebrations()
+        }
         .navigationTitle("Appearance")
         .navigationBarTitleDisplayMode(.inline)
         .alert("Couldn't change the icon", isPresented: .init(

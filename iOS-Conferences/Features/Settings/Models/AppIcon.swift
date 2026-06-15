@@ -97,6 +97,13 @@ extension AppIcon {
         case dateWindow(ClosedRange<Date>)
     }
 
+    /// A seasonal ticket gated on a date window — earned by *being there in time* rather than
+    /// by an action, so its celebration is deferred to a calm moment rather than cold launch.
+    var isSeasonal: Bool {
+        if case .dateWindow = unlockRule { return true }
+        return false
+    }
+
     var unlockRule: UnlockRule {
         switch self {
         case .default: .always

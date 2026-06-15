@@ -11,9 +11,15 @@ final class UnlockedIcon {
 
     var iconID: String
     var unlockedAt: Date
+    /// Whether this unlock's celebration has been presented. Live earnings are celebrated at
+    /// the moment they happen (`true` from the start); a seasonal ticket earned silently at
+    /// launch is stored `false` so its celebration can be *deferred* to a calmer moment (the
+    /// Appearance screen) instead of slamming a sheet over the first screen on cold launch.
+    var celebrationShown: Bool = true
 
-    init(iconID: String, unlockedAt: Date = .now) {
+    init(iconID: String, unlockedAt: Date = .now, celebrationShown: Bool = true) {
         self.iconID = iconID
         self.unlockedAt = unlockedAt
+        self.celebrationShown = celebrationShown
     }
 }
