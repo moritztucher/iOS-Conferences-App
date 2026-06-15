@@ -5,6 +5,7 @@ import MapKit
 struct ConferenceDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(CalendarService.self) private var calendarService
+    @Environment(AchievementService.self) private var achievements
     @Query private var favourites: [FavouriteConference]
 
     @State private var viewModel: ConferenceDetailViewModel
@@ -68,7 +69,8 @@ struct ConferenceDetailView: View {
                     for: viewModel.conference,
                     timeZone: viewModel.venueTimeZone
                 ),
-                eventStore: calendarService.eventStore
+                eventStore: calendarService.eventStore,
+                onSaved: { achievements.record(.addedToCalendar) }
             )
             .ignoresSafeArea()
         }
@@ -254,6 +256,7 @@ struct ConferenceDetailView: View {
         GlassEffectContainer(spacing: 12) {
             HStack(spacing: 12) {
                 Button {
+                    achievements.record(.visitedWebsite)
                     viewModel.isShowingSafari = true
                 } label: {
                     Label("Website", systemImage: "safari")
@@ -289,6 +292,7 @@ struct ConferenceDetailView: View {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.toggleFavourite(in: favourites, context: modelContext)
+                achievements.reevaluateFavourites()
             } label: {
                 Image(systemName: isFavourite ? "heart.fill" : "heart")
                     .symbolEffect(.bounce, value: isFavourite)
