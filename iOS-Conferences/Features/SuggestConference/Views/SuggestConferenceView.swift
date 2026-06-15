@@ -4,6 +4,7 @@ import MessageUI
 struct SuggestConferenceView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.dismiss) private var dismiss
+    @Environment(AchievementService.self) private var achievements
     @State private var viewModel = SuggestConferenceViewModel()
     @State private var isShowingMail = false
     @FocusState private var focusedField: Field?
@@ -126,8 +127,10 @@ struct SuggestConferenceView: View {
 
     private func submitViaEmail() {
         if MFMailComposeViewController.canSendMail() {
+            achievements.record(.suggestedConference)
             isShowingMail = true
         } else if let url = viewModel.mailtoFallbackURL() {
+            achievements.record(.suggestedConference)
             openURL(url)
             dismiss()
         }
@@ -135,6 +138,7 @@ struct SuggestConferenceView: View {
 
     private func submitViaGitHub() {
         if let url = viewModel.githubIssueURL() {
+            achievements.record(.suggestedConference)
             openURL(url)
             dismiss()
         }
