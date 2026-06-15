@@ -140,7 +140,6 @@ The app feels like an extension of the Apple ecosystem rather than a third-party
 ├── docs/                               ← project documentation
 │   ├── ARCHITECTURE.md                 ← architecture overview
 │   ├── VIEW-INVENTORY.md               ← index of shared UI components
-│   ├── Backlog.md                      ← planned / parked work
 │   └── decisions/                      ← Architecture Decision Records (ADR-0001 / 0002 / 0003)
 ├── CONTRIBUTING.md                     ← contribution paths + JSON schema
 ├── CODE_OF_CONDUCT.md
