@@ -74,7 +74,63 @@ enum AppIcon: String, CaseIterable, Identifiable {
         case .iPod: "A thousand songs in your pocket."
         case .iPhone: "An iPod, a phone, an internet communicator."
         case .visionPro: "One more thing: spatial computing arrives at Apple Park."
-        case .wwdc26: "Liquid Glass premieres — and this app ships."
+        case .wwdc26: "WWDC returns to Apple Park — and this app ships."
         }
     }
+}
+
+// MARK: - Unlocking
+
+extension AppIcon {
+    /// What a ticket asks of the collector before it can be worn. The default ticket is
+    /// `.always` free; the rest are earned through real use (a hybrid of usage milestones
+    /// and one seasonal easter egg). Evaluated by `AchievementService`.
+    enum UnlockRule: Equatable {
+        /// Free from the start — the primary icon.
+        case always
+        /// Earned once the user has favourited at least this many conferences (the only
+        /// rule with numeric progress).
+        case favourites(Int)
+        /// Earned the first time the user performs a one-shot action.
+        case event(AchievementEvent)
+        /// Earned by opening the app inside a date window — a seasonal collectible.
+        case dateWindow(ClosedRange<Date>)
+    }
+
+    var unlockRule: UnlockRule {
+        switch self {
+        case .default: .always
+        case .iPhone: .favourites(1)
+        case .iPod: .favourites(5)
+        case .macintosh: .event(.addedToCalendar)
+        case .visionPro: .event(.visitedWebsite)
+        case .appleFounding: .event(.suggestedConference)
+        case .wwdc26: .dateWindow(Self.wwdc26Window)
+        }
+    }
+
+    /// A short, inviting instruction shown on a *locked* ticket — phrased as a goal, not a
+    /// gate. Empty for the always-free default.
+    var unlockHint: String {
+        switch self {
+        case .default: ""
+        case .iPhone: "Favourite your first conference"
+        case .iPod: "Favourite 5 conferences"
+        case .macintosh: "Add a conference to your calendar"
+        case .visionPro: "Open a conference's website"
+        case .appleFounding: "Suggest a conference"
+        case .wwdc26: "Open dubdub during WWDC — June 2026"
+        }
+    }
+
+    /// The WWDC26 ticket's window: any moment in June 2026 (Cupertino time), when the
+    /// conference runs and this app shipped.
+    private static let wwdc26Window: ClosedRange<Date> = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "America/Los_Angeles") ?? .current
+        let start = calendar.date(from: DateComponents(year: 2026, month: 6, day: 1)) ?? .distantFuture
+        let end = calendar.date(from: DateComponents(year: 2026, month: 7, day: 1)) ?? .distantFuture
+        // Up to, but not including, July 1st.
+        return start...end.addingTimeInterval(-1)
+    }()
 }
