@@ -5,6 +5,7 @@ struct ConferenceListView: View {
     @Query(sort: \Conference.startDate) private var conferences: [Conference]
     @Query private var favourites: [FavouriteConference]
     @Environment(\.modelContext) private var modelContext
+    @Environment(AchievementService.self) private var achievements
 
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
     @State private var viewModel: ConferenceListViewModel
@@ -57,6 +58,7 @@ struct ConferenceListView: View {
                 namespace: namespace,
                 onToggleFavourite: { conference in
                     viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
+                    achievements.reevaluateFavourites()
                 }
             )
         }

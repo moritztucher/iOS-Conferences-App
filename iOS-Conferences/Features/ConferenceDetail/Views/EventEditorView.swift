@@ -5,6 +5,9 @@ import EventKitUI
 struct EventEditorView: UIViewControllerRepresentable {
     let event: EKEvent
     let eventStore: EKEventStore
+    /// Called when the user actually saves the event (not on cancel/delete) — used to award
+    /// the "added to calendar" collectible.
+    var onSaved: () -> Void = {}
     @Environment(\.dismiss) private var dismiss
 
     func makeUIViewController(context: Context) -> EKEventEditViewController {
@@ -18,20 +21,23 @@ struct EventEditorView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: EKEventEditViewController, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(onDismiss: dismiss)
+        Coordinator(onDismiss: dismiss, onSaved: onSaved)
     }
 
     final class Coordinator: NSObject, EKEventEditViewDelegate {
         let onDismiss: DismissAction
+        let onSaved: () -> Void
 
-        init(onDismiss: DismissAction) {
+        init(onDismiss: DismissAction, onSaved: @escaping () -> Void) {
             self.onDismiss = onDismiss
+            self.onSaved = onSaved
         }
 
         func eventEditViewController(
             _ controller: EKEventEditViewController,
             didCompleteWith action: EKEventEditViewAction
         ) {
+            if action == .saved { onSaved() }
             onDismiss()
         }
     }

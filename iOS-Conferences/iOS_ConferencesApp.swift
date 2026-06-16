@@ -4,6 +4,7 @@ import SwiftData
 @main
 struct iOS_ConferencesApp: App {
     @State private var calendarService = CalendarService()
+    @State private var achievementService = AchievementService()
     @AppStorage("settings.colorScheme") private var colorSchemeRaw = AppColorScheme.system.rawValue
 
     private var colorScheme: ColorScheme? {
@@ -14,10 +15,11 @@ struct iOS_ConferencesApp: App {
         WindowGroup {
             RootTabView()
                 .environment(calendarService)
+                .environment(achievementService)
                 .tint(Theme.accent)
                 .preferredColorScheme(colorScheme)
         }
-        .modelContainer(for: [Conference.self, FavouriteConference.self]) { result in
+        .modelContainer(for: [Conference.self, FavouriteConference.self, UnlockedIcon.self]) { result in
             if case .success(let container) = result {
                 Task { @MainActor in
                     // First-launch instant seed from the bundled list — offline-safe,
