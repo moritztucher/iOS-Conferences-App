@@ -1347,6 +1347,23 @@
     ]
   },
   {
+    "id": "macadmins-conference-2026",
+    "kind": "Conference",
+    "name": "MacAdmins Conference 2026",
+    "startDate": "2026-07-07",
+    "endDate": "2026-07-10",
+    "locationName": "State College, USA",
+    "mapQuery": "Penn Stater Conference Center Hotel, State College, Pennsylvania, USA",
+    "summary": "The largest community conference for Apple platform administrators, covering Mac, iOS and Apple device management at scale.",
+    "websiteURL": "https://macadmins.psu.edu/",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "swift",
+      "server"
+    ]
+  },
+  {
     "id": "swift-rockies-2026",
     "kind": "Conference",
     "name": "Swift Rockies",
@@ -1361,6 +1378,24 @@
       "ios",
       "swift",
       "swiftui"
+    ]
+  },
+  {
+    "id": "iplayground-2026",
+    "kind": "Conference",
+    "name": "iPlayground 2026",
+    "startDate": "2026-07-25",
+    "endDate": "2026-07-26",
+    "locationName": "Taipei, Taiwan",
+    "mapQuery": "NCCU CPBAE, No. 187 Jinhua St, Da'an District, Taipei, Taiwan",
+    "summary": "Taiwan's two-day Apple-platform developer conference spanning Swift, iOS/macOS development and real-world AI integration.",
+    "websiteURL": "https://iplayground.io/2026/",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "ai",
+      "design"
     ]
   },
   {
