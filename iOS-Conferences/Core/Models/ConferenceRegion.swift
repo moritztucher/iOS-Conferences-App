@@ -35,7 +35,7 @@ enum ConferenceRegion: String, CaseIterable, Identifiable {
                     "belgium", "switzerland", "austria", "portugal", "poland", "sweden",
                     "norway", "denmark", "finland", "czech", "macedonia", "greece",
                     "hungary", "romania", "croatia", "serbia", "slovenia", "slovakia",
-                    "estonia", "lithuania", "latvia", "iceland", "luxembourg"]
+                    "estonia", "lithuania", "latvia", "iceland", "luxembourg", "russia"]
         case .asiaPacific:
             return ["japan", "china", "korea", "singapore", "australia", "new zealand",
                     "philippines", "indonesia", "malaysia", "thailand", "vietnam",
