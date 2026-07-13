@@ -12,10 +12,11 @@ body:
     id: kind
     attributes:
       label: Kind
-      description: What is this entry? Pick "Watch Party" specifically for a group keynote / SOTU stream — anything else community-flavoured is an Event.
+      description: What is this entry? "Watch Party" is specifically a group keynote / SOTU stream. "Meetup" is a recurring local chapter meeting (CocoaHeads, boulderOS, a monthly .swift group). "Event" is a one-off gathering — hack day, dinner, run, WWDC-week satellite.
       options:
         - Conference
         - Watch Party
+        - Meetup
         - Event
       default: 0
     validations:

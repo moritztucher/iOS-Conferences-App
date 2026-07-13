@@ -103,7 +103,8 @@ struct ConferenceListView: View {
                     Label("Include past conferences", systemImage: "clock.arrow.circlepath")
                 }
                 Section("Kind") {
-                    ForEach(ConferenceKind.allCases, id: \.self) { kind in
+                    // displayOrder, not allCases, so the menu mirrors the list's section order.
+                    ForEach(ConferenceKind.displayOrder, id: \.self) { kind in
                         Toggle(isOn: kindBinding(kind)) {
                             Label(kind.pluralLabel, systemImage: kind.symbolName)
                         }
