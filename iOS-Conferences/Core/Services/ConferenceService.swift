@@ -129,8 +129,8 @@ private struct ConferenceDTO: Decodable {
     let logoURL: String?
     let tags: [String]
 
-    /// Absent → `.conference` (pre-`kind` entries). Unrecognised (e.g. "Meetup") → `.event`,
-    /// the catch-all kind, so a bad value degrades one row instead of dropping the feed.
+    /// Absent → `.conference` (pre-`kind` entries). Unrecognised → `.event`, the catch-all kind,
+    /// so a bad value degrades one row instead of dropping the feed.
     private var resolvedKind: ConferenceKind {
         guard let kind else { return .conference }
         return ConferenceKind(rawValue: kind) ?? .event
