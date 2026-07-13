@@ -1365,7 +1365,7 @@
   },
   {
     "id": "boulderos-july-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "boulderOS Meetup",
     "startDate": "2026-07-15",
     "endDate": "2026-07-15",
@@ -1400,7 +1400,7 @@
   },
   {
     "id": "embedded-swift-tokyo-1-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Embedded Swift Tokyo #1",
     "startDate": "2026-07-16",
     "endDate": "2026-07-16",
@@ -1417,7 +1417,7 @@
   },
   {
     "id": "sydney-cocoaheads-july-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Sydney CocoaHeads Meetup",
     "startDate": "2026-07-16",
     "endDate": "2026-07-16",
@@ -1435,7 +1435,7 @@
   },
   {
     "id": "xcoders-seattle-social-july-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Seattle Xcoders Social",
     "startDate": "2026-07-16",
     "endDate": "2026-07-16",
@@ -1523,7 +1523,7 @@
   },
   {
     "id": "tacow-july-meetup-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Tacow July Meetup",
     "startDate": "2026-07-28",
     "endDate": "2026-07-28",
@@ -1541,7 +1541,7 @@
   },
   {
     "id": "cocoaheads-xp-fortaleza-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "CocoaHeads XP",
     "startDate": "2026-08-07",
     "endDate": "2026-08-07",
@@ -1558,7 +1558,7 @@
   },
   {
     "id": "slug-cocoaheads-sf-august-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Swift Language User Group × CocoaHeads",
     "startDate": "2026-08-13",
     "endDate": "2026-08-13",
@@ -1576,7 +1576,7 @@
   },
   {
     "id": "cocoaheads-pittsburgh-august-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "(retro)CocoaHeads Pittsburgh",
     "startDate": "2026-08-13",
     "endDate": "2026-08-13",
@@ -1593,7 +1593,7 @@
   },
   {
     "id": "boulderos-august-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "boulderOS Meetup",
     "startDate": "2026-08-19",
     "endDate": "2026-08-19",
@@ -1610,7 +1610,7 @@
   },
   {
     "id": "sydney-cocoaheads-august-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Sydney CocoaHeads Meetup",
     "startDate": "2026-08-20",
     "endDate": "2026-08-20",
@@ -1628,7 +1628,7 @@
   },
   {
     "id": "cocoaheads-austria-september-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "CocoaHeads Austria Meetup",
     "startDate": "2026-09-03",
     "endDate": "2026-09-03",
@@ -1713,7 +1713,7 @@
   },
   {
     "id": "avswift-la-tech-week-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "AVSwift — iOS, visionOS & Swift Meetup",
     "startDate": "2026-10-12",
     "endDate": "2026-10-12",
@@ -1765,7 +1765,7 @@
   },
   {
     "id": "kanagawa-swift-3-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Kanagawa.swift #3",
     "startDate": "2026-10-31",
     "endDate": "2026-10-31",
@@ -1816,7 +1816,7 @@
   },
   {
     "id": "slug-cocoaheads-sf-november-2026",
-    "kind": "Event",
+    "kind": "Meetup",
     "name": "Swift Language User Group × CocoaHeads",
     "startDate": "2026-11-12",
     "endDate": "2026-11-12",
