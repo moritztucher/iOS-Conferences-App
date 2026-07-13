@@ -82,7 +82,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 
 **Conference list** (bespoke ticket cards — `ConferenceSectionList`):
 - Large nav title; region + filter menus in the toolbar (both multi-select, stay open while toggling).
-- Grouped **month-primary** (`JUNE 2026`, year folded in), then by kind (Conference → Event → Watch Party) with editorial sub-dividers + counts shown only in mixed months. Sorted day → time within.
+- Grouped **month-primary** (`JUNE 2026`, year folded in), then by kind (Conference → Event → Meetup → Watch Party) with editorial sub-dividers + counts shown only in mixed months. Sorted day → time within.
 - Rows are `ConferenceCard`: full-bleed image / mesh placeholder, `TicketShape` perforation + notches, date stub, `kind · location` (+ time for timed events) overline, name as hero. Swipe-to-favourite. Tapping zooms into the detail hero (`matchedTransitionSource` + `.navigationTransition(.zoom)`).
 - Past hidden by default (Settings toggle). `.refreshable` pull-to-refresh. `ContentUnavailableView` for empty states.
 

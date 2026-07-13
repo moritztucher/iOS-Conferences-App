@@ -28,8 +28,9 @@ final class AchievementService {
     private var context: ModelContext?
     /// While true, unlocks persist silently without queuing a celebration — used during the
     /// launch replay so a date-window ticket (or a threshold an updating user already passed)
-    /// quietly appears as collected instead of slamming a sheet over the first screen. Only
-    /// unlocks earned *live, in response to an action this session* celebrate.
+    /// quietly appears as collected instead of slamming a sheet over the first screen. Live
+    /// favourite-threshold unlocks celebrate immediately; live *event* unlocks are deferred
+    /// too (see `unlock`), since their earning action is presenting its own sheet.
     private var isReplaying = false
 
     /// The next ticket to celebrate, or `nil` when the queue is empty. Drives the root sheet.
@@ -129,12 +130,26 @@ final class AchievementService {
     private func unlock(_ icon: AppIcon) {
         guard !isUnlocked(icon), let context else { return }
         unlockedIDs.insert(icon.id)
-        // A seasonal ticket earned at launch celebrates *later* (deferred to the Appearance
-        // screen) — stored unshown. Everything else earned at launch is a discovery of past
-        // activity and stays silent forever; live earnings celebrate now.
-        let deferred = isReplaying && icon.isSeasonal
+        // Whether this ticket celebrates *now* or waits for a calm moment — the Appearance
+        // screen, via `flushDeferredCelebrations`. Deferred when:
+        //  • it's a seasonal ticket discovered during the launch replay — don't slam a sheet
+        //    over the first screen on cold launch; or
+        //  • it's earned live by a one-shot *event* — the earning action (opening the website,
+        //    calendar, or suggestion sheet) is presenting its own sheet on this same runloop
+        //    turn, so queuing the celebration simultaneously wedged SwiftUI's presentation and
+        //    left the action's sheet unopenable until relaunch (issue #38).
+        // A favourite-threshold ticket earned live still celebrates immediately: toggling a
+        // favourite opens no sheet, so nothing contends for presentation.
+        let deferred: Bool
+        if isReplaying {
+            deferred = icon.isSeasonal
+        } else if case .event = icon.unlockRule {
+            deferred = true
+        } else {
+            deferred = false
+        }
         context.insert(UnlockedIcon(iconID: icon.id, celebrationShown: !deferred))
         try? context.save()
-        if !isReplaying { celebrationQueue.append(icon) }
+        if !deferred && !isReplaying { celebrationQueue.append(icon) }
     }
 }

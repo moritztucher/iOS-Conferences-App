@@ -8,7 +8,7 @@ Built for iOS 26+ with SwiftUI, SwiftData, and zero third-party dependencies. Th
 
 ## What it does
 
-- **Browse** every upcoming Apple-platform conference, watch party, and community event as ticket cards — grouped by month, then by type (Conferences → Events → Watch Parties).
+- **Browse** every upcoming Apple-platform conference, meetup, watch party, and community event as ticket cards — grouped by month, then by type (Conferences → Events → Meetups → Watch Parties).
 - **Filter** by kind and world region (both multi-select), by format (In person / Online), and toggle past entries on or off.
 - **Search** by name, location, or tag (`swift`, `wwdc`, `visionos`, `community`, …).
 - **Favourite** entries you're considering — stored locally, no account needed.

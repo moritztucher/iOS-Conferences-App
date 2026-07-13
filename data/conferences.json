@@ -1364,6 +1364,111 @@
     ]
   },
   {
+    "id": "boulderos-july-2026",
+    "kind": "Meetup",
+    "name": "boulderOS Meetup",
+    "startDate": "2026-07-15",
+    "endDate": "2026-07-15",
+    "locationName": "Boulder, Colorado, USA",
+    "mapQuery": "Barchetta Pizza, 1644 Walnut Street, Boulder, Colorado",
+    "summary": "Monthly evening meetup for Apple developers, designers and founders in Boulder, hosted in the back room at Barchetta Pizza.",
+    "websiteURL": "https://boulderos.com",
+    "logoURL": null,
+    "tags": [
+      "apple",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "ios-ai-summer-camp-2026",
+    "kind": "Event",
+    "name": "iOS AI Summer Camp",
+    "startDate": "2026-07-15",
+    "endDate": "2026-07-17",
+    "locationName": "Taipei, Taiwan",
+    "mapQuery": "National Taiwan University, Da'an District, Taipei, Taiwan",
+    "summary": "Three-day camp for young developers building iOS apps with AI tooling, closing with a hackathon.",
+    "websiteURL": "https://luma.com/db49qc4m",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "ai",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "embedded-swift-tokyo-1-2026",
+    "kind": "Meetup",
+    "name": "Embedded Swift Tokyo #1",
+    "startDate": "2026-07-16",
+    "endDate": "2026-07-16",
+    "locationName": "Tokyo, Japan",
+    "mapQuery": "FabCafe MTRL, Dogenzaka, Shibuya, Tokyo, Japan",
+    "summary": "First Tokyo meetup for Embedded Swift, with a workshop on running Swift on microcontrollers and edge devices.",
+    "websiteURL": "https://luma.com/isvrubx6",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "embedded",
+      "community"
+    ]
+  },
+  {
+    "id": "sydney-cocoaheads-july-2026",
+    "kind": "Meetup",
+    "name": "Sydney CocoaHeads Meetup",
+    "startDate": "2026-07-16",
+    "endDate": "2026-07-16",
+    "locationName": "Sydney, Australia",
+    "mapQuery": "Bilue, 4-6 Bligh Street, Sydney, NSW, Australia",
+    "summary": "Monthly iOS and Mac developer meetup hosted at Bilue, with talks on indie app building and adaptive layouts. Also live-streamed.",
+    "websiteURL": "https://www.meetup.com/sydneycocoaheads/events/312607406/",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "macos",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "xcoders-seattle-social-july-2026",
+    "kind": "Meetup",
+    "name": "Seattle Xcoders Social",
+    "startDate": "2026-07-16",
+    "endDate": "2026-07-16",
+    "locationName": "Seattle, Washington, USA",
+    "mapQuery": "Bale Breaker Brewing, Ballard, Seattle, Washington",
+    "summary": "Seattle's long-running Cocoa developer group swaps its usual tech talk for an informal summer social. Free, all levels welcome.",
+    "websiteURL": "https://xcoders.org/",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "macos",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc26-recap-japan-region-swift-2026",
+    "kind": "Event",
+    "name": "WWDC26 Recap — Japan-\\(region).swift",
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-18",
+    "locationName": "Multiple cities, Japan",
+    "mapQuery": "Tokyo, Japan",
+    "summary": "Regional Swift communities in Tokyo, Nagoya, Osaka, Kamiyama and Okinawa connect by stream for a WWDC26 recap and Apple evangelist Q&A.",
+    "websiteURL": "https://luma.com/x230s9i1",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "wwdc",
+      "community"
+    ]
+  },
+  {
     "id": "swift-rockies-2026",
     "kind": "Conference",
     "name": "Swift Rockies",
@@ -1378,6 +1483,24 @@
       "ios",
       "swift",
       "swiftui"
+    ]
+  },
+  {
+    "id": "try-swift-tokyo-wwdc-recap-2026",
+    "kind": "Event",
+    "name": "try! Swift Tokyo WWDC Recap 2026",
+    "startDate": "2026-07-22",
+    "endDate": "2026-07-22",
+    "locationName": "Tokyo, Japan",
+    "mapQuery": "Minato City, Tokyo, Japan",
+    "summary": "Evening WWDC recap from try! Swift Tokyo: talks, a panel of WWDC attendees and Swift Student Challenge winners, with live translation.",
+    "websiteURL": "https://luma.com/tryswift-wwdc26",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "wwdc",
+      "ios",
+      "community"
     ]
   },
   {
@@ -1396,6 +1519,128 @@
       "ios",
       "ai",
       "design"
+    ]
+  },
+  {
+    "id": "tacow-july-meetup-2026",
+    "kind": "Meetup",
+    "name": "Tacow July Meetup",
+    "startDate": "2026-07-28",
+    "endDate": "2026-07-28",
+    "locationName": "Toronto, Canada",
+    "mapQuery": "120 Bremner Boulevard, Toronto, Ontario, Canada",
+    "summary": "Toronto Area CocoaHeads meet for talks and lightning talks on what Apple shipped at WWDC, followed by a social.",
+    "websiteURL": "https://luma.com/9olvx72d",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "wwdc",
+      "community"
+    ]
+  },
+  {
+    "id": "cocoaheads-xp-fortaleza-2026",
+    "kind": "Meetup",
+    "name": "CocoaHeads XP",
+    "startDate": "2026-08-07",
+    "endDate": "2026-08-07",
+    "locationName": "Fortaleza, Brazil",
+    "mapQuery": "Unifor Hub, Avenida Washington Soares 1321, Fortaleza, Brazil",
+    "summary": "CocoaHeads Fortaleza gathering for Apple developers: talks, knowledge sharing and networking with the local iOS community.",
+    "websiteURL": "https://www.sympla.com.br/evento/cocoaheads-xp/3349386",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
+    "id": "slug-cocoaheads-sf-august-2026",
+    "kind": "Meetup",
+    "name": "Swift Language User Group × CocoaHeads",
+    "startDate": "2026-08-13",
+    "endDate": "2026-08-13",
+    "locationName": "San Francisco, California, USA",
+    "mapQuery": "Lyft HQ, 185 Berry Street, San Francisco, California",
+    "summary": "The Bay Area's monthly Swift meetup at Lyft HQ, with talks spanning iOS, macOS, visionOS and server-side Swift.",
+    "websiteURL": "https://www.meetup.com/swift-language/events/313452891/",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "macos",
+      "community"
+    ]
+  },
+  {
+    "id": "cocoaheads-pittsburgh-august-2026",
+    "kind": "Meetup",
+    "name": "(retro)CocoaHeads Pittsburgh",
+    "startDate": "2026-08-13",
+    "endDate": "2026-08-13",
+    "locationName": "Pittsburgh, Pennsylvania, USA",
+    "mapQuery": "Eat'n Park, 100 Park Manor Drive, Pittsburgh, Pennsylvania",
+    "summary": "Informal second-Thursday dinner gathering of the Pittsburgh CocoaHeads chapter, covering iOS, Mac and retro computing.",
+    "websiteURL": "https://www.meetup.com/cocoaheads-pittsburgh/events/rjkkwtyjclbrb/",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "macos",
+      "community"
+    ]
+  },
+  {
+    "id": "boulderos-august-2026",
+    "kind": "Meetup",
+    "name": "boulderOS Meetup",
+    "startDate": "2026-08-19",
+    "endDate": "2026-08-19",
+    "locationName": "Boulder, Colorado, USA",
+    "mapQuery": "Barchetta Pizza, 1644 Walnut Street, Boulder, Colorado",
+    "summary": "Monthly evening meetup for Apple developers, designers and founders in Boulder, hosted in the back room at Barchetta Pizza.",
+    "websiteURL": "https://boulderos.com",
+    "logoURL": null,
+    "tags": [
+      "apple",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "sydney-cocoaheads-august-2026",
+    "kind": "Meetup",
+    "name": "Sydney CocoaHeads Meetup",
+    "startDate": "2026-08-20",
+    "endDate": "2026-08-20",
+    "locationName": "Sydney, Australia",
+    "mapQuery": "Bilue, 4-6 Bligh Street, Sydney, NSW, Australia",
+    "summary": "Sydney's monthly iOS and Mac developer meetup at Bilue, streamed on YouTube for remote attendees.",
+    "websiteURL": "https://www.meetup.com/sydneycocoaheads/events/312607407/",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "macos",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "cocoaheads-austria-september-2026",
+    "kind": "Meetup",
+    "name": "CocoaHeads Austria Meetup",
+    "startDate": "2026-09-03",
+    "endDate": "2026-09-03",
+    "locationName": "Vienna, Austria",
+    "mapQuery": "Landstrasser Hauptstrasse 97-101, Vienna, Austria",
+    "summary": "Vienna CocoaHeads evening hosted at willhaben: networking followed by an English-language talk for Apple-platform developers.",
+    "websiteURL": "https://www.meetup.com/cocoaheads-at/events/314876053/",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "community"
     ]
   },
   {
@@ -1467,6 +1712,24 @@
     ]
   },
   {
+    "id": "avswift-la-tech-week-2026",
+    "kind": "Meetup",
+    "name": "AVSwift — iOS, visionOS & Swift Meetup",
+    "startDate": "2026-10-12",
+    "endDate": "2026-10-12",
+    "locationName": "Los Angeles, California, USA",
+    "mapQuery": "Los Angeles, California",
+    "summary": "LA Tech Week meetup on Swift, UI frameworks, app architecture and tooling, with a spatial-computing track.",
+    "websiteURL": "https://partiful.com/e/LCnL5D0GuOWGR3ePdswW",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "visionos",
+      "community"
+    ]
+  },
+  {
     "id": "swiftleeds-2026",
     "kind": "Conference",
     "name": "SwiftLeeds",
@@ -1477,6 +1740,40 @@
     "summary": "Community-run, non-profit Swift conference at Leeds Playhouse with talks, drop-in expert sessions and an evening talkshow.",
     "websiteURL": "https://swiftleeds.co.uk",
     "logoURL": "https://swiftleeds.co.uk/img/logo.png",
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
+    "id": "mobius-autumn-2026",
+    "kind": "Conference",
+    "name": "Mobius 2026 Autumn",
+    "startDate": "2026-10-21",
+    "endDate": "2026-10-22",
+    "locationName": "Saint Petersburg, Russia",
+    "mapQuery": "Saint Petersburg, Russia",
+    "summary": "Twice-yearly mobile development conference by JUG Ru Group with a dedicated iOS and Swift track. Attend in person or online.",
+    "websiteURL": "https://mobiusconf.com/en/",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "kanagawa-swift-3-2026",
+    "kind": "Meetup",
+    "name": "Kanagawa.swift #3",
+    "startDate": "2026-10-31",
+    "endDate": "2026-10-31",
+    "locationName": "Odawara, Japan",
+    "mapQuery": "Hamee Corporation, Sakae-cho, Odawara, Kanagawa, Japan",
+    "summary": "Third Kanagawa.swift gathering for Apple-platform developers: sessions, lightning talks, a panel and an evening social.",
+    "websiteURL": "https://japan-region-swift.connpass.com/event/389036/",
+    "logoURL": null,
     "tags": [
       "swift",
       "ios",
@@ -1514,6 +1811,24 @@
     "tags": [
       "ios",
       "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "slug-cocoaheads-sf-november-2026",
+    "kind": "Meetup",
+    "name": "Swift Language User Group × CocoaHeads",
+    "startDate": "2026-11-12",
+    "endDate": "2026-11-12",
+    "locationName": "San Francisco, California, USA",
+    "mapQuery": "Lyft HQ, 185 Berry Street, San Francisco, California",
+    "summary": "November edition of the Bay Area's monthly Swift community meetup at Lyft HQ.",
+    "websiteURL": "https://www.meetup.com/swift-language/events/313452932/",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "macos",
       "community"
     ]
   },
@@ -1583,6 +1898,23 @@
       "ios",
       "macos",
       "visionos"
+    ]
+  },
+  {
+    "id": "tryswift-tokyo-2027",
+    "kind": "Conference",
+    "name": "try! Swift Tokyo 2027",
+    "startDate": "2027-03-02",
+    "endDate": "2027-03-04",
+    "locationName": "Tokyo, Japan",
+    "mapQuery": "Tachikawa Stage Garden, Tachikawa, Tokyo, Japan",
+    "summary": "International Swift conference in Tokyo: a workshop day followed by two days of talks from developers around the world.",
+    "websiteURL": "https://tryswift.jp",
+    "logoURL": "https://tryswift.jp/images/ogp.jpg",
+    "tags": [
+      "swift",
+      "ios",
+      "community"
     ]
   }
 ]

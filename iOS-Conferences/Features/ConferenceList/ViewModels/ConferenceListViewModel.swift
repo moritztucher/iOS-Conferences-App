@@ -100,7 +100,7 @@ final class ConferenceListViewModel {
     }
 
     /// Month-primary sections (chronological, year folded into the title), each split into
-    /// kind groups in display order (Conferences → Events → Watch Parties) and sorted by
+    /// kind groups in display order (Conferences → Events → Meetups → Watch Parties) and sorted by
     /// day then time within. Type sub-dividers only surface in months that mix kinds, so
     /// dense months (WWDC week) get organised while quiet months stay clean.
     func sections(

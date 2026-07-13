@@ -3,11 +3,15 @@ import SwiftData
 
 /// What an entry in the list represents.
 /// "Conference" — multi-day developer conference. "Watch Party" — keynote/SOTU viewing event.
-/// "Event" — everything else (meetups, hack days, satellite gatherings around a conference).
+/// "Meetup" — a recurring local chapter meeting (CocoaHeads, boulderOS, SLUG…), useful mainly
+/// to people already in that city. "Event" — a one-off gathering (WWDC-week satellites, hack
+/// days, dinners, runs), which is something you might travel for. That travel-or-not split is
+/// the reason the two are separate kinds and not one: the filter has to be able to divide them.
 enum ConferenceKind: String, Codable, CaseIterable, Sendable {
     case conference = "Conference"
     case watchParty = "Watch Party"
     case event = "Event"
+    case meetup = "Meetup"
 
     /// SF Symbol used to label the kind in the list. Matches the kind-filter symbols.
     var symbolName: String {
@@ -15,6 +19,7 @@ enum ConferenceKind: String, Codable, CaseIterable, Sendable {
         case .conference: return "building.columns.fill"
         case .watchParty: return "tv"
         case .event: return "calendar.badge.plus"
+        case .meetup: return "person.2.fill"
         }
     }
 
@@ -24,11 +29,12 @@ enum ConferenceKind: String, Codable, CaseIterable, Sendable {
         case .conference: return "Conferences"
         case .watchParty: return "Watch Parties"
         case .event: return "Events"
+        case .meetup: return "Meetups"
         }
     }
 
-    /// Order kind sections appear in the list: Conferences, Events, Watch Parties.
-    static let displayOrder: [ConferenceKind] = [.conference, .event, .watchParty]
+    /// Order kind sections appear in the list: Conferences, Events, Meetups, Watch Parties.
+    static let displayOrder: [ConferenceKind] = [.conference, .event, .meetup, .watchParty]
 }
 
 @Model

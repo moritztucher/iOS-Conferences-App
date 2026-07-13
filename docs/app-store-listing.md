@@ -38,7 +38,7 @@ dubdub is the iOS developer's conference calendar — every upcoming Apple-platf
 Stop digging through blogs, Mastodon threads, and one-off lists. dubdub keeps the whole calendar — the big conferences and the events that orbit them — on your phone, where you'll actually look.
 
 • Browse every upcoming conference, watch party, and meetup, grouped by month
-• Filter by kind (Conferences / Watch Parties / Events) and format (in person / online)
+• Filter by kind (Conferences / Events / Meetups / Watch Parties) and format (in person / online)
 • Search by name, location, or tag (swift, wwdc, visionos, community…)
 • Favourite the events you're considering — stored locally, no account needed
 • Add any event to your calendar with the system editor — you pick the calendar and alerts
