@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **`Meetup` kind** (#43): recurring local chapter meetings (CocoaHeads, boulderOS, SLUG, the monthly `.swift` groups) are now their own kind, filterable and grouped separately from `Event`. `Event` now means a *one-off* gathering — WWDC-week satellites, hack days, dinners, runs. The split exists because the two differ in the dimension the app is about: a WWDC-week gathering is something you travel for; a monthly CocoaHeads is only useful if you already live there. With both in one bucket, filtering to a travel-worthy list also hid every WWDC-week event.
 - **Image + mesh cohesion** (Track A): real conference artwork (logos, og:images, photos) is now tonally unified (desaturated + darkened) so it reads in the same family as the placeholders, and the hash-derived placeholder palette was recurated into a deeper, desaturated jewel-tone set that harmonises with the marigold accent — the list now reads as one designed system instead of a grab-bag of sources.
 - **Settings framing** (ADR-0007 Phase 3): the Settings screens now share the same marigold background wash as the list (`.brandBackground()`) — chrome only; the `Form` rows stay stock.
 - **List elevation** (ADR-0007 Phase 2): conference cards now grow with Dynamic Type instead of clipping (verified at the largest accessibility sizes), gained a reduce-motion-gated scroll-in animation (fade + slight shrink), and sit over a restrained marigold "stage-light" background wash.
