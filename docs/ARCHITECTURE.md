@@ -6,7 +6,7 @@
 ## Project Summary
 
 **App Name:** iOS-Conferences
-**Bundle ID:** `com.pocketapps.conferences`
+**Bundle ID:** `com.moritztucher.dubdub-ios-conference`
 **Target iOS:** iOS 26+
 **Design Language:** Liquid Glass (iOS 26 native material)
 **Database:** SwiftData

@@ -2,7 +2,7 @@
   "source": "ios-init",
   "date": "2026-05-18",
   "project_name": "iOS-Conferences",
-  "bundle_id": "com.pocketapps.conferences",
+  "bundle_id": "com.moritztucher.dubdub-ios-conference",
   "ios_target": "iOS 26+",
   "design_language": "Liquid Glass (iOS 26 native)",
   "database": "SwiftData",

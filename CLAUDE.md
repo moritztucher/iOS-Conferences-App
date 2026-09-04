@@ -25,7 +25,7 @@ A conference aggregator app for iOS. Browse upcoming developer/tech conferences 
 
 | Setting | Value |
 |---------|-------|
-| Bundle ID | `com.pocketapps.conferences` |
+| Bundle ID | `com.moritztucher.dubdub-ios-conference` |
 | iOS Target | iOS 26+ |
 | Design Language | Liquid Glass (iOS 26 default — `.glassEffect()`, `GlassEffectContainer`, system toolbar/tab adoption) |
 | Database | SwiftData |
