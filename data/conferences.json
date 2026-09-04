@@ -1557,6 +1557,24 @@
     ]
   },
   {
+    "id": "swiftlah-august-2026",
+    "kind": "Meetup",
+    "name": "SwiftLah! Community Meetup",
+    "startDate": "2026-08-05",
+    "endDate": "2026-08-05",
+    "locationName": "Petaling Jaya, Malaysia",
+    "mapQuery": "GX Bank Berhad, 1 First Avenue, Bandar Utama, Petaling Jaya, Malaysia",
+    "summary": "Malaysia's Swift community meetup at GX Bank, with talks on a native QR scanner, standing out on the App Store and App Intents.",
+    "websiteURL": "https://luma.com/1acmllvt",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "ai",
+      "community"
+    ]
+  },
+  {
     "id": "cocoaheads-xp-fortaleza-2026",
     "kind": "Meetup",
     "name": "CocoaHeads XP",
@@ -1566,6 +1584,41 @@
     "mapQuery": "Unifor Hub, Avenida Washington Soares 1321, Fortaleza, Brazil",
     "summary": "CocoaHeads Fortaleza gathering for Apple developers: talks, knowledge sharing and networking with the local iOS community.",
     "websiteURL": "https://www.sympla.com.br/evento/cocoaheads-xp/3349386",
+    "logoURL": null,
+    "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
+    "id": "design-meetup-x-apple-cupertino-2026",
+    "kind": "Event",
+    "name": "Design Meetup × Apple",
+    "startDate": "2026-08-07",
+    "endDate": "2026-08-07",
+    "locationName": "Cupertino, California, USA",
+    "mapQuery": "Cupertino, California",
+    "summary": "An evening for designers, founders and creative technologists with a fireside chat featuring Apple Human Interface designers, plus demos and networking.",
+    "websiteURL": "https://luma.com/ryw61pad",
+    "logoURL": null,
+    "tags": [
+      "design",
+      "ios",
+      "ai",
+      "community"
+    ]
+  },
+  {
+    "id": "swift-bengaluru-x-mercari-2026",
+    "kind": "Meetup",
+    "name": "Swift Bengaluru × Mercari",
+    "startDate": "2026-08-08",
+    "endDate": "2026-08-08",
+    "locationName": "Bengaluru, India",
+    "mapQuery": "Embassy TechVillage, Outer Ring Road, Kadubeesanahalli, Bengaluru, India",
+    "summary": "In-person Swift Bengaluru meetup hosted at Mercari, with speaker sessions on mobile architecture, engineering practice and performance.",
+    "websiteURL": "https://luma.com/nu6dgbxm",
     "logoURL": null,
     "tags": [
       "swift",
@@ -1609,6 +1662,23 @@
     ]
   },
   {
+    "id": "crazy-thursday-shenzhen-august-2026",
+    "kind": "Meetup",
+    "name": "Crazy Thursday Meetup — AI & App Builder",
+    "startDate": "2026-08-13",
+    "endDate": "2026-08-13",
+    "locationName": "Shenzhen, China",
+    "mapQuery": "Shenzhen, Guangdong, China",
+    "summary": "Shenzhen's recurring evening meetup for Apple platform developers and AI app builders, with short talks and open networking.",
+    "websiteURL": "https://luma.com/uz1v1twk",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "ai",
+      "community"
+    ]
+  },
+  {
     "id": "tamariver-swift-2-2026",
     "kind": "Meetup",
     "name": "TamaRiver.swift #2",
@@ -1620,6 +1690,24 @@
     "websiteURL": "https://japan-region-swift.connpass.com/event/394189/",
     "logoURL": null,
     "tags": [
+      "swift",
+      "ios",
+      "community"
+    ]
+  },
+  {
+    "id": "wwdc26-recap-bangladesh-2026",
+    "kind": "Event",
+    "name": "Community WWDC26 Recap Bangladesh",
+    "startDate": "2026-08-17",
+    "endDate": "2026-08-17",
+    "locationName": "Feni, Bangladesh",
+    "mapQuery": "Feni, Bangladesh",
+    "summary": "Community recap of WWDC26 for Bangladeshi students and developers, with expert sessions, Swift Student Challenge showcases and one-to-one consultations.",
+    "websiteURL": "https://luma.com/6oemyipr",
+    "logoURL": null,
+    "tags": [
+      "wwdc",
       "swift",
       "ios",
       "community"
@@ -1678,6 +1766,24 @@
     ]
   },
   {
+    "id": "mobile-ai-build-weekend-melbourne-2026",
+    "kind": "Event",
+    "name": "Mobile AI Build Weekend",
+    "startDate": "2026-08-29",
+    "endDate": "2026-08-30",
+    "locationName": "Melbourne, Australia",
+    "mapQuery": "Melbourne CBD, Victoria, Australia",
+    "summary": "Two-day hackathon for developers, designers and founders building AI-powered Apple platform apps, with mentors, workshops and prizes.",
+    "websiteURL": "https://theappblueprint.io/build-weekend",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "ai",
+      "visionos",
+      "community"
+    ]
+  },
+  {
     "id": "cocoaheads-austria-september-2026",
     "kind": "Meetup",
     "name": "CocoaHeads Austria Meetup",
@@ -1691,6 +1797,24 @@
     "tags": [
       "swift",
       "ios",
+      "community"
+    ]
+  },
+  {
+    "id": "cocoaheads-hamburg-september-2026",
+    "kind": "Meetup",
+    "name": "CocoaHeads Hamburg",
+    "startDate": "2026-09-03",
+    "endDate": "2026-09-03",
+    "locationName": "Hamburg, Germany",
+    "mapQuery": "Freenow, Neumühlen 19, 22763 Hamburg, Germany",
+    "summary": "Monthly CocoaHeads Hamburg evening at Freenow, with talks on agentic AI for iOS developers and iMessage apps, plus community lightning talks.",
+    "websiteURL": "https://cocoaheads-hamburg.de/",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "swift",
+      "ai",
       "community"
     ]
   },
@@ -1729,6 +1853,24 @@
     ]
   },
   {
+    "id": "codable-shipaton-lagos-2026",
+    "kind": "Event",
+    "name": "Codable — Indie App Launchpad: Shipaton Lagos",
+    "startDate": "2026-09-12",
+    "endDate": "2026-09-12",
+    "locationName": "Lagos, Nigeria",
+    "mapQuery": "Ikeja, Lagos, Nigeria",
+    "summary": "Lagos build day for aspiring indie developers entering RevenueCat's Shipaton, covering first users, monetisation and app demos from local builders.",
+    "websiteURL": "https://luma.com/49s65qhw",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "swift",
+      "indie",
+      "community"
+    ]
+  },
+  {
     "id": "nsspain-2026",
     "kind": "Conference",
     "name": "NSSpain XIV",
@@ -1743,6 +1885,40 @@
       "ios",
       "swift",
       "macos"
+    ]
+  },
+  {
+    "id": "boulderos-september-2026",
+    "kind": "Meetup",
+    "name": "boulderOS Meetup",
+    "startDate": "2026-09-16",
+    "endDate": "2026-09-16",
+    "locationName": "Boulder, Colorado, USA",
+    "mapQuery": "Barchetta Pizza, 1644 Walnut Street, Boulder, Colorado",
+    "summary": "Monthly evening meetup for Apple developers, designers and founders in Boulder, hosted in the back room at Barchetta Pizza.",
+    "websiteURL": "https://boulderos.com",
+    "logoURL": null,
+    "tags": [
+      "apple",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "crazy-thursday-shenzhen-september-2026",
+    "kind": "Meetup",
+    "name": "Crazy Thursday Meetup — AI & App Builder",
+    "startDate": "2026-09-17",
+    "endDate": "2026-09-17",
+    "locationName": "Shenzhen, China",
+    "mapQuery": "Shenzhen, Guangdong, China",
+    "summary": "Shenzhen's recurring evening meetup for Apple platform developers and AI app builders, with short talks and open networking.",
+    "websiteURL": "https://luma.com/u59ra0xs",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "ai",
+      "community"
     ]
   },
   {
@@ -1815,6 +1991,23 @@
     ]
   },
   {
+    "id": "crazy-thursday-shenzhen-october-2026",
+    "kind": "Meetup",
+    "name": "Crazy Thursday Meetup — AI & App Builder",
+    "startDate": "2026-10-15",
+    "endDate": "2026-10-15",
+    "locationName": "Shenzhen, China",
+    "mapQuery": "Shenzhen, Guangdong, China",
+    "summary": "Shenzhen's recurring evening meetup for Apple platform developers and AI app builders, with short talks and open networking.",
+    "websiteURL": "https://luma.com/pejzwn6o",
+    "logoURL": null,
+    "tags": [
+      "ios",
+      "ai",
+      "community"
+    ]
+  },
+  {
     "id": "mobius-autumn-2026",
     "kind": "Conference",
     "name": "Mobius 2026 Autumn",
@@ -1827,6 +2020,23 @@
     "logoURL": null,
     "tags": [
       "ios",
+      "swift",
+      "community"
+    ]
+  },
+  {
+    "id": "boulderos-october-2026",
+    "kind": "Meetup",
+    "name": "boulderOS Meetup",
+    "startDate": "2026-10-21",
+    "endDate": "2026-10-21",
+    "locationName": "Boulder, Colorado, USA",
+    "mapQuery": "Barchetta Pizza, 1644 Walnut Street, Boulder, Colorado",
+    "summary": "Monthly evening meetup for Apple developers, designers and founders in Boulder, hosted in the back room at Barchetta Pizza.",
+    "websiteURL": "https://boulderos.com",
+    "logoURL": null,
+    "tags": [
+      "apple",
       "swift",
       "community"
     ]
@@ -2033,6 +2243,23 @@
       "ios",
       "swift",
       "design"
+    ]
+  },
+  {
+    "id": "deep-dish-swift-2027",
+    "kind": "Conference",
+    "name": "Deep Dish Swift 2027",
+    "startDate": "2027-04-04",
+    "endDate": "2027-04-06",
+    "locationName": "Rosemont, Illinois, USA",
+    "mapQuery": "Loews Chicago O'Hare Hotel, Rosemont, Illinois",
+    "summary": "Chicago-area Swift conference returning for its fifth year with three days of technical talks, indie dev sessions and community events.",
+    "websiteURL": "https://deepdishswift.com",
+    "logoURL": "https://deepdishswift.com/assets/images/2027/deep-dish-logo.png",
+    "tags": [
+      "swift",
+      "ios",
+      "community"
     ]
   }
 ]
