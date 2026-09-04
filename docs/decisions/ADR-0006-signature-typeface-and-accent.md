@@ -22,7 +22,7 @@ The constraint we keep: do this **without** bundling a custom font (licensing re
 ### Signature accent — warm marigold, replacing system blue
 
 - A warm marigold/amber accent replaces the system blue tint. It lives in the **`AccentColor` asset** (light + dark variants) so it flows into every *default* SwiftUI control tint automatically, and is applied explicitly at the root via `.tint(Theme.accent)`.
-- `Theme.accent` mirrors the asset (`Color.accentColor`) for the few views that need the colour directly rather than via the environment tint.
+- `Theme.accent` mirrors the asset (`Color("AccentColor")`) for the few views that need the colour directly rather than via the environment tint; it is deliberately not `Color.accentColor`, which fails to resolve inside `Menu` content bridged to `UIMenu` and falls back to SwiftUI's default blue (issue #46).
 - Light variant is deepened (sRGB ≈ `0.80, 0.47, 0.06`) for text/link contrast on white; dark variant is lightened (≈ `1.0, 0.70, 0.27`) for contrast on black.
 - The favourite *swipe* action keeps its conventional pink (it reads as "heart," not "brand") — an explicit, intentional override of the global tint.
 
