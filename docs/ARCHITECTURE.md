@@ -120,4 +120,4 @@ See `docs/decisions/` for detailed ADRs.
 - Only objective conference metadata (name, date, location, URL) is stored. Long descriptive text is paraphrased to avoid copyright issues.
 - No bundled conference logos; rendered text-only badges where needed.
 - `NSCalendarsUsageDescription` required in Info.plist before the first EventKit call.
-- `PrivacyInfo.xcprivacy` to be added before App Store submission.
+- `PrivacyInfo.xcprivacy` lives at `iOS-Conferences/PrivacyInfo.xcprivacy` and is auto-bundled via the synchronized root group; it declares no tracking, no collected data, and UserDefaults under reason `CA92.1`.
