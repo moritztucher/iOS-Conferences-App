@@ -51,7 +51,7 @@ The two decisions are intertwined: making the repo public influences the data-so
   - `LICENSE` — MIT
 - **Repo rules:**
   - No secrets in the code (none today — no auth, no API keys).
-  - Bundle ID `studio.pocketapps.iOS-Conferences` stays with the original; any forker who ships their own version is expected to change it.
+  - Bundle ID `com.moritztucher.dubdub-ios-conference` stays with the original; any forker who ships their own version is expected to change it.
 
 ### Favourites
 
