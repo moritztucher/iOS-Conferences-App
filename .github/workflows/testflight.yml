@@ -1,0 +1,52 @@
+name: TestFlight
+
+# Push to develop -> one build -> TestFlight.
+#
+# `develop` is the TestFlight stream: every push that can reach the binary
+# becomes a build for testers. `main` is not a build branch at all — it records
+# what has actually been published to the App Store. When a version ships,
+# develop merges into main and that merge point gets the version tag, so a tag
+# always names a released version rather than a build that happened to exist.
+#
+# GitHub fires `push` once per push event, not per commit: pushing 50 commits
+# in a single `git push` produces exactly one run, built at the tip commit.
+#
+# This repo is public and the build runs on a self-hosted Mac mini, so the
+# trigger is deliberately `push` on develop only — never `pull_request`. A
+# fork's PR must not be able to run code on that machine.
+
+on:
+  push:
+    branches: [develop]
+    # Ignoring markdown is only safe because no .md file lives inside the
+    # `iOS-Conferences/` folder, which is a PBXFileSystemSynchronizedRootGroup
+    # and would otherwise copy every file in it into the bundle. The target
+    # also carries EXCLUDED_SOURCE_FILE_NAMES = "*.md" as a guard, so adding
+    # one later still cannot change the binary.
+    paths-ignore:
+      - '**/*.md'
+  workflow_dispatch:
+
+# One build at a time per branch; a newer push supersedes a queued or running
+# older one. Safe to cancel mid-flight because the build number is read from
+# TestFlight at upload time, not stored in the repo.
+concurrency:
+  group: testflight-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  upload:
+    # contents:read for the checkout; actions:read so the runner watchdog in
+    # the shared workflow can see whether the build job left the queue.
+    permissions:
+      contents: read
+      actions: read
+    uses: moritztucher/ios-ci/.github/workflows/ios-testflight.yml@main
+    with:
+      scheme: iOS-Conferences
+      app-identifier: com.moritztucher.dubdub-ios-conference
+      project: iOS-Conferences.xcodeproj
+      # dubdub ships on the personal Apple team (S84QBGCN9L), not POCKET APPS
+      # STUDIO. The archive is signed with that team's distribution identity
+      # and authenticated with its own App Store Connect key.
+      asc-account: personal
