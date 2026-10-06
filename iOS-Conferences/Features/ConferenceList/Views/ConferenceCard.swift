@@ -220,18 +220,11 @@ struct ConferenceCard: View {
         .dynamicTypeSize(...DynamicTypeSize.xxLarge)
     }
 
-    /// Marigold "GOING" stamp at the head of the stub: the ticket's been claimed. Brand
-    /// accent (ADR-0006) with dark text, which keeps contrast on the bright fill in both modes.
+    /// Marigold "GOING" stamp at the head of the stub: the ticket's been claimed. Capped
+    /// tighter than the stub's numerals so it never shrinks below legibility in the 80pt stub.
     private var attendingStamp: some View {
-        Text("GOING")
-            .font(.caption2.weight(.heavy))
-            .tracking(Theme.eyebrowTracking)
-            .lineLimit(1)
-            .minimumScaleFactor(0.7)
-            .foregroundStyle(.black.opacity(0.85))
-            .padding(.horizontal, 7)
-            .padding(.vertical, 3)
-            .background(Theme.accent, in: .capsule)
+        AccentBadge(title: "GOING")
+            .dynamicTypeSize(...DynamicTypeSize.xLarge)
     }
 
     @ViewBuilder

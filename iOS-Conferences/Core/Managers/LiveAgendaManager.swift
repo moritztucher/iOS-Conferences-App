@@ -51,12 +51,26 @@ final class LiveAgendaManager {
         defaults.object(forKey: Self.settingKey) as? Bool ?? true
     }
 
+    /// Whether iOS allows this app's Live Activities (Settings › dubdub › Live Activities).
+    /// Kept current by `observeAuthorization()`; Settings shows it next to the app's toggle.
+    private(set) var systemAllowsActivities = ActivityAuthorizationInfo().areActivitiesEnabled
+
+    /// Follows system-level changes for the app's lifetime and re-syncs on each one, so
+    /// turning Live Activities back on in iOS Settings restores today's activity.
+    func observeAuthorization() async {
+        for await enabled in ActivityAuthorizationInfo().activityEnablementUpdates {
+            systemAllowsActivities = enabled
+            await sync()
+        }
+    }
+
     // MARK: - Sync
 
     func sync(now: Date? = nil) async {
         let now = now ?? Self.currentDate
         let activities = Activity<ConferenceDayAttributes>.activities
-        guard isEnabledInSettings, ActivityAuthorizationInfo().areActivitiesEnabled else {
+        systemAllowsActivities = ActivityAuthorizationInfo().areActivitiesEnabled
+        guard isEnabledInSettings, systemAllowsActivities else {
             for activity in activities {
                 await activity.end(nil, dismissalPolicy: .immediate)
             }
@@ -68,7 +82,9 @@ final class LiveAgendaManager {
         let plans = plans(context: context, now: now)
         let attending = attendingIDs(context)
 
-        for activity in activities where !matches(activity, plans) {
+        // Already-ended activities linger in `activities` until dismissed; ending them again
+        // would push their dismissal date back on every sync.
+        for activity in activities where !matches(activity, plans) && activity.activityState != .ended && activity.activityState != .dismissed {
             await retire(activity, stillAttending: attending.contains(activity.attributes.conferenceID), now: now)
         }
         for plan in plans.values {

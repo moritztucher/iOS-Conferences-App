@@ -11,6 +11,7 @@ struct ConferenceScheduleView: View {
 
     @Environment(\.modelContext) private var modelContext
     @Environment(LiveAgendaManager.self) private var liveAgenda
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query private var cachedSchedules: [ConferenceSchedule]
     @Query private var favouriteTalks: [FavouriteTalk]
     @Query private var attending: [AttendingConference]
@@ -35,14 +36,19 @@ struct ConferenceScheduleView: View {
         Group {
             if let schedule {
                 scheduleContent(schedule)
-            } else if viewModel.isRefreshing {
+            } else if viewModel.isRefreshing || !viewModel.hasAttemptedLoad {
                 ProgressView("Loading schedule…")
             } else {
-                ContentUnavailableView(
-                    "No Schedule Yet",
-                    systemImage: "calendar.badge.clock",
-                    description: Text(viewModel.loadError ?? "The talk schedule hasn't been published.")
-                )
+                ContentUnavailableView {
+                    Label("No Schedule Yet", systemImage: "calendar.badge.clock")
+                } description: {
+                    Text(viewModel.loadError ?? "The talk schedule hasn't been published.")
+                } actions: {
+                    Button("Try Again") {
+                        Task { await viewModel.refresh(context: modelContext, hasCachedSchedule: false) }
+                    }
+                    .buttonStyle(.glass)
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -108,13 +114,21 @@ struct ConferenceScheduleView: View {
     private func notes(for schedule: Schedule, now: Date) -> some View {
         let zoneNote = ConferenceDateStyle.venueZoneNote(schedule.timeZone, at: now)
         let singleTrackNote = schedule.isSingleTrack && isAttending
-        if zoneNote != nil || singleTrackNote {
+        // Hearts work before deciding to go; say what Attending adds on top.
+        let attendingTip = !isAttending && !favouriteTalkIDs.isEmpty
+        if zoneNote != nil || singleTrackNote || attendingTip {
             Section {
                 if let zoneNote {
                     Label("Times are in venue time (\(zoneNote)).", systemImage: "globe")
                 }
                 if singleTrackNote {
                     Label("One stage, so every talk is on your agenda.", systemImage: "checkmark.circle")
+                }
+                if attendingTip {
+                    Label(
+                        "Mark yourself as attending (the ticket button on the conference) to get your hearted talks on the Lock Screen.",
+                        systemImage: "ticket"
+                    )
                 }
             }
             .font(.footnote)
@@ -144,18 +158,36 @@ struct ConferenceScheduleView: View {
     private func dayPicker(for schedule: Schedule) -> some View {
         let days = viewModel.days(in: schedule)
         if days.count > 1 {
-            @Bindable var bindable = viewModel
-            Picker("Day", selection: $bindable.selectedDay) {
-                ForEach(days, id: \.self) { day in
-                    Text(ConferenceDateStyle.scheduleDay(day, in: schedule.timeZone))
-                        .accessibilityLabel(ConferenceDateStyle.scheduleDayLong(day, in: schedule.timeZone))
-                        .tag(Optional(day))
+            Group {
+                // Segments can't reflow: at accessibility sizes, or with more days than
+                // fit, fall back to a menu.
+                if usesDayMenu(dayCount: days.count) {
+                    dayPickerControl(days: days, timeZone: schedule.timeZone)
+                        .pickerStyle(.menu)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                } else {
+                    dayPickerControl(days: days, timeZone: schedule.timeZone)
+                        .pickerStyle(.segmented)
                 }
             }
-            .pickerStyle(.segmented)
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
         }
+    }
+
+    private func dayPickerControl(days: [Date], timeZone: TimeZone) -> some View {
+        @Bindable var bindable = viewModel
+        return Picker("Day", selection: $bindable.selectedDay) {
+            ForEach(days, id: \.self) { day in
+                Text(ConferenceDateStyle.scheduleDay(day, in: timeZone))
+                    .accessibilityLabel(ConferenceDateStyle.scheduleDayLong(day, in: timeZone))
+                    .tag(Optional(day))
+            }
+        }
+    }
+
+    private func usesDayMenu(dayCount: Int) -> Bool {
+        dynamicTypeSize.isAccessibilitySize || dayCount > 4
     }
 
     // MARK: - Toolbar
@@ -177,6 +209,7 @@ struct ConferenceScheduleView: View {
                           : "line.3.horizontal.decrease.circle")
                 }
                 .accessibilityLabel("Filter sessions")
+                .accessibilityValue(viewModel.filter.label)
             }
         }
     }
@@ -193,13 +226,7 @@ private struct SlotHeader: View {
                 .font(.headline.monospacedDigit())
                 .foregroundStyle(.primary)
             if isLive {
-                Text("NOW")
-                    .font(.caption2.weight(.heavy))
-                    .tracking(Theme.eyebrowTracking)
-                    .foregroundStyle(.black.opacity(0.85))
-                    .padding(.horizontal, 7)
-                    .padding(.vertical, 2)
-                    .background(Theme.accent, in: .capsule)
+                AccentBadge(title: "NOW")
             }
         }
         .textCase(nil)

@@ -44,9 +44,16 @@ struct SessionRow: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                 if hasConflict {
-                    Label("Clashes with another favourite", systemImage: "exclamationmark.triangle.fill")
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.orange)
+                    // Red glyph (orange sat too close to the marigold accent to read as a
+                    // warning); primary text so the message itself keeps full contrast.
+                    Label {
+                        Text("Clashes with another favourite")
+                    } icon: {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.red)
+                    }
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.primary)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -55,8 +62,10 @@ struct SessionRow: View {
                 Button(action: onToggleFavourite) {
                     Image(systemName: isFavourite ? "heart.fill" : "heart")
                         .font(.title3)
-                        .symbolEffect(.bounce, value: isFavourite)
+                        .symbolEffect(.bounce, value: reduceMotion ? false : isFavourite)
                         .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
+                        .frame(minWidth: 44, minHeight: 44)
+                        .contentShape(.rect)
                 }
                 .buttonStyle(.borderless)
                 .accessibilityHidden(true)  // Exposed as the row's accessibility action instead.
@@ -67,8 +76,12 @@ struct SessionRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityAddTraits(isFavourite ? .isSelected : [])
-        .accessibilityAction(named: isFavourite ? "Remove from favourites" : "Add to favourites") {
-            if showsFavouriteButton { onToggleFavourite() }
+        .accessibilityActions {
+            // Only rows that can be favourited get the action; breaks and single-track
+            // talks would otherwise offer one that does nothing.
+            if showsFavouriteButton {
+                Button(isFavourite ? "Remove from favourites" : "Add to favourites", action: onToggleFavourite)
+            }
         }
     }
 
@@ -76,7 +89,7 @@ struct SessionRow: View {
         var parts = [session.kind.label, session.title]
         if !session.speakers.isEmpty { parts.append(session.speakers.formatted(.list(type: .and))) }
         parts.append(detailLine)
-        if isFavourite { parts.append("Favourite") }
+        // Favourite state is carried by the `.isSelected` trait, not repeated here.
         if hasConflict { parts.append("Clashes with another favourite") }
         return parts.joined(separator: ", ")
     }

@@ -47,6 +47,8 @@ final class ConferenceScheduleViewModel {
     var selectedDay: Date?
     var filter: Filter = .all
     private(set) var isRefreshing = false
+    /// False until the first refresh finishes, so the empty state doesn't flash before it.
+    private(set) var hasAttemptedLoad = false
     private(set) var loadError: String?
 
     private let service: any ScheduleServiceProtocol
@@ -62,7 +64,10 @@ final class ConferenceScheduleViewModel {
     /// to show: an offline refresh over a cached schedule stays silent.
     func refresh(context: ModelContext, hasCachedSchedule: Bool) async {
         isRefreshing = true
-        defer { isRefreshing = false }
+        defer {
+            isRefreshing = false
+            hasAttemptedLoad = true
+        }
         do {
             try await service.refreshCache(conferenceID: conferenceID, into: context)
             loadError = nil

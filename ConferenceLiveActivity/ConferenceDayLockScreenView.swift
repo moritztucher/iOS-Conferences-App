@@ -11,7 +11,7 @@ struct ConferenceDayLockScreenView: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(alignment: .firstTextBaseline) {
                 Text("\(attributes.conferenceName) · Day \(attributes.dayNumber)")
-                    .font(.caption.weight(.semibold))
+                    .font(.caption.weight(.bold))
                     .textCase(.uppercase)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
@@ -28,7 +28,7 @@ struct ConferenceDayLockScreenView: View {
                 // Below: where, and how long until it ends / starts.
                 whereAndWhen(headline)
                     .font(.subheadline)
-                    .lineLimit(1)
+                    .lineLimit(2)
                 // If there's room: what comes after.
                 if let upcoming = display.upcoming {
                     NextLine(item: upcoming, timeZone: attributes.timeZone)
@@ -39,6 +39,9 @@ struct ConferenceDayLockScreenView: View {
             }
         }
         .padding(16)
+        // One spoken summary instead of fragments and a bare ticking timer.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(LiveAgendaSpeech.summary(display: display, attributes: attributes))
     }
 
     /// "swiftCon 1 · ends in 23:10" as one text run, so the timer sits inline.
@@ -49,7 +52,7 @@ struct ConferenceDayLockScreenView: View {
         guard let countdown = Countdown.text(display: display, asOf: asOf) else {
             return Text(lead)
         }
-        return Text("\(lead) \(countdown.foregroundStyle(Color.marigold).monospacedDigit())")
+        return Text("\(lead) \(countdown.foregroundStyle(Color.marigold).monospacedDigit().fontWeight(.semibold))")
     }
 
 }

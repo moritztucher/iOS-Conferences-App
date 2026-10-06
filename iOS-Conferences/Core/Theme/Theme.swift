@@ -24,6 +24,11 @@ enum Theme {
     /// content bridged to `UIMenu`, rendering SwiftUI's default blue instead (#46).
     static let accent = Color("AccentColor")
 
+    /// Text on a solid `accent` fill (the NOW / GOING badges). Near-black in both modes:
+    /// both marigold variants are light and warm enough for it (~9:1). If the dark
+    /// accent is ever darkened, this is the one place to adapt.
+    static let onAccent = Color.black.opacity(0.85)
+
     // MARK: - Type roles
 
     /// **Display** — the serif voice (New York) at a semantic text style, so it scales with

@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 import MessageUI
 import StoreKit
+import UIKit
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
@@ -76,12 +77,13 @@ struct SettingsView: View {
 
     @ViewBuilder
     private var displaySection: some View {
-        Section("Display") {
+        Section {
             Toggle("Show past conferences", isOn: $showPastConferences)
-            Toggle(isOn: $showsLiveActivity) {
+            Toggle(isOn: liveActivityBinding) {
                 Text("Live Activity at conferences")
                 Text("Shows what's on now and next on your Lock Screen while you're at a conference you're attending.")
             }
+            .disabled(!liveAgenda.systemAllowsActivities)
             .onChange(of: showsLiveActivity) {
                 Task { await liveAgenda.sync() }
             }
@@ -90,7 +92,28 @@ struct SettingsView: View {
             } label: {
                 Label("Appearance", systemImage: "circle.lefthalf.filled")
             }
+        } header: {
+            Text("Display")
+        } footer: {
+            if !liveAgenda.systemAllowsActivities {
+                // The app toggle can't override iOS; point to the switch that can.
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Live Activities are turned off for dubdub in iOS Settings.")
+                    Button("Open Settings") {
+                        if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
+                    }
+                    .font(.footnote.weight(.semibold))
+                }
+            }
         }
+    }
+
+    /// Reads as off while iOS blocks Live Activities, without overwriting the user's choice.
+    private var liveActivityBinding: Binding<Bool> {
+        Binding(
+            get: { showsLiveActivity && liveAgenda.systemAllowsActivities },
+            set: { showsLiveActivity = $0 }
+        )
     }
 
     @ViewBuilder

@@ -7,6 +7,7 @@ struct ConferenceDetailView: View {
     @Environment(CalendarService.self) private var calendarService
     @Environment(AchievementService.self) private var achievements
     @Environment(LiveAgendaManager.self) private var liveAgenda
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query private var favourites: [FavouriteConference]
     @Query private var attending: [AttendingConference]
 
@@ -303,15 +304,22 @@ struct ConferenceDetailView: View {
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
+                let alsoFavourites = !isAttending && !isFavourite
                 viewModel.toggleAttending(in: attending, favourites: favourites, context: modelContext)
                 achievements.reevaluateFavourites()
                 Task { await liveAgenda.sync() }
+                if alsoFavourites {
+                    // The heart fills as a side effect; say so for VoiceOver users.
+                    AccessibilityNotification.Announcement("Attending. Also added to favourites.").post()
+                }
             } label: {
                 Image(systemName: isAttending ? "ticket.fill" : "ticket")
-                    .symbolEffect(.bounce, value: isAttending)
+                    .symbolEffect(.bounce, value: reduceMotion ? false : isAttending)
             }
-            .accessibilityLabel(isAttending ? "Not attending" : "I'm attending")
-            .accessibilityAddTraits(isAttending ? .isSelected : [])
+            .accessibilityLabel("Attending")
+            .accessibilityValue(isAttending ? "On" : "Off")
+            .accessibilityAddTraits(.isToggle)
+            .accessibilityHint("Puts your agenda for this conference on the Lock Screen while it's on.")
         }
         ToolbarItem(placement: .topBarTrailing) {
             Button {
@@ -319,7 +327,7 @@ struct ConferenceDetailView: View {
                 achievements.reevaluateFavourites()
             } label: {
                 Image(systemName: isFavourite ? "heart.fill" : "heart")
-                    .symbolEffect(.bounce, value: isFavourite)
+                    .symbolEffect(.bounce, value: reduceMotion ? false : isFavourite)
             }
             .accessibilityLabel(isFavourite ? "Remove from favourites" : "Add to favourites")
         }

@@ -43,14 +43,20 @@ struct ConferenceDayLiveActivity: Widget {
                         }
                         if let upcoming = display.upcoming {
                             NextLine(item: upcoming, timeZone: context.attributes.timeZone)
+                                .minimumScaleFactor(0.85)
                         }
                     }
                     .lineLimit(1)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(LiveAgendaSpeech.summary(display: display, attributes: context.attributes))
                 }
             } compactLeading: {
                 PhaseSymbol(phase: display.phase)
             } compactTrailing: {
                 Countdown(display: display, asOf: context.state.asOf)
+                    .font(.caption.weight(.semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                     .frame(maxWidth: 52)
             } minimal: {
                 PhaseSymbol(phase: display.phase)

@@ -31,6 +31,7 @@ struct RootTabView: View {
         .task(id: scenePhase) {
             if scenePhase == .active { await liveAgenda.sync() }
         }
+        .task { await liveAgenda.observeAuthorization() }
         // App-level so a freshly-earned ticket celebrates wherever the user is.
         .sheet(item: celebrationBinding) { icon in
             IconUnlockCelebrationView(icon: icon)

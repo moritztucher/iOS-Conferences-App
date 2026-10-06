@@ -10,7 +10,15 @@ struct PhaseSymbol: View {
     var body: some View {
         Image(systemName: symbolName)
             .foregroundStyle(Color.marigold)
-            .accessibilityHidden(true)
+            .accessibilityLabel(accessibilityLabel)
+    }
+
+    private var accessibilityLabel: String {
+        switch phase {
+        case .inSession: "Talk in progress"
+        case .upNext: "Break"
+        case .finished: "Day finished"
+        }
     }
 
     private var symbolName: String {
@@ -64,5 +72,30 @@ struct NextLine: View {
         .font(.footnote)
         .foregroundStyle(.secondary)
         .lineLimit(1)
+    }
+}
+
+/// What VoiceOver reads for the activity, with fixed times rather than a ticking timer,
+/// e.g. "SwiftLeeds, Day 1. Now: Swift Concurrency in Practice, The Playhouse, until 10:45.
+/// Next: SwiftData at Scale at 10:45."
+enum LiveAgendaSpeech {
+    static func summary(display: LiveAgendaDisplay, attributes: ConferenceDayAttributes) -> String {
+        let zone = attributes.timeZone
+        var parts = ["\(attributes.conferenceName), Day \(attributes.dayNumber)."]
+        if let headline = display.headline {
+            let place = headline.roomName.map { ", \($0)" } ?? ""
+            switch display.phase {
+            case .inSession:
+                parts.append("Now: \(headline.title)\(place), until \(ScheduleTimeFormat.time(headline.endsAt, in: zone)).")
+            case .upNext, .finished:
+                parts.append("Up next: \(headline.title)\(place), at \(ScheduleTimeFormat.time(headline.startsAt, in: zone)).")
+            }
+            if let upcoming = display.upcoming {
+                parts.append("Then: \(upcoming.title) at \(ScheduleTimeFormat.time(upcoming.startsAt, in: zone)).")
+            }
+        } else {
+            parts.append("That's a wrap for today.")
+        }
+        return parts.joined(separator: " ")
     }
 }

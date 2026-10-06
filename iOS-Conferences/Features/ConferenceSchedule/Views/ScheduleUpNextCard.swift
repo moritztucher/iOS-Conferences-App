@@ -11,6 +11,8 @@ struct ScheduleUpNextCard: View {
     let conference: Conference
 
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @State private var loadFailed = false
     @Query private var cachedSchedules: [ConferenceSchedule]
     @Query private var favouriteTalks: [FavouriteTalk]
     @Query private var attending: [AttendingConference]
@@ -33,7 +35,7 @@ struct ScheduleUpNextCard: View {
             GlassSectionCard(title: items.isEmpty ? "Schedule" : "Up Next") {
                 if let schedule {
                     if items.isEmpty {
-                        Text(emptyMessage(for: schedule, now: timeline.date))
+                        Label(emptyMessage(for: schedule, now: timeline.date), systemImage: emptySymbol(for: schedule, now: timeline.date))
                             .foregroundStyle(.secondary)
                     } else {
                         VStack(alignment: .leading, spacing: 12) {
@@ -42,9 +44,15 @@ struct ScheduleUpNextCard: View {
                             }
                         }
                     }
-                } else {
-                    Text("Loading the schedule…")
+                } else if loadFailed {
+                    Label("The schedule couldn't be loaded right now.", systemImage: "wifi.exclamationmark")
                         .foregroundStyle(.secondary)
+                } else {
+                    HStack(spacing: 8) {
+                        ProgressView()
+                        Text("Loading the schedule…")
+                    }
+                    .foregroundStyle(.secondary)
                 }
                 NavigationLink(value: Route.conferenceSchedule(conferenceID: conference.id)) {
                     Label("Full Schedule", systemImage: "list.bullet.rectangle.portrait")
@@ -56,8 +64,13 @@ struct ScheduleUpNextCard: View {
             }
         }
         .task(id: conference.id) {
-            // Silent: the full schedule screen surfaces errors; the card just shows what's cached.
-            _ = try? await ScheduleServiceFactory.make().refreshCache(conferenceID: conference.id, into: modelContext)
+            // A failure only matters with nothing cached; the full schedule screen has the retry.
+            do {
+                try await ScheduleServiceFactory.make().refreshCache(conferenceID: conference.id, into: modelContext)
+                loadFailed = false
+            } catch {
+                loadFailed = true
+            }
         }
     }
 
@@ -81,14 +94,29 @@ struct ScheduleUpNextCard: View {
         return "Browse every session, day by day."
     }
 
+    private func emptySymbol(for schedule: Schedule, now: Date) -> String {
+        if let last = schedule.sessions.last, last.endsAt <= now { return "flag.checkered" }
+        return "calendar"
+    }
+
     private func itemRow(_ item: AgendaItem, timeZone: TimeZone, now: Date) -> some View {
         let isLive = item.startsAt <= now && now < item.endsAt
         let time = ConferenceDateStyle.sessionTime(item.startsAt, in: timeZone)
-        return HStack(alignment: .firstTextBaseline, spacing: 12) {
-            Text(isLive ? "NOW" : time)
-                .font(.subheadline.weight(.semibold).monospacedDigit())
-                .foregroundStyle(isLive ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
-                .frame(minWidth: 52, alignment: .leading)
+        // Side by side normally; stacked at accessibility sizes so the title keeps the width.
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: 12))
+        return layout {
+            Group {
+                if isLive {
+                    AccentBadge(title: "NOW")
+                } else {
+                    Text(time)
+                        .font(.subheadline.weight(.semibold).monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .frame(minWidth: dynamicTypeSize.isAccessibilitySize ? nil : 52, alignment: .leading)
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.title)
                     .font(.body.weight(.medium))
