@@ -10,7 +10,18 @@
 		C0F1A0032FC0000100A1B2C3 /* ConferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = C0F1A0022FC0000100A1B2C3 /* ConferenceKit */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C0F1A1072FC0000100A1B2C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 902BDE312FBB116B00E7C14E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 902BDE382FBB116B00E7C14E;
+			remoteInfo = "iOS-Conferences";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		C0F1A1012FC0000100A1B2C3 /* iOS-ConferencesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-ConferencesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		902BDE392FBB116B00E7C14E /* iOS-Conferences.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Conferences.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -18,6 +29,11 @@
 		902BDE3B2FBB116B00E7C14E /* iOS-Conferences */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "iOS-Conferences";
+			sourceTree = "<group>";
+		};
+		C0F1A1022FC0000100A1B2C3 /* iOS-ConferencesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "iOS-ConferencesTests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -31,6 +47,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0F1A1052FC0000100A1B2C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -38,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				902BDE3B2FBB116B00E7C14E /* iOS-Conferences */,
+				C0F1A1022FC0000100A1B2C3 /* iOS-ConferencesTests */,
 				902BDE3A2FBB116B00E7C14E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				902BDE392FBB116B00E7C14E /* iOS-Conferences.app */,
+				C0F1A1012FC0000100A1B2C3 /* iOS-ConferencesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +101,29 @@
 			productReference = 902BDE392FBB116B00E7C14E /* iOS-Conferences.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C0F1A1032FC0000100A1B2C3 /* iOS-ConferencesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0F1A1112FC0000100A1B2C3 /* Build configuration list for PBXNativeTarget "iOS-ConferencesTests" */;
+			buildPhases = (
+				C0F1A1042FC0000100A1B2C3 /* Sources */,
+				C0F1A1052FC0000100A1B2C3 /* Frameworks */,
+				C0F1A1062FC0000100A1B2C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0F1A1082FC0000100A1B2C3 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C0F1A1022FC0000100A1B2C3 /* iOS-ConferencesTests */,
+			);
+			name = "iOS-ConferencesTests";
+			packageProductDependencies = (
+			);
+			productName = "iOS-ConferencesTests";
+			productReference = C0F1A1012FC0000100A1B2C3 /* iOS-ConferencesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -88,6 +136,10 @@
 				TargetAttributes = {
 					902BDE382FBB116B00E7C14E = {
 						CreatedOnToolsVersion = 26.4.1;
+					};
+					C0F1A1032FC0000100A1B2C3 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = 902BDE382FBB116B00E7C14E;
 					};
 				};
 			};
@@ -109,12 +161,20 @@
 			projectRoot = "";
 			targets = (
 				902BDE382FBB116B00E7C14E /* iOS-Conferences */,
+				C0F1A1032FC0000100A1B2C3 /* iOS-ConferencesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		902BDE372FBB116B00E7C14E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0F1A1062FC0000100A1B2C3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -131,7 +191,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0F1A1042FC0000100A1B2C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0F1A1082FC0000100A1B2C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 902BDE382FBB116B00E7C14E /* iOS-Conferences */;
+			targetProxy = C0F1A1072FC0000100A1B2C3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		902BDE422FBB116D00E7C14E /* Debug */ = {
@@ -339,6 +414,50 @@
 			};
 			name = Release;
 		};
+		C0F1A1092FC0000100A1B2C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S84QBGCN9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS-Conferences.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iOS-Conferences";
+			};
+			name = Debug;
+		};
+		C0F1A1102FC0000100A1B2C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S84QBGCN9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS-Conferences.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iOS-Conferences";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -356,6 +475,15 @@
 			buildConfigurations = (
 				902BDE452FBB116D00E7C14E /* Debug */,
 				902BDE462FBB116D00E7C14E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0F1A1112FC0000100A1B2C3 /* Build configuration list for PBXNativeTarget "iOS-ConferencesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0F1A1092FC0000100A1B2C3 /* Debug */,
+				C0F1A1102FC0000100A1B2C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

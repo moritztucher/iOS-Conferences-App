@@ -69,6 +69,8 @@
 | EventKit (system) | Add events to user's calendar | ADR-0001 |
 | SafariServices (system) | Show conference website in-app | ADR-0001 |
 
+**Tests:** `Packages/ConferenceKit` (`swift test`, no simulator) covers schedule decoding and the agenda rules; the `iOS-ConferencesTests` target (XCTest, hosted in the app) covers view models: run with `xcodebuild test -scheme iOS-Conferences -destination 'platform=iOS Simulator,name=iPhone 17 Pro'`. Simulator debug builds read `data/` from the checkout instead of the CDN (`RepoConfig.localRepoDataFile`), so unpushed data shows up immediately.
+
 No third-party SPM dependencies. One **local** package, `Packages/ConferenceKit` (Foundation only), holds the talk schedule types, feed decoding (`ScheduleFeed`) and the agenda rules (`AgendaResolver`) from ADR-0009. It's shared by the app and, from phase 4, the Live Activity widget extension, and it carries the unit tests (`swift test` in that folder).
 
 ## Feature Modules
@@ -77,6 +79,7 @@ No third-party SPM dependencies. One **local** package, `Packages/ConferenceKit`
 |---------|----------|-------------|
 | ConferenceList | `Features/ConferenceList/` | Ticket-card list (`ConferenceCard` + `TicketShape`), month-primary with kind sub-groups + counts. Region + multi-select kind/format filters. `.refreshable`; global Search tab. Shared by Conferences + Favourites (filter at the ViewModel level). See ADR-0004. |
 | ConferenceDetail | `Features/ConferenceDetail/` | Stretchy parallax hero (`ConferenceDetailHero`, clean bottom) → floating Liquid Glass cards (`GlassSectionCard`: About, When/Where with embedded map) → pinned glass CTA bar (Website + Add to Calendar). Card→hero zoom transition. Favourite toggle + `ShareLink` in toolbar. See ADR-0007. |
+| ConferenceSchedule | `Features/ConferenceSchedule/` | Talk schedule (ADR-0009): `ScheduleUpNextCard` on the detail screen and the full `ConferenceScheduleView` (day picker, time slots, talk hearts + clash flags on multi-track, "My Agenda" filter, live "NOW" marker). Logic in `ConferenceScheduleViewModel` + `ConferenceKit.AgendaResolver`. |
 | SuggestConference | `Features/SuggestConference/` | Form sheet that pre-fills a GitHub Issue URL and opens it in `SFSafariViewController` |
 | Settings | `Features/Settings/` | `Form` with Display (show-past toggle) / Support (rate, contact) / Contribute (suggest, view source) / About (version, license) |
 
