@@ -25,7 +25,7 @@ xcuserdata/
 # Swift Package Manager
 .swiftpm/
 .build/
-Packages/
+# (No `Packages/` entry: that held legacy SwiftPM checkouts; Packages/ConferenceKit is source.)
 Package.pins
 Package.resolved
 
