@@ -212,10 +212,14 @@ struct ConferenceListView: View {
     ConferenceListView(filter: .all)
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
+        .environment(AchievementService())
+        .environment(LiveAgendaManager.preview)
 }
 
 #Preview("Favourites") {
     ConferenceListView(filter: .favourites)
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
+        .environment(AchievementService())
+        .environment(LiveAgendaManager.preview)
 }

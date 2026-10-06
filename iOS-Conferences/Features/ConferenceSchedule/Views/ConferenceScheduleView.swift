@@ -10,6 +10,7 @@ struct ConferenceScheduleView: View {
     let conference: Conference
 
     @Environment(\.modelContext) private var modelContext
+    @Environment(LiveAgendaManager.self) private var liveAgenda
     @Query private var cachedSchedules: [ConferenceSchedule]
     @Query private var favouriteTalks: [FavouriteTalk]
     @Query private var attending: [AttendingConference]
@@ -133,6 +134,7 @@ struct ConferenceScheduleView: View {
             onToggleFavourite: {
                 viewModel.toggleFavourite(session, in: favouriteTalks, context: modelContext)
                 favouriteTrigger += 1
+                Task { await liveAgenda.sync() }
             }
         )
         .listRowBackground(Color.clear)
@@ -212,4 +214,5 @@ private struct SlotHeader: View {
         ConferenceScheduleView(conference: Conference.bundled.first { $0.id == "swiftleeds-2026" }!)
     }
     .modelContainer(PreviewContainer.shared)
+    .environment(LiveAgendaManager.preview)
 }

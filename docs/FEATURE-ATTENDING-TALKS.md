@@ -134,7 +134,7 @@ All of this is stock `List`/`Form`/`Picker`, with glass only on toolbar and floa
 | 1 ✅ | `AttendingConference`, toolbar toggle, card stamp ("GOING"), pinned "ATTENDING" section on Favourites | Done 2026-10-06 |
 | 2 ✅ | `ConferenceSchedule` / `FavouriteTalk` models, `ScheduleService`, `AgendaResolver` + XCTest matrix, all in the local `Packages/ConferenceKit` package (`swift test`) | Done 2026-10-06. 25 tests |
 | 3 ✅ | `ScheduleUpNextCard` + `ConferenceScheduleView`, talk hearts, clash flags, "My Agenda" filter, NOW marker, app XCTest target, simulator reads repo `data/` | Done 2026-10-06. Hearts work without attending (agenda/Live Activity still need it) |
-| 4 | Widget extension target, shared `ConferenceDayAttributes`, Lock Screen + all Dynamic Island regions, `LiveActivityManager`, `NSSupportsLiveActivities`, BG refresh task, Settings toggle | Run the scheduled-start spike first (see risks) |
+| 4 ✅ | `ConferenceLiveActivity` widget extension, shared `ConferenceDayAttributes` + `LiveAgendaDisplay` + `LiveAgendaPlanner` (ConferenceKit), Lock Screen + all Dynamic Island regions, `LiveAgendaManager`, app `Info.plist` (`NSSupportsLiveActivities`, BG refresh), Settings toggle | Done 2026-10-06. Lock Screen verified in the Simulator (in session + break); compact Dynamic Island not verified there |
 | 5 | `/ios-design-audit`, VoiceOver pass, `VIEW-INVENTORY.md`, `ARCHITECTURE.md`, App Store screenshot of the Live Activity | |
 
 ### `AgendaResolver` test matrix
@@ -143,7 +143,7 @@ Before the first talk · during a talk · exact boundary (end == next start) · 
 
 ## 6. Risks & open items
 
-1. **iOS 26 scheduled start limits.** We don't yet know how far ahead it works, how many pending activities are allowed, or whether a pending one survives an app update. *Spike before phase 4.* Fallback: start the activity on the first foreground of the day.
+1. **iOS 26 scheduled start limits.** Spike result (Simulator, 2026-10-06): `request(…, alertConfiguration:, start:)` creates an activity in the new `.pending` state, and it shows up in `Activity.activities`, so it can be found, compared and replaced. Still unknown: the maximum lead time, how many pending activities are allowed, and whether one survives an app update. Mitigation in code: only schedule within 48 hours, re-check on every foreground, and if the activity is missing on a conference day, start it immediately.
 2. **8-hour active cap.** A 9:00–18:30 day is longer than the cap. Mitigation: re-start on foreground, or schedule a second activity around midday (covered by the same spike).
 3. **Accuracy without push.** Between app opens, correctness depends on the one-step lookahead. Two or more missed transitions in a row will show stale content, dimmed by the system. If that matters in practice, the upgrade path is ADR-0009's "broadcast push" alternative.
 4. **Schedule churn on the day** (room swaps, cancellations) only reaches users after a PR is merged and they refresh. This is accepted for v1.

@@ -73,6 +73,13 @@
 
 No third-party SPM dependencies. One **local** package, `Packages/ConferenceKit` (Foundation only), holds the talk schedule types, feed decoding (`ScheduleFeed`) and the agenda rules (`AgendaResolver`) from ADR-0009. It's shared by the app and, from phase 4, the Live Activity widget extension, and it carries the unit tests (`swift test` in that folder).
 
+### Live Activity (ADR-0009)
+- **`ConferenceLiveActivity`** is a widget extension embedded in the app. It holds only the conference-day Live Activity for now; Home Screen widgets can join its `WidgetBundle` later.
+- **Shared code:** `ConferenceDayAttributes` (the activity's attributes and `ContentState`), `LiveAgendaDisplay` (the presentation rules, including stale lookahead) and `LiveAgendaPlanner` (which day, and when) live in `ConferenceKit`, so the app and the extension use the same types and rules.
+- **`LiveAgendaManager`** (`Core/Managers/`, environment-injected) keeps the system's activities in line with the plan. It updates locally only, with no push server. `sync()` runs on foreground, after attending or talk-heart changes, after the Settings toggle, and from a `BGAppRefreshTask` (`com.moritztucher.dubdub-ios-conference.live-agenda`, best effort). Days within 48 hours are scheduled with iOS 26 scheduled start (`.pending` until 15 minutes before the first talk).
+- **Configuration:** the app has an `Info.plist` file for the keys Xcode can't generate (`NSSupportsLiveActivities`, `BGTaskSchedulerPermittedIdentifiers`, `UIBackgroundModes: fetch`). It's merged with the generated keys and excluded from the synced group's resources. The app owns its `ModelContainer` explicitly so the background task can reach the store without a window.
+- **Debugging:** debug builds accept `-LiveAgendaNow <ISO 8601>` as a launch argument to rehearse a conference day in the Simulator.
+
 ## Feature Modules
 
 | Feature | Location | Description |

@@ -109,4 +109,6 @@ struct ConferenceSearchView: View {
     ConferenceSearchView()
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
+        .environment(AchievementService())
+        .environment(LiveAgendaManager.preview)
 }

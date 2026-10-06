@@ -373,3 +373,8 @@ enum PreviewContainer {
         return container
     }()
 }
+
+extension LiveAgendaManager {
+    /// Previews never start real activities; this just satisfies the environment.
+    @MainActor static let preview = LiveAgendaManager(container: PreviewContainer.shared)
+}

@@ -7,6 +7,8 @@ struct SettingsView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
+    @AppStorage(LiveAgendaManager.settingKey) private var showsLiveActivity = true
+    @Environment(LiveAgendaManager.self) private var liveAgenda
     @State private var viewModel = SettingsViewModel()
 
     var body: some View {
@@ -76,6 +78,13 @@ struct SettingsView: View {
     private var displaySection: some View {
         Section("Display") {
             Toggle("Show past conferences", isOn: $showPastConferences)
+            Toggle(isOn: $showsLiveActivity) {
+                Text("Live Activity at conferences")
+                Text("Shows what's on now and next on your Lock Screen while you're at a conference you're attending.")
+            }
+            .onChange(of: showsLiveActivity) {
+                Task { await liveAgenda.sync() }
+            }
             NavigationLink {
                 AppearanceView()
             } label: {
@@ -118,4 +127,5 @@ struct SettingsView: View {
     SettingsView()
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
+        .environment(LiveAgendaManager.preview)
 }

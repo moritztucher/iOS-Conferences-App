@@ -6,6 +6,7 @@ struct ConferenceDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(CalendarService.self) private var calendarService
     @Environment(AchievementService.self) private var achievements
+    @Environment(LiveAgendaManager.self) private var liveAgenda
     @Query private var favourites: [FavouriteConference]
     @Query private var attending: [AttendingConference]
 
@@ -304,6 +305,7 @@ struct ConferenceDetailView: View {
             Button {
                 viewModel.toggleAttending(in: attending, favourites: favourites, context: modelContext)
                 achievements.reevaluateFavourites()
+                Task { await liveAgenda.sync() }
             } label: {
                 Image(systemName: isAttending ? "ticket.fill" : "ticket")
                     .symbolEffect(.bounce, value: isAttending)
@@ -342,4 +344,6 @@ struct ConferenceDetailView: View {
     }
     .modelContainer(PreviewContainer.shared)
     .environment(CalendarService())
+    .environment(AchievementService())
+    .environment(LiveAgendaManager.preview)
 }
