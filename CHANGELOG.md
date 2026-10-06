@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Attending & schedule polish** (ADR-0009, phase 5):
+  - Accessibility: VoiceOver labels and actions are fixed, bounces respect reduce motion, and the Live Activity has a spoken summary.
+  - Layout: the day picker becomes a menu at large text sizes, Up Next rows stack at large text sizes, and there's one marigold NOW / GOING badge.
+  - States: proper loading and error states with Try Again.
+  - Settings: the Live Activity toggle shows when iOS has Live Activities turned off.
+
 ### Added
 - **Conference-day Live Activity** (ADR-0009, phase 4): on the days of a conference you're attending, the Lock Screen and Dynamic Island show the running talk (or, during a break, the next one), its room, a countdown to when it ends or starts, and the talk after that. It's scheduled to appear 15 minutes before your first talk (iOS 26 scheduled start), updated whenever the app runs or gets background time, and it shows the next talk if an update is missed. It can be turned off in Settings › Display. New: the `ConferenceLiveActivity` widget extension and `LiveAgendaManager`.
 - **Talk schedules in the app** (ADR-0009, phase 3): conferences with a schedule get an "Up Next" card on their detail page and a full schedule screen with a day picker, sessions grouped by start time, and a live "NOW" marker. On multi-track conferences you can heart talks, filter to "My Agenda", and see when two favourites clash. Times always show in venue time, with a note when that differs from your phone's. SwiftCon Berlin now also includes the swiftCon Community Meetup. The app has a unit-test target for the first time (19 tests), and simulator debug builds read `data/` straight from the checkout.

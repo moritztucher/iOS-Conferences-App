@@ -135,7 +135,7 @@ All of this is stock `List`/`Form`/`Picker`, with glass only on toolbar and floa
 | 2 ✅ | `ConferenceSchedule` / `FavouriteTalk` models, `ScheduleService`, `AgendaResolver` + XCTest matrix, all in the local `Packages/ConferenceKit` package (`swift test`) | Done 2026-10-06. 25 tests |
 | 3 ✅ | `ScheduleUpNextCard` + `ConferenceScheduleView`, talk hearts, clash flags, "My Agenda" filter, NOW marker, app XCTest target, simulator reads repo `data/` | Done 2026-10-06. Hearts work without attending (agenda/Live Activity still need it) |
 | 4 ✅ | `ConferenceLiveActivity` widget extension, shared `ConferenceDayAttributes` + `LiveAgendaDisplay` + `LiveAgendaPlanner` (ConferenceKit), Lock Screen + all Dynamic Island regions, `LiveAgendaManager`, app `Info.plist` (`NSSupportsLiveActivities`, BG refresh), Settings toggle | Done 2026-10-06. Lock Screen verified in the Simulator (in session + break); compact Dynamic Island not verified there |
-| 5 | `/ios-design-audit`, VoiceOver pass, `VIEW-INVENTORY.md`, `ARCHITECTURE.md`, App Store screenshot of the Live Activity | |
+| 5 ✅ | Design + UX/accessibility review (two advisor passes), fixes, AX-size and dark-mode Simulator check, docs | Done 2026-10-06. Still open: on-device check (compact Dynamic Island, first extension signing, background refresh), App Store screenshot |
 
 ### `AgendaResolver` test matrix
 
@@ -150,3 +150,25 @@ Before the first talk · during a talk · exact boundary (end == next start) · 
 5. **Coverage.** The feature is only as good as the number of schedule files. The importer script is what makes curation cheap.
 6. **Scope.** This turns the app from an aggregator into a conference companion. ADR-0009 records that this is a deliberate expansion. The browse-first list stays the primary job.
 7. `docs/iOS26-OPPORTUNITIES.md` §1.2 says "we have no session-level data". Update it once this ships.
+
+## 7. Phase 5 review (2026-10-06)
+
+Two advisor passes (visual design; UX + accessibility) over the new surfaces, plus a Simulator check at the largest accessibility text size in dark mode.
+
+**Fixed**
+- The attending toggle now has a stable VoiceOver label ("Attending", value On/Off, toggle trait, hint). Marking attending announces that it also favourited the conference.
+- `SessionRow` offers the favourite accessibility action only where it does something, and announces favourite state once. The clash warning uses a red glyph with primary text (orange read as marigold). The heart has a 44pt target.
+- Ticket and heart bounces are gated by reduce motion.
+- The Live Activity has one spoken summary with fixed times (Lock Screen + expanded Island) and labelled phase symbols. The countdown is semibold and can wrap to a second line; the compact countdown scales down instead of truncating.
+- One `AccentBadge` and `Theme.onAccent` serve GOING and NOW. The stub's badge is capped at `.xLarge`.
+- At accessibility sizes, Up Next rows stack time over title, and the day picker becomes a menu (also with more than 4 days).
+- Loading and error states: no "No Schedule Yet" flash before the first fetch, a Try Again button, and a spinner and "couldn't be loaded" state on the Up Next card.
+- A tip explains that hearts reach the Lock Screen only when attending.
+- Settings disables the Live Activity toggle and links to iOS Settings when the system blocks Live Activities. The manager follows `activityEnablementUpdates`.
+- Ended activities are no longer re-ended on every sync, which kept pushing their dismissal back.
+
+**Not done (deliberately)**
+- On Favourites, swiping to unfavourite an attending ticket leaves it pinned, because attending keeps it there. There's no un-attend swipe yet; it needs a decision on whether the list should offer one.
+- No VoiceOver announcement when the NOW slot moves or the "My Agenda" filter empties the list.
+- Pre-existing, outside this feature: the detail "When & Where" rows break words ("Lo-cati-on") at the largest text sizes.
+
