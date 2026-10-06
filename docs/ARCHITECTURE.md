@@ -69,7 +69,7 @@
 | EventKit (system) | Add events to user's calendar | ADR-0001 |
 | SafariServices (system) | Show conference website in-app | ADR-0001 |
 
-No third-party SPM dependencies at MVP.
+No third-party SPM dependencies. One **local** package, `Packages/ConferenceKit` (Foundation only), holds the talk schedule types, feed decoding (`ScheduleFeed`) and the agenda rules (`AgendaResolver`) from ADR-0009. It's shared by the app and, from phase 4, the Live Activity widget extension, and it carries the unit tests (`swift test` in that folder).
 
 ## Feature Modules
 
@@ -92,6 +92,7 @@ See `docs/decisions/` for detailed ADRs.
 | ADR-0004 | Premium ticket-based visual identity for the list + detail hero (custom shapes, scrims, parallax, zoom transition); stock everywhere else | 2026-06-09 |
 | ADR-0005 | Optional event-local times + IANA time zone in the feed; timed calendar events anchored to the event zone | 2026-06-09 |
 | ADR-0006 | Two signature brand levers: a warm marigold accent (replacing system blue) + the system serif (New York) for display moments only. Amends ADR-0004. | 2026-06-09 |
+| ADR-0009 | *Proposed.* Attending flag, curated talk schedules in `data/schedules/`, talk favourites, and a local-only conference-day Live Activity | 2026-10-06 |
 | ADR-0007 | Push custom UI as far as possible by *composing* Liquid Glass (not reinventing controls); accessibility / Dynamic Type / dark-mode parity are hard criteria. Supersedes ADR-0003's stock-first stance. | 2026-06-09 |
 
 ## Data Storage
@@ -101,6 +102,8 @@ See `docs/decisions/` for detailed ADRs.
 | User credentials | N/A — no auth | N/A |
 | User preferences (last-refresh timestamp, filters) | UserDefaults | No |
 | Conference cache | SwiftData | No (public data) |
+| Talk schedule cache (`ConferenceSchedule`, one encoded `Schedule` per conference) | SwiftData | No (public data) |
+| Favourites, attending, talk favourites (`FavouriteConference`, `AttendingConference`, `FavouriteTalk`, IDs only) | SwiftData | No (no personal data) |
 
 ## Third-Party Integrations
 

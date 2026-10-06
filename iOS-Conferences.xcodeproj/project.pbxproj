@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C0F1A0032FC0000100A1B2C3 /* ConferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = C0F1A0022FC0000100A1B2C3 /* ConferenceKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		902BDE392FBB116B00E7C14E /* iOS-Conferences.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Conferences.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0F1A0032FC0000100A1B2C3 /* ConferenceKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = "iOS-Conferences";
 			packageProductDependencies = (
+				C0F1A0022FC0000100A1B2C3 /* ConferenceKit */,
 			);
 			productName = "iOS-Conferences";
 			productReference = 902BDE392FBB116B00E7C14E /* iOS-Conferences.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 902BDE302FBB116B00E7C14E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C0F1A0012FC0000100A1B2C3 /* XCLocalSwiftPackageReference "Packages/ConferenceKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 902BDE3A2FBB116B00E7C14E /* Products */;
 			projectDirPath = "";
@@ -352,6 +361,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		C0F1A0012FC0000100A1B2C3 /* XCLocalSwiftPackageReference "Packages/ConferenceKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/ConferenceKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0F1A0022FC0000100A1B2C3 /* ConferenceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ConferenceKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 902BDE312FBB116B00E7C14E /* Project object */;
 }
