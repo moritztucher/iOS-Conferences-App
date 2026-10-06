@@ -1,0 +1,353 @@
+{
+  "conferenceId": "swiftleeds-2026",
+  "timeZone": "Europe/London",
+  "updatedAt": "2026-10-06T11:55:13Z",
+  "rooms": [
+    {
+      "id": "the-playhouse",
+      "name": "The Playhouse"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "swiftleeds-2026-70b2079a-b8c3-41d1-94e3-d026ae9574fe",
+      "kind": "break",
+      "day": "2026-10-13",
+      "start": "08:30",
+      "end": "09:45",
+      "title": "Registration & Breakfast",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-4800a3da-bbdb-4b74-b052-b339d966d587",
+      "kind": "break",
+      "day": "2026-10-13",
+      "start": "09:45",
+      "end": "10:00",
+      "title": "Prepare for takeoff 🛫",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-1141351e-a251-4ecd-b9c6-16ee03233aad",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "10:00",
+      "end": "10:45",
+      "title": "Bringing back the love of Swift ❤️",
+      "speakers": [
+        "Antoine van der Lee"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-8f82db81-bddd-46ad-8f39-f72b61c2b469",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "10:45",
+      "end": "11:30",
+      "title": "Unleash the power of Swift Charts: learn how to create captivating and good looking graphs!",
+      "speakers": [
+        "Francesco Marini"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-efdccd60-c9d8-4c80-af85-d40238b55104",
+      "kind": "break",
+      "day": "2026-10-13",
+      "start": "11:30",
+      "end": "11:45",
+      "title": "Refreshment Break ☕️",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-ab464649-27c4-40c9-87a9-2e2f450c2cf8",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "11:45",
+      "end": "12:15",
+      "title": "CarPlay from Zero: Building Your First In Car Experience",
+      "speakers": [
+        "Eyad Kelleh",
+        "Maurice Pfurr"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-e28d0107-a65f-4585-90ab-c5509972d3d6",
+      "kind": "break",
+      "day": "2026-10-13",
+      "start": "12:15",
+      "end": "12:30",
+      "title": "Attendee Group Photo 📸",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-10236e43-b3bd-41fe-bc41-1bf125bc321c",
+      "kind": "break",
+      "day": "2026-10-13",
+      "start": "12:30",
+      "end": "13:30",
+      "title": "Lunch 🍕",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-8cac29db-f9fb-4d21-83b6-75ae49dfab8b",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "13:30",
+      "end": "14:15",
+      "title": "Vapor 5 is actually here",
+      "speakers": [
+        "Tim Condon"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-2810f74b-da6a-4f47-851b-9416db54edc5",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "14:15",
+      "end": "15:00",
+      "title": "Delightful Text-Driven Experiences with SwiftUI's TextRenderer",
+      "speakers": [
+        "Eli Perkins"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-e3850ad0-4ad2-426e-aca0-89c88968c59d",
+      "kind": "break",
+      "day": "2026-10-13",
+      "start": "15:00",
+      "end": "15:15",
+      "title": "Refreshment Break ☕️",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-f556502c-d295-48f7-bdb0-c1f6f7e6f576",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "15:30",
+      "end": "16:15",
+      "title": "Beyond Boilerplate: Building Production-Ready Swift Macros",
+      "speakers": [
+        "Kevin Morales"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-ab404652-2fb7-48a1-836d-cbc897f28186",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "16:15",
+      "end": "16:45",
+      "title": "Who Let the App Intents Out? 🐾",
+      "speakers": [
+        "Claire Sivadier"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-f5989eaa-7416-4cca-9130-ad03fa909758",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "16:45",
+      "end": "17:30",
+      "title": "From Code to Outcomes: Building with User Impact in Mind",
+      "speakers": [
+        "Natalija Marcinska"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-477fb3ea-7174-48ea-9463-27759dd3b216",
+      "kind": "social",
+      "day": "2026-10-13",
+      "start": "17:30",
+      "end": "21:30",
+      "title": "After Party 🥂",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-7126d35f-50ae-473a-8fee-30edc3857a64",
+      "kind": "break",
+      "day": "2026-10-14",
+      "start": "08:30",
+      "end": "09:45",
+      "title": "Registration & Breakfast",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-a921b182-74b9-4c87-948d-8e1bd37ecea7",
+      "kind": "break",
+      "day": "2026-10-14",
+      "start": "09:45",
+      "end": "10:00",
+      "title": "Prepare for takeoff 🛫",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-c7eb9449-8117-4fd7-86cd-c05461865616",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "10:00",
+      "end": "10:45",
+      "title": "Building with iOS Screen Time APIs: The Talk I Wish I'd Had",
+      "speakers": [
+        "Nikki Eke"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-4cc002b8-b0bd-4023-85d2-f468ecbf737a",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "10:45",
+      "end": "11:15",
+      "title": "Why Does Our Swift Code Work? Understanding Swift Through Platforms, Runtime, and the Compiler",
+      "speakers": [
+        "Yuki Aki"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-c53ad168-86f7-4e43-8226-c36a0a8c13c5",
+      "kind": "break",
+      "day": "2026-10-14",
+      "start": "11:15",
+      "end": "11:30",
+      "title": "Refreshment Break ☕️",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-42e8f05e-b26a-4ee4-bea3-1abcb2c05f6c",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "11:30",
+      "end": "12:15",
+      "title": "Getting physical: Using Swift for 3D printing",
+      "speakers": [
+        "Eric Bariaux"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-ec18fc27-a3c6-4101-ab08-8e30e3320303",
+      "kind": "break",
+      "day": "2026-10-14",
+      "start": "12:15",
+      "end": "13:15",
+      "title": "Lunch 🍕",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-3a057a5b-2853-4030-812d-866b4519d62d",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "13:30",
+      "end": "14:15",
+      "title": "CloudKit Public Database as a Backend",
+      "speakers": [
+        "Danijela Vrzan"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-ed832a13-bf13-4be7-b9f6-1f1d783dabb1",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "14:15",
+      "end": "14:45",
+      "title": "Swift Meets Kotlin: Lessons in Building Cross-Platform Architecture",
+      "speakers": [
+        "Yeskendir Salgara"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-a60c3a4b-8fe1-4a62-9267-c2e63f5a3090",
+      "kind": "break",
+      "day": "2026-10-14",
+      "start": "14:45",
+      "end": "15:00",
+      "title": "Refreshment Break ☕️",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-ec3ffb61-1e8e-403f-9c34-a61dfbdf5f74",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "15:15",
+      "end": "15:30",
+      "title": "Manipulating Pixels with Metal Shaders",
+      "speakers": [
+        "Letizia Granata"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-b2bb232f-54cd-45de-ad95-9734c0e1bc04",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "15:30",
+      "end": "16:00",
+      "title": "Peer-to-Peer Sync: Building Offline-First Apps That Talk to Each Other",
+      "speakers": [
+        "Pulkit Midha"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-954cb852-6f5f-43aa-bd83-7541c863044c",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "16:00",
+      "end": "16:15",
+      "title": "Using OpenTelemetry in Swift Apps",
+      "speakers": [
+        "Daniel Jilg"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-acee5dd4-b2ae-4378-9106-7f9d3ebdc882",
+      "kind": "break",
+      "day": "2026-10-14",
+      "start": "16:15",
+      "end": "16:45",
+      "title": "This will test your concentration levels 👀",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-55939149-b67f-4eab-899a-e34bfa21ed00",
+      "kind": "talk",
+      "day": "2026-10-14",
+      "start": "16:45",
+      "end": "17:15",
+      "title": "Building an Audience for Your Apps",
+      "speakers": [
+        "Joe Allen"
+      ],
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-130e5b37-fc4b-465e-b05a-d6e43ca49dbb",
+      "kind": "break",
+      "day": "2026-10-14",
+      "start": "17:15",
+      "end": "17:30",
+      "title": "Final Approach 🛬",
+      "roomId": "the-playhouse"
+    },
+    {
+      "id": "swiftleeds-2026-cdb97741-51fe-4176-b652-b62d7bb984ea",
+      "kind": "social",
+      "day": "2026-10-14",
+      "start": "17:30",
+      "end": "21:30",
+      "title": "After Party 🥂",
+      "roomId": "the-playhouse"
+    }
+  ]
+}

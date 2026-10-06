@@ -117,7 +117,7 @@ Minimal:  countdown (to the end of the current talk or the start of the next one
 | Surface | Change |
 |---|---|
 | Detail toolbar | New **Attending** toggle using `ticket` / `ticket.fill`, which matches the ticket identity. It sits next to the heart and springs the same way. Marking Attending also favourites the conference; un-attending leaves the favourite alone |
-| Detail form | New **Schedule** section (only when `hasSchedule`): "Up next" preview of 2–3 sessions, then a "Full schedule" row that pushes `Route.conferenceSchedule(conferenceID:)` |
+| Detail cards | New **Schedule** `GlassSectionCard` (only when `hasSchedule`): "Up next" preview of 2–3 sessions, then a "Full schedule" row that pushes `Route.conferenceSchedule(conferenceID:)` |
 | `ConferenceScheduleView` (new) | Stock `Picker(.segmented)` for the day. "All / My agenda" filter (attending + multi-track only). `List` grouped by time slot. Rows show kind symbol, title, speakers, room, and a heart button (multi-track only). Overlapping favourites get a conflict badge. During the event there's a "Now" marker and it scrolls to now. If the device time zone differs from the venue, times are shown in venue time with the zone abbreviation |
 | Conference card | "ATTENDING" stamp on the ticket stub (extends `ConferenceCard`) |
 | Favourites tab | An **Attending** section above the favourites |
@@ -130,7 +130,7 @@ All of this is stock `List`/`Form`/`Picker`, with glass only on toolbar and floa
 
 | # | Scope | Notes |
 |---|---|---|
-| 0 | ADR-0009, feed schema, `CONTRIBUTING.md` section, schema validator, `scripts/import-sessionize.*` (+ Pretalx), seed 2 real conferences (1 single-track, 1 multi-track) | No app code yet |
+| 0 ✅ | ADR-0009, feed schema, `CONTRIBUTING.md` section, `scripts/validate_schedules.py`, `scripts/import_schedule.py` (Sessionize, Pretalx, SwiftLeeds), seeded `swiftcon-berlin-2026` (3 tracks, Sessionize umbrella event filtered with `--room`) and `swiftleeds-2026` (single track) | Done 2026-10-06. No app code |
 | 1 | `AttendingConference`, toolbar toggle, card stamp, Favourites section | Ships on its own |
 | 2 | `ConferenceSchedule` / `FavouriteTalk` models, `ScheduleService`, `AgendaResolver` + XCTest matrix | Logic first, tests gate it |
 | 3 | Schedule section + `ConferenceScheduleView`, talk hearts, conflict badge, Now marker | UI-first inside the phase |
