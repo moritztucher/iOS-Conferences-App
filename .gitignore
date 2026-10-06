@@ -64,3 +64,6 @@ Icon?
 
 # Design-audit scratch (screenshots from /ios-design-audit & /ios-design-elevate)
 .design/
+
+# Python
+__pycache__/
