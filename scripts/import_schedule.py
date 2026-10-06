@@ -9,7 +9,8 @@ Standard library only. Review the output — the `kind` mapping is a heuristic.
     python3 scripts/import_schedule.py sessionize <event-id> --conference swiftleeds-2026 \\
         --time-zone Europe/London
     python3 scripts/import_schedule.py sessionize yak5yl8m --conference swiftcon-berlin-2026 \\
-        --time-zone Europe/Berlin --room "swiftCon 1" --room "swiftCon 2" --room "swiftCon 3" --room Schedule
+        --time-zone Europe/Berlin --room "swiftCon 1" --room "swiftCon 2" --room "swiftCon 3" --room Schedule \\
+        --session 1348320
     python3 scripts/import_schedule.py swiftleeds - --conference swiftleeds-2026
     python3 scripts/import_schedule.py pretalx https://pretalx.com/<event>/schedule/export/schedule.json \\
         --conference nsspain-2026
@@ -47,7 +48,11 @@ def slugify(value):
 
 
 def session_kind(title, labels, is_break):
-    """Heuristic mapping onto keynote | talk | workshop | break | social."""
+    """Heuristic mapping onto keynote | talk | workshop | break | social.
+
+    Breaks come only from the provider's own flag (Sessionize service sessions, SwiftLeeds
+    activities), never from title words: "When Emojis Break" is a talk.
+    """
     if is_break:
         return "break"
     text = " ".join([title, *labels]).lower()
@@ -57,8 +62,6 @@ def session_kind(title, labels, is_break):
         return "keynote"
     if any(word in text for word in ("party", "dinner", "drinks", "social", "reception")):
         return "social"
-    if any(word in text for word in ("lunch", "coffee", "break", "registration", "doors open")):
-        return "break"
     return "talk"
 
 
@@ -82,24 +85,41 @@ def make_session(conference_id, provider_id, kind, start, end, title, speakers, 
 
 # MARK: - Sessionize (https://sessionize.com/api/v2/<event-id>/view/All)
 
-def from_sessionize(event_id, conference_id, zone_name, room_filter):
+def from_sessionize(event_id, conference_id, zone_name, room_filter, category_filter, session_filter):
     data = fetch_json(f"https://sessionize.com/api/v2/{event_id}/view/All")
     speakers = {s["id"]: s["fullName"] for s in data.get("speakers", [])}
-    rooms = sorted(data.get("rooms", []), key=lambda r: r.get("sort", 0))
-    if room_filter:
-        # Shared Sessionize events (e.g. a multi-conference umbrella) carry other conferences' rooms.
-        rooms = [r for r in rooms if r["name"] in room_filter]
-    room_ids = {r["id"]: slugify(r["name"]) for r in rooms}
+    all_rooms = sorted(data.get("rooms", []), key=lambda r: r.get("sort", 0))
     categories = {
         item["id"]: item["name"]
         for category in data.get("categories", [])
         for item in category.get("items", [])
     }
 
+    # Shared Sessionize events (e.g. a multi-conference umbrella) carry other conferences'
+    # sessions. Keep a session if its room is in --room, it's tagged with a --category, or
+    # its id is in --session (for one-offs in shared rooms, e.g. a community meetup).
+    def is_kept(raw):
+        if not room_filter and not category_filter and not session_filter:
+            return True
+        if str(raw["id"]) in session_filter:
+            return True
+        room_name = next((r["name"] for r in all_rooms if r["id"] == raw.get("roomId")), None)
+        labels = {categories.get(item_id) for item_id in raw.get("categoryItems", [])}
+        return room_name in room_filter or bool(labels & category_filter)
+
+    kept_room_ids = {raw.get("roomId") for raw in data.get("sessions", []) if is_kept(raw)}
+    # --room rooms lead, in the order given; rooms only reached via --category/--session follow.
+    room_rank = {name: index for index, name in enumerate(room_filter)}
+    rooms = sorted(
+        (r for r in all_rooms if r["id"] in kept_room_ids),
+        key=lambda r: room_rank.get(r["name"], len(room_rank)),
+    )
+    room_ids = {r["id"]: slugify(r["name"]) for r in rooms}
+
     sessions = []
     for raw in data.get("sessions", []):
-        if not raw.get("startsAt") or not raw.get("endsAt") or raw.get("roomId") not in room_ids:
-            continue  # Not yet scheduled, or in a room outside --room.
+        if not raw.get("startsAt") or not raw.get("endsAt") or not is_kept(raw):
+            continue  # Not yet scheduled, or outside --room / --category.
         # Sessionize times are already event-local wall-clock, without an offset.
         start = datetime.fromisoformat(raw["startsAt"])
         end = datetime.fromisoformat(raw["endsAt"])
@@ -187,13 +207,19 @@ def main():
     parser.add_argument("event", help="Sessionize event id, Pretalx schedule.json export URL, or - for swiftleeds")
     parser.add_argument("--conference", required=True, help="Conference id from data/conferences.json")
     parser.add_argument("--time-zone", help="Venue IANA zone (required for Sessionize)")
-    parser.add_argument("--room", action="append", default=[], help="Sessionize: keep only this room (repeatable)")
+    parser.add_argument("--room", action="append", default=[], help="Sessionize: keep this room (repeatable)")
+    parser.add_argument("--category", action="append", default=[],
+                        help="Sessionize: also keep sessions tagged with this category, in any room (repeatable)")
+    parser.add_argument("--session", action="append", default=[],
+                        help="Sessionize: also keep this session id, in any room (repeatable)")
     args = parser.parse_args()
 
     if args.source == "sessionize":
         if not args.time_zone:
             parser.error("--time-zone is required for Sessionize")
-        zone_name, rooms, sessions = from_sessionize(args.event, args.conference, args.time_zone, set(args.room))
+        zone_name, rooms, sessions = from_sessionize(
+            args.event, args.conference, args.time_zone, list(dict.fromkeys(args.room)), set(args.category), set(args.session)
+        )
     elif args.source == "swiftleeds":
         zone_name, rooms, sessions = from_swiftleeds(args.conference, args.time_zone)
     else:

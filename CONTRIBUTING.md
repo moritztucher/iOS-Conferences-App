@@ -126,6 +126,13 @@ python3 scripts/import_schedule.py sessionize <event-id> --conference swiftleeds
 python3 scripts/import_schedule.py pretalx https://pretalx.com/<event>/schedule/export/schedule.json --conference <id>
 ```
 
+If the Sessionize event is shared with other conferences (an umbrella event), keep only yours with `--room "<room name>"`. You can also add `--category "<category>"` (everything tagged with it, in any room) or `--session <id>` (a single session in a shared room). All three are repeatable. For example, SwiftCon Berlin is part of next.app devCon, and its community meetup is in the shared "Community Meetups" room:
+
+```bash
+python3 scripts/import_schedule.py sessionize yak5yl8m --conference swiftcon-berlin-2026 --time-zone Europe/Berlin \
+  --room "swiftCon 1" --room "swiftCon 2" --room "swiftCon 3" --room Schedule --session 1348320
+```
+
 Re-run the same command when the organiser changes the schedule. Session ids come from the provider's ids, so they stay stable. Review the generated `kind` values, because they're a best guess from titles and categories.
 
 ### Schema

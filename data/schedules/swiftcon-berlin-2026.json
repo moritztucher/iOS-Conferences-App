@@ -1,7 +1,7 @@
 {
   "conferenceId": "swiftcon-berlin-2026",
   "timeZone": "Europe/Berlin",
-  "updatedAt": "2026-10-06T11:55:22Z",
+  "updatedAt": "2026-10-06T13:09:00Z",
   "rooms": [
     {
       "id": "swiftcon-1",
@@ -14,6 +14,10 @@
     {
       "id": "swiftcon-3",
       "name": "swiftCon 3"
+    },
+    {
+      "id": "community-meetups",
+      "name": "Community Meetups"
     }
   ],
   "sessions": [
@@ -46,6 +50,18 @@
       "title": "Break"
     },
     {
+      "id": "swiftcon-berlin-2026-1203858",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "10:20",
+      "end": "11:00",
+      "title": "Swift Export: Where We Stand",
+      "speakers": [
+        "Pamela Hill-Galloway"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
       "id": "swiftcon-berlin-2026-1273574",
       "kind": "talk",
       "day": "2026-10-07",
@@ -56,18 +72,6 @@
         "Leonid Humeniuk"
       ],
       "roomId": "swiftcon-2"
-    },
-    {
-      "id": "swiftcon-berlin-2026-1203858",
-      "kind": "talk",
-      "day": "2026-10-07",
-      "start": "10:20",
-      "end": "11:00",
-      "title": "Swift Export: Where We Stand",
-      "speakers": [
-        "Pamela Hill-Galloway"
-      ],
-      "roomId": "swiftcon-3"
     },
     {
       "id": "swiftcon-berlin-2026-23da7437-073c-455e-81df-ef98f2369d80",
@@ -577,6 +581,15 @@
       "title": "Break"
     },
     {
+      "id": "swiftcon-berlin-2026-1348320",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "16:10",
+      "end": "16:45",
+      "title": "swiftCon Community Meetup",
+      "roomId": "community-meetups"
+    },
+    {
       "id": "swiftcon-berlin-2026-1280906",
       "kind": "talk",
       "day": "2026-10-08",
@@ -706,7 +719,7 @@
       "speakers": [
         "Phil Zakharchenko"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-1"
     },
     {
       "id": "swiftcon-berlin-2026-c60a077d-a368-442e-8b6a-8a0fde4d992b",
@@ -870,6 +883,18 @@
       "title": "Break"
     },
     {
+      "id": "swiftcon-berlin-2026-1261283",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Bazel for iOS at Scale: Lessons from a Real Enterprise Migration with over 300 modules",
+      "speakers": [
+        "Saeid Rezaeisadrabadi"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
       "id": "swiftcon-berlin-2026-1273514",
       "kind": "talk",
       "day": "2026-10-09",
@@ -880,18 +905,6 @@
         "Nicola Giancecchi"
       ],
       "roomId": "swiftcon-2"
-    },
-    {
-      "id": "swiftcon-berlin-2026-1261283",
-      "kind": "talk",
-      "day": "2026-10-09",
-      "start": "16:30",
-      "end": "17:10",
-      "title": "Bazel for iOS at Scale: Lessons from a Real Enterprise Migration with over 300 modules",
-      "speakers": [
-        "Saeid Rezaeisadrabadi"
-      ],
-      "roomId": "swiftcon-3"
     }
   ]
 }
