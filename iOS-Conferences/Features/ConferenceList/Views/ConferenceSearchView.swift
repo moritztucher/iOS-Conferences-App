@@ -91,6 +91,16 @@ struct ConferenceSearchView: View {
                     description: Text("This conference is no longer in the feed.")
                 )
             }
+        case .conferenceSchedule(let id):
+            if let conference = conferences.first(where: { $0.id == id }) {
+                ConferenceScheduleView(conference: conference)
+            } else {
+                ContentUnavailableView(
+                    "Not Found",
+                    systemImage: "questionmark.circle",
+                    description: Text("This conference is no longer in the feed.")
+                )
+            }
         }
     }
 }

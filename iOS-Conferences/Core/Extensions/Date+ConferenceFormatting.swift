@@ -85,6 +85,43 @@ enum ConferenceDateStyle {
         return "\(timeLabel(minutes: start)) – \(timeLabel(minutes: end))"
     }
 
+    // MARK: - Talk schedules (ADR-0009)
+    // Session times are shown in the venue's zone, as the organiser published them,
+    // whatever zone the device is in.
+
+    /// Locale-aware short time in the venue zone, e.g. "09:30" / "9:30 AM".
+    static func sessionTime(_ date: Date, in timeZone: TimeZone) -> String {
+        var style = Date.FormatStyle(date: .omitted, time: .shortened)
+        style.timeZone = timeZone
+        return date.formatted(style)
+    }
+
+    /// e.g. "09:30 – 10:10".
+    static func sessionTimeRange(_ start: Date, _ end: Date, in timeZone: TimeZone) -> String {
+        "\(sessionTime(start, in: timeZone)) – \(sessionTime(end, in: timeZone))"
+    }
+
+    /// Short day for the schedule's day picker, e.g. "Tue 13".
+    static func scheduleDay(_ date: Date, in timeZone: TimeZone) -> String {
+        var style = Date.FormatStyle().weekday(.abbreviated).day()
+        style.timeZone = timeZone
+        return date.formatted(style)
+    }
+
+    /// Full day for VoiceOver and headers, e.g. "Tuesday, October 13".
+    static func scheduleDayLong(_ date: Date, in timeZone: TimeZone) -> String {
+        var style = Date.FormatStyle().weekday(.wide).month(.wide).day()
+        style.timeZone = timeZone
+        return date.formatted(style)
+    }
+
+    /// The venue zone's abbreviation (e.g. "BST"), but only when it differs from the
+    /// device's at that moment. `nil` means local times and venue times match.
+    static func venueZoneNote(_ timeZone: TimeZone, at date: Date) -> String? {
+        guard timeZone.secondsFromGMT(for: date) != TimeZone.current.secondsFromGMT(for: date) else { return nil }
+        return timeZone.abbreviation(for: date) ?? timeZone.identifier
+    }
+
     static func stub(from start: Date, to end: Date) -> StubDate {
         let cal = Calendar.current
         let month = start.formatted(.dateTime.month(.abbreviated)).uppercased()

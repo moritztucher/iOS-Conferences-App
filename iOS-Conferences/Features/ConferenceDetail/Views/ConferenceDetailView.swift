@@ -115,6 +115,9 @@ struct ConferenceDetailView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                if viewModel.conference.hasSchedule {
+                    ScheduleUpNextCard(conference: viewModel.conference)
+                }
                 GlassSectionCard(title: "When & Where") {
                     whenAndWhereContent
                 }

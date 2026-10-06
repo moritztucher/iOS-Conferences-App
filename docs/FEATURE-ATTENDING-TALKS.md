@@ -133,7 +133,7 @@ All of this is stock `List`/`Form`/`Picker`, with glass only on toolbar and floa
 | 0 ✅ | ADR-0009, feed schema, `CONTRIBUTING.md` section, `scripts/validate_schedules.py`, `scripts/import_schedule.py` (Sessionize, Pretalx, SwiftLeeds), seeded `swiftcon-berlin-2026` (3 tracks, Sessionize umbrella event filtered with `--room`) and `swiftleeds-2026` (single track) | Done 2026-10-06. No app code |
 | 1 ✅ | `AttendingConference`, toolbar toggle, card stamp ("GOING"), pinned "ATTENDING" section on Favourites | Done 2026-10-06 |
 | 2 ✅ | `ConferenceSchedule` / `FavouriteTalk` models, `ScheduleService`, `AgendaResolver` + XCTest matrix, all in the local `Packages/ConferenceKit` package (`swift test`) | Done 2026-10-06. 25 tests |
-| 3 | Schedule section + `ConferenceScheduleView`, talk hearts, conflict badge, Now marker | UI-first inside the phase |
+| 3 ✅ | `ScheduleUpNextCard` + `ConferenceScheduleView`, talk hearts, clash flags, "My Agenda" filter, NOW marker, app XCTest target, simulator reads repo `data/` | Done 2026-10-06. Hearts work without attending (agenda/Live Activity still need it) |
 | 4 | Widget extension target, shared `ConferenceDayAttributes`, Lock Screen + all Dynamic Island regions, `LiveActivityManager`, `NSSupportsLiveActivities`, BG refresh task, Settings toggle | Run the scheduled-start spike first (see risks) |
 | 5 | `/ios-design-audit`, VoiceOver pass, `VIEW-INVENTORY.md`, `ARCHITECTURE.md`, App Store screenshot of the Live Activity | |
 

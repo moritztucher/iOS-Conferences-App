@@ -65,15 +65,32 @@ public enum AgendaResolver {
         var agenda: [AgendaItem] = []
         for session in candidates {
             if let last = agenda.last, session.startsAt < last.endsAt { continue }
-            agenda.append(AgendaItem(
-                id: session.id,
-                title: session.title,
-                roomName: schedule.room(withID: session.roomID)?.name,
-                startsAt: session.startsAt,
-                endsAt: session.endsAt
-            ))
+            agenda.append(item(for: session, in: schedule))
         }
         return agenda
+    }
+
+    /// The "Up next" preview: running and upcoming items, at most `limit` of them.
+    ///
+    /// When the user is attending, pass their `agenda(for:favouriteTalkIDs:)`. Otherwise pass
+    /// `allTalks(in:)`, which keeps parallel talks side by side.
+    public static func upcoming(_ items: [AgendaItem], at now: Date, limit: Int) -> [AgendaItem] {
+        Array(items.filter { $0.endsAt > now }.prefix(limit))
+    }
+
+    /// Every keynote, talk and workshop as agenda items, overlaps included.
+    public static func allTalks(in schedule: Schedule) -> [AgendaItem] {
+        schedule.sessions.filter(\.kind.isAgendaKind).map { item(for: $0, in: schedule) }
+    }
+
+    private static func item(for session: ScheduleSession, in schedule: Schedule) -> AgendaItem {
+        AgendaItem(
+            id: session.id,
+            title: session.title,
+            roomName: schedule.room(withID: session.roomID)?.name,
+            startsAt: session.startsAt,
+            endsAt: session.endsAt
+        )
     }
 
     /// Session IDs among `favouriteTalkIDs` that overlap another favourite. The schedule

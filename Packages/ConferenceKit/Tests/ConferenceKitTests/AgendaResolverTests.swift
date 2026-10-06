@@ -130,6 +130,31 @@ final class AgendaResolverTests: XCTestCase {
         XCTAssertTrue(sut.isEmpty)
     }
 
+    // MARK: - upcoming(_:at:limit:) / allTalks(in:)
+
+    func test_upcoming_includesRunningItemAndRespectsLimit() {
+        let items = AgendaResolver.allTalks(in: singleTrack)
+
+        let sut = AgendaResolver.upcoming(items, at: at(20), limit: 2)
+
+        XCTAssertEqual(sut.map(\.id), ["talk1", "talk2"])
+    }
+
+    func test_upcoming_afterEverything_isEmpty() {
+        let items = AgendaResolver.allTalks(in: singleTrack)
+
+        let sut = AgendaResolver.upcoming(items, at: at(500), limit: 3)
+
+        XCTAssertTrue(sut.isEmpty)
+    }
+
+    func test_allTalks_keepsParallelSessionsAndDropsBreaks() {
+        let sut = AgendaResolver.allTalks(in: multiTrack)
+
+        XCTAssertEqual(sut.map(\.id), ["a1", "b1", "a2", "b2", "a3"])
+        XCTAssertFalse(AgendaResolver.allTalks(in: singleTrack).contains { $0.id == "coffee" })
+    }
+
     // MARK: - snapshot(of:at:)
 
     func test_snapshot_beforeFirstTalk_headlinesFirstTalk() {
