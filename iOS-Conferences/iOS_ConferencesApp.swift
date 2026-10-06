@@ -19,7 +19,7 @@ struct iOS_ConferencesApp: App {
                 .tint(Theme.accent)
                 .preferredColorScheme(colorScheme)
         }
-        .modelContainer(for: [Conference.self, FavouriteConference.self, UnlockedIcon.self]) { result in
+        .modelContainer(for: [Conference.self, FavouriteConference.self, AttendingConference.self, UnlockedIcon.self]) { result in
             if case .success(let container) = result {
                 Task { @MainActor in
                     // First-launch instant seed from the bundled list — offline-safe,

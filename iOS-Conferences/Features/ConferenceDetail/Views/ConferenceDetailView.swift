@@ -7,6 +7,7 @@ struct ConferenceDetailView: View {
     @Environment(CalendarService.self) private var calendarService
     @Environment(AchievementService.self) private var achievements
     @Query private var favourites: [FavouriteConference]
+    @Query private var attending: [AttendingConference]
 
     @State private var viewModel: ConferenceDetailViewModel
     /// The conference name lives in the hero title block; it only appears in the navigation
@@ -19,6 +20,10 @@ struct ConferenceDetailView: View {
 
     private var isFavourite: Bool {
         viewModel.isFavourite(in: favourites)
+    }
+
+    private var isAttending: Bool {
+        viewModel.isAttending(in: attending)
     }
 
     var body: some View {
@@ -50,6 +55,9 @@ struct ConferenceDetailView: View {
         .toolbar { toolbarContent }
         .sensoryFeedback(trigger: isFavourite) { _, isNowFavourite in
             isNowFavourite ? .success : .impact(weight: .light)
+        }
+        .sensoryFeedback(trigger: isAttending) { _, isNowAttending in
+            isNowAttending ? .success : .impact(weight: .light)
         }
         .sensoryFeedback(trigger: viewModel.isShowingEventEditor) { _, isPresented in
             isPresented ? .impact(weight: .medium) : nil
@@ -289,6 +297,17 @@ struct ConferenceDetailView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                viewModel.toggleAttending(in: attending, favourites: favourites, context: modelContext)
+                achievements.reevaluateFavourites()
+            } label: {
+                Image(systemName: isAttending ? "ticket.fill" : "ticket")
+                    .symbolEffect(.bounce, value: isAttending)
+            }
+            .accessibilityLabel(isAttending ? "Not attending" : "I'm attending")
+            .accessibilityAddTraits(isAttending ? .isSelected : [])
+        }
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.toggleFavourite(in: favourites, context: modelContext)

@@ -9,6 +9,7 @@ import SwiftData
 struct ConferenceSearchView: View {
     @Query(sort: \Conference.startDate) private var conferences: [Conference]
     @Query private var favourites: [FavouriteConference]
+    @Query private var attending: [AttendingConference]
     @Environment(\.modelContext) private var modelContext
     @Environment(AchievementService.self) private var achievements
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
@@ -21,6 +22,10 @@ struct ConferenceSearchView: View {
         Set(favourites.map(\.conferenceID))
     }
 
+    private var attendingIDs: Set<String> {
+        Set(attending.map(\.conferenceID))
+    }
+
     private var trimmedQuery: String {
         viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -29,6 +34,7 @@ struct ConferenceSearchView: View {
         viewModel.sections(
             from: conferences,
             favouriteIDs: favouriteIDs,
+            attendingIDs: attendingIDs,
             showPast: showPastConferences
         )
     }
@@ -61,6 +67,7 @@ struct ConferenceSearchView: View {
             ConferenceSectionList(
                 sections: sections,
                 favouriteIDs: favouriteIDs,
+                attendingIDs: attendingIDs,
                 namespace: namespace,
                 onToggleFavourite: { conference in
                     viewModel.toggleFavourite(conference, in: favourites, context: modelContext)

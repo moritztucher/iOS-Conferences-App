@@ -4,6 +4,7 @@ import SwiftData
 struct ConferenceListView: View {
     @Query(sort: \Conference.startDate) private var conferences: [Conference]
     @Query private var favourites: [FavouriteConference]
+    @Query private var attending: [AttendingConference]
     @Environment(\.modelContext) private var modelContext
     @Environment(AchievementService.self) private var achievements
 
@@ -20,10 +21,15 @@ struct ConferenceListView: View {
         Set(favourites.map(\.conferenceID))
     }
 
+    private var attendingIDs: Set<String> {
+        Set(attending.map(\.conferenceID))
+    }
+
     private var sections: [ConferenceMonthSection] {
         viewModel.sections(
             from: conferences,
             favouriteIDs: favouriteIDs,
+            attendingIDs: attendingIDs,
             showPast: showPastConferences
         )
     }
@@ -55,6 +61,7 @@ struct ConferenceListView: View {
             ConferenceSectionList(
                 sections: sections,
                 favouriteIDs: favouriteIDs,
+                attendingIDs: attendingIDs,
                 namespace: namespace,
                 onToggleFavourite: { conference in
                     viewModel.toggleFavourite(conference, in: favourites, context: modelContext)
@@ -71,7 +78,7 @@ struct ConferenceListView: View {
                 ContentUnavailableView(
                     "No Favourites",
                     systemImage: "heart",
-                    description: Text("Heart any conference to hold your spot.")
+                    description: Text("Heart a conference to hold your spot, or mark one you're attending.")
                 )
             } else if isFiltering {
                 ContentUnavailableView(

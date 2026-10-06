@@ -131,7 +131,7 @@ All of this is stock `List`/`Form`/`Picker`, with glass only on toolbar and floa
 | # | Scope | Notes |
 |---|---|---|
 | 0 ✅ | ADR-0009, feed schema, `CONTRIBUTING.md` section, `scripts/validate_schedules.py`, `scripts/import_schedule.py` (Sessionize, Pretalx, SwiftLeeds), seeded `swiftcon-berlin-2026` (3 tracks, Sessionize umbrella event filtered with `--room`) and `swiftleeds-2026` (single track) | Done 2026-10-06. No app code |
-| 1 | `AttendingConference`, toolbar toggle, card stamp, Favourites section | Ships on its own |
+| 1 ✅ | `AttendingConference`, toolbar toggle, card stamp ("GOING"), pinned "ATTENDING" section on Favourites | Done 2026-10-06 |
 | 2 | `ConferenceSchedule` / `FavouriteTalk` models, `ScheduleService`, `AgendaResolver` + XCTest matrix | Logic first, tests gate it |
 | 3 | Schedule section + `ConferenceScheduleView`, talk hearts, conflict badge, Now marker | UI-first inside the phase |
 | 4 | Widget extension target, shared `ConferenceDayAttributes`, Lock Screen + all Dynamic Island regions, `LiveActivityManager`, `NSSupportsLiveActivities`, BG refresh task, Settings toggle | Run the scheduled-start spike first (see risks) |

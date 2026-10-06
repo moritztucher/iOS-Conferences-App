@@ -353,7 +353,7 @@ extension Conference {
 @MainActor
 enum PreviewContainer {
     static let shared: ModelContainer = {
-        let schema = Schema([Conference.self, FavouriteConference.self])
+        let schema = Schema([Conference.self, FavouriteConference.self, AttendingConference.self])
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         // swiftlint:disable:next force_try
         let container = try! ModelContainer(for: schema, configurations: [config])
@@ -363,6 +363,9 @@ enum PreviewContainer {
         }
         // Pre-favourite iOSDevUK so the Favourites tab has something in previews.
         context.insert(FavouriteConference(conferenceID: "iosdevuk-2026"))
+        // Attending SwiftLeeds pins it above the favourites and shows the stub stamp.
+        context.insert(FavouriteConference(conferenceID: "swiftleeds-2026"))
+        context.insert(AttendingConference(conferenceID: "swiftleeds-2026"))
         return container
     }()
 }
