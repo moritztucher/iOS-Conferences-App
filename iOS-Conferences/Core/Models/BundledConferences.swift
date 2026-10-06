@@ -272,7 +272,8 @@ extension Conference {
                 summary: "Community-run, non-profit Swift conference at Leeds Playhouse with talks, drop-in expert sessions and an evening talkshow.",
                 websiteURLString: "https://swiftleeds.co.uk",
                 logoURLString: "https://swiftleeds.co.uk/img/logo.png",
-                tags: ["swift", "ios", "community"]
+                tags: ["swift", "ios", "community"],
+                hasSchedule: true
             ),
             Conference(
                 id: "swift-connection-2026",
@@ -353,7 +354,10 @@ extension Conference {
 @MainActor
 enum PreviewContainer {
     static let shared: ModelContainer = {
-        let schema = Schema([Conference.self, FavouriteConference.self, AttendingConference.self])
+        let schema = Schema([
+            Conference.self, FavouriteConference.self, AttendingConference.self,
+            ConferenceSchedule.self, FavouriteTalk.self
+        ])
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         // swiftlint:disable:next force_try
         let container = try! ModelContainer(for: schema, configurations: [config])

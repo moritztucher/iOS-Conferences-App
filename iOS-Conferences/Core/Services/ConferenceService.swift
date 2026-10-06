@@ -32,6 +32,7 @@ extension ConferenceServiceProtocol {
                 target.websiteURLString = conference.websiteURLString
                 target.logoURLString = conference.logoURLString
                 target.tags = conference.tags
+                target.hasSchedule = conference.hasSchedule
             } else {
                 context.insert(conference)
             }
@@ -128,6 +129,7 @@ private struct ConferenceDTO: Decodable {
     let websiteURL: String
     let logoURL: String?
     let tags: [String]
+    let hasSchedule: Bool?
 
     /// Absent → `.conference` (pre-`kind` entries). Unrecognised → `.event`, the catch-all kind,
     /// so a bad value degrades one row instead of dropping the feed.
@@ -151,7 +153,8 @@ private struct ConferenceDTO: Decodable {
             summary: summary,
             websiteURLString: websiteURL,
             logoURLString: logoURL,
-            tags: tags
+            tags: tags,
+            hasSchedule: hasSchedule ?? false
         )
     }
 }

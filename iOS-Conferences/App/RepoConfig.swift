@@ -15,6 +15,15 @@ enum RepoConfig {
         URL(string: "https://raw.githubusercontent.com/\(owner)/\(repo)/\(dataBranch)/data/conferences.json")!
     }
 
+    /// Talk schedule for one conference (ADR-0009), served from the same CDN + fallback as the list.
+    static func scheduleJSONURL(conferenceID: String) -> URL {
+        URL(string: "https://cdn.jsdelivr.net/gh/\(owner)/\(repo)@\(dataBranch)/data/schedules/\(conferenceID).json")!
+    }
+
+    static func scheduleJSONFallbackURL(conferenceID: String) -> URL {
+        URL(string: "https://raw.githubusercontent.com/\(owner)/\(repo)/\(dataBranch)/data/schedules/\(conferenceID).json")!
+    }
+
     static var repoWebURL: URL {
         URL(string: "https://github.com/\(owner)/\(repo)")!
     }

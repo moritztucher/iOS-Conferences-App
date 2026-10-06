@@ -62,6 +62,9 @@ final class Conference {
     var websiteURLString: String
     var logoURLString: String?
     var tags: [String]
+    /// True when `data/schedules/<id>.json` exists (ADR-0009). Default keeps existing stored
+    /// rows valid after the field was added.
+    var hasSchedule: Bool = false
 
     init(
         id: String,
@@ -77,7 +80,8 @@ final class Conference {
         summary: String,
         websiteURLString: String,
         logoURLString: String? = nil,
-        tags: [String]
+        tags: [String],
+        hasSchedule: Bool = false
     ) {
         self.id = id
         self.kind = kind
@@ -93,6 +97,7 @@ final class Conference {
         self.websiteURLString = websiteURLString
         self.logoURLString = logoURLString
         self.tags = tags
+        self.hasSchedule = hasSchedule
     }
 }
 
