@@ -15,6 +15,20 @@ enum RepoConfig {
         URL(string: "https://raw.githubusercontent.com/\(owner)/\(repo)/\(dataBranch)/data/conferences.json")!
     }
 
+    #if DEBUG && targetEnvironment(simulator)
+    /// Simulator debug builds read `data/` straight from this checkout (the simulator shares
+    /// the Mac's file system), so local data edits and unpushed schedules show up without a
+    /// push. Services fall through to the CDN when the file isn't there.
+    static func localRepoDataFile(_ relativePath: String) -> URL {
+        URL(fileURLWithPath: #filePath)     // iOS-Conferences/App/RepoConfig.swift
+            .deletingLastPathComponent()    // App
+            .deletingLastPathComponent()    // iOS-Conferences (sources)
+            .deletingLastPathComponent()    // repo root
+            .appending(path: "data")
+            .appending(path: relativePath)
+    }
+    #endif
+
     /// Talk schedule for one conference (ADR-0009), served from the same CDN + fallback as the list.
     static func scheduleJSONURL(conferenceID: String) -> URL {
         URL(string: "https://cdn.jsdelivr.net/gh/\(owner)/\(repo)@\(dataBranch)/data/schedules/\(conferenceID).json")!

@@ -56,6 +56,11 @@ struct LiveScheduleService: ScheduleServiceProtocol {
         guard conferenceID.wholeMatch(of: /[a-z0-9]+(-[a-z0-9]+)*/) != nil else {
             throw ScheduleServiceError.invalidConferenceID(conferenceID)
         }
+        #if DEBUG && targetEnvironment(simulator)
+        if let data = try? Data(contentsOf: RepoConfig.localRepoDataFile("schedules/\(conferenceID).json")) {
+            return try ScheduleFeed.decode(data)
+        }
+        #endif
         if let data = try? await Self.load(RepoConfig.scheduleJSONURL(conferenceID: conferenceID)) {
             return try ScheduleFeed.decode(data)
         }

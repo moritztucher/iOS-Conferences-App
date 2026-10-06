@@ -58,6 +58,11 @@ enum ConferenceServiceFactory {
 @MainActor
 struct LiveConferenceService: ConferenceServiceProtocol {
     func fetchRemote() async throws -> [Conference] {
+        #if DEBUG && targetEnvironment(simulator)
+        if let data = try? Data(contentsOf: RepoConfig.localRepoDataFile("conferences.json")) {
+            return try Self.decode(data)
+        }
+        #endif
         let url = RepoConfig.conferencesJSONURL
         var request = URLRequest(url: url)
         request.cachePolicy = .reloadRevalidatingCacheData
