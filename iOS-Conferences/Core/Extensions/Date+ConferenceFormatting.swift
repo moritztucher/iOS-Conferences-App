@@ -1,3 +1,4 @@
+import ConferenceKit
 import Foundation
 
 enum ConferenceDateStyle {
@@ -91,9 +92,7 @@ enum ConferenceDateStyle {
 
     /// Locale-aware short time in the venue zone, e.g. "09:30" / "9:30 AM".
     static func sessionTime(_ date: Date, in timeZone: TimeZone) -> String {
-        var style = Date.FormatStyle(date: .omitted, time: .shortened)
-        style.timeZone = timeZone
-        return date.formatted(style)
+        ScheduleTimeFormat.time(date, in: timeZone)
     }
 
     /// e.g. "09:30 – 10:10".
