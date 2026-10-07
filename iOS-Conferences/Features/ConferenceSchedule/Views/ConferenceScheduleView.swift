@@ -18,6 +18,7 @@ struct ConferenceScheduleView: View {
 
     @State private var viewModel: ConferenceScheduleViewModel
     @State private var favouriteTrigger = 0
+    @State private var selectedSession: ScheduleSession?
 
     init(conference: Conference) {
         self.conference = conference
@@ -62,6 +63,11 @@ struct ConferenceScheduleView: View {
             if let schedule { viewModel.selectDefaultDayIfNeeded(in: schedule) }
         }
         .sensoryFeedback(.impact(weight: .light), trigger: favouriteTrigger)
+        .sheet(item: $selectedSession) { session in
+            if let schedule {
+                sessionSheet(session, in: schedule)
+            }
+        }
     }
 
     // MARK: - Content
@@ -145,13 +151,30 @@ struct ConferenceScheduleView: View {
             isFavourite: favouriteTalkIDs.contains(session.id),
             showsFavouriteButton: viewModel.canFavourite(session, in: schedule),
             hasConflict: conflicts.contains(session.id),
-            onToggleFavourite: {
-                viewModel.toggleFavourite(session, in: favouriteTalks, context: modelContext)
-                favouriteTrigger += 1
-                Task { await liveAgenda.sync() }
-            }
+            onToggleFavourite: { toggleFavourite(session) },
+            onShowDetails: session.kind == .break ? nil : { selectedSession = session }
         )
         .listRowBackground(Color.clear)
+    }
+
+    private func toggleFavourite(_ session: ScheduleSession) {
+        viewModel.toggleFavourite(session, in: favouriteTalks, context: modelContext)
+        favouriteTrigger += 1
+        Task { await liveAgenda.sync() }
+    }
+
+    private func sessionSheet(_ session: ScheduleSession, in schedule: Schedule) -> some View {
+        SessionDetailView(
+            session: session,
+            roomName: schedule.isSingleTrack ? nil : schedule.room(withID: session.roomID)?.name,
+            timeZone: schedule.timeZone,
+            conferenceName: conference.name,
+            isFavourite: favouriteTalkIDs.contains(session.id),
+            canFavourite: viewModel.canFavourite(session, in: schedule),
+            onToggleFavourite: { toggleFavourite(session) }
+        )
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
     }
 
     @ViewBuilder

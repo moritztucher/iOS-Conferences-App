@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Talk descriptions**: tap a talk in the schedule to open a sheet with its description, speakers, time and room, plus the heart and the organiser's session page when there is one. Descriptions come from the organiser's published feed and are credited (ADR-0009 amendment). SwiftCon Berlin and SwiftLeeds include them.
+
+### Fixed
+- **One Live Activity at a time**: overlapping syncs at launch could each start their own activity, stacking duplicates. Syncs now run one at a time, and only one activity is kept.
+
 ### Changed
 - **Attending & schedule polish** (ADR-0009, phase 5):
   - Accessibility: VoiceOver labels and actions are fixed, bounces respect reduce motion, and the Live Activity has a spoken summary.

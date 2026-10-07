@@ -58,6 +58,9 @@ public struct ScheduleSession: Codable, Hashable, Sendable, Identifiable {
     public let speakers: [String]
     public let roomID: String?
     public let url: URL?
+    /// The session description as the organiser publishes it in their schedule feed.
+    /// Optional, so schedules cached before the field existed still decode.
+    public let abstract: String?
     public let startsAt: Date
     public let endsAt: Date
 
@@ -68,6 +71,7 @@ public struct ScheduleSession: Codable, Hashable, Sendable, Identifiable {
         speakers: [String] = [],
         roomID: String? = nil,
         url: URL? = nil,
+        abstract: String? = nil,
         startsAt: Date,
         endsAt: Date
     ) {
@@ -77,6 +81,7 @@ public struct ScheduleSession: Codable, Hashable, Sendable, Identifiable {
         self.speakers = speakers
         self.roomID = roomID
         self.url = url
+        self.abstract = abstract
         self.startsAt = startsAt
         self.endsAt = endsAt
     }

@@ -82,6 +82,31 @@ final class ScheduleFeedTests: XCTestCase {
         XCTAssertNil(sut.sessions.first?.url)
     }
 
+    func test_decode_description_becomesAbstract() throws {
+        let data = feed(sessions: """
+        [{"id":"test-2026-1","kind":"talk","day":"2026-10-13","start":"09:00","end":"09:45","title":"T",
+          "description":"Line one.\\n\\nLine two."},
+         {"id":"test-2026-2","kind":"talk","day":"2026-10-13","start":"10:00","end":"10:45","title":"U","description":"   "}]
+        """)
+
+        let sut = try ScheduleFeed.decode(data)
+
+        XCTAssertEqual(sut.sessions.first?.abstract, "Line one.\n\nLine two.")
+        XCTAssertNil(sut.sessions.last?.abstract, "Blank descriptions read as none")
+    }
+
+    func test_cachedSchedule_withoutAbstractField_stillDecodes() throws {
+        // A Schedule encoded before `abstract` existed (the app's SwiftData cache).
+        let legacy = Data(#"""
+        {"conferenceID":"c","timeZoneIdentifier":"Europe/London","updatedAt":0,"rooms":[],
+         "sessions":[{"id":"c-1","kind":"talk","title":"T","speakers":[],"startsAt":0,"endsAt":60}]}
+        """#.utf8)
+
+        let sut = try JSONDecoder().decode(Schedule.self, from: legacy)
+
+        XCTAssertNil(sut.sessions.first?.abstract)
+    }
+
     func test_decode_sortsByStartThenRoomOrder() throws {
         let data = feed(rooms: #"[{"id":"a","name":"A"},{"id":"b","name":"B"}]"#, sessions: """
         [{"id":"test-2026-late","kind":"talk","day":"2026-10-13","start":"10:00","end":"10:45","title":"L","roomId":"a"},
