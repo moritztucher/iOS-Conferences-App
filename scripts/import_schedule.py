@@ -3,7 +3,8 @@
 
 Writes the normalised schema from CONTRIBUTING.md › "Talk schedules" (ADR-0009). Session ids
 are derived from the provider's ids, so re-running the import after the organiser edits
-their schedule keeps the ids (and users' talk favourites) stable. Abstracts are never copied.
+their schedule keeps the ids (and users' talk favourites) stable. Session descriptions are
+copied as the organiser publishes them through their feed (the app credits the source).
 Standard library only. Review the output — the `kind` mapping is a heuristic.
 
     python3 scripts/import_schedule.py sessionize <event-id> --conference swiftleeds-2026 \\
@@ -65,7 +66,17 @@ def session_kind(title, labels, is_break):
     return "talk"
 
 
-def make_session(conference_id, provider_id, kind, start, end, title, speakers, room_id, url):
+def clean_description(text):
+    """Organiser text as published, with line endings normalised and blank runs collapsed."""
+    if not text:
+        return None
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = "\n".join(line.rstrip() for line in text.split("\n"))
+    text = re.sub(r"\n{3,}", "\n\n", text).strip()
+    return text or None
+
+
+def make_session(conference_id, provider_id, kind, start, end, title, speakers, room_id, url, description=None):
     session = {
         "id": f"{conference_id}-{slugify(str(provider_id))}",
         "kind": kind,
@@ -80,6 +91,9 @@ def make_session(conference_id, provider_id, kind, start, end, title, speakers, 
         session["roomId"] = room_id
     if url and url.startswith("https://"):
         session["url"] = url
+    description = clean_description(description)
+    if description and kind != "break":
+        session["description"] = description
     return session
 
 
@@ -134,6 +148,7 @@ def from_sessionize(event_id, conference_id, zone_name, room_filter, category_fi
             [speakers[s] for s in raw.get("speakers", []) if s in speakers],
             room_ids.get(raw.get("roomId")),
             None,
+            raw.get("description"),
         ))
     room_list = [{"id": room_ids[r["id"]], "name": r["name"]} for r in rooms]
     return zone_name, room_list, sessions
@@ -156,12 +171,16 @@ def from_swiftleeds(conference_id, zone_name):
                 title = presentation["title"]
                 kind = session_kind(title, [], False)
                 speakers = [s["name"] for s in presentation.get("speakers", []) if s.get("name")]
+                description = presentation.get("synopsis")
             else:
                 title = slot["activity"]["title"]
                 kind = session_kind(title, [], False)
                 kind = "break" if kind == "talk" else kind  # Host intros, registration, etc.
                 speakers = []
-            sessions.append(make_session(conference_id, slot["id"], kind, start, end, title, speakers, room["id"], None))
+                description = None
+            sessions.append(make_session(
+                conference_id, slot["id"], kind, start, end, title, speakers, room["id"], None, description
+            ))
     return zone_name or "Europe/London", [room], sessions
 
 
@@ -194,6 +213,7 @@ def from_pretalx(export_url, conference_id, zone_name):
                     [p["public_name"] for p in talk.get("persons", []) if p.get("public_name")],
                     slugify(room_name),
                     talk.get("url"),
+                    talk.get("abstract") or talk.get("description"),
                 ))
     room_list = [{"id": slugify(name), "name": name} for name in room_names]
     return zone_name, room_list, sessions

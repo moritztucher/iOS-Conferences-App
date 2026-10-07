@@ -11,10 +11,14 @@ The app answers "which conferences are coming up". Users also want to know what 
 ## Decision
 
 1. **Attending is its own local flag** (`AttendingConference`, stored by ID only, like `FavouriteConference`). Marking a conference as Attending also favourites it.
-2. **Talk schedules are curated JSON in the repo**: one `data/schedules/<conference-id>.json` file per conference, in a single normalised schema. Times are venue-local wall-clock with a required IANA `timeZone` (as in ADR-0005). Importer scripts convert Sessionize/Pretalx exports into this schema. The app never calls a provider at runtime. Only factual fields are stored (title, speakers, room, time, link), with no abstracts.
+2. **Talk schedules are curated JSON in the repo**: one `data/schedules/<conference-id>.json` file per conference, in a single normalised schema. Times are venue-local wall-clock with a required IANA `timeZone` (as in ADR-0005). Importer scripts convert Sessionize/Pretalx exports into this schema. The app never calls a provider at runtime. Stored fields: title, speakers, room, time, link, and (amended 2026-10-07) the session description as the organiser publishes it in their feed.
 3. **Everyone can see schedules.** *Attending* unlocks the personal agenda and the Live Activity.
 4. **Agenda:** on a single-track conference every talk is on the agenda. On a multi-track conference only favourited talks are (`FavouriteTalk`, stored by stable talk ID). A slot with no favourited talk counts as free time.
 5. **The Live Activity is updated locally only.** It starts with iOS 26 scheduled start, and is updated on app foreground and by `BGAppRefreshTask`. Each update carries `staleDate` = the current slot's end, plus a one-step `next` lookahead that the view promotes to the title when `isStale` is true.
+
+### Amendment (2026-10-07): session descriptions
+
+Tapping a talk opens a sheet with its description. Descriptions are stored verbatim, but only when the organiser publishes them in a machine-readable schedule feed meant for agenda display (Sessionize, Pretalx, the conference's own API), imported with `scripts/import_schedule.py`. The sheet credits the organiser's schedule and links to the session page when the feed has one. Considered and rejected: a ~280-character excerpt plus a link (it loses the content people want while at the venue), and a link only (SwiftCon's and SwiftLeeds' feeds have no per-session pages). Conference `summary` stays paraphrased (CLAUDE.md).
 
 ## Alternatives considered
 

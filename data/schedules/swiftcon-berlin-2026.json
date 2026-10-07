@@ -1,7 +1,7 @@
 {
   "conferenceId": "swiftcon-berlin-2026",
   "timeZone": "Europe/Berlin",
-  "updatedAt": "2026-10-06T13:09:00Z",
+  "updatedAt": "2026-10-07T12:43:33Z",
   "rooms": [
     {
       "id": "swiftcon-1",
@@ -39,7 +39,8 @@
       "speakers": [
         "Phil Zakharchenko"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Like art, great products are made of lived human experience, strong opinions, and all the decisions along the way. AI tools are increasingly shaping the way we do design, engineering, testing, and everything in between. They can help accelerate many manual tasks. But what if you truly care about quality, user experience, and the art of storytelling in software?\n\nIn this talk, we will explore the novel challenges AI tools present for designing a quality app. We’ll discuss our evolving role as engineers and technical leaders, why craft still matters, and how we can prevent our ideas from turning into slop.\n\nWhether you are an engineer working on a Swift codebase, a product manager, or a technical leader, you will leave with practical techniques to help you focus on what really matters: delivering delightful apps and experiences to your users."
     },
     {
       "id": "swiftcon-berlin-2026-511634ef-cc6f-42a6-9054-d3355bfb8606",
@@ -59,7 +60,8 @@
       "speakers": [
         "Pamela Hill-Galloway"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Swift Export, the much-anticipated project from the JetBrains team, has been in progress for some time and is currently in the Experimental state. The project’s goal is to make calling shared Kotlin code from Swift more intuitive and idiomatic for Swift developers (and dare I say, even fun?).\n\nIn this talk, we will see exactly what the current state of Swift Export is, with some live coding demonstrating how to go from the old “Objective-C bridge” way to the new “Swift Export” way. We will discuss the currently supported features and any subtleties we encountered while mapping Kotlin to Swift. We will also discuss what still needs further work and refinement, and how the community can get involved.\n\nBy the end of the session, you’ll be able to assess for yourself whether Swift Export is ready to adopt for your team and use case, based on some guidelines from the Swift Export team. More idiomatic Swift, happier team!"
     },
     {
       "id": "swiftcon-berlin-2026-1273574",
@@ -71,7 +73,8 @@
       "speakers": [
         "Leonid Humeniuk"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Slow builds impact more than developer experience—they reduce productivity, slow feedback cycles, and increase CI infrastructure costs. As iOS codebases grow, even small increases in compile time can result in thousands of lost engineering hours.\n\nThe most expensive build-time bottlenecks are often the least obvious. Many originate from Swift compiler behavior, language features, and everyday coding patterns rather than the build system alone.\n\nThis session demonstrates how to measure and analyze iOS build performance using Xcode, compiler diagnostics, and build analysis tools. Through real-world examples, we'll uncover hidden compiler costs, explore practical optimization techniques, and discuss how AI can help engineers interpret build data, identify bottlenecks, and accelerate performance investigations."
     },
     {
       "id": "swiftcon-berlin-2026-23da7437-073c-455e-81df-ef98f2369d80",
@@ -91,7 +94,8 @@
       "speakers": [
         "Ipek Erten"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Creative coding has always lived at the intersection of art, design, and technology. But within the Swift community, it's still an emerging practice.\nThis talk is about how creative coding can feel less like learning a tool and more like a way of expressing yourself. I'll share my journey of discovering creative coding through SwiftUI, and how that exploration led to building a node-based app for creating generative visuals with Swift and SwiftUI.\nWe'll look at what creative coding actually is, how it works in practice with Swift, and how an app grew out of asking one simple question: what if Swift could be your creative tool?"
     },
     {
       "id": "swiftcon-berlin-2026-1259872",
@@ -103,7 +107,8 @@
       "speakers": [
         "Jan Rabe"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "App size is one of the few product metrics that directly affects App Store conversion, yet most iOS teams can only see it as a single opaque number.\n\nIn this talk, I’ll show how we made app size understandable and actionable in a large-scale iOS codebase.\n\nWe built Caliper, an open-source Swift CLI tool that analyzes IPA files, LinkMap output, and asset catalogs to break app size down into modules, dependencies, and resources. It turns build artifacts into structured reports that make growth visible and attributable.\n\nAt CHECK24 Profis, this approach helped reduce our app size from 95 MB to 21.62 MB by exposing hidden contributors and making ownership of changes explicit across teams.\n\nI’ll walk through how iOS app size is actually composed, how we extract meaningful signals from build outputs, and how we integrated this into CI to prevent regressions."
     },
     {
       "id": "swiftcon-berlin-2026-1192052",
@@ -115,7 +120,8 @@
       "speakers": [
         "Shilpa Bansal"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "What's scarier than a mobile app crash? A silent failure. A broken payment flow, a black map screen, or a wallet that won't load. These \"silent killers\" don't trigger crash reports and can go undetected for hours, silently destroying revenue and operations.\n\nIn a 2024 analysis, our average time to detect a critical mobile incident was a staggering 46.21 hours. This delay represents a massive, unmeasured cost. This talk tackles this mobile \"blind spot.\" We will explore a framework for \"Critical Observability\"—a strategy to proactively identify, monitor, and alarm on the core functions of your app, so you can stop an incident in minutes, not days."
     },
     {
       "id": "swiftcon-berlin-2026-ed6b65c8-d319-4184-891d-763c3a314a1c",
@@ -135,7 +141,8 @@
       "speakers": [
         "Marcel Kulina"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "iOS developer by day, game engine developer by night. I love Swift, so I wondered: could my favourite language actually work for games? It has the performance, value types, modern syntax, and a growing story beyond Apple's walled garden. So why is almost no one doing it?\nSo I tried.\n\nThis talk is the result of that experiment, a dive into the corners of Swift most of us rarely touch.\n\nPart one covers the features that shape game performance: memory layout, struct packing, raw memory, what C/C++ interop really feels like (and where Swift/C++ overpromises), the missing primitive of runtime reflection, Swift on Windows in 2026, and where the language's safety defaults fight you.\n\nPart two is a live demo: building a small physics sandbox on stage with Swift, Raylib, and Box2D. Enough to see the pieces work, and the rough edges too.\nFamiliarity with Swift and C/C++ basics helps, but no game engine experience needed.\n\nAn honest look at Swift outside Apple's ecosystem."
     },
     {
       "id": "swiftcon-berlin-2026-1267762",
@@ -147,7 +154,8 @@
       "speakers": [
         "Haydar Sahin"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "What if users could simply say what they want and your app understood their intent?\n\nIn this talk, I'll walk through how I built a voice-driven search experience that turns natural language requests such as “vegan pizza under 10€” into structured search queries and filters. Using Apple's Speech framework and Foundation Models, we'll go beyond speech-to-text and explore how on-device AI can understand what users actually mean.\n\nWe'll follow the entire journey from spoken input to search results: transcribing speech, extracting product intent, matching dynamic backend filters, and composing a final search request. Along the way, I'll share architectural decisions, implementation details, prompt-design lessons, and practical tradeoffs around privacy, latency, reliability, and cost.\n\nThis is a real-world case study in using Apple Foundation Models to build an intelligent product feature, moving beyond chatbots and into user-facing experiences that solve actual problems."
     },
     {
       "id": "swiftcon-berlin-2026-1278972",
@@ -159,7 +167,8 @@
       "speakers": [
         "Richard Topchii"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "Swift Charts is a new framework aiming to simplify creating a wide variety of charts and graphs making data visualization easy. However, Apple's own examples are never going beyond the basics: setting up the data source and showing the data. In this talk we'll take a look at probably one of the most complex Swift Charts implementation in details, involving interactive elements, axis auto-scaling, custom formatting and many more customizations to make the experience perfect. We will also go thru the common framework bugs, how to fix them and how Apple works around these bugs with their own apps.\n\nSwift Charts simplifies creating charts, but Apple’s examples cover only basics. This talk explores a complex Swift Charts implementation with interactive elements, auto-scaling, custom formatting, bug fixes, and how Apple handles these issues in apps."
     },
     {
       "id": "swiftcon-berlin-2026-00a4c826-6c8c-4c5d-b988-d9f58930804c",
@@ -179,7 +188,8 @@
       "speakers": [
         "Nikhil Singh"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "As an iOS app grows beyond a single team, a monolithic codebase stops being an asset and starts being a liability - merge conflicts multiply, build times balloon, and nobody is quite sure who owns what.\nSplitting into modules is the obvious answer, but the decisions you make early about where to draw boundaries, how to wire dependencies, and what architecture pattern to put inside each module have compounding effects that are very hard to undo at 3,000 files.\n\nThis talk walks through the real architectural decisions behind a production banking app split across 45 Swift modules and 3,800 files — what we got right, what we got wrong, and the specific patterns that let a growing team ship features independently without stepping on each other.\n\nI will cover the Router–Interactor–Builder pattern we use in place of MVVM or TCA, how we enforce module boundaries and prevent circular imports, and the honest impact modular architecture has had on build times and developer experience."
     },
     {
       "id": "swiftcon-berlin-2026-1280814",
@@ -191,7 +201,8 @@
       "speakers": [
         "Peter Friese"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Mobile apps have to permanently deal with asynchronous events - notifications, network status, database updates, user input, and more. The way how we have dealt with asynchronous events has changed significantly over time - from callback delegates to closures, and now AsyncSequence.\n\nIn this talk, we will take a deep dive into how AsyncStream works, how to use it in your apps, and how to use it to build ergonomic APIs. We will also take a trip down memory lane to understand where we’re coming from, and how asynchronous APIs have evolved over the years.\n\nI will provide real-world examples to explain the underlying concepts, and we’ll take a look at how the Firebase team implemented asynchronous APIs over the span of almost a decade and several iterations of Objective-C and Swift."
     },
     {
       "id": "swiftcon-berlin-2026-1252951",
@@ -203,7 +214,8 @@
       "speakers": [
         "Mohammad Azam"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "SwiftData makes it incredibly easy to get started with persistence in SwiftUI applications. The real challenges often appear later as datasets grow, imports become larger, CloudKit synchronization is introduced, and performance issues begin to surface.\n\nIn this session, you'll learn how to identify and diagnose SwiftData performance bottlenecks, understand the tradeoffs behind common architectural decisions, and apply practical techniques for building responsive and scalable applications. We'll also explore debugging tools and workflows that can help uncover what SwiftData is doing behind the scenes when performance isn't what you expect.\n\nThe lessons shared in this session come from building and shipping four App Store applications powered by SwiftData, including the successes, mistakes, and hard-earned insights gained while maintaining them in production."
     },
     {
       "id": "swiftcon-berlin-2026-8e818f3f-39ae-4aa0-bf9e-7c8d6de03964",
@@ -223,7 +235,8 @@
       "speakers": [
         "Peter Kurzok"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Building secure mobile apps is no longer optional—it’s expected by users, businesses, and the ecosystem. This talk offers a practical, beginner-friendly introduction to mobile security for iOS developers who want to improve their apps without getting lost in theory.\n\nWe’ll cover essential tools for analyzing app behavior, including network proxies and IPA inspection, and explain how code signing and entitlements define trust boundaries. We’ll also explore secure data storage with Keychain and file encryption, followed by key networking protections like certificate pinning and device attestation.\n\nAttendees will gain a clear understanding of the mobile threat landscape, see real-world pitfalls, and learn actionable techniques they can apply immediately. The goal is to help developers make informed, security-first decisions and build resilient apps by design."
     },
     {
       "id": "swiftcon-berlin-2026-1264851",
@@ -235,7 +248,8 @@
       "speakers": [
         "Vladislav Markov"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Every iPhone ships with a fully GPU-accelerated image processing framework that most developers never use. Core Image can do far more! And in this hands-on session you will see exactly how far.\n\nWhat you will learn:\n- Build real filter pipelines with CIImage, CIFilter and CIContext\n- Write your own kernels: a per-pixel color kernel, a coordinate-remapping warp kernel, and a sampling general kernel\n- Combine Core Image with Vision to detect face landmarks and build complex beauty effects: mask-based lip tinting and distortion eye reshaping"
     },
     {
       "id": "swiftcon-berlin-2026-1185572",
@@ -247,7 +261,8 @@
       "speakers": [
         "Ellen Shapiro"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "A lot of us who have been developers for a long time have learned to think of ourselves as craftspeople. Now, the thing that we've spent all our time and effort honing our skills on is changing wildly, as quickly as week to week.\n\nSo how does this compare to other evolutions in other arts and crafts? I'll look at writing code through the lens of my hobbies of woodworking, laser cutting, and 3D printing to talk about the evolution of art into craft, and craft into art.\n\nYou'll walk away with some new ways to think about producing code, and I hope a way to make sense of some of the chaos around us."
     },
     {
       "id": "swiftcon-berlin-2026-a3cffb89-bfa7-4cc9-a2a5-cf1b8aabbbcf",
@@ -267,7 +282,8 @@
       "speakers": [
         "Leonardo Cardoso"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "For years, our iOS codebase relied on Sourcery to generate mock files for testing. It worked, until we were maintaining over a thousand generated files that bloated the repo. When Apple released Swift Macros, we saw a way out.\n\nThis talk is the story of SwiftMockKit, an internal library that generates mocks at compile time with a single annotation, and how we're migrating a large fintech codebase off file-based generation. Our first batch swapped 14 protocols in a single PR; along the way we've deleted nearly 91,000 lines of committed mock boilerplate.\n\nYou will learn:\n- Why file-based mock generation stops scaling, and the pain signals to watch for in your own codebase\n- A migration path from Sourcery\n- Where macros fall short: the protocols we couldn't handle and the compile-time costs we measured\n\nIf your test suite depends on generated mocks, you'll leave knowing exactly how to delete them."
     },
     {
       "id": "swiftcon-berlin-2026-112412d7-8528-4e92-a702-336a2256b253",
@@ -287,7 +303,8 @@
       "speakers": [
         "Janina Kutyn"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "The most important part of any app is its users. If they’re not engaged, your app will be off their phones faster than it got there. In this talk, we’ll cover practical, industry-proven strategies to increase user engagement and ensure your users keep coming back."
     },
     {
       "id": "swiftcon-berlin-2026-1277962",
@@ -299,7 +316,8 @@
       "speakers": [
         "Tim Condon"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "In this talk we'll explore how to build and run a sustainable open source project. We'll cover building and releasing your work to encourage contributors. We'll look at how to build a great community around your project to help it grow. Finally we'll look at how to make the project sustainable, get funding and avoid the dreaded open source burnout! This talk is based upon running Vapor, the most popular framework for Swift on the server that attracts hundreds of contributions, but applies to any open source project."
     },
     {
       "id": "swiftcon-berlin-2026-1277184",
@@ -311,7 +329,8 @@
       "speakers": [
         "Dmytro Polianskyi"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "Consumer app architecture is not only about clean code or correctness. For iOS engineers, it is also about how quickly we can change what users experience without waiting for an App Store release.\n\nThis talk introduces Product-Oriented Programming: treating product velocity as an architectural requirement. Through a real onboarding flow built in SwiftUI, we will explore how server-driven forms can render fields, handle validation, manage dependencies, and lock behavior from a backend contract instead of hardcoded screens.\n\nAttendees will learn how to decide when server-driven UI is worth the complexity, how feature flags and remote config can become safe product controls, how to design analytics into iOS architecture from the start, and how a shared contract helps iOS, Android, backend, and QA move together. We will also cover the trade-offs for iOS codebases: weaker local reasoning, harder debugging, and the discipline needed to avoid turning flexibility into debt."
     },
     {
       "id": "swiftcon-berlin-2026-1340520",
@@ -322,7 +341,8 @@
       "title": "KARAOKE PARTY! HAVE A DRINK ON US!",
       "speakers": [
         "next.app devCon"
-      ]
+      ],
+      "description": "KARAOKE BAND: LOONEYTUNES\nSing along, show your talent, grab the mic\nand HAVE SOME FUN!\nDON’T MISS OUT!\nGood music • Good drinks • Good times\n\nPick up your Party tokens for two drinks before at the registration area\n\nPARTY LOCATION\nSponsor / Community Area – Level 2"
     },
     {
       "id": "swiftcon-berlin-2026-029d66de-97b5-4f8c-8fa8-76619e3a800a",
@@ -342,7 +362,8 @@
       "speakers": [
         "Ali Ebrahimi Pourasad"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "AI can now generate apps in minutes. But if everyone can build something “good enough,” how do we create apps that still stand out?\n\nThis talk explores what AI cannot replace: care, creativity and the love for tiny details. Using design choices from apps like our iPad journaling app Bubbles’ Journal, I will show how playful interactions, thoughtful animations and unexpected user experiences can make an app feel alive.\n\nI hope to inspire you to build apps that feel personal and joyful, while feeling less anxious about AI taking over our role, because in the age of AI, “good enough” is no longer enough."
     },
     {
       "id": "swiftcon-berlin-2026-3cd59d4d-8d0d-4c76-843f-b7d7d2d9fb27",
@@ -362,7 +383,8 @@
       "speakers": [
         "Noam Efergan"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Yazio’s onboarding is a bit unusual;  It’s extremely long. It takes, on average, around 10 minutes to fully finish it. However, by the time you’ve finished it ,you’ve developed a relationship with Yazio, and with little green yettie that walked you through it all.\n\nThis is not by chance - the onboarding at Yazio has been meticulously tested, tweaked, refactored, and tested again, to find what it is that makes users feel the most welcome.\n\nIn this talk we will discuss the plan, pitfalls, successes and failures of having an onboarding that matters, at a very very large scale."
     },
     {
       "id": "swiftcon-berlin-2026-1223936",
@@ -374,7 +396,8 @@
       "speakers": [
         "Rob Whitaker"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Please clone this repo in advance: https://github.com/dadederk/fromZeroToAccessible\n\nApple’s Accessibility Nutrition Labels bring something new to the App Store: a public way to declare how accessible your app really is, and a chance to differentiate your product.\nNutrition labels aren’t about certifying every detail of every feature. Instead, they focus on the areas that have the greatest impact for users. They’re a meaningful step towards broader accessibility conformance, and deliver real value on their own.\nIn this workshop, we’ll introduce Apple’s Accessibility Nutrition Labels, what they mean for your users, how they support your business goals, and how they differ from accessibility compliance approaches.\nWe’ll get hands-on with an example app to explore how to evaluate against Apple’s criteria and make confident decisions about what to declare.\nYou’ll leave with a clear approach to assessing your app, aligning your team, and publishing Accessibility Nutrition Labels."
     },
     {
       "id": "swiftcon-berlin-2026-1273243",
@@ -386,7 +409,8 @@
       "speakers": [
         "Felipe Espinoza"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "UI changes can easily introduce regressions, especially in shared SwiftUI components. Snapshot testing helps catch these issues early by verifying your UI across states and device configurations.\n\nBut Snapshot Testing does more than prevent regressions. Making UI testable encourages more predictable code, which leads to better architecture and makes it easier to reason about different UI states, resulting in more maintainable SwiftUI views.\n\nIn this talk, I’ll share real-world experience using Snapshot Testing in a large codebase: how it improves reliability, how to introduce it into your workflow, and how to run it in CI with Xcode Cloud for your iOS apps."
     },
     {
       "id": "swiftcon-berlin-2026-2409aa56-b800-4fb4-a0c4-a29ded0ff099",
@@ -406,7 +430,8 @@
       "speakers": [
         "Aymen Bokri"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "We have entered the age of the passive user. Modern users do not want to search or type. They want magic to happen while they scroll. This session is a discovery of how we can stop fighting this behavior and use it to our advantage. We will explore how to move beyond the main app icon and build an orbit of features that live exactly where the user already is. We will look at how Share Extensions and Safari Extensions can make your app feel like a native part of Safari, TikTok, or Instagram. You will see how App Clips provide instant value without a long download and how App Intents and Shortcuts bring users back with a quick search or a voice command. By the end, you will see why these features are the secret to keeping an app active and indispensable by making it as lazy friendly as the people using it."
     },
     {
       "id": "swiftcon-berlin-2026-1316233",
@@ -418,7 +443,8 @@
       "speakers": [
         "Halle Winkler"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "We live in interesting times. Who hasn't read the posts: nation-state supply chain exploits, ClickFix, Mythos and friends, agentic sandbox escapes, security releases with over 100 fixes credited to far more than 100 researchers. Not only are Swift developers not exempt, but the popularity of macOS as a development platform has it moving up the target list disproportionate to its absolute installs, while iOS has always been a juicy target.\n\nEven though we're experiencing a rare case of the future arriving on time, we aren't helpless, and not every countermeasure is difficult. This lightning talk will go over the 5 most consequential steps you can take to shift to a defensive mindset, without getting overwhelmed."
     },
     {
       "id": "swiftcon-berlin-2026-205de604-91ce-49d0-9ab3-a50c083e1464",
@@ -438,7 +464,8 @@
       "speakers": [
         "Ben Scheirman"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Processing a billion rows is different than most day-to-day tasks we do as Swift developers. .Small inefficiencies in your algorithms can expand to massively increase the runtime performance of your program. The Billion Row Challenge was originally created for Java developers and has gained in popularity in other communities as well. Recently Ben completed the Billion Row Challenge in Swift to see how the traditional methods of developing in Swift and using the standard library change when you're processing vast amounts of data. We'll talk about memory-mapped files, scanning the file searching for particular characters, parsing floats, SIMD, and of course Swift Concurrency."
     },
     {
       "id": "swiftcon-berlin-2026-1275058",
@@ -450,7 +477,8 @@
       "speakers": [
         "Mihaela Mihaljevic Jakic"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "SwiftUI is often explained as a tree of views that gets diffed every time state changes. After reverse engineering the framework’s behavior and comparing it with Apple’s granted patents, I arrived at a different mental model: SwiftUI is a single demand-driven attribute graph. In this session we’ll follow the data from @State through dependency tracking, invalidation, layout, rendering, and animation to understand why SwiftUI behaves the way it does. Instead of focusing on API usage, we’ll examine the underlying architecture and connect it to Core Animation and the rendering pipeline. The goal is to leave with a coherent mental model that explains many of SwiftUI’s seemingly mysterious behaviors."
     },
     {
       "id": "swiftcon-berlin-2026-1278701",
@@ -462,7 +490,8 @@
       "speakers": [
         "Niklas Holloh"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "When working in teams we often find ourselves writing code that will ultimately be used by others. In an effort to reduce potential bugs we should strive to write code that's impossible to misuse. One of Swift's greatest assets is its compile-time safety which prevents entire classes of bugs, but only when APIs are designed to leverage it. This talk demonstrates how to design your APIs to be fundamentally safer, catching errors at compile time rather than in production. These techniques apply to any Swift code, from single types to full SDKs.\n\nWe'll transform URLSession's unsafe imperative patterns into a type-safe, declarative networking library where the compiler becomes your documentation, actively telling you what you must, can and cannot do. You'll see how to apply modern Swift features such as macros, typed throws for exhaustive error handling, actor isolation for thread safety and more to make your APIs misuse-resistant."
     },
     {
       "id": "swiftcon-berlin-2026-0394eda2-84fb-4515-a19f-36b2b892973d",
@@ -482,7 +511,8 @@
       "speakers": [
         "Alex Ozun"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Swift apps depend on side effects such as disk I/O, networking, randomness, and concurrency. While essential, side effects make code harder to extend, customise, and test.\n\nToday, they are managed with DI frameworks and opinionated architectures. This often requires invasive scaffolding and sometimes forces procedural code into unidirectional data flow.\n\nThis talk presents Swift Effect, an architecture-agnostic effect system that makes side effects controllable, composable, and testable while keeping the code linear.\n\nThe talk introduces Algebraic Effects and Effect Handlers, and demonstrates how they unlock:\n- Natural composition of behaviour\n- Deterministic Swift Concurrency testing\n- Mock-less testing of complex programs\n\nEffect handlers can intercept, suspend, and resume side effects at runtime, enabling step-by-step execution of application code. This enables writing tests for observable behaviour and state changes, mirroring a human tester interacting with a running program."
     },
     {
       "id": "swiftcon-berlin-2026-1281042",
@@ -494,7 +524,8 @@
       "speakers": [
         "Abdullah Bayraktar"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Some engineering decisions are easy to change. Others become part of our app’s future.\n\nThis talk explores the one-way doors of iOS development. The decisions that are easy to make early on but can be surprisingly difficult to undo later. From architecture and data persistence to API contracts, platform decisions, and app state, these choices can shape how an app evolves for years.\n\nWe’ll look at what makes a decision difficult to reverse, why these decisions are often underestimated, and what can happen when they meet a growing codebase, team, and user base."
     },
     {
       "id": "swiftcon-berlin-2026-1280882",
@@ -506,7 +537,8 @@
       "speakers": [
         "Stephan Arenswald"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "Every tale hides a truth. Logging is one of the least glamorous parts of software development, until your app misbehaves in a way nobody can explain. In this talk, a fox leads us through Console, SwiftLog, and os_log to uncover what Apple's native tools can, and can't, tell you about your running app. By default, AI coding assistants reason from static code, the same way we do when we only stare at files, so without real runtime context, even AI ends up guessing. We'll watch human and AI try to fix real bugs, first without proper logging, then with it, and see how differently that story unfolds."
     },
     {
       "id": "swiftcon-berlin-2026-52835dfb-eb37-41ba-b751-0097ceed7d98",
@@ -526,7 +558,8 @@
       "speakers": [
         "Peter Molnar"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "At my company I am the pioneer of trying to move our macOS and iOS codebase closer together, by creating a unified UI layer, which can be used on both platforms. On the 2 recent WWDC Apple made big steps into that direction, in 2025 we got the iPad Windowing System, which makes the iPadOS closer to macOS. This year we have the App Adaptivity, where our iOS app can support different screen sizes, even going to sneak into the macOS area (except the EU :P), where iPhone Mirroring can translate our app into a(n almost) macOS app. In September 2026 we finally had the iPhone Duo, where we finally connected the dots. I will hop through what changes are required for support this transition, and also on what can go easily wrong and how to fix it."
     },
     {
       "id": "swiftcon-berlin-2026-1218514",
@@ -538,7 +571,8 @@
       "speakers": [
         "Amitesh Mani Tiwari"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Swift's async/await made concurrency look simple, but shipping it at scale is still a boss-level problem. Swift 6's strict concurrency can expose issues in existing codebases: hidden race conditions, cancellation that is not handled correctly, and background work that outlives user intent.\n\nThis workshop breaks down how to design an iOS architecture that coordinates 10,000+ logical async operations without melting CPUs or spiraling into Task-hierarchy spaghetti. We'll go deep into structured concurrency, task lifetimes, cancellation propagation, actor re-entrancy traps, and the most underrated weapon in Swift concurrency: backpressure the technique that keeps your app smooth when work arrives faster than it can be processed."
     },
     {
       "id": "swiftcon-berlin-2026-1193952",
@@ -550,7 +584,8 @@
       "speakers": [
         "Gleb Tarasov"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "There are lots of ways to track an app’s performance—Apple and Google tools, plus plenty of third-party options. I’ll share how we ended up building our own performance monitoring suite at Booking.com, and why we went down that path. I’ll talk through the metrics we started with, what didn’t really work, and what turned out to be more useful. I’ll also cover what our current setup can do, how it’s been holding up after 4 years in production, and finish with a story from our two-year journey to track down and fix a really annoying fatal hang in our iOS app."
     },
     {
       "id": "swiftcon-berlin-2026-e3e43d73-3928-421d-8125-b04991437e19",
@@ -570,7 +605,8 @@
       "speakers": [
         "Júlia Fodor-Horváth"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "AI agents now write iOS code directly, not just autocomplete it. That shifts the bottleneck: generating changes is no longer the constraint, validating them fast enough is. Most CI/CD pipelines were built for human commit cadence, not an agent proposing a new commit every few minutes. Mobile builds in particular were never designed to be hit dozens of times an hour by an autonomous loop.\nThis session covers what agentic coding demands from mobile infrastructure: near-instant build feedback, aggressive caching, and validation fast enough for an agent to act before context is lost. It looks at where traditional mobile CI/CD breaks down under this load, and what has to change to keep pace.\nYou'll see how Bitrise is addressing this with Build Hub, mobile-specific build infrastructure built to cut the time between an AI-generated change and a trustworthy result. A live demo walks through a real migration to Build Hub, including how fast and low-friction the move is."
     },
     {
       "id": "swiftcon-berlin-2026-43aaac45-8cf0-44ad-9214-275dd4dc20d0",
@@ -587,7 +623,8 @@
       "start": "16:10",
       "end": "16:45",
       "title": "swiftCon Community Meetup",
-      "roomId": "community-meetups"
+      "roomId": "community-meetups",
+      "description": "Location: Activity & Networking Area Level 2\n\nCalling all iOS / Swift developers. Come by for a community meetup and get to know some new people in the community."
     },
     {
       "id": "swiftcon-berlin-2026-1280906",
@@ -599,7 +636,8 @@
       "speakers": [
         "Raul Menezes"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Swift 6.3 made Swift on Android official, which changes the question for mobile teams. It is no longer \"can this run?\" but \"what is worth sharing?\" In this session I will walk through a pragmatic architecture: native SwiftUI on iOS, native Compose on Android, and Swift used for the product logic that should not be written twice. We will look at boundaries, async APIs, generated interop, local persistence, and team ergonomics. This is not about replacing Kotlin or forcing one architecture onto two platforms. It is about using Swift where it creates leverage, while keeping each app feeling native. You will leave with a practical model for deciding what to share, what to keep platform-specific, and what tradeoffs to expect."
     },
     {
       "id": "swiftcon-berlin-2026-1174824",
@@ -611,7 +649,8 @@
       "speakers": [
         "Cate Huston"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Tech workers: we used to be pampered Instagram raccoons — living for the aesthetic, optimising for comfort. Now we live in Toronto. And Toronto raccoons don't wait for someone to leave the lid off.\nYour career is yours. It always was — you just didn't need to think about it. This talk is about thinking about it: taking stock of the power you have to shape your own trajectory, building yourself when no one's offering to do it for you, getting coachable enough to actually grow from hard moments, and knowing when it's time to move on before the job makes that decision for you."
     },
     {
       "id": "swiftcon-berlin-2026-1209266",
@@ -623,7 +662,8 @@
       "speakers": [
         "Fahim Uddin"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "Most medical simulation VR runs pre-scripted scenarios on mobile chips with handheld controllers. This talk covers how I built a fully native visionOS app for a major health system that runs a real-time physiology engine, where patient vitals respond dynamically to every trainee action.\n\nThe physiology engine powering the simulation is a C++ library, which meant bridging native Swift and visionOS code with C++ in a clean, performant way. Every Swift developer working with legacy systems, game engines, scientific libraries, or any third-party C++ dependency will be able to take this knowledge and apply it directly to their own projects.\n\nThe app uses native hand tracking and speech recognition that validates verbal announcements at each step to enforce AHA ACLS protocol compliance in real time. With limited documentation and few people who had tackled anything like this before, the Swift and visionOS community was one of the most important resources throughout the entire build."
     },
     {
       "id": "swiftcon-berlin-2026-d5821030-4d63-4e2f-bbed-325ff6663da1",
@@ -652,10 +692,10 @@
         "Michael Gerasymenko",
         "Claire Sivadier",
         "Mihaela Mihaljevic Jakic",
-        "Phil Zakharchenko",
         "Łukasz Lech"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "The arrival of foundation models and next-generation system intelligence has changed the conversation across the Apple ecosystem. Yet, for commercial engineering teams and product leaders, the immediate question remains: we have this remarkable technology, but how do we turn it into real, sustainable value?\n\nIn this Friday keynote panel, industry leaders and platform specialists come together to cut through the hype. We will debate the practical realities of adopting foundation models and Siri-driven capabilities inside commercially focused organisations. From architectural trade-offs and privacy considerations to user experience design, this session examines how teams are moving past simple novelty features to build tools that genuinely move the needle."
     },
     {
       "id": "swiftcon-berlin-2026-a69dcb19-3ed5-462e-8c80-c9be95755fa0",
@@ -675,7 +715,8 @@
       "speakers": [
         "Ed Rooth"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "What else can an iOS app be? Chromatose is my answer: a real-time, modular video synthesizer that turns an iPhone into a GPU-driven instrument, running custom Metal shaders at 60fps, even on a five-year-old device. It's a genuinely new category of app, and building it meant taking Swift somewhere it rarely goes.\n\nI designed, built, and shipped it solo. This session is a candid tour: a performance-critical render loop, a custom Metal pipeline, and a deeply custom UI where the usual frameworks stop helping. I'll share the architecture that held up, the parts I rewrote more than once, and the platform realities (Apple API black boxes, SwiftUI/UIKit gaps, GPU performance) that tutorials skip.\n\nThe bigger idea: the techniques that make a video synth fast and maintainable (custom rendering, value-type architecture, document versioning) are what let you invent something new on a platform millions already carry. You don't need to care about graphics to use them."
     },
     {
       "id": "swiftcon-berlin-2026-1242512",
@@ -687,7 +728,8 @@
       "speakers": [
         "Calvin Chestnut"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "A design system is the organized set of components, constants, and layout structures behind your app. Building one early speeds up feature work, keeps your UI consistent across every target you ship, and gets real components into stakeholders' hands long before the features around them exist.\n\nWe'll package your components as a SwiftUI package and version it into your CI flow, then get into the parts that make it feel effortless: typography and color that live in one place, styles that let a component say what it is instead of how it looks, and previews good enough that a designer can review in them. Then we package it into an app to put right into their hands."
     },
     {
       "id": "swiftcon-berlin-2026-1270935",
@@ -699,7 +741,8 @@
       "speakers": [
         "Michael Gerasymenko"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "The original iPhone felt magical because it made software feel physical, immediate and personal. For many of us, that was the moment we wanted to build for mobile.\n\nToday AI has the potential to create that same kind of magic again but only if it feels native: fast, private, available, and close to the user.\n\nIn this talk, I’ll explore how on-device AI is becoming practical on Apple platforms: from Apple Intelligence and Foundation Models to Core ML, Core AI, Accelerate, and others. I’ll share lessons from deploying an actual on-device text-to-speech model in the ElevenReader app, including model packaging, performance optimization, latency, memory, battery, and model IP protection.\n\nJust as personal computers moved computing away from mainframes, increasingly powerful devices and increasingly optimized models may move many AI experiences away from server-side inference. The cloud will not disappear but the most magical mobile AI experiences may be the ones that run right in your hand."
     },
     {
       "id": "swiftcon-berlin-2026-846d149a-ab9a-469b-aad2-78f51340f87f",
@@ -719,7 +762,8 @@
       "speakers": [
         "Phil Zakharchenko"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Great motion design doesn’t just make an app look good. It guides users, provides contextual feedback, and turns your product into a memorable experience.\n\nIn this talk, we’ll explore the fundamental principles of effective motion design and how you can apply them to your apps. We’ll peek under the hood of animations, learn why they sometimes don't do what you’d expect, and how to use the framework to precisely express your intent. We’ll also explore how Swift’s powerful language features let you push the boundaries of what’s possible. Whether you're fixing a janky transition or building delightful interactions from scratch, you’ll leave equipped with new tools and a deeper understanding of animation craft in Swift."
     },
     {
       "id": "swiftcon-berlin-2026-c60a077d-a368-442e-8b6a-8a0fde4d992b",
@@ -739,7 +783,8 @@
       "speakers": [
         "Claire Sivadier"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Who says you need to open an app to use it? With App Intents, I logged my puppy’s walks 🐶 while keeping my iPhone in my pocket. This shows how apps can extend beyond the UI, letting Siri, Shortcuts, Spotlight, and widgets handle interactions hands-free.\n\nUser behavior is changing: people increasingly expect to talk to their devices or ask them to do things instead of navigating traditional screens. Modern apps should integrate seamlessly with the system, making everyday tasks effortless and enhancing the user experience. Developers will learn how to unlock system-level features without relying on traditional screens, making their apps smarter, more context-aware, and useful.\n\nMajor takeaways:\n- Define and register AppIntents in Swift\n- Expose actions to Siri, Shortcuts, Spotlight, and widgets\n- Pass parameters with AppEnum and AppEntity\n- Design background-driven experiences without touching the UI\n- Apply practical examples immediately in your own apps"
     },
     {
       "id": "swiftcon-berlin-2026-1275525",
@@ -751,7 +796,8 @@
       "speakers": [
         "Matvei Novoselov"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "visionOS is often framed as an entertainment platform, but some of its most interesting work is happening in business. In this session, I will look at practical visionOS use cases in areas like retail, real estate, healthcare, training, and industrial workflows, with a focus on why these products matter and what patterns make them successful. Attendees will leave with a better understanding of when spatial computing creates real value, what product and UX constraints shape serious visionOS apps, and how to evaluate whether a business idea is solving a real problem or just adding novelty."
     },
     {
       "id": "swiftcon-berlin-2026-1276017",
@@ -763,7 +809,8 @@
       "speakers": [
         "Bruno Scheele"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "Stand out from other apps with your own great set of symbols!\n\nCustom SF Symbols are a great way to make your own symbols with the same flexibility as Apple's own. They're also a pain to create and to get right, which is why we often just make our square icons and call it a day. So let's change that!\n\nYou'll learn how you can use SF Symbols, why you'd want custom ones and how to get started on creating your them. From mass producing symbols out of existing icons, to creating hand-crafted pieces of art in every weight!"
     },
     {
       "id": "swiftcon-berlin-2026-4d46f94c-28d2-470a-b9c2-508dd0efcd28",
@@ -783,7 +830,8 @@
       "speakers": [
         "Olla Ashour"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Your app passes every accessibility audit. Accessibility Inspector shows zero issues. You did a VoiceOver pass before the last release. And yet — a real user with VoiceOver still can't complete checkout, because the focus order silently changed when a designer moved a button two weeks ago.\n\nThis is the gap almost every team has, and almost no team measures. We treat accessibility like a compliance checklist we clear once, instead of a property of the codebase that decays the moment we stop watching.\n\nThis session builds on my earlier work on accessibility as an inclusion practice, and picks up where that conversation usually ends: \"okay, now how do we keep it that way?\", and \"how does AI help?\".\n\nYou'll leave seeing accessibility as a signal you monitor, not a task you finish — the way you already treat performance and reliability. We'll cover what tools quietly miss, a four-layer way to measure it, which numbers reflect real progress, and where AI helps — and where it doesn't."
     },
     {
       "id": "swiftcon-berlin-2026-1218963",
@@ -795,7 +843,8 @@
       "speakers": [
         "Kosala Jayasekara"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "It’s easy enough to grab a user's coordinates, but keeping location tracking alive in the background without iOS silently killing your app is a completely different story. After spending a lot of time building high-frequency tracking apps for large logistics fleets, I learned the hard way that basic GPS polling just drains the battery, overheats the phone, and triggers the system watchdog. In this talk, I want to share how to stop fighting the operating system and actually build location services that survive out in the real world."
     },
     {
       "id": "swiftcon-berlin-2026-1280464",
@@ -807,7 +856,8 @@
       "speakers": [
         "Avi Tsadok"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "In this talk, we will discuss the key design considerations involved in building an iOS app that continues to provide a great user experience even when network connectivity is limited or unavailable. Rather than treating offline support as an afterthought, we'll explore how to design an application where offline capabilities are a fundamental part of the architecture.\n\nWe'll examine common challenges such as data synchronization, conflict resolution, local persistence, and maintaining a responsive user interface while disconnected. Through practical examples and architectural patterns, attendees will learn how to build resilient applications that gracefully transition between offline and online states, ensuring users can continue working without interruption and that their data is reliably synchronized once connectivity is restored."
     },
     {
       "id": "swiftcon-berlin-2026-69ca093f-c042-4189-80f2-e1726766fb6b",
@@ -827,7 +877,8 @@
       "speakers": [
         "Stepan Mirskiy"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Backend-driven UI promises faster shipping, but a production-ready framework is far more than rendering JSON. This talk dives into the implementation of a backend-driven UI engine that feels native to SwiftUI — the framework powering Flo for millions of users, shipping UI changes without waiting for the mobile release train.\n\nYou'll learn:\n- How to map server-defined JSON into real SwiftUI views with an extensible, type-safe component registry\n- How to replicate Jetpack Compose layouts with SwiftUI.Layout for pixel-perfect iOS/Android parity — and bridge Compose's size constraints with SwiftUI's proposals\n- How to keep multi-pass measurement fast with layout caching\n- How to introduce variables, state, and reactivity into JSON-defined screens while letting SwiftUI's own invalidation do the heavy lifting\n\nYou'll leave with concrete architectural patterns and the trade-offs behind them, ready to evaluate or build backend-driven UI in your own app."
     },
     {
       "id": "swiftcon-berlin-2026-1275466",
@@ -839,7 +890,8 @@
       "speakers": [
         "Leo Dion"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Managing Swift projects at scale demands systematic automation—from CI to multi-platform testing to App Store distribution. This hands-on 80-minute workshop teaches automation patterns refined across 128+ repositories, from open-source libraries to commercial apps.\n\nPart 1 (35 min): Reduce GitHub Actions configs from 100+ lines to 5, add intelligent caching for 65–85% faster builds, and run matrix testing across Swift versions and Apple platforms—implemented live in your own repo.\n\nPart 2 (35 min): Build packages that work across iOS, macOS, watchOS, tvOS, visionOS, Linux, and Android, using Swift Testing's conditional traits to skip platform-specific tests gracefully. We close with a TestFlight distribution demo (Fastlane + GitHub Actions, 30 minutes down to 3).\n\nBring a laptop, a GitHub account, and a Swift package or app. You leave with a working pipeline."
     },
     {
       "id": "swiftcon-berlin-2026-1241321",
@@ -852,7 +904,8 @@
         "Prasanna Bhat",
         "Shahbaz Kaladiya"
       ],
-      "roomId": "swiftcon-3"
+      "roomId": "swiftcon-3",
+      "description": "Capture & Replay is a platform capability. It unlocks deterministic bug reproduction, automated regression testing against real prod sessions, visual diffing and much more.\n\nReproducing a production mobile bug reliably is one of the hardest problems. At Uber, majority of bugs were not reproducible before we built this system.\n\nWe'll cover the full engineering stack across two layers: the mobile UI capture pipeline and the network orchestration layer. On mobile, we instrument every UIKit and SwiftUI component to capture a precise view hierarchy locator — using visual ordering, scroll context, and layer-level deduplication for SwiftUI. On the network side, we intercept, scrub, time-shift, and replay every API response and push message — without touching a real backend.\n\nUnlike traditional session replay tools that play back a screen recording, this system replays on a live app binary — attach Xcode, set breakpoints, and step through the exact code path that ran in production."
     },
     {
       "id": "swiftcon-berlin-2026-8d1a6b74-41c8-4f48-83a5-841bc0c3753f",
@@ -872,7 +925,8 @@
       "speakers": [
         "Armend Belallari"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "Apple Intelligence is much more than Writing Tools and the new Siri. Behind the scenes, Apple has introduced a collection of frameworks that allow developers to build smarter, privacy-first experiences running directly on the device.\n\nIn this lightning talk I'll walk through a real demo application built entirely on Apple Intelligence. We'll explore how on-device Large Language Models, Foundation Models, semantic search, and intelligent ranking can solve real user problems without sending data to the cloud.\n\nInstead of focusing on marketing slides, we'll look at practical implementation patterns, common pitfalls, and what developers should actually start experimenting with today. You'll leave with concrete ideas you can immediately apply to your own iOS apps."
     },
     {
       "id": "swiftcon-berlin-2026-0d23c936-0e4d-4ac4-9a76-ae85506db06b",
@@ -892,7 +946,8 @@
       "speakers": [
         "Saeid Rezaeisadrabadi"
       ],
-      "roomId": "swiftcon-1"
+      "roomId": "swiftcon-1",
+      "description": "In this talk, I will share the journey of migrating an iOS application at PAYBACK, serving more than 18 million monthly active users and consisting of 116 feature modules, 208 service modules, 18 shared modules, and four country-specific app variants.\nThe session will cover how we evaluated Bazel, addressed a complex dependency graph, and integrated both local and remote Swift packages.\nI will discuss our incremental migration strategy, which allowed Bazel and Xcode to coexist throughout the transition, as well as the steps taken to improve build performance from initially matching Xcodebuild speeds to achieving 2× faster builds, and ultimately 3–6× improvements through spawn strategy optimization and local caching.\nI will also explore our ongoing efforts to build Kotlin Multiplatform with Bazel in a monorepo environment.\nFinally, the talk will highlight practical lessons learned around CI integration, BuildBuddy observability, and testing strategies within a large enterprise setup."
     },
     {
       "id": "swiftcon-berlin-2026-1273514",
@@ -904,7 +959,8 @@
       "speakers": [
         "Nicola Giancecchi"
       ],
-      "roomId": "swiftcon-2"
+      "roomId": "swiftcon-2",
+      "description": "Apple's Screen Time APIs let you build digital wellbeing and parental control features, but they're some of the least documented frameworks in the Apple ecosystem. I'll walk through what I learned building a real app on top of them: requesting the Family Controls entitlement, designing around the Device Activity Report and Monitor extensions' brutal sandbox limits, and the bugs and workarounds found. You'll leave knowing which framework to reach for, how to survive the extensions' constraints, and how to design UX that hides what the API can't fix."
     }
   ]
 }
