@@ -6,8 +6,6 @@
 	<array>
 		<string>com.moritztucher.dubdub-ios-conference.live-agenda</string>
 	</array>
-	<key>NSSupportsLiveActivities</key>
-	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
