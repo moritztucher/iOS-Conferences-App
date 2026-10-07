@@ -58,7 +58,8 @@ final class LiveAgendaManager {
     /// Follows system-level changes for the app's lifetime and re-syncs on each one, so
     /// turning Live Activities back on in iOS Settings restores today's activity.
     func observeAuthorization() async {
-        for await enabled in ActivityAuthorizationInfo().activityEnablementUpdates {
+        // The stream also reports the current value on subscription; only real changes sync.
+        for await enabled in ActivityAuthorizationInfo().activityEnablementUpdates where enabled != systemAllowsActivities {
             systemAllowsActivities = enabled
             await sync()
         }
@@ -66,10 +67,34 @@ final class LiveAgendaManager {
 
     // MARK: - Sync
 
+    /// Syncs never overlap. Two overlapping syncs (app activation and the authorization
+    /// observer fire together at launch) each saw the other's new activity as missing and
+    /// started their own, stacking duplicate Live Activities. A sync requested while one runs
+    /// sets `needsAnotherSync`, and the running one goes round once more instead.
+    private var isSyncing = false
+    private var needsAnotherSync = false
+
     func sync(now: Date? = nil) async {
-        let now = now ?? Self.currentDate
-        let activities = Activity<ConferenceDayAttributes>.activities
+        guard !isSyncing else {
+            needsAnotherSync = true
+            return
+        }
+        isSyncing = true
+        defer { isSyncing = false }
+        repeat {
+            needsAnotherSync = false
+            await performSync(now: now ?? Self.currentDate)
+        } while needsAnotherSync
+    }
+
+    /// Enforces the invariant: **at most one visible conference-day activity**.
+    private func performSync(now: Date) async {
+        // Ended activities linger in `activities` until dismissed; they're already on their way out.
+        let activities = Activity<ConferenceDayAttributes>.activities.filter {
+            $0.activityState != .ended && $0.activityState != .dismissed
+        }
         systemAllowsActivities = ActivityAuthorizationInfo().areActivitiesEnabled
+        logger.notice("Sync: app setting \(self.isEnabledInSettings), system allows \(self.systemAllowsActivities), \(activities.count) live activities")
         guard isEnabledInSettings, systemAllowsActivities else {
             for activity in activities {
                 await activity.end(nil, dismissalPolicy: .immediate)
@@ -79,18 +104,34 @@ final class LiveAgendaManager {
 
         let context = container.mainContext
         await refreshStaleSchedules(context: context, now: now)
-        let plans = plans(context: context, now: now)
+        // One activity at a time: the plan that starts first, should two attended
+        // conferences ever overlap.
+        let plan = plans(context: context, now: now).values.min { $0.startsAt < $1.startsAt }
         let attending = attendingIDs(context)
 
-        // Already-ended activities linger in `activities` until dismissed; ending them again
-        // would push their dismissal date back on every sync.
-        for activity in activities where !matches(activity, plans) && activity.activityState != .ended && activity.activityState != .dismissed {
-            await retire(activity, stillAttending: attending.contains(activity.attributes.conferenceID), now: now)
+        // Keep a single activity for the plan, preferring one that's already showing over a
+        // scheduled one. Every other activity goes.
+        let matching = plan.map { plan in activities.filter { matches($0, plan) } } ?? []
+        let kept = matching.first { $0.activityState != .pending } ?? matching.first
+        // "That's a wrap" may linger only while the plan's own activity isn't visible yet.
+        let mayShowWrap = plan.map { now < $0.startsAt } ?? true
+        for activity in activities where activity.id != kept?.id {
+            if matching.contains(where: { $0.id == activity.id }) {
+                await activity.end(nil, dismissalPolicy: .immediate)  // A duplicate.
+            } else {
+                await retire(
+                    activity,
+                    showWrap: mayShowWrap && attending.contains(activity.attributes.conferenceID),
+                    now: now
+                )
+            }
         }
-        for plan in plans.values {
-            await apply(plan, existing: activities.first { matches($0, plan) }, now: now)
+
+        if let plan {
+            logger.notice("Plan \(plan.attributes.conferenceID, privacy: .public) day \(plan.attributes.dayNumber): \(plan.items.count) items, starts \(plan.startsAt, privacy: .public)")
+            await apply(plan, existing: kept, now: now)
         }
-        scheduleBackgroundRefresh(for: Array(plans.values), now: now)
+        scheduleBackgroundRefresh(for: plan.map { [$0] } ?? [], now: now)
     }
 
     /// The clock. Debug builds accept a `-LiveAgendaNow 2026-10-07T08:30:00Z` launch argument
@@ -153,12 +194,11 @@ final class LiveAgendaManager {
 
     // MARK: - Activities
 
-    private func matches(_ activity: Activity<ConferenceDayAttributes>, _ plans: [String: LiveAgendaPlan]) -> Bool {
-        plans[activity.attributes.conferenceID].map { matches(activity, $0) } ?? false
-    }
-
+    /// Same conference and same day. Deliberately not full attribute equality: a renamed
+    /// conference should keep its activity, not get a second one.
     private func matches(_ activity: Activity<ConferenceDayAttributes>, _ plan: LiveAgendaPlan) -> Bool {
-        activity.attributes == plan.attributes
+        activity.attributes.conferenceID == plan.attributes.conferenceID
+            && activity.attributes.dayStart == plan.attributes.dayStart
             && [.active, .pending, .stale].contains(activity.activityState)
     }
 
@@ -172,8 +212,10 @@ final class LiveAgendaManager {
             // The day is underway: update, or start right away (e.g. after the 8-hour cap
             // ended it, or the user swiped it away and reopened the app).
             if let existing {
+                logger.notice("Updating activity \(existing.id, privacy: .public) (state \(String(describing: existing.activityState), privacy: .public))")
                 await existing.update(content)
             } else {
+                logger.notice("Starting activity now")
                 request(plan, content: content, start: nil)
             }
             return
@@ -211,21 +253,23 @@ final class LiveAgendaManager {
                     style: .standard, alertConfiguration: alert, start: start
                 )
             } else {
-                _ = try Activity.request(attributes: plan.attributes, content: content, pushType: nil)
+                let activity = try Activity.request(attributes: plan.attributes, content: content, pushType: nil)
+                logger.notice("Started activity \(activity.id, privacy: .public)")
             }
         } catch {
-            logger.error("Live Activity request failed: \(error.localizedDescription)")
+            logger.error("Live Activity request failed: \(String(describing: error), privacy: .public)")
         }
     }
 
-    /// An activity that no longer matches a plan: its day is over, or the user stopped attending.
-    private func retire(_ activity: Activity<ConferenceDayAttributes>, stillAttending: Bool, now: Date) async {
+    /// An activity that isn't the one being kept: its day is over, the user stopped attending,
+    /// or another conference's day takes precedence.
+    private func retire(_ activity: Activity<ConferenceDayAttributes>, showWrap: Bool, now: Date) async {
         let isSameDay = now < activity.attributes.dayStart.addingTimeInterval(24 * 60 * 60)
-        guard stillAttending, isSameDay, activity.activityState != .pending else {
+        guard showWrap, isSameDay, activity.activityState != .pending else {
             await activity.end(nil, dismissalPolicy: .immediate)
             return
         }
-        // Earlier today: leave "That's a wrap" up briefly.
+        // Earlier today, and nothing else is showing yet: leave "That's a wrap" up briefly.
         let wrap = ConferenceDayAttributes.ContentState(current: nil, next: nil, after: nil, asOf: now)
         await activity.end(
             ActivityContent(state: wrap, staleDate: nil),
