@@ -6,7 +6,10 @@ struct ConferenceDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(CalendarService.self) private var calendarService
     @Environment(AchievementService.self) private var achievements
+    @Environment(LiveAgendaManager.self) private var liveAgenda
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query private var favourites: [FavouriteConference]
+    @Query private var attending: [AttendingConference]
 
     @State private var viewModel: ConferenceDetailViewModel
     /// The conference name lives in the hero title block; it only appears in the navigation
@@ -19,6 +22,10 @@ struct ConferenceDetailView: View {
 
     private var isFavourite: Bool {
         viewModel.isFavourite(in: favourites)
+    }
+
+    private var isAttending: Bool {
+        viewModel.isAttending(in: attending)
     }
 
     var body: some View {
@@ -50,6 +57,9 @@ struct ConferenceDetailView: View {
         .toolbar { toolbarContent }
         .sensoryFeedback(trigger: isFavourite) { _, isNowFavourite in
             isNowFavourite ? .success : .impact(weight: .light)
+        }
+        .sensoryFeedback(trigger: isAttending) { _, isNowAttending in
+            isNowAttending ? .success : .impact(weight: .light)
         }
         .sensoryFeedback(trigger: viewModel.isShowingEventEditor) { _, isPresented in
             isPresented ? .impact(weight: .medium) : nil
@@ -106,6 +116,9 @@ struct ConferenceDetailView: View {
                             .foregroundStyle(.primary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                }
+                if viewModel.conference.hasSchedule {
+                    ScheduleUpNextCard(conference: viewModel.conference)
                 }
                 GlassSectionCard(title: "When & Where") {
                     whenAndWhereContent
@@ -291,11 +304,30 @@ struct ConferenceDetailView: View {
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
+                let alsoFavourites = !isAttending && !isFavourite
+                viewModel.toggleAttending(in: attending, favourites: favourites, context: modelContext)
+                achievements.reevaluateFavourites()
+                Task { await liveAgenda.sync() }
+                if alsoFavourites {
+                    // The heart fills as a side effect; say so for VoiceOver users.
+                    AccessibilityNotification.Announcement("Attending. Also added to favourites.").post()
+                }
+            } label: {
+                Image(systemName: isAttending ? "ticket.fill" : "ticket")
+                    .symbolEffect(.bounce, value: reduceMotion ? false : isAttending)
+            }
+            .accessibilityLabel("Attending")
+            .accessibilityValue(isAttending ? "On" : "Off")
+            .accessibilityAddTraits(.isToggle)
+            .accessibilityHint("Puts your agenda for this conference on the Lock Screen while it's on.")
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
                 viewModel.toggleFavourite(in: favourites, context: modelContext)
                 achievements.reevaluateFavourites()
             } label: {
                 Image(systemName: isFavourite ? "heart.fill" : "heart")
-                    .symbolEffect(.bounce, value: isFavourite)
+                    .symbolEffect(.bounce, value: reduceMotion ? false : isFavourite)
             }
             .accessibilityLabel(isFavourite ? "Remove from favourites" : "Add to favourites")
         }
@@ -320,4 +352,6 @@ struct ConferenceDetailView: View {
     }
     .modelContainer(PreviewContainer.shared)
     .environment(CalendarService())
+    .environment(AchievementService())
+    .environment(LiveAgendaManager.preview)
 }

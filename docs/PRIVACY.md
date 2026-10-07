@@ -1,6 +1,6 @@
 # Privacy Policy — dubdub
 
-_Last updated: 31 May 2026_
+_Last updated: 4 September 2026_
 
 **dubdub does not collect any personal data.**
 
@@ -22,7 +22,11 @@ dubdub downloads its conference list as a public JSON file from this project's
 GitHub repository (via jsDelivr, with `raw.githubusercontent.com` as a
 fallback). These are ordinary, anonymous file downloads — the app sends no
 account information, identifiers, or personal data with them. The list is also
-bundled in the app so it works offline.
+bundled in the app so it works offline. Conference logos and artwork are loaded
+directly from the organiser's own website or image host (for example
+framerusercontent.com or a Squarespace CDN); these are likewise anonymous
+image downloads with no identifiers attached, though the host will see your
+device's IP address, as with any image loaded from the web.
 
 ## Calendar
 

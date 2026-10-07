@@ -2,11 +2,14 @@ import SwiftUI
 import SwiftData
 import MessageUI
 import StoreKit
+import UIKit
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.requestReview) private var requestReview
     @AppStorage("settings.showPastConferences") private var showPastConferences = false
+    @AppStorage(LiveAgendaManager.settingKey) private var showsLiveActivity = true
+    @Environment(LiveAgendaManager.self) private var liveAgenda
     @State private var viewModel = SettingsViewModel()
 
     var body: some View {
@@ -74,14 +77,43 @@ struct SettingsView: View {
 
     @ViewBuilder
     private var displaySection: some View {
-        Section("Display") {
+        Section {
             Toggle("Show past conferences", isOn: $showPastConferences)
+            Toggle(isOn: liveActivityBinding) {
+                Text("Live Activity at conferences")
+                Text("Shows what's on now and next on your Lock Screen while you're at a conference you're attending.")
+            }
+            .disabled(!liveAgenda.systemAllowsActivities)
+            .onChange(of: showsLiveActivity) {
+                Task { await liveAgenda.sync() }
+            }
             NavigationLink {
                 AppearanceView()
             } label: {
                 Label("Appearance", systemImage: "circle.lefthalf.filled")
             }
+        } header: {
+            Text("Display")
+        } footer: {
+            if !liveAgenda.systemAllowsActivities {
+                // The app toggle can't override iOS; point to the switch that can.
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Live Activities are turned off for dubdub in iOS Settings.")
+                    Button("Open Settings") {
+                        if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
+                    }
+                    .font(.footnote.weight(.semibold))
+                }
+            }
         }
+    }
+
+    /// Reads as off while iOS blocks Live Activities, without overwriting the user's choice.
+    private var liveActivityBinding: Binding<Bool> {
+        Binding(
+            get: { showsLiveActivity && liveAgenda.systemAllowsActivities },
+            set: { showsLiveActivity = $0 }
+        )
     }
 
     @ViewBuilder
@@ -118,4 +150,5 @@ struct SettingsView: View {
     SettingsView()
         .modelContainer(PreviewContainer.shared)
         .environment(CalendarService())
+        .environment(LiveAgendaManager.preview)
 }

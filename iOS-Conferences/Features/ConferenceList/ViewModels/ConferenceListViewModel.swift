@@ -103,9 +103,14 @@ final class ConferenceListViewModel {
     /// kind groups in display order (Conferences → Events → Meetups → Watch Parties) and sorted by
     /// day then time within. Type sub-dividers only surface in months that mix kinds, so
     /// dense months (WWDC week) get organised while quiet months stay clean.
+    ///
+    /// On the Favourites tab, conferences the user is attending are pinned in a leading
+    /// "Attending" section (chronological, no kind sub-dividers) and left out of the months
+    /// below, so each ticket appears once.
     func sections(
         from conferences: [Conference],
         favouriteIDs: Set<String>,
+        attendingIDs: Set<String> = [],
         showPast: Bool
     ) -> [ConferenceMonthSection] {
         var filtered = conferences
@@ -115,7 +120,7 @@ final class ConferenceListViewModel {
         }
 
         if filter == .favourites {
-            filtered = filtered.filter { favouriteIDs.contains($0.id) }
+            filtered = filtered.filter { favouriteIDs.contains($0.id) || attendingIDs.contains($0.id) }
         }
 
         let kinds = effectiveKinds
@@ -145,10 +150,27 @@ final class ConferenceListViewModel {
             }
         }
 
+        var pinned: [ConferenceMonthSection] = []
+        if filter == .favourites {
+            let attending = filtered
+                .filter { attendingIDs.contains($0.id) }
+                .sorted(by: Self.dayThenTime)
+            if !attending.isEmpty {
+                pinned.append(ConferenceMonthSection(
+                    id: "attending",
+                    title: "ATTENDING",
+                    groups: [ConferenceTypeGroup(id: "attending-all", kind: .conference, title: "", conferences: attending)],
+                    showsTypeHeaders: false,
+                    isPast: attending.allSatisfy(\.isPast)
+                ))
+                filtered.removeAll { attendingIDs.contains($0.id) }
+            }
+        }
+
         // Month-primary, chronological. Each event groups by its start month.
         let byMonth = Dictionary(grouping: filtered) { ConferenceDateStyle.monthKey(for: $0.startDate) }
 
-        return byMonth.keys.sorted().map { monthKey in
+        return pinned + byMonth.keys.sorted().map { monthKey in
             let monthConferences = byMonth[monthKey] ?? []
             let title = monthConferences.first
                 .map { ConferenceDateStyle.monthHeader(for: $0.startDate) } ?? monthKey
@@ -157,11 +179,7 @@ final class ConferenceListViewModel {
             let groups: [ConferenceTypeGroup] = ConferenceKind.displayOrder.compactMap { kind in
                 let confs = monthConferences
                     .filter { $0.kind == kind }
-                    .sorted { lhs, rhs in
-                        // Day first, then time of day (untimed events sort before timed).
-                        if lhs.startDate != rhs.startDate { return lhs.startDate < rhs.startDate }
-                        return (lhs.startTimeMinutes ?? -1) < (rhs.startTimeMinutes ?? -1)
-                    }
+                    .sorted(by: Self.dayThenTime)
                 guard !confs.isEmpty else { return nil }
                 return ConferenceTypeGroup(
                     id: "\(monthKey)-\(kind.rawValue)",
@@ -179,5 +197,11 @@ final class ConferenceListViewModel {
                 isPast: monthConferences.allSatisfy(\.isPast)
             )
         }
+    }
+
+    /// Day first, then time of day (untimed events sort before timed).
+    private static func dayThenTime(_ lhs: Conference, _ rhs: Conference) -> Bool {
+        if lhs.startDate != rhs.startDate { return lhs.startDate < rhs.startDate }
+        return (lhs.startTimeMinutes ?? -1) < (rhs.startTimeMinutes ?? -1)
     }
 }

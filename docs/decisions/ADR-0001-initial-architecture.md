@@ -24,7 +24,7 @@ Open questions answered at init:
 | Area | Choice |
 |------|--------|
 | Project name | iOS-Conferences |
-| Bundle ID | `com.pocketapps.conferences` |
+| Bundle ID | `com.pocketapps.conferences` — *superseded: the shipping ID is `com.moritztucher.dubdub-ios-conference` (renamed with the app to dubdub)* |
 | Git commit prefix | `CONF` |
 | iOS target | iOS 26+ |
 | Design language | Liquid Glass (iOS 26 native) — `.glassEffect()`, `GlassEffectContainer`, system toolbar/tab adoption |

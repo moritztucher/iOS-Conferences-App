@@ -272,7 +272,8 @@ extension Conference {
                 summary: "Community-run, non-profit Swift conference at Leeds Playhouse with talks, drop-in expert sessions and an evening talkshow.",
                 websiteURLString: "https://swiftleeds.co.uk",
                 logoURLString: "https://swiftleeds.co.uk/img/logo.png",
-                tags: ["swift", "ios", "community"]
+                tags: ["swift", "ios", "community"],
+                hasSchedule: true
             ),
             Conference(
                 id: "swift-connection-2026",
@@ -353,7 +354,10 @@ extension Conference {
 @MainActor
 enum PreviewContainer {
     static let shared: ModelContainer = {
-        let schema = Schema([Conference.self, FavouriteConference.self])
+        let schema = Schema([
+            Conference.self, FavouriteConference.self, AttendingConference.self,
+            ConferenceSchedule.self, FavouriteTalk.self
+        ])
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         // swiftlint:disable:next force_try
         let container = try! ModelContainer(for: schema, configurations: [config])
@@ -363,6 +367,14 @@ enum PreviewContainer {
         }
         // Pre-favourite iOSDevUK so the Favourites tab has something in previews.
         context.insert(FavouriteConference(conferenceID: "iosdevuk-2026"))
+        // Attending SwiftLeeds pins it above the favourites and shows the stub stamp.
+        context.insert(FavouriteConference(conferenceID: "swiftleeds-2026"))
+        context.insert(AttendingConference(conferenceID: "swiftleeds-2026"))
         return container
     }()
+}
+
+extension LiveAgendaManager {
+    /// Previews never start real activities; this just satisfies the environment.
+    @MainActor static let preview = LiveAgendaManager(container: PreviewContainer.shared)
 }

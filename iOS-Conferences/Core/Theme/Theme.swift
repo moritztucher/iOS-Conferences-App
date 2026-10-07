@@ -8,16 +8,26 @@ import SwiftUI
 ///   `AccentColor` asset (so it flows into every *default* control tint automatically)
 ///   and is mirrored here as `Theme.accent` for the handful of views that need the
 ///   colour directly (custom strokes, the favourite heart) rather than via the
-///   environment tint.
+///   environment tint. `Theme.accent` reads the asset **by name** (`Color("AccentColor")`),
+///   not via `Color.accentColor` — the semantic accent doesn't resolve inside `Menu`
+///   content bridged to `UIMenu` and falls back to SwiftUI's default blue (#46). The
+///   asset stays the single source of truth either way.
 /// - **Serif display** — Apple's system serif (New York), reserved for editorial
 ///   *display* moments only: conference names and month mastheads. Body, controls, and
 ///   secondary labels stay SF. Because it's the *system* serif, it keeps full Dynamic
 ///   Type scaling and optical sizing for free — no bundled font, no licensing, no
 ///   accessibility regressions.
 enum Theme {
-    /// Signature accent — mirrors the `AccentColor` asset so non-tint uses match the
-    /// app-wide tint exactly (single source of truth is the asset).
-    static let accent = Color.accentColor
+    /// Signature accent — mirrors the `AccentColor` asset **by name** so non-tint uses
+    /// match the app-wide tint exactly (single source of truth is the asset). Deliberately
+    /// not `Color.accentColor`: that semantic accent fails to resolve inside `Menu`
+    /// content bridged to `UIMenu`, rendering SwiftUI's default blue instead (#46).
+    static let accent = Color("AccentColor")
+
+    /// Text on a solid `accent` fill (the NOW / GOING badges). Near-black in both modes:
+    /// both marigold variants are light and warm enough for it (~9:1). If the dark
+    /// accent is ever darkened, this is the one place to adapt.
+    static let onAccent = Color.black.opacity(0.85)
 
     // MARK: - Type roles
 

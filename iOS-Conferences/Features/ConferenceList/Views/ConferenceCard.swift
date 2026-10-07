@@ -12,6 +12,8 @@ import SwiftUI
 struct ConferenceCard: View {
     let conference: Conference
     let isFavourite: Bool
+    /// Marked as attending (ADR-0009): stamps the stub, the "admit one" end of the ticket.
+    var isAttending: Bool = false
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var colorScheme
@@ -63,6 +65,7 @@ struct ConferenceCard: View {
         .overlay { logoBadge }
         .overlay { favouriteMark }
         .animation(reduceMotion ? nil : .snappy, value: isFavourite)
+        .animation(reduceMotion ? nil : .snappy, value: isAttending)
         .clipShape(ticket)
         .overlay(
             ticket.stroke(.white.opacity(0.10), lineWidth: 0.5)
@@ -185,6 +188,11 @@ struct ConferenceCard: View {
     private var stub: some View {
         let date = ConferenceDateStyle.stub(from: conference.startDate, to: conference.endDate)
         return VStack(spacing: 1) {
+            if isAttending {
+                attendingStamp
+                    .padding(.bottom, 6)
+                    .transition(.scale(scale: 1.4).combined(with: .opacity))
+            }
             Text(date.month)
                 .eyebrow()
                 .lineLimit(1)
@@ -210,6 +218,13 @@ struct ConferenceCard: View {
         // so the numerals stay legible instead of ballooning/truncating at accessibility
         // sizes. The full date still scales in the detail's When & Where row + VoiceOver.
         .dynamicTypeSize(...DynamicTypeSize.xxLarge)
+    }
+
+    /// Marigold "GOING" stamp at the head of the stub: the ticket's been claimed. Capped
+    /// tighter than the stub's numerals so it never shrinks below legibility in the 80pt stub.
+    private var attendingStamp: some View {
+        AccentBadge(title: "GOING")
+            .dynamicTypeSize(...DynamicTypeSize.xLarge)
     }
 
     @ViewBuilder
@@ -255,6 +270,7 @@ struct ConferenceCard: View {
         var parts = [conference.name, dateRange]
         if let time = conference.startTimeLabel { parts.append(time) }
         parts.append(location)
+        if isAttending { parts.append("Attending") }
         if isFavourite { parts.append("Favourite") }
         return parts.joined(separator: ", ")
     }
@@ -273,7 +289,7 @@ private struct VerticalDashedLine: Shape {
 #Preview("Tickets") {
     ScrollView {
         VStack(spacing: 12) {
-            ConferenceCard(conference: .sample, isFavourite: true)
+            ConferenceCard(conference: .sample, isFavourite: true, isAttending: true)
             ConferenceCard(conference: Conference.bundled[0], isFavourite: false)
             ConferenceCard(conference: Conference.bundled.last!, isFavourite: false)
         }

@@ -8,6 +8,7 @@ import SwiftUI
 struct ConferenceSectionList: View {
     let sections: [ConferenceMonthSection]
     let favouriteIDs: Set<String>
+    var attendingIDs: Set<String> = []
     /// Shared with the host's `navigationDestination` so tapping a card zooms into the
     /// detail hero (`.navigationTransition(.zoom(sourceID:in:))`).
     let namespace: Namespace.ID
@@ -43,7 +44,8 @@ struct ConferenceSectionList: View {
     private func card(for conference: Conference) -> some View {
         ConferenceCard(
             conference: conference,
-            isFavourite: favouriteIDs.contains(conference.id)
+            isFavourite: favouriteIDs.contains(conference.id),
+            isAttending: attendingIDs.contains(conference.id)
         )
         // Full-card tap target without the List's NavigationLink chevron, which would break
         // the full-bleed card edge. Glued directly to the card (before the scroll transition)

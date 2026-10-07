@@ -51,6 +51,7 @@ There are three ways to contribute, in order of friction:
 | `websiteURL` | `String` | yes | Conference homepage. Must be HTTPS. |
 | `logoURL` | `String?` | no | Direct link to the conference's logo or `og:image`. Fetched and displayed at runtime — never bundled or redistributed. If absent, the app shows a typographic placeholder. |
 | `tags` | `[String]` | yes | One or more topical tags. Current vocabulary (most used first): `community`, `wwdc`, `swift`, `ios`, `ai`, `indie`, `visionos`, `accessibility`, `swiftui`, `macos`, `apple`, `design`, `general`. Use `wwdc` for any WWDC-week entry. Propose new tags in your PR if you need one. |
+| `hasSchedule` | `Bool?` | no | `true` when `data/schedules/<id>.json` exists. See [Talk schedules](#talk-schedules). |
 
 ### Timed events (watch parties & events)
 
@@ -106,6 +107,83 @@ The JSON is parsed by `LiveConferenceService` in the iOS app. To validate locall
 
 - `python3 -m json.tool data/conferences.json` confirms the JSON is well-formed.
 - Build and run the app, then pull-to-refresh on the Conferences tab — your additions should appear.
+
+---
+
+## Talk schedules
+
+A conference can have a talk schedule in `data/schedules/<conference-id>.json`. The app shows it on the conference's detail page, lets people favourite talks, and drives the conference-day Live Activity ([ADR-0009](./docs/decisions/ADR-0009-attending-talks-live-activity.md)). Set `"hasSchedule": true` on the conference in `conferences.json` when you add one.
+
+### Importing (preferred)
+
+If the organiser publishes the schedule on Sessionize or Pretalx, import it instead of typing it:
+
+```bash
+# Sessionize: the event id is in the organiser's sessionize.com/api/v2/<id>/... embed URL
+python3 scripts/import_schedule.py sessionize <event-id> --conference swiftleeds-2026 --time-zone Europe/London
+
+# Pretalx: pass the schedule export URL (the time zone comes from the export)
+python3 scripts/import_schedule.py pretalx https://pretalx.com/<event>/schedule/export/schedule.json --conference <id>
+```
+
+If the Sessionize event is shared with other conferences (an umbrella event), keep only yours with `--room "<room name>"`. You can also add `--category "<category>"` (everything tagged with it, in any room) or `--session <id>` (a single session in a shared room). All three are repeatable. For example, SwiftCon Berlin is part of next.app devCon, and its community meetup is in the shared "Community Meetups" room:
+
+```bash
+python3 scripts/import_schedule.py sessionize yak5yl8m --conference swiftcon-berlin-2026 --time-zone Europe/Berlin \
+  --room "swiftCon 1" --room "swiftCon 2" --room "swiftCon 3" --room Schedule --session 1348320
+```
+
+Re-run the same command when the organiser changes the schedule. Session ids come from the provider's ids, so they stay stable. Review the generated `kind` values, because they're a best guess from titles and categories.
+
+### Schema
+
+```json
+{
+  "conferenceId": "swiftleeds-2026",
+  "timeZone": "Europe/London",
+  "updatedAt": "2026-10-06T12:00:00Z",
+  "rooms": [{ "id": "main-stage", "name": "Main Stage" }],
+  "sessions": [
+    {
+      "id": "swiftleeds-2026-48213",
+      "kind": "talk",
+      "day": "2026-10-13",
+      "start": "09:30",
+      "end": "10:10",
+      "title": "Swift Concurrency in Practice",
+      "speakers": ["Jane Doe"],
+      "roomId": "main-stage",
+      "url": "https://..."
+    },
+    { "id": "swiftleeds-2026-coffee-1", "kind": "break", "day": "2026-10-13", "start": "10:10", "end": "10:40", "title": "Coffee" }
+  ]
+}
+```
+
+| Field | Required | Notes |
+|-------|----------|-------|
+| `conferenceId` | yes | Same as the file name and the conference's `id`. |
+| `timeZone` | yes | The venue's IANA zone. All session times are wall-clock times in this zone. |
+| `updatedAt` | yes | ISO 8601 timestamp of the last edit or import. |
+| `rooms` | yes | Stages or rooms in display order: `id` (kebab-case) and `name`. Use one room for a single-track conference. In that case every talk is on everyone's agenda and the app hides the favourite hearts. |
+| `sessions[].id` | yes | Kebab-case and prefixed with the conference id. **Never change it once published**, because users' talk favourites are keyed on it. |
+| `sessions[].kind` | yes | `keynote`, `talk`, `workshop`, `break` or `social`. Only keynotes, talks and workshops appear on a personal agenda and in the Live Activity. |
+| `sessions[].day` | yes | `YYYY-MM-DD`, within the conference dates. |
+| `sessions[].start` / `end` | yes | Venue-local 24-hour `HH:mm`, with `end` after `start` on the same day. |
+| `sessions[].title` | yes | The talk title as published. |
+| `sessions[].speakers` | no | Speaker display names. |
+| `sessions[].roomId` | talks: yes if 2+ rooms | Must match a `rooms[].id`. Breaks and socials may omit it. |
+| `sessions[].url` | no | HTTPS link to the session page. |
+
+Keep `sessions` sorted by `day`, then `start`. **Don't copy abstracts.** Store only the title, speakers, room, time and link (see [Legal](#legal)).
+
+### Validating
+
+```bash
+python3 scripts/validate_schedules.py
+```
+
+This checks the schema, time formats, daylight-saving gaps, room references, unique session ids across all schedules, and that every `hasSchedule` conference has a file (and the other way round).
 
 ---
 

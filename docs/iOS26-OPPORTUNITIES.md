@@ -37,7 +37,8 @@ For a favourited conference inside its final window (e.g. the last 24–48h, and
 - iOS 26 surfaces Live Activities in more places (CarPlay, Watch Smart Stack), multiplying reach.
 
 *Why it fits:* the Dynamic Island is the most recognizably-iOS showpiece there is; a countdown to a conference you care about is a legitimate, non-gimmicky use.
-*Caveat:* Live Activities are for the *imminent/live* window, not a months-out countdown — pair with the widget (1.1) which owns the long-range countdown. We have no session-level data, so keep the content to event-level (name, day N, start time).
+*Caveat:* Live Activities are for the *imminent/live* window, not a months-out countdown — pair with the widget (1.1) which owns the long-range countdown.
+*Update (2026-10-06, ADR-0009):* shipped as a **session-level** conference-day activity for *attended* conferences (current or next talk, room, countdown, next line), driven by curated schedules in `data/schedules/`. The widget extension now exists, so 1.1 and 1.4 can join its bundle.
 
 ### 1.3 Spotlight + App Intents + Siri — the CLAUDE.md integration
 **Standout: ★★★★☆ · Effort: Med · Infra: App Intents (in-app, no extension) + entitlement for Siri**

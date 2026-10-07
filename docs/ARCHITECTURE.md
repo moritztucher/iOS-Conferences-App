@@ -6,7 +6,7 @@
 ## Project Summary
 
 **App Name:** iOS-Conferences
-**Bundle ID:** `com.pocketapps.conferences`
+**Bundle ID:** `com.moritztucher.dubdub-ios-conference`
 **Target iOS:** iOS 26+
 **Design Language:** Liquid Glass (iOS 26 native material)
 **Database:** SwiftData
@@ -69,7 +69,16 @@
 | EventKit (system) | Add events to user's calendar | ADR-0001 |
 | SafariServices (system) | Show conference website in-app | ADR-0001 |
 
-No third-party SPM dependencies at MVP.
+**Tests:** `Packages/ConferenceKit` (`swift test`, no simulator) covers schedule decoding and the agenda rules; the `iOS-ConferencesTests` target (XCTest, hosted in the app) covers view models: run with `xcodebuild test -scheme iOS-Conferences -destination 'platform=iOS Simulator,name=iPhone 17 Pro'`. Simulator debug builds read `data/` from the checkout instead of the CDN (`RepoConfig.localRepoDataFile`), so unpushed data shows up immediately.
+
+No third-party SPM dependencies. One **local** package, `Packages/ConferenceKit` (Foundation only), holds the talk schedule types, feed decoding (`ScheduleFeed`) and the agenda rules (`AgendaResolver`) from ADR-0009. It's shared by the app and, from phase 4, the Live Activity widget extension, and it carries the unit tests (`swift test` in that folder).
+
+### Live Activity (ADR-0009)
+- **`ConferenceLiveActivity`** is a widget extension embedded in the app. It holds only the conference-day Live Activity for now; Home Screen widgets can join its `WidgetBundle` later.
+- **Shared code:** `ConferenceDayAttributes` (the activity's attributes and `ContentState`), `LiveAgendaDisplay` (the presentation rules, including stale lookahead) and `LiveAgendaPlanner` (which day, and when) live in `ConferenceKit`, so the app and the extension use the same types and rules.
+- **`LiveAgendaManager`** (`Core/Managers/`, environment-injected) keeps the system's activities in line with the plan. It updates locally only, with no push server. `sync()` runs on foreground, after attending or talk-heart changes, after the Settings toggle, and from a `BGAppRefreshTask` (`com.moritztucher.dubdub-ios-conference.live-agenda`, best effort). Days within 48 hours are scheduled with iOS 26 scheduled start (`.pending` until 15 minutes before the first talk).
+- **Configuration:** the app has an `Info.plist` file for the keys Xcode can't generate (`NSSupportsLiveActivities`, `BGTaskSchedulerPermittedIdentifiers`, `UIBackgroundModes: fetch`). It's merged with the generated keys and excluded from the synced group's resources. The app owns its `ModelContainer` explicitly so the background task can reach the store without a window.
+- **Debugging:** debug builds accept `-LiveAgendaNow <ISO 8601>` as a launch argument to rehearse a conference day in the Simulator.
 
 ## Feature Modules
 
@@ -77,6 +86,7 @@ No third-party SPM dependencies at MVP.
 |---------|----------|-------------|
 | ConferenceList | `Features/ConferenceList/` | Ticket-card list (`ConferenceCard` + `TicketShape`), month-primary with kind sub-groups + counts. Region + multi-select kind/format filters. `.refreshable`; global Search tab. Shared by Conferences + Favourites (filter at the ViewModel level). See ADR-0004. |
 | ConferenceDetail | `Features/ConferenceDetail/` | Stretchy parallax hero (`ConferenceDetailHero`, clean bottom) → floating Liquid Glass cards (`GlassSectionCard`: About, When/Where with embedded map) → pinned glass CTA bar (Website + Add to Calendar). Card→hero zoom transition. Favourite toggle + `ShareLink` in toolbar. See ADR-0007. |
+| ConferenceSchedule | `Features/ConferenceSchedule/` | Talk schedule (ADR-0009): `ScheduleUpNextCard` on the detail screen and the full `ConferenceScheduleView` (day picker, time slots, talk hearts + clash flags on multi-track, "My Agenda" filter, live "NOW" marker). Logic in `ConferenceScheduleViewModel` + `ConferenceKit.AgendaResolver`. |
 | SuggestConference | `Features/SuggestConference/` | Form sheet that pre-fills a GitHub Issue URL and opens it in `SFSafariViewController` |
 | Settings | `Features/Settings/` | `Form` with Display (show-past toggle) / Support (rate, contact) / Contribute (suggest, view source) / About (version, license) |
 
@@ -92,6 +102,7 @@ See `docs/decisions/` for detailed ADRs.
 | ADR-0004 | Premium ticket-based visual identity for the list + detail hero (custom shapes, scrims, parallax, zoom transition); stock everywhere else | 2026-06-09 |
 | ADR-0005 | Optional event-local times + IANA time zone in the feed; timed calendar events anchored to the event zone | 2026-06-09 |
 | ADR-0006 | Two signature brand levers: a warm marigold accent (replacing system blue) + the system serif (New York) for display moments only. Amends ADR-0004. | 2026-06-09 |
+| ADR-0009 | *Proposed.* Attending flag, curated talk schedules in `data/schedules/`, talk favourites, and a local-only conference-day Live Activity | 2026-10-06 |
 | ADR-0007 | Push custom UI as far as possible by *composing* Liquid Glass (not reinventing controls); accessibility / Dynamic Type / dark-mode parity are hard criteria. Supersedes ADR-0003's stock-first stance. | 2026-06-09 |
 
 ## Data Storage
@@ -101,6 +112,8 @@ See `docs/decisions/` for detailed ADRs.
 | User credentials | N/A — no auth | N/A |
 | User preferences (last-refresh timestamp, filters) | UserDefaults | No |
 | Conference cache | SwiftData | No (public data) |
+| Talk schedule cache (`ConferenceSchedule`, one encoded `Schedule` per conference) | SwiftData | No (public data) |
+| Favourites, attending, talk favourites (`FavouriteConference`, `AttendingConference`, `FavouriteTalk`, IDs only) | SwiftData | No (no personal data) |
 
 ## Third-Party Integrations
 
@@ -120,4 +133,4 @@ See `docs/decisions/` for detailed ADRs.
 - Only objective conference metadata (name, date, location, URL) is stored. Long descriptive text is paraphrased to avoid copyright issues.
 - No bundled conference logos; rendered text-only badges where needed.
 - `NSCalendarsUsageDescription` required in Info.plist before the first EventKit call.
-- `PrivacyInfo.xcprivacy` to be added before App Store submission.
+- `PrivacyInfo.xcprivacy` lives at `iOS-Conferences/PrivacyInfo.xcprivacy` and is auto-bundled via the synchronized root group; it declares no tracking, no collected data, and UserDefaults under reason `CA92.1`.

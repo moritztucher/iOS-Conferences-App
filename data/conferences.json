@@ -2041,6 +2041,7 @@
   },
   {
     "id": "swiftcon-berlin-2026",
+    "hasSchedule": true,
     "kind": "Conference",
     "name": "swiftCon Berlin 2026",
     "startDate": "2026-10-07",
@@ -2093,6 +2094,7 @@
   },
   {
     "id": "swiftleeds-2026",
+    "hasSchedule": true,
     "kind": "Conference",
     "name": "SwiftLeeds",
     "startDate": "2026-10-13",

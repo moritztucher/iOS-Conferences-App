@@ -1,0 +1,910 @@
+{
+  "conferenceId": "swiftcon-berlin-2026",
+  "timeZone": "Europe/Berlin",
+  "updatedAt": "2026-10-06T13:09:00Z",
+  "rooms": [
+    {
+      "id": "swiftcon-1",
+      "name": "swiftCon 1"
+    },
+    {
+      "id": "swiftcon-2",
+      "name": "swiftCon 2"
+    },
+    {
+      "id": "swiftcon-3",
+      "name": "swiftCon 3"
+    },
+    {
+      "id": "community-meetups",
+      "name": "Community Meetups"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "swiftcon-berlin-2026-178e78ea-d57d-4a8f-a388-270b568430cb",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "08:00",
+      "end": "09:00",
+      "title": "Registration & Check-In"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1279480",
+      "kind": "keynote",
+      "day": "2026-10-07",
+      "start": "09:00",
+      "end": "10:00",
+      "title": "Software as Art: Crafting Apps in the Age of AI",
+      "speakers": [
+        "Phil Zakharchenko"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-511634ef-cc6f-42a6-9054-d3355bfb8606",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "10:00",
+      "end": "10:20",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1203858",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "10:20",
+      "end": "11:00",
+      "title": "Swift Export: Where We Stand",
+      "speakers": [
+        "Pamela Hill-Galloway"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1273574",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "10:20",
+      "end": "11:00",
+      "title": "Faster iOS Builds: Measuring Performance and Uncovering Hidden Compiler Costs",
+      "speakers": [
+        "Leonid Humeniuk"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-23da7437-073c-455e-81df-ef98f2369d80",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "11:00",
+      "end": "11:20",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1281087",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "11:20",
+      "end": "11:40",
+      "title": "Coding as a Creative Tool",
+      "speakers": [
+        "Ipek Erten"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1259872",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "11:20",
+      "end": "11:40",
+      "title": "Where Do the Bytes Go? Making iOS App Growth Observable at Scale",
+      "speakers": [
+        "Jan Rabe"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1192052",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "11:20",
+      "end": "11:40",
+      "title": "Beyond the Crash: From 46-Hour Detection to Real-Time Recovery",
+      "speakers": [
+        "Shilpa Bansal"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-ed6b65c8-d319-4184-891d-763c3a314a1c",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "11:40",
+      "end": "12:00",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1245343",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "Swift for Game Development: The Wins, The Walls, The Gaps",
+      "speakers": [
+        "Marcel Kulina"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1267762",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "From Speech to Search: Understanding User Intent with Apple Foundation Models",
+      "speakers": [
+        "Haydar Sahin"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1278972",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "Swift Charts Supercharged: Programming advanced interactive charts",
+      "speakers": [
+        "Richard Topchii"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-00a4c826-6c8c-4c5d-b988-d9f58930804c",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "12:40",
+      "end": "13:50",
+      "title": "Lunch"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1209544",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "Divide and Compile: Modular iOS Architecture at Scale",
+      "speakers": [
+        "Nikhil Singh"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1280814",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "Don’t call us - we’ll call you: Modern SwiftUI callbacks using AsyncStream",
+      "speakers": [
+        "Peter Friese"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1252951",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "Scaling SwiftData: Performance Lessons from Production Apps",
+      "speakers": [
+        "Mohammad Azam"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-8e818f3f-39ae-4aa0-bf9e-7c8d6de03964",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "14:30",
+      "end": "14:50",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1196828",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "14:50",
+      "end": "15:30",
+      "title": "Mobile Security Fundamentals: Build Apps That Fight Back",
+      "speakers": [
+        "Peter Kurzok"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1264851",
+      "kind": "workshop",
+      "day": "2026-10-07",
+      "start": "14:50",
+      "end": "16:10",
+      "title": "Feel Core Image: Live Image Processing",
+      "speakers": [
+        "Vladislav Markov"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1185572",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "14:50",
+      "end": "15:30",
+      "title": "Arts and Crafts",
+      "speakers": [
+        "Ellen Shapiro"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-a3cffb89-bfa7-4cc9-a2a5-cf1b8aabbbcf",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "15:30",
+      "end": "15:50",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1281104",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "15:50",
+      "end": "16:10",
+      "title": "Kill Your Generated Mocks: Compile-Time Mocking with Swift Macros",
+      "speakers": [
+        "Leonardo Cardoso"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-112412d7-8528-4e92-a702-336a2256b253",
+      "kind": "break",
+      "day": "2026-10-07",
+      "start": "16:10",
+      "end": "16:30",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1175528",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Driving User Engagement",
+      "speakers": [
+        "Janina Kutyn"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1277962",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Opening Up Open Source",
+      "speakers": [
+        "Tim Condon"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1277184",
+      "kind": "talk",
+      "day": "2026-10-07",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Product-Oriented Programming: When Shipping Speed Is an Architectural Requirement",
+      "speakers": [
+        "Dmytro Polianskyi"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1340520",
+      "kind": "social",
+      "day": "2026-10-07",
+      "start": "17:10",
+      "end": "19:00",
+      "title": "KARAOKE PARTY! HAVE A DRINK ON US!",
+      "speakers": [
+        "next.app devCon"
+      ]
+    },
+    {
+      "id": "swiftcon-berlin-2026-029d66de-97b5-4f8c-8fa8-76619e3a800a",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "08:00",
+      "end": "09:00",
+      "title": "Registration & Check-In"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1280119",
+      "kind": "keynote",
+      "day": "2026-10-08",
+      "start": "09:00",
+      "end": "10:00",
+      "title": "What AI Can’t Do: Creating F***ing Awesome User Experiences",
+      "speakers": [
+        "Ali Ebrahimi Pourasad"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-3cd59d4d-8d0d-4c76-843f-b7d7d2d9fb27",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "10:00",
+      "end": "10:20",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1193617",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "10:20",
+      "end": "11:00",
+      "title": "How to make 2.1 million people feel special - an onboarding story by Yazio",
+      "speakers": [
+        "Noam Efergan"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1223936",
+      "kind": "workshop",
+      "day": "2026-10-08",
+      "start": "10:20",
+      "end": "11:40",
+      "title": "Accessibility Nutrition Labels: How to Test, Evaluate, and Stand Out on the App Store",
+      "speakers": [
+        "Rob Whitaker"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1273243",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "10:20",
+      "end": "11:00",
+      "title": "Snapshot Testing in Practice: Predictable and Reliable SwiftUI Views",
+      "speakers": [
+        "Felipe Espinoza"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-2409aa56-b800-4fb4-a0c4-a29ded0ff099",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "11:00",
+      "end": "11:20",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1194033",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "11:20",
+      "end": "11:40",
+      "title": "Designing for Laziness: Apps for Effortless Users",
+      "speakers": [
+        "Aymen Bokri"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1316233",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "11:20",
+      "end": "11:40",
+      "title": "There is no (other) AppSec person: 5 things Swift developers can do against the Vulnpocalypse",
+      "speakers": [
+        "Halle Winkler"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-205de604-91ce-49d0-9ab3-a50c083e1464",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "11:40",
+      "end": "12:00",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1240910",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "1 Billion Rows - Optimizing Swift for the Billion Row Challenge",
+      "speakers": [
+        "Ben Scheirman"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1275058",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "SwiftUI Is One Graph: Reverse Engineering Apple’s UI Engine",
+      "speakers": [
+        "Mihaela Mihaljevic Jakic"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1278701",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "Swift API Design for Developers Who Don't Read The Manual",
+      "speakers": [
+        "Niklas Holloh"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-0394eda2-84fb-4515-a19f-36b2b892973d",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "12:40",
+      "end": "13:50",
+      "title": "Lunch"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1277839",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "Effect Systems: a powerful alternative to Dependency Injection",
+      "speakers": [
+        "Alex Ozun"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1281042",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "The iOS Decisions You Can't Take Back",
+      "speakers": [
+        "Abdullah Bayraktar"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1280882",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "The Tale of Logging",
+      "speakers": [
+        "Stephan Arenswald"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-52835dfb-eb37-41ba-b751-0097ceed7d98",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "14:30",
+      "end": "14:50",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1276472",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "14:50",
+      "end": "15:30",
+      "title": "App Adaptivity: Opening your UI to new screen sizes",
+      "speakers": [
+        "Peter Molnar"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1218514",
+      "kind": "workshop",
+      "day": "2026-10-08",
+      "start": "14:50",
+      "end": "16:10",
+      "title": "Async/Await at Scale: Designing High-Throughput iOS Architectures",
+      "speakers": [
+        "Amitesh Mani Tiwari"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1193952",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "14:50",
+      "end": "15:30",
+      "title": "App Performance Monitoring at Scale",
+      "speakers": [
+        "Gleb Tarasov"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-e3e43d73-3928-421d-8125-b04991437e19",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "15:30",
+      "end": "15:50",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1280572",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "15:50",
+      "end": "16:10",
+      "title": "The bottleneck shift - why does the speed of CI/CD matter even more?",
+      "speakers": [
+        "Júlia Fodor-Horváth"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-43aaac45-8cf0-44ad-9214-275dd4dc20d0",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "16:10",
+      "end": "16:30",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1348320",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "16:10",
+      "end": "16:45",
+      "title": "swiftCon Community Meetup",
+      "roomId": "community-meetups"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1280906",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Swift Beyond iOS: Sharing Product Logic with Android Without Sharing UI",
+      "speakers": [
+        "Raul Menezes"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1174824",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "DRI Your Career",
+      "speakers": [
+        "Cate Huston"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1209266",
+      "kind": "talk",
+      "day": "2026-10-08",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Building a Native visionOS App with a Live Physiology Engine for Medical Training",
+      "speakers": [
+        "Fahim Uddin"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-d5821030-4d63-4e2f-bbed-325ff6663da1",
+      "kind": "break",
+      "day": "2026-10-08",
+      "start": "17:00",
+      "end": "17:40",
+      "title": "GamesCapitalBerlin Reception - get your invitation at Level 2 booth 54"
+    },
+    {
+      "id": "swiftcon-berlin-2026-da434ecf-272c-47cc-8fe8-b5f91c0b962b",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "08:00",
+      "end": "09:00",
+      "title": "Registration & Check-In"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1339703",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "09:00",
+      "end": "10:00",
+      "title": "We Have the Tech, Now What? Foundation Models, Siri, and the Reality of Enterprise AI",
+      "speakers": [
+        "Michael Gerasymenko",
+        "Claire Sivadier",
+        "Mihaela Mihaljevic Jakic",
+        "Phil Zakharchenko",
+        "Łukasz Lech"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-a69dcb19-3ed5-462e-8c80-c9be95755fa0",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "10:00",
+      "end": "10:20",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1255767",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "10:20",
+      "end": "11:00",
+      "title": "Building a Real-Time Video Synthesizer in Swift & Metal",
+      "speakers": [
+        "Ed Rooth"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1242512",
+      "kind": "workshop",
+      "day": "2026-10-09",
+      "start": "10:20",
+      "end": "11:40",
+      "title": "Designing a design system for the future",
+      "speakers": [
+        "Calvin Chestnut"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1270935",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "10:20",
+      "end": "11:00",
+      "title": "Think Local: Magic at your fingertips",
+      "speakers": [
+        "Michael Gerasymenko"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-846d149a-ab9a-469b-aad2-78f51340f87f",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "11:00",
+      "end": "11:20",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1279484",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "11:20",
+      "end": "11:40",
+      "title": "Crafting Fluid Animations Across Apple Platforms",
+      "speakers": [
+        "Phil Zakharchenko"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-c60a077d-a368-442e-8b6a-8a0fde4d992b",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "11:40",
+      "end": "12:00",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1193534",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "Who Let the App Intents Out? 🐾",
+      "speakers": [
+        "Claire Sivadier"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1275525",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "visionOS in Production: Real Business Use Cases",
+      "speakers": [
+        "Matvei Novoselov"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1276017",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "12:00",
+      "end": "12:40",
+      "title": "Custom SF Symbols: Fun… but not easy!",
+      "speakers": [
+        "Bruno Scheele"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-4d46f94c-28d2-470a-b9c2-508dd0efcd28",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "12:40",
+      "end": "13:50",
+      "title": "Lunch"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1281172",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "Beyond the checklist: Building Observability for Accessibility Debt",
+      "speakers": [
+        "Olla Ashour"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1218963",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "Hostile Environment CoreLocation: Sensor Fusion & Battery Math",
+      "speakers": [
+        "Kosala Jayasekara"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1280464",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "13:50",
+      "end": "14:30",
+      "title": "Design your app for offline working",
+      "speakers": [
+        "Avi Tsadok"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-69ca093f-c042-4189-80f2-e1726766fb6b",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "14:30",
+      "end": "14:50",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1281166",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "14:50",
+      "end": "15:30",
+      "title": "Backend driven UI and SwiftUI",
+      "speakers": [
+        "Stepan Mirskiy"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1275466",
+      "kind": "workshop",
+      "day": "2026-10-09",
+      "start": "14:50",
+      "end": "16:10",
+      "title": "Building Scalable Swift Automation: From CI to App Store Distribution",
+      "speakers": [
+        "Leo Dion"
+      ],
+      "roomId": "swiftcon-2"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1241321",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "14:50",
+      "end": "15:30",
+      "title": "Deterministic Session Replay: Capture & Replay for Mobile at Uber",
+      "speakers": [
+        "Prasanna Bhat",
+        "Shahbaz Kaladiya"
+      ],
+      "roomId": "swiftcon-3"
+    },
+    {
+      "id": "swiftcon-berlin-2026-8d1a6b74-41c8-4f48-83a5-841bc0c3753f",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "15:30",
+      "end": "15:50",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1280038",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "15:50",
+      "end": "16:10",
+      "title": "Apple Intelligence Beyond the Hype: Building Features That Actually Matter",
+      "speakers": [
+        "Armend Belallari"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-0d23c936-0e4d-4ac4-9a76-ae85506db06b",
+      "kind": "break",
+      "day": "2026-10-09",
+      "start": "16:10",
+      "end": "16:30",
+      "title": "Break"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1261283",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Bazel for iOS at Scale: Lessons from a Real Enterprise Migration with over 300 modules",
+      "speakers": [
+        "Saeid Rezaeisadrabadi"
+      ],
+      "roomId": "swiftcon-1"
+    },
+    {
+      "id": "swiftcon-berlin-2026-1273514",
+      "kind": "talk",
+      "day": "2026-10-09",
+      "start": "16:30",
+      "end": "17:10",
+      "title": "Taming Screen Time: A Survival Guide to Anti-Doomscrolling APIs",
+      "speakers": [
+        "Nicola Giancecchi"
+      ],
+      "roomId": "swiftcon-2"
+    }
+  ]
+}

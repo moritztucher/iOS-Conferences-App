@@ -6,14 +6,86 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C0F1A0032FC0000100A1B2C3 /* ConferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = C0F1A0022FC0000100A1B2C3 /* ConferenceKit */; };
+		C0F1A2112FC0000100A1B2C3 /* ConferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = C0F1A2102FC0000100A1B2C3 /* ConferenceKit */; };
+		C0F1A2122FC0000100A1B2C3 /* ConferenceLiveActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C0F1A2012FC0000100A1B2C3 /* ConferenceLiveActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0F1A1072FC0000100A1B2C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 902BDE312FBB116B00E7C14E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 902BDE382FBB116B00E7C14E;
+			remoteInfo = "iOS-Conferences";
+		};
+		C0F1A2142FC0000100A1B2C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 902BDE312FBB116B00E7C14E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0F1A2032FC0000100A1B2C3;
+			remoteInfo = ConferenceLiveActivity;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C0F1A2132FC0000100A1B2C3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C0F1A2122FC0000100A1B2C3 /* ConferenceLiveActivity.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		902BDE392FBB116B00E7C14E /* iOS-Conferences.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Conferences.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0F1A1012FC0000100A1B2C3 /* iOS-ConferencesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-ConferencesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0F1A2012FC0000100A1B2C3 /* ConferenceLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ConferenceLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C0F1A2162FC0000100A1B2C3 /* Exceptions for "ConferenceLiveActivity" folder in "ConferenceLiveActivity" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C0F1A2032FC0000100A1B2C3 /* ConferenceLiveActivity */;
+		};
+		C0F1A2172FC0000100A1B2C3 /* Exceptions for "iOS-Conferences" folder in "iOS-Conferences" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 902BDE382FBB116B00E7C14E /* iOS-Conferences */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		902BDE3B2FBB116B00E7C14E /* iOS-Conferences */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C0F1A2172FC0000100A1B2C3 /* Exceptions for "iOS-Conferences" folder in "iOS-Conferences" target */,
+			);
 			path = "iOS-Conferences";
+			sourceTree = "<group>";
+		};
+		C0F1A1022FC0000100A1B2C3 /* iOS-ConferencesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "iOS-ConferencesTests";
+			sourceTree = "<group>";
+		};
+		C0F1A2022FC0000100A1B2C3 /* ConferenceLiveActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C0F1A2162FC0000100A1B2C3 /* Exceptions for "ConferenceLiveActivity" folder in "ConferenceLiveActivity" target */,
+			);
+			path = ConferenceLiveActivity;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +95,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0F1A0032FC0000100A1B2C3 /* ConferenceKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0F1A1052FC0000100A1B2C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0F1A2052FC0000100A1B2C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0F1A2112FC0000100A1B2C3 /* ConferenceKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				902BDE3B2FBB116B00E7C14E /* iOS-Conferences */,
+				C0F1A1022FC0000100A1B2C3 /* iOS-ConferencesTests */,
+				C0F1A2022FC0000100A1B2C3 /* ConferenceLiveActivity */,
 				902BDE3A2FBB116B00E7C14E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				902BDE392FBB116B00E7C14E /* iOS-Conferences.app */,
+				C0F1A1012FC0000100A1B2C3 /* iOS-ConferencesTests.xctest */,
+				C0F1A2012FC0000100A1B2C3 /* ConferenceLiveActivity.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,20 +147,69 @@
 				902BDE352FBB116B00E7C14E /* Sources */,
 				902BDE362FBB116B00E7C14E /* Frameworks */,
 				902BDE372FBB116B00E7C14E /* Resources */,
+				C0F1A2132FC0000100A1B2C3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C0F1A2152FC0000100A1B2C3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				902BDE3B2FBB116B00E7C14E /* iOS-Conferences */,
 			);
 			name = "iOS-Conferences";
 			packageProductDependencies = (
+				C0F1A0022FC0000100A1B2C3 /* ConferenceKit */,
 			);
 			productName = "iOS-Conferences";
 			productReference = 902BDE392FBB116B00E7C14E /* iOS-Conferences.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C0F1A1032FC0000100A1B2C3 /* iOS-ConferencesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0F1A1112FC0000100A1B2C3 /* Build configuration list for PBXNativeTarget "iOS-ConferencesTests" */;
+			buildPhases = (
+				C0F1A1042FC0000100A1B2C3 /* Sources */,
+				C0F1A1052FC0000100A1B2C3 /* Frameworks */,
+				C0F1A1062FC0000100A1B2C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0F1A1082FC0000100A1B2C3 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C0F1A1022FC0000100A1B2C3 /* iOS-ConferencesTests */,
+			);
+			name = "iOS-ConferencesTests";
+			packageProductDependencies = (
+			);
+			productName = "iOS-ConferencesTests";
+			productReference = C0F1A1012FC0000100A1B2C3 /* iOS-ConferencesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C0F1A2032FC0000100A1B2C3 /* ConferenceLiveActivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0F1A2092FC0000100A1B2C3 /* Build configuration list for PBXNativeTarget "ConferenceLiveActivity" */;
+			buildPhases = (
+				C0F1A2042FC0000100A1B2C3 /* Sources */,
+				C0F1A2052FC0000100A1B2C3 /* Frameworks */,
+				C0F1A2062FC0000100A1B2C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C0F1A2022FC0000100A1B2C3 /* ConferenceLiveActivity */,
+			);
+			name = ConferenceLiveActivity;
+			packageProductDependencies = (
+				C0F1A2102FC0000100A1B2C3 /* ConferenceKit */,
+			);
+			productName = ConferenceLiveActivity;
+			productReference = C0F1A2012FC0000100A1B2C3 /* ConferenceLiveActivity.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -83,6 +224,13 @@
 					902BDE382FBB116B00E7C14E = {
 						CreatedOnToolsVersion = 26.4.1;
 					};
+					C0F1A1032FC0000100A1B2C3 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = 902BDE382FBB116B00E7C14E;
+					};
+					C0F1A2032FC0000100A1B2C3 = {
+						CreatedOnToolsVersion = 27.0;
+					};
 				};
 			};
 			buildConfigurationList = 902BDE342FBB116B00E7C14E /* Build configuration list for PBXProject "iOS-Conferences" */;
@@ -94,18 +242,37 @@
 			);
 			mainGroup = 902BDE302FBB116B00E7C14E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C0F1A0012FC0000100A1B2C3 /* XCLocalSwiftPackageReference "Packages/ConferenceKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 902BDE3A2FBB116B00E7C14E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				902BDE382FBB116B00E7C14E /* iOS-Conferences */,
+				C0F1A1032FC0000100A1B2C3 /* iOS-ConferencesTests */,
+				C0F1A2032FC0000100A1B2C3 /* ConferenceLiveActivity */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		902BDE372FBB116B00E7C14E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0F1A1062FC0000100A1B2C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0F1A2062FC0000100A1B2C3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +289,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0F1A1042FC0000100A1B2C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0F1A2042FC0000100A1B2C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0F1A1082FC0000100A1B2C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 902BDE382FBB116B00E7C14E /* iOS-Conferences */;
+			targetProxy = C0F1A1072FC0000100A1B2C3 /* PBXContainerItemProxy */;
+		};
+		C0F1A2152FC0000100A1B2C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0F1A2032FC0000100A1B2C3 /* ConferenceLiveActivity */;
+			targetProxy = C0F1A2142FC0000100A1B2C3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		902BDE422FBB116D00E7C14E /* Debug */ = {
@@ -250,16 +444,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S84QBGCN9L;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "*.md";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_FILE = "iOS-Conferences/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = dubdub;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "Add conferences to your calendar.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -270,7 +467,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -291,16 +488,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S84QBGCN9L;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "*.md";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_FILE = "iOS-Conferences/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = dubdub;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription = "Add conferences to your calendar.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -311,7 +511,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -321,6 +521,110 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C0F1A1092FC0000100A1B2C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S84QBGCN9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS-Conferences.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iOS-Conferences";
+			};
+			name = Debug;
+		};
+		C0F1A1102FC0000100A1B2C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S84QBGCN9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS-Conferences.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iOS-Conferences";
+			};
+			name = Release;
+		};
+		C0F1A2072FC0000100A1B2C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S84QBGCN9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ConferenceLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = dubdub;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.4.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference.LiveActivity";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C0F1A2082FC0000100A1B2C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S84QBGCN9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ConferenceLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = dubdub;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.4.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.moritztucher.dubdub-ios-conference.LiveActivity";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -349,7 +653,43 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		C0F1A1112FC0000100A1B2C3 /* Build configuration list for PBXNativeTarget "iOS-ConferencesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0F1A1092FC0000100A1B2C3 /* Debug */,
+				C0F1A1102FC0000100A1B2C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0F1A2092FC0000100A1B2C3 /* Build configuration list for PBXNativeTarget "ConferenceLiveActivity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0F1A2072FC0000100A1B2C3 /* Debug */,
+				C0F1A2082FC0000100A1B2C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		C0F1A0012FC0000100A1B2C3 /* XCLocalSwiftPackageReference "Packages/ConferenceKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/ConferenceKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0F1A0022FC0000100A1B2C3 /* ConferenceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ConferenceKit;
+		};
+		C0F1A2102FC0000100A1B2C3 /* ConferenceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ConferenceKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 902BDE312FBB116B00E7C14E /* Project object */;
 }

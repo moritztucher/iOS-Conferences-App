@@ -73,6 +73,28 @@ final class ConferenceDetailViewModel {
         try? context.save()
     }
 
+    func isAttending(in attending: [AttendingConference]) -> Bool {
+        attending.contains { $0.conferenceID == conference.id }
+    }
+
+    /// Marking a conference as attended also favourites it, since you obviously care about
+    /// a conference you're going to. Un-attending leaves the favourite alone.
+    func toggleAttending(
+        in attending: [AttendingConference],
+        favourites: [FavouriteConference],
+        context: ModelContext
+    ) {
+        if let existing = attending.first(where: { $0.conferenceID == conference.id }) {
+            context.delete(existing)
+        } else {
+            context.insert(AttendingConference(conferenceID: conference.id))
+            if !isFavourite(in: favourites) {
+                context.insert(FavouriteConference(conferenceID: conference.id))
+            }
+        }
+        try? context.save()
+    }
+
     func openInMaps() {
         guard let query = conference.mapQuery,
               let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
