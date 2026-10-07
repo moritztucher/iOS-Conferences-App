@@ -1,7 +1,7 @@
 {
   "conferenceId": "swiftleeds-2026",
   "timeZone": "Europe/London",
-  "updatedAt": "2026-10-06T11:55:13Z",
+  "updatedAt": "2026-10-07T12:43:34Z",
   "rooms": [
     {
       "id": "the-playhouse",
@@ -37,7 +37,8 @@
       "speakers": [
         "Antoine van der Lee"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Swift has come a long way. From painful migrations and slow builds to async/await, SwiftUI, and an ecosystem that has matured with us.\n\nNow, AI agents are changing how we write software once again. We may type less Swift ourselves, but that does not make Swift (or our experience with it) less important.\n\nIf anything, it changes where our value lies: in knowing what good Swift looks like, guiding agents toward high-quality output, and making sure the code we ship remains maintainable, performant, accessible, and truly native.\n\nIn this opening talk, we’ll look back at how Swift has evolved, explore what agentic development means for Swift developers today, and rethink what it means to care about our craft when we are no longer writing every line ourselves.\n\nBecause bringing back the love of Swift is not about going back. It is about deciding what we want to carry forward."
     },
     {
       "id": "swiftleeds-2026-8f82db81-bddd-46ad-8f39-f72b61c2b469",
@@ -49,7 +50,8 @@
       "speakers": [
         "Francesco Marini"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "I'll begin with a gentle introduction to Swift Charts, then show the different kinds of charts one can make, both 2D and 3D ones.\nI will show how to customize the standard charts to make them more appealing, and touch upon font and color choices to also make them accessible.\nI will moreover quickly show how to use TabularData to easily import data from csv files, which can sometimes come in handy."
     },
     {
       "id": "swiftleeds-2026-efdccd60-c9d8-4c80-af85-d40238b55104",
@@ -71,7 +73,8 @@
         "Eyad Kelleh",
         "Maurice Pfurr"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "We're iOS developers building Charge a Smile, an EV charging app that helps drivers across Germany find charging stations, compare prices, and plan routes. We've expanded the app beyond the phone to support Home Screen widgets, Lock Screen widgets, Live Activities, and most recently CarPlay.\n\nWhy CarPlay? Because our users are literally driving when they need to find a charger. The phone app wasn't enough.\n\nBuilding CarPlay taught us more about UI design than any SwiftUI tutorial. When you only have 6 template types and your users can't look at the screen, you're forced to strip everything to its essentials. That constraint changed how we think about every surface our app lives on.\n\nTopics we'd love to speak about:\n\nCarPlay Development From entitlement approval to shipping. The architecture, the templates, the gotchas. Most iOS developers have never touched CarPlay, but it's more accessible than people think. We'd walk through building a real CarPlay experience using examples from Charge a Smile.\n\nMulti-Surface App Design Your app now lives in 4+ places: phone, widget, Lock Screen, CarPlay. How do you share data across all of them? How do you design for glanceable vs. interactive vs. driving-safe contexts? We've built all of these and learned what works.\n\nDesigning Under Constraints CarPlay's limitations forced creative solutions. When you can't add features, you design better defaults. This is a broader talk about how constraints breed creativity with CarPlay as the case study."
     },
     {
       "id": "swiftleeds-2026-e28d0107-a65f-4585-90ab-c5509972d3d6",
@@ -101,7 +104,8 @@
       "speakers": [
         "Tim Condon"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Finally (finally!) Vapor 5 is here. This talk will cover the journey taken to releasing a new major version of a framework used by thousands of companies, both big and small and examine the improvements made in the 6 years since the last major release. We'll cover the newer Swift features that make it possible to write code that's a joy to use whilst maintaining its expressiveness and performance. And we'll dive in to some of the more advanced features that make it suitable for production systems. Of course, the talk wouldn't be complete without a live demo showing it in action!"
     },
     {
       "id": "swiftleeds-2026-2810f74b-da6a-4f47-851b-9416db54edc5",
@@ -113,7 +117,8 @@
       "speakers": [
         "Eli Perkins"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Great apps sweat the small details, and text rendering is no exception. Since its introduction in iOS 17, I've enjoyed playing with SwiftUI's TextRenderer to create interactive text experiences that go beyond black-and-white pixels on screen. By combining animation, real-world user-generated text, and some SwiftUI know-how, TextRenderer can make your app truly sing.\n\nIn this talk, I'll share what I've learned shipping text-driven features in Particle News, from animated audio transcripts to progress-driven animations that can energize any SwiftUI app."
     },
     {
       "id": "swiftleeds-2026-e3850ad0-4ad2-426e-aca0-89c88968c59d",
@@ -134,7 +139,8 @@
       "speakers": [
         "Kevin Morales"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Swift Macros introduced a powerful new metaprogramming capability to the Swift ecosystem, allowing developers to generate code at compile time and remove large amounts of boilerplate. While the initial examples are simple, building macros that are reliable, maintainable, and safe for production systems requires a deeper understanding of how Swift’s compiler and syntax tree work.\n\nIn this talk we explore how Swift Macros actually function under the hood and how they can be used to simplify real-world iOS architectures.\n\nWe will walk through the process of designing and implementing a macro that generates repetitive code commonly found in application layers such as networking models, dependency injection, and state management.\n\nAlong the way we will examine how macros interact with the SwiftSyntax tree, how compile-time transformations are applied, and what limitations developers should be aware of when using macros in production environments.\n\nRather than focusing on toy examples, the session demonstrates how macros can help reduce complexity in large codebases while maintaining type safety and compile-time guarantees.\n\nBy the end of the talk, attendees will understand when macros are the right tool, how to build them effectively, and how to integrate them safely into modern Swift projects."
     },
     {
       "id": "swiftleeds-2026-ab404652-2fb7-48a1-836d-cbc897f28186",
@@ -146,7 +152,8 @@
       "speakers": [
         "Claire Sivadier"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Who says you need to open an app to use it? With App Intents, I logged my puppy’s walks 🐶 while keeping my iPhone in my pocket. This shows how apps can extend beyond the UI, letting Siri, Shortcuts, Spotlight, and widgets handle interactions hands-free.\n\nUser behavior is changing: people increasingly expect to talk to their devices or ask them to do things instead of navigating traditional screens. Modern apps should integrate seamlessly with the system, making everyday tasks effortless and enhancing the user experience. Developers will learn how to unlock system-level features without relying on traditional screens, making their apps smarter, more context-aware, and useful.\n\nMajor takeaways:\n- Define and register AppIntents in Swift\n- Expose actions to Siri, Shortcuts, Spotlight, and widgets\n- Pass parameters with AppEnum and AppEntity\n- Design background-driven experiences without touching the UI\n- Apply practical examples immediately in your own apps"
     },
     {
       "id": "swiftleeds-2026-f5989eaa-7416-4cca-9130-ad03fa909758",
@@ -158,7 +165,8 @@
       "speakers": [
         "Natalija Marcinska"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Modern software engineering is no longer just about writing good code. It is about making good decisions.\n\nIn this talk, I explore how developers shape product outcomes through the technical and strategic decisions they make every day: from architecture choices and experimentation approaches to defining success metrics and validating ideas before investing heavily in them.\n\nDrawing on over a decade of experience across companies including Bloomberg, BBC, and fast-paced start-ups, I share real-world examples of technically excellent features that ultimately failed to deliver meaningful user impact, and suggest what teams could have done differently.\n\nThe session will cover:\n- how teams fall into “feature factory” mode\n- why discovery should involve engineers from the start\n- how scrappy experimentation can reduce wasted effort\n- why measurement and analytics must be first-class citizens\n- and how both indie developers and large product teams can build with outcomes, not just output, in mind\n\nFor newer developers, the talk offers a broader perspective on how engineering work connects to real user value and product thinking.\n\nFor more experienced engineers, it challenges traditional delivery-focused mindsets and explores how modern developers can play a more active role in shaping what gets built, not just implementing it.\n\nThis is a talk about moving beyond writing code… and towards creating impact."
     },
     {
       "id": "swiftleeds-2026-477fb3ea-7174-48ea-9463-27759dd3b216",
@@ -197,7 +205,8 @@
       "speakers": [
         "Nikki Eke"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "On paper, FamilyControls, DeviceActivity, and ManagedSettings give you everything you need to build focus apps, parental controls, and digital wellbeing tools. In practice, you spend the first two weeks wondering why nothing works, why your extension can't see your app's data, and why a token you can't even read is the only handle you get on the app a user just selected.\nI've been building on these APIs in production, and this talk is the honest version of what I've learned.\n\nWe'll get into the architectural choices Apple quietly forces on you, the privacy boundaries that aren't documented, and the workarounds you’ll need to ship real features within those constraints.\nYou'll leave with a real sense of what these APIs can and can't do, how to scope a Screen Time feature without burning a sprint discovering Apple won't let you do it. If you're thinking about Screen Time, or already deep in it, this is the talk I wish I'd had."
     },
     {
       "id": "swiftleeds-2026-4cc002b8-b0bd-4023-85d2-f468ecbf737a",
@@ -209,7 +218,8 @@
       "speakers": [
         "Yuki Aki"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Swift often looks simple on the your writing code, but every line depends on layers most app developers rarely see: the platform, the runtime, and the compiler. Have you ever wondered why a new Swift API can only be used on a newer OS? Why the same language can run on Apple platforms, Linux, and Windows? Why a small change can suddenly make compilation slower? Or why `swiftc` sometimes produces a mysterious stack trace?\n\nThese are not just compiler trivia. They are opportunities to understand how Swift really works. In this talk, we will explore Swift through the hidden layers beneath our everyday code and bugs: how Swift is distributed across different platforms, how the Swift runtime supports and constrains our apps, and how the compiler optimizes our code.\n\nThe goal is NOT to turn every Swift developer into a compiler engineer. Instead, this talk will give you a practical mental model for debugging strange issues, improving build performance, and making better architectural decisions. You will learn clearer understanding of why Swift behaves the way it does, and how deeper knowledge of the language infrastructure can help solve real-world problems in professional Swift development."
     },
     {
       "id": "swiftleeds-2026-c53ad168-86f7-4e43-8226-c36a0a8c13c5",
@@ -230,7 +240,8 @@
       "speakers": [
         "Eric Bariaux"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "3D printing lets you turn ideas into real-world objects, whether it’s building cool gadgets or custom tools, fixing something at home, or creating art. But as developers traditional modelling tools often feel unfamiliar. What if you could design 3D models using Swift?\n\nIn this talk, we’ll explore how to use Swift alongside **Cadova**, an open-source library that brings a SwiftUI-like declarative approach to 3D modelling.\n\nWe'll start with a quick introduction to 3D printing: how it works, the typical modelling tools and workflows involved and the file formats being used.\nThen, we'll dive into Cadova and learn how to build simple shapes using its intuitive DSL. Stepping up, we'll look at combining shapes, creating reusable components and building more complex models based on some of my personal experiments, including an AI powered egg.\n\nFinally, we'll look under the hood and see how Cadova uses Swift’s powerful result builders and how it compares to SceneKit and RealityKit.\n\nThis talk is aimed at a wide audience, only expecting basic Swift knowledge, no prior experience in 3D modelling or printing required. It's main goal is to show that Swift can be used for many different purposes beyond application development. It's also a great opportunity for more experienced developers to see result builders in action."
     },
     {
       "id": "swiftleeds-2026-ec18fc27-a3c6-4101-ab08-8e30e3320303",
@@ -251,7 +262,8 @@
       "speakers": [
         "Danijela Vrzan"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "CloudKit is best known for syncing user data across Apple devices, but it can do more than that. In addition to the private database, CloudKit also offers public and shared databases. The public database can be used as a lightweight backend for apps that need developer-managed, shared data users can access. In this talk, I’ll show how my app uses CloudKit Public Database as a backend and cover the benefits, constraints, and practical limitations that come with it."
     },
     {
       "id": "swiftleeds-2026-ed832a13-bf13-4be7-b9f6-1f1d783dabb1",
@@ -263,7 +275,8 @@
       "speakers": [
         "Yeskendir Salgara"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "We shipped a complex production app on both Apple and Android platforms by combining Kotlin Multiplatform (KMP) for shared logic with SwiftUI on iOS and Jetpack Compose on Android, and Compose Multiplatform for sharing UI - all powered by a strongly type-driven design that spans the entire stack.\n\nIn this talk we merge our complete real-world journey and show exactly how we made Swift and Kotlin not just coexist, but thrive together in a large, modular, multi-feature-team codebase.\n\nYou’ll discover:\n\n- How we organized the “marriage” between KMP and Swift in a fully modularized project so every feature team owns its domain while safely sharing business logic and types.\n\n- Our type-driven UI state management system that delivers compile-time guarantees and almost zero boilerplate across SwiftUI and Compose.\n\n- “Apple’s Way” — a clean, bidirectional SwiftUI - Compose communication pattern that feels completely native on both platforms while keeping the UIs perfectly synchronized.\n\nWhether you’re a Swift engineer exploring KMP, a Kotlin developer who wants a truly native iOS experience, or a tech lead scaling mobile teams, you’ll walk away with battle-tested patterns, concrete architecture decisions, and measurable results you can apply immediately.\n\nJust the real choices, the mistakes we made, the wins we celebrated, and the dramatic impact on velocity, code quality, and team happiness."
     },
     {
       "id": "swiftleeds-2026-a60c3a4b-8fe1-4a62-9267-c2e63f5a3090",
@@ -284,7 +297,8 @@
       "speakers": [
         "Letizia Granata"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "Metal shaders are one of those topics that often get overlooked by iOS developers. They can feel intimidating, with unfamiliar parameters and math that seems it doesn’t belong to an app. But once things click, it opens up a whole new way of thinking about what you can build visually on Apple platforms.\n\nThis talk starts by explaining real scenarios where shaders outshine standard animations, and why pixel-level control sometimes gives you things SwiftUI simply can't. From there, we’ll build up the foundations: why working at the pixel level matters, what Metal is and how to read and write your first shader without getting lost. We'll walk through real examples, what the code is doing, why it produces the result it does, and how to bring it into a SwiftUI view so it lives in an actual app.\n\nAttendees will walk away with a clear mental model of how Metal shaders work, enough practical knowledge to start experimenting, and a sense of where to go next. Whether they're brand new to shaders or already familiar with them, attendees will leave with something useful, a solid foundation or a new angle on concepts they already know. In any case, I would like to transmit the spark to start seeing your apps as a canvas on which you can create beautiful worlds."
     },
     {
       "id": "swiftleeds-2026-b2bb232f-54cd-45de-ad95-9734c0e1bc04",
@@ -296,7 +310,8 @@
       "speakers": [
         "Pulkit Midha"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "In a world obsessed with cloud connectivity, what if your app could sync data directly with nearby devices, without hitting the cloud? This session introduces peer-to-peer (P2P) sync patterns for iOS that enable apps to share data over LAN, Peer-to-Peer Wi-Fi, or Bluetooth.\n\nWe’ll walk through building resilient, offline-first apps where data flows between devices securely and automatically using Apple’s native frameworks. This is perfect for field deployments, disaster zones, or privacy-focused use cases.\n\nWhether you’re building a logistics tool, health records app, or a real-time multiplayer experience, this talk will show you how to build iOS apps that sync serverlessly!"
     },
     {
       "id": "swiftleeds-2026-954cb852-6f5f-43aa-bd83-7541c863044c",
@@ -308,7 +323,8 @@
       "speakers": [
         "Daniel Jilg"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "OpenTelemetry is an open standard for tracing what happens inside your code by capturing nested behaviours, errors and metrics. Server  developers use it to get production-grade observability across their stack, and with first-party Swift support you can have that in your iOS and macOS apps as well.\n\nWe'll learn how to integrate tracing into any Swift application, and I'll show a few examples of how my workplace uses it in production. Then we'll go over using OpenTelemetry for error and exception tracking. We'll have a look at how to use it to find performance bottlenecks: wouldn't it be nice to find out quickly that a graphical hitch is actually a Core Data issue? And finally we'll even go into tracking general user behaviour: where are the points that your users are stumbling and leaving?\n\nBy the end, you'll have the tools to know where your application crashes, where it's slow, and where it disappoints your users, all taken from real data generated on actual devices."
     },
     {
       "id": "swiftleeds-2026-acee5dd4-b2ae-4378-9106-7f9d3ebdc882",
@@ -329,7 +345,8 @@
       "speakers": [
         "Joe Allen"
       ],
-      "roomId": "the-playhouse"
+      "roomId": "the-playhouse",
+      "description": "The crowded App Store and opaque search algorithms make it hard for indie apps to get traction, even if you have a great app.\n\nThis talk explains how even a small, well-nurtured audience can help apps launch, grow, and survive without the guesswork.\n\nThe talk will include:\n- Examples of how an audience can future-proof your app as the App Store changes\n- My experiences building audiences for apps for 15+ years\n- Specific, easy examples that developers can build into their apps today\n- A deep dive into building an email audience:\n— Practical ways to invite sign-ups inside your apps without breaking Apple’s guidelines, and keep users happy\n— Some common misconceptions about GDPR and how to be a good email citizen\n— Some fun examples of unexpected outcomes from using email to engage with users (celebrity interactions and incredible opportunities we’ve had)"
     },
     {
       "id": "swiftleeds-2026-130e5b37-fc4b-465e-b05a-d6e43ca49dbb",

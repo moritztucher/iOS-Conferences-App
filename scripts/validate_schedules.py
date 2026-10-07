@@ -22,7 +22,8 @@ SESSION_KINDS = {"keynote", "talk", "workshop", "break", "social"}
 TOP_KEYS = {"conferenceId", "timeZone", "updatedAt", "rooms", "sessions"}
 ROOM_KEYS = {"id", "name"}
 SESSION_REQUIRED = {"id", "kind", "day", "start", "end", "title"}
-SESSION_OPTIONAL = {"speakers", "roomId", "url"}
+SESSION_OPTIONAL = {"speakers", "roomId", "url", "description"}
+DESCRIPTION_MAX = 6000
 SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 HHMM = re.compile(r"^([01]\d|2[0-3]):[0-5]\d$")
 
@@ -132,6 +133,12 @@ def validate_session(session, where, context, report):
             report.error(where, "`roomId` is required on talks when there is more than one room")
     elif room_id not in context["room_ids"]:
         report.error(where, f"`roomId` `{room_id}` is not in `rooms`")
+
+    description = session.get("description")
+    if description is not None and (
+        not isinstance(description, str) or not description.strip() or len(description) > DESCRIPTION_MAX
+    ):
+        report.error(where, f"`description` must be a non-empty string of at most {DESCRIPTION_MAX} characters")
 
     url = session.get("url")
     if url is not None and (not isinstance(url, str) or not url.startswith("https://")):

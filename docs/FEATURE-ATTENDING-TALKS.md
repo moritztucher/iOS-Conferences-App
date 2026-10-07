@@ -95,7 +95,7 @@ Minimal:  countdown (to the end of the current talk or the start of the next one
 - `kind`: `keynote | talk | workshop | break | social`. The agenda only includes `keynote | talk | workshop`. Breaks show in the full schedule but never take the Live Activity title.
 - Times are **venue-local wall-clock plus a required `timeZone`**, which is ADR-0005 applied to sessions. The resolver converts them to absolute `Date`s once.
 - **`id` must stay stable** across edits, because favourites are keyed on it. The importer derives it from the provider's session ID.
-- **Legal:** store only the title, speakers, room, time, and link. No abstracts, in line with the CLAUDE.md content notes.
+- **Legal:** store the title, speakers, room, time, and link, plus the session `description` when the organiser publishes it in their feed (amended 2026-10-07, see ADR-0009). It's credited in the app.
 - `conferences.json` gets an optional `"hasSchedule": true` so the app never has to probe for 404s.
 
 ### App models (SwiftData)

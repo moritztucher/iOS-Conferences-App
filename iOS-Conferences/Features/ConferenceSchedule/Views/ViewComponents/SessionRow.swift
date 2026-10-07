@@ -13,6 +13,8 @@ struct SessionRow: View {
     let showsFavouriteButton: Bool
     let hasConflict: Bool
     let onToggleFavourite: () -> Void
+    /// Opens the session sheet. Nil for rows with nothing more to show (breaks).
+    var onShowDetails: (() -> Void)?
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -57,6 +59,9 @@ struct SessionRow: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            // The text area opens the details; the heart keeps its own tap target.
+            .contentShape(.rect)
+            .onTapGesture { onShowDetails?() }
 
             if showsFavouriteButton {
                 Button(action: onToggleFavourite) {
@@ -76,6 +81,10 @@ struct SessionRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityAddTraits(isFavourite ? .isSelected : [])
+        .accessibilityAddTraits(onShowDetails == nil ? [] : .isButton)
+        .accessibilityAction {
+            onShowDetails?()
+        }
         .accessibilityActions {
             // Only rows that can be favourited get the action; breaks and single-track
             // talks would otherwise offer one that does nothing.

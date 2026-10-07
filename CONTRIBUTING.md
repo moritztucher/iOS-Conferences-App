@@ -174,8 +174,9 @@ Re-run the same command when the organiser changes the schedule. Session ids com
 | `sessions[].speakers` | no | Speaker display names. |
 | `sessions[].roomId` | talks: yes if 2+ rooms | Must match a `rooms[].id`. Breaks and socials may omit it. |
 | `sessions[].url` | no | HTTPS link to the session page. |
+| `sessions[].description` | no | The session description as the organiser publishes it in their feed (up to 6,000 characters). Shown when the talk is tapped. |
 
-Keep `sessions` sorted by `day`, then `start`. **Don't copy abstracts.** Store only the title, speakers, room, time and link (see [Legal](#legal)).
+Keep `sessions` sorted by `day`, then `start`. **Descriptions come from the organiser's feed only.** The importer copies them from Sessionize, Pretalx or the conference's own schedule API, and the app credits the organiser. Don't paste text from web pages by hand (see [Legal](#legal) and ADR-0009).
 
 ### Validating
 

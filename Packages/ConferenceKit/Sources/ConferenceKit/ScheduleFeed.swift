@@ -84,6 +84,7 @@ private struct RawSession: Decodable {
     let speakers: [String]?
     let roomId: String?
     let url: String?
+    let description: String?
 
     func resolve(in calendar: Calendar) -> ScheduleSession? {
         guard let startsAt = Self.instant(day: day, time: start, in: calendar),
@@ -98,6 +99,7 @@ private struct RawSession: Decodable {
             speakers: speakers ?? [],
             roomID: roomId,
             url: url.flatMap(URL.init(string:)).flatMap { $0.scheme == "https" ? $0 : nil },
+            abstract: description.flatMap { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : $0 },
             startsAt: startsAt,
             endsAt: endsAt
         )
