@@ -2648,5 +2648,22 @@
       "swiftui",
       "ios"
     ]
+  },
+  {
+    "id": "swiftcon-berlin-2027",
+    "kind": "Conference",
+    "name": "swiftCon Berlin 2027",
+    "startDate": "2027-09-29",
+    "endDate": "2027-10-01",
+    "locationName": "Berlin, Germany",
+    "mapQuery": "CityCube Berlin, Messedamm 26, Berlin, Germany",
+    "summary": "Swift track of next.app devcon: three days of iOS and Swift talks, workshops, and AI-tooling sessions at CityCube Berlin.",
+    "websiteURL": "https://www.nextappcon.com/swiftcon",
+    "logoURL": "https://static.wixstatic.com/media/6e1ab2_bbaa0d4defff4d44b9bb85317ca1349b~mv2.png/v1/fill/w_2500,h_1313,al_c/6e1ab2_bbaa0d4defff4d44b9bb85317ca1349b~mv2.png",
+    "tags": [
+      "swift",
+      "ios",
+      "ai"
+    ]
   }
 ]
